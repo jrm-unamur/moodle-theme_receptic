@@ -23,6 +23,29 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['chooserreadme'] = 'Le thème MWar est le thème en construction pour le futur WebCampus de l\'Université de Namur';
+$string['advancedsettings'] = 'Réglages avancés';
+$string['brandcolor'] = 'Couleur principale';
+$string['brandcolor_desc'] = 'La couleur majeure du thème';
+$string['choosereadme'] = 'Le thème MWar est le thème en construction pour le futur WebCampus de l\'Université de Namur';
+$string['configtitle'] = 'Mwar';
+$string['generalsettings'] = 'Réglages généraux';
+$string['loginbackgroundimage'] = 'Image de fond pour la page de connexion';
+$string['loginbackgroundimage_desc'] = 'Votre image sera ajoutée en fond d\'écran sur la page de connexion';
 $string['pluginname'] = 'Mwar';
+$string['preset'] = 'Préréglage de thème';
+$string['preset_desc'] = 'Veuillez choisir un préréglage pour modifier l\'aspect du thème.';
+$string['presetfiles'] = 'Fichiers de réglages additionnels pour le thème';
+$string['presetfiles_desc'] = 'Des fichiers de réglages peuvent être utilisés afin de changer totalement la présentation du thème. Voir <a href=https://docs.moodle.org/dev/Boost_Presets>Boost presets</a>  pour des informations sur la façon de créer et partager vos propres fichiers de réglages et consultez le <a href=http://moodle.net/boost>catalogue des fichiers de réglages</a> existants.';
+$string['rawscss'] = 'SCSS brut';
+$string['rawscss_desc'] = 'Ce champ permet d\'indiquer du code SCSS ou CSS qui sera injecté à la fin de la feuille de styles.';
+$string['rawscsspre'] = 'Code SCSS initial';
+$string['rawscsspre_desc'] = 'Ce champ permet d\'indiquer du code SCSS d\'initialisation, qui sera injecté dans la feuille de styles avant toute autre définition. La plupart du temps, ce code sera utilisé pour définir des variables.';
 $string['region-side-pre'] = 'Droite';
+$string['otheractivities'] = 'Autres activités';
+$string['otherresources'] = 'Autres ressources';
+$string['mainmodules'] = 'Outils principaux';
+$string['toolselector'] = 'Sélecteur d\'outils';
+$string['activitieslist'] = 'Modules d\'activité principaux';
+$string['activitieslistdesc'] = 'Select activity types to display on top of tools selector in a "main section"';
+$string['resourceslist'] = 'Ressources principales';
+$string['resourceslistdesc'] = 'Select resource types to display on top of tools selector in a "main section"';

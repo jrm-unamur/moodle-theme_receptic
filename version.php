@@ -20,3 +20,12 @@
  * @copyright  2016 - Cellule TICE - Unversite de Namur
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+defined('MOODLE_INTERNAL') || die();
+
+$plugin->version = '2016111707';
+$plugin->requires = '2016070700';
+$plugin->component = 'theme_mwar';
+$plugin->dependencies = [
+    'theme_boost' => '2016102100'
+];

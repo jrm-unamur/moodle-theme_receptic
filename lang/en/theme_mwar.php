@@ -20,3 +20,32 @@
  * @copyright  2016 - Cellule TICE - Unversite de Namur
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+defined('MOODLE_INTERNAL') || die();
+
+$string['advancedsettings'] = 'Advanced settings';
+$string['brandcolor'] = 'Brand color';
+$string['brandcolor_desc'] = 'The accent colour';
+$string['choosereadme'] = 'Mwar theme is the theme to be for University of Namur WebCampus';
+$string['configtitle'] = 'Mwar';
+$string['generalsettings'] = 'General settings';
+$string['loginbackgroundimage'] = 'Login page background image';
+$string['loginbackgroundimage_desc'] = 'Your image will be stretched to fill the background of the login page';
+$string['pluginname'] = 'Mwar';
+$string['presetfiles'] = 'Additional theme preset files';
+$string['presetfiles_desc'] = 'Preset files can be used to dramatically alter the appearance of the theme. See <a href=https://docs.moodle.org/dev/Boost_Presets>Boost presets</a> for information on creating and sharing your own preset files, and see the <a href=http://moodle.net/boost>Presets repository</a> for presets that others have shared.';
+$string['preset'] = 'Theme preset';
+$string['preset_desc'] = 'Pick a preset to broadly change the look of the theme.';
+$string['rawscss'] = 'Raw SCSS';
+$string['rawscss_desc'] = 'Use this field to provide SCSS or CSS code which will be injected at the end of the style sheet';
+$string['rawscsspre'] = 'Raw initial SCSS';
+$string['rawscsspre_desc'] = 'In this field you can provide initialising SCSS code, it will be injected before everything else. Most of the time you will use this setting to define variables.';
+$string['region-side-pre'] = 'Right';
+$string['otheractivities'] = 'Other activities';
+$string['otherresources'] = 'Other resources';
+$string['mainmodules'] = 'Main tools';
+$string['toolselector'] = 'Activities/resources selector';
+$string['activitieslist'] = 'Main activity types';
+$string['activitieslistdesc'] = 'Select activity types to display on top of tools selector in a "main section"';
+$string['resourceslist'] = 'Main resource types';
+$string['resourceslistdesc'] = 'Select resource types to display on top of tools selector in a "main section"';
