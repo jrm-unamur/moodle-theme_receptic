@@ -24,11 +24,73 @@
 namespace theme_mwar\output\core;
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot . '/course/classes/output/modchooser.php');
+use core\output\chooser;
+use core\output\chooser_section;
+use core_course\output\modchooser_item;
+use context_course;
+use lang_string;
+use moodle_url;
+use stdClass;
 
-class theme_mwar_modchooser extends \modchooser {
+global $CFG;
+//require_once($CFG->dirroot . '/course/classes/output/modchooser.php');
+
+class modchooser extends \core_course\output\modchooser {
     public function __construct(stdClass $course, array $modules) {
-        print_object('coucou');
-        parent::__construct($course, $modules);
+        $this->course = $course;
+
+        $sections = [];
+        $context = context_course::instance($course->id);
+
+        // Preferred activities and resources.
+        $preferredmodules = array();
+        $advancedmodules = array();
+        foreach ($modules as $module) {
+            if (get_config('theme_mwar', $module->name . 'inshortlist')) {
+            //if ($settings->{$module->name . 'inshortlist'}) {
+                $preferredmodules[] = $module;
+            } else {
+                $advancedmodules[] = $module;
+            }
+        }
+
+        // Preferred modules section.
+        if (count($preferredmodules)) {
+            $sections[] = new chooser_section('mainmodules', new lang_string('mainmodules', 'theme_mwar'),
+                array_map(function($module) use ($context) {
+                    return new modchooser_item($module, $context);
+                }, $preferredmodules)
+            );
+        }
+
+        // Activities.
+        $activities = array_filter($advancedmodules, function($mod) {
+            return ($mod->archetype !== MOD_ARCHETYPE_RESOURCE && $mod->archetype !== MOD_ARCHETYPE_SYSTEM);
+        });
+        if (count($activities)) {
+            $sections[] = new chooser_section('otheractivities', new lang_string('otheractivities', 'theme_mwar'),
+                array_map(function($module) use ($context) {
+                    return new modchooser_item($module, $context);
+                }, $activities)
+            );
+        }
+
+        $resources = array_filter($advancedmodules, function($mod) {
+            return ($mod->archetype === MOD_ARCHETYPE_RESOURCE);
+        });
+        if (count($resources)) {
+            $sections[] = new chooser_section('otherresources', new lang_string('otherresources', 'theme_mwar'),
+                array_map(function($module) use ($context) {
+                    return new modchooser_item($module, $context);
+                }, $resources)
+            );
+        }
+
+        $actionurl = new moodle_url('/course/jumpto.php');
+        $title = new lang_string('addresourceoractivity');
+        chooser::__construct($actionurl, $title, $sections, 'jumplink');
+
+        $this->set_instructions(new lang_string('selectmoduletoviewhelp'));
+        $this->add_param('course', $course->id);
     }
 }
