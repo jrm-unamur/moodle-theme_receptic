@@ -49,3 +49,6 @@ $string['activitieslist'] = 'Main activity types';
 $string['activitieslistdesc'] = 'Select activity types to display on top of tools selector in a "main section"';
 $string['resourceslist'] = 'Main resource types';
 $string['resourceslistdesc'] = 'Select resource types to display on top of tools selector in a "main section"';
+$string['hideblocks'] = 'Hide blocks';
+$string['showblocks'] = 'Show blocks';
+$string['editmode'] = 'Mode édition';

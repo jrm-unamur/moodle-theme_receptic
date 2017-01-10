@@ -50,6 +50,7 @@ function theme_mwar_get_pre_scss($theme) {
     if (!empty($theme->settings->scsspre)) {
         $scss .= $theme->settings->scsspre;
     }
+
     return $scss;
 
     // 2. To use 'brandcolor' and 'scsspre' variables from boost theme. Value is therefore defined in boost theme and not in our custom one. To use this code uncomment below and comment code under 1.
@@ -139,4 +140,3 @@ function theme_mwar_update_settings_images($settingname) {
     }
     theme_reset_all_caches();
 }
-

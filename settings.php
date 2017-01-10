@@ -95,7 +95,8 @@ if ($ADMIN->fulltree) {
     $page = new admin_settingpage('theme_mwar_toolselector', get_string('toolselector', 'theme_mwar'));
 
     if (!$modules = $DB->get_records('modules', array('visible' => 1), 'name ASC')) {
-        print_error('moduledoesnotexist', 'error');
+        //print_error('moduledoesnotexist', 'error');
+        $modules = array();
     }
 
     $activities = array();

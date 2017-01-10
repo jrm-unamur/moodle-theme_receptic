@@ -1,6 +1,116 @@
 @import "fontawesome/font-awesome";
 
-body.pagelayout-login {
-  background-image: url([[pix:theme_mwar|loginbackgroundimage]]);
-  background-size: cover;
+/*body.pagelayout-login {
+    background-image: url([[pix:theme_mwar|loginbackgroundimage]]);
+    background-size: cover;
+}*/
+
+.brand-banner {
+    /*background: linear-gradient(to bottom, #ECF0F1 0%,#ECF0F1 30%,#3c8e3a 31%,#69be28 95%);*/
+    background: linear-gradient(to bottom, #ECF0F1 0%,#ECF0F1 30%,darken($link-hover-color,5%) 31%,$link-hover-color 95%);
+    height: 80px;
+}
+
+
+.navbar-sm-logo {
+    background-image: url([[pix:theme_mwar|loginbackgroundimage]]);
+    background-size: cover;
+    width: 34px;
+    height: 34px;
+    background-color: transparent;
+}
+
+.brand-banner img {
+    height: 55px;
+}
+
+.left-logo {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    height: 55px;
+    box-shadow: 4px 4px 15px #616365;
+}
+
+.right-logo {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    height: 55px;
+    box-shadow: 4px 4px 15px #616365;
+}
+
+@media (min-width: 768px) {
+    .pos-f-t-lower {
+        top: 80px;
+    }
+}
+
+@media (min-width: 768px) {
+    #page {
+        margin-top: 130px;
+    }
+}
+
+@media (min-width: 768px) {
+    [data-region="drawer"] {
+        top: 130px;
+    }
+}
+
+body.noblocks [data-region="blocks-column"] {
+    display: none;
+}
+
+body.noblocks #region-main-settings-menu.has-blocks, body.noblocks #region-main.has-blocks {
+    width: 100%;
+}
+
+.sbl {
+    display: none;
+}
+
+.noblocks .sbl {
+    display: inline;
+}
+
+.noblocks .hbl {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .navbar-nav > li > a.switch {
+        padding-bottom: 0;
+    }
+}
+
+.switch:after {
+    font-family: FontAwesome;
+    color: #d9534f;
+    content: "\f044";
+    font-size: 1.2rem;
+}
+
+body.editing .switch:after {
+    color: #55ab26;
+    //content: "ON";
+}
+
+.extra-buttons {
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.extra-buttons a:hover {
+    text-decoration: none;
+}
+
+#page-content > a {
+    position: absolute;
+    right: 5px;
+    padding-top: 1rem;
+}
+
+.notifytiny {
+    margin-top: 150px;
 }

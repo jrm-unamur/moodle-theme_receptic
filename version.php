@@ -23,7 +23,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = '2016111707';
+$plugin->version = '2016111711';
 $plugin->requires = '2016070700';
 $plugin->component = 'theme_mwar';
 $plugin->dependencies = [
