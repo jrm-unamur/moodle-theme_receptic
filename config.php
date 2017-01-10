@@ -23,7 +23,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$THEME->name = 'mwar';
+$THEME->name = 'receptic';
 $THEME->sheets = ['font-awesome'];
 // For TinyMCE only.
 $THEME->editor_sheets = [];
@@ -39,9 +39,9 @@ $THEME->rendererfactory = 'theme_overridden_renderer_factory';
 $THEME->addblockposition = BLOCK_ADDBLOCK_POSITION_FLATNAV;
 // Override preset selection from boost theme to allow selecting preset from both themes.
 $THEME->scss = function($theme) {
-    return theme_mwar_get_main_scss_content($theme);
+    return theme_receptic_get_main_scss_content($theme);
 };
 // Function that returns some SCSS as a string to prepend to the main SCSS file. (like brandprimary in boost theme). Callback is defined in lib.php file.
-$THEME->prescsscallback = 'theme_mwar_get_pre_scss';
+$THEME->prescsscallback = 'theme_receptic_get_pre_scss';
 // Function that returns SCSS to append to our main SCSS for this theme.
-$THEME->extrascsscallback = 'theme_mwar_get_extra_scss';
+$THEME->extrascsscallback = 'theme_receptic_get_extra_scss';

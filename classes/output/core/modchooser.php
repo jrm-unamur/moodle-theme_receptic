@@ -21,7 +21,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace theme_mwar\output\core;
+namespace theme_receptic\output\core;
 defined('MOODLE_INTERNAL') || die();
 
 use core\output\chooser;
@@ -46,7 +46,7 @@ class modchooser extends \core_course\output\modchooser {
         $preferredmodules = array();
         $advancedmodules = array();
         foreach ($modules as $module) {
-            if (get_config('theme_mwar', $module->name . 'inshortlist')) {
+            if (get_config('theme_receptic', $module->name . 'inshortlist')) {
             //if ($settings->{$module->name . 'inshortlist'}) {
                 $preferredmodules[] = $module;
             } else {
@@ -56,7 +56,7 @@ class modchooser extends \core_course\output\modchooser {
 
         // Preferred modules section.
         if (count($preferredmodules)) {
-            $sections[] = new chooser_section('mainmodules', new lang_string('mainmodules', 'theme_mwar'),
+            $sections[] = new chooser_section('mainmodules', new lang_string('mainmodules', 'theme_receptic'),
                 array_map(function($module) use ($context) {
                     return new modchooser_item($module, $context);
                 }, $preferredmodules)
@@ -68,7 +68,7 @@ class modchooser extends \core_course\output\modchooser {
             return ($mod->archetype !== MOD_ARCHETYPE_RESOURCE && $mod->archetype !== MOD_ARCHETYPE_SYSTEM);
         });
         if (count($activities)) {
-            $sections[] = new chooser_section('otheractivities', new lang_string('otheractivities', 'theme_mwar'),
+            $sections[] = new chooser_section('otheractivities', new lang_string('otheractivities', 'theme_receptic'),
                 array_map(function($module) use ($context) {
                     return new modchooser_item($module, $context);
                 }, $activities)
@@ -79,7 +79,7 @@ class modchooser extends \core_course\output\modchooser {
             return ($mod->archetype === MOD_ARCHETYPE_RESOURCE);
         });
         if (count($resources)) {
-            $sections[] = new chooser_section('otherresources', new lang_string('otherresources', 'theme_mwar'),
+            $sections[] = new chooser_section('otherresources', new lang_string('otherresources', 'theme_receptic'),
                 array_map(function($module) use ($context) {
                     return new modchooser_item($module, $context);
                 }, $resources)

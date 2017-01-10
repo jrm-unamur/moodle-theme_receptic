@@ -61,5 +61,5 @@ $templatecontext = [
 ];
 
 $templatecontext['flatnavigation'] = $PAGE->flatnav;
-echo $OUTPUT->render_from_template('theme_mwar/columns2', $templatecontext);
+echo $OUTPUT->render_from_template('theme_receptic/columns2', $templatecontext);
 

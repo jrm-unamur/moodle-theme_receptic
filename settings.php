@@ -24,26 +24,26 @@
 defined('MOODLE_INTERNAL') || die();
 
 if ($ADMIN->fulltree) {
-    $settings = new theme_boost_admin_settingspage_tabs('themesettingmwar', get_string('configtitle', 'theme_mwar'));
+    $settings = new theme_boost_admin_settingspage_tabs('themesettingreceptic', get_string('configtitle', 'theme_receptic'));
     // General settings page.
-    $page = new admin_settingpage('theme_mwar_general', get_string('generalsettings', 'theme_mwar'));
+    $page = new admin_settingpage('theme_receptic_general', get_string('generalsettings', 'theme_receptic'));
 
     // Scss variable overriding $brand-primary
-    $name = 'theme_mwar/brandcolor';
-    $title = get_string('brandcolor_desc', 'theme_mwar');
+    $name = 'theme_receptic/brandcolor';
+    $title = get_string('brandcolor_desc', 'theme_receptic');
     $setting = new admin_setting_configcolourpicker($name, $title, $description, '');
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    $name = 'theme_mwar/preset';
-    $title = get_string('preset', 'theme_mwar');
-    $description = get_string('preset_desc', 'theme_mwar');
+    $name = 'theme_receptic/preset';
+    $title = get_string('preset', 'theme_receptic');
+    $description = get_string('preset_desc', 'theme_receptic');
     $default = 'default.scss';
 
     // List preset files in our theme file area to add them to the dropdown choice list. We then add presets from boost.
     $context = context_system::instance();
     $fs = get_file_storage();
-    $files = $fs->get_area_files($context->id, 'theme_mwar', 'preset', 0, 'itemid, filepath', 'filename', false);
+    $files = $fs->get_area_files($context->id, 'theme_receptic', 'preset', 0, 'itemid, filepath', 'filename', false);
     $choices = [];
     foreach ($files as $file) {
         $choices[$file->get_filename()] = $file->get_filename();
@@ -56,43 +56,43 @@ if ($ADMIN->fulltree) {
     $page->add($setting);
 
     // Add file uploader to add preset files to our theme
-    $name = 'theme_mwar/presetfiles';
-    $title = get_string('presetfiles', 'theme_mwar');
-    $descriptin = get_string('presetfiles_desc', 'theme_mwar');
+    $name = 'theme_receptic/presetfiles';
+    $title = get_string('presetfiles', 'theme_receptic');
+    $descriptin = get_string('presetfiles_desc', 'theme_receptic');
     $setting = new admin_setting_configstoredfile($name, $title, $description, 'preset', 0,
             array('maxfiles' => 20, 'accepted_types' => array('.scss')));
     $page->add($setting);
 
     // Add background logo to login page
-    $name = 'theme_mwar/loginbackgroundimage';
-    $title = get_string('loginbackgroundimage', 'theme_mwar');
-    $description = get_string('loginbackgroundimage_desc', 'theme_mwar');
+    $name = 'theme_receptic/loginbackgroundimage';
+    $title = get_string('loginbackgroundimage', 'theme_receptic');
+    $description = get_string('loginbackgroundimage_desc', 'theme_receptic');
     $setting = new admin_setting_configstoredfile($name, $title, $description, 'loginbackgroundimage');
-    $setting->set_updatedcallback('theme_mwar_update_settings_images');
+    $setting->set_updatedcallback('theme_receptic_update_settings_images');
     $page->add($setting);
     $settings->add($page);
 
     // Advanced settings page.
-    $page = new admin_settingpage('theme_mwar_advanced', get_string('advancedsettings', 'theme_mwar'));
+    $page = new admin_settingpage('theme_receptic_advanced', get_string('advancedsettings', 'theme_receptic'));
 
     // Raw scss code to include before main content.
-    $name = 'theme_mwar/scsspre';
-    $title = get_string('rawscsspre', 'theme_mwar');
-    $description = get_string('rawscsspre_desc', 'theme_mwar');
+    $name = 'theme_receptic/scsspre';
+    $title = get_string('rawscsspre', 'theme_receptic');
+    $description = get_string('rawscsspre_desc', 'theme_receptic');
     $setting = new admin_setting_configtextarea($name, $title, $description, '', PARAM_RAW);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
     // Raw scss code to include after main content.
-    $name = 'theme_mwar/scss';
-    $title = get_string('rawscss', 'theme_mwar');
-    $description = get_string('rawscss_desc', 'theme_mwar');
+    $name = 'theme_receptic/scss';
+    $title = get_string('rawscss', 'theme_receptic');
+    $description = get_string('rawscss_desc', 'theme_receptic');
     $setting = new admin_setting_configtextarea($name, $title, $description, '', PARAM_RAW);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
     $settings->add($page);
 
-    $page = new admin_settingpage('theme_mwar_toolselector', get_string('toolselector', 'theme_mwar'));
+    $page = new admin_settingpage('theme_receptic_toolselector', get_string('toolselector', 'theme_receptic'));
 
     if (!$modules = $DB->get_records('modules', array('visible' => 1), 'name ASC')) {
         //print_error('moduledoesnotexist', 'error');
@@ -120,9 +120,9 @@ if ($ADMIN->fulltree) {
     });
 
     //Activities.
-    $page->add(new admin_setting_heading('activitieslist', get_string('activitieslist', 'theme_mwar'), get_string('activitieslistdesc', 'theme_mwar')));
+    $page->add(new admin_setting_heading('activitieslist', get_string('activitieslist', 'theme_receptic'), get_string('activitieslistdesc', 'theme_receptic')));
     foreach ($activities as $activity) {
-        $name = 'theme_mwar/' . $activity->name . 'inshortlist';
+        $name = 'theme_receptic/' . $activity->name . 'inshortlist';
         $title = $activity->localname;
         $default = false;
         $setting = new admin_setting_configcheckbox($name, $title, '', $default);
@@ -130,16 +130,16 @@ if ($ADMIN->fulltree) {
         $page->add($setting);
     }
     // Resources.
-    $page->add(new admin_setting_heading('resourceslist', get_string('resourceslist', 'theme_mwar'), get_string('activitieslistdesc', 'theme_mwar')));
+    $page->add(new admin_setting_heading('resourceslist', get_string('resourceslist', 'theme_receptic'), get_string('activitieslistdesc', 'theme_receptic')));
     foreach ($resources as $resource) {
-        $name = 'theme_mwar/' . $resource->name . 'inshortlist';
+        $name = 'theme_receptic/' . $resource->name . 'inshortlist';
         $title = $resource->localname;
-        //$description = get_string('enablecategorycolorsdesc', 'theme_mwar');
+        //$description = get_string('enablecategorycolorsdesc', 'theme_receptic');
         $default = false;
         $setting = new admin_setting_configcheckbox($name, $title, '', $default);
         //$setting->set_updatedcallback('theme_reset_all_caches');
         $page->add($setting);
     }
 $settings->add($page);
-    //$ADMIN->add('theme_mwar', $settingspage);
+    //$ADMIN->add('theme_receptic', $settingspage);
 }

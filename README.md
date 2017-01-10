@@ -10,7 +10,7 @@ This theme has been created by University of Namur ICTE Unit ("Cellule TICE")
 
 <!--![image1](pix/screenshot.jpg "UnamurUI theme Screenshot")-->
 
-* package   theme_mwar
+* package   theme_receptic
 * authors   Jean-Roch Meurisse
 * copyright 2016 - Cellule TICE - Unversite de Namur
 * license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

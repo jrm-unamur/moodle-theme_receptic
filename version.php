@@ -25,7 +25,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->version = '2016111711';
 $plugin->requires = '2016070700';
-$plugin->component = 'theme_mwar';
+$plugin->component = 'theme_receptic';
 $plugin->dependencies = [
     'theme_boost' => '2016102100'
 ];

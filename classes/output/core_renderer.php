@@ -15,13 +15,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    theme_mwar
+ * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Unversite de Namur
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace theme_mwar\output;
+namespace theme_receptic\output;
 
 use html_writer;
 use stdClass;
@@ -70,7 +70,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             }*/
         }
 
-        return $this->render_from_template('theme_mwar/extra_navbar_buttons', $templatecontext);
+        return $this->render_from_template('theme_receptic/extra_navbar_buttons', $templatecontext);
 
     }
 
@@ -191,7 +191,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                         '"  class="switch " title="' .
                         $editstring .
                         '">' .
-                        //get_string('editmode', 'theme_mwar') .
+                        //get_string('editmode', 'theme_receptic') .
                         ' </a>';
                     if (!empty($this->page->theme->settings->hidedefaulteditingbutton) && 'my-index' !== $pagetype) {
                         // Unset button on page.
