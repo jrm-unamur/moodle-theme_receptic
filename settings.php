@@ -46,7 +46,9 @@ if ($ADMIN->fulltree) {
     $files = $fs->get_area_files($context->id, 'theme_receptic', 'preset', 0, 'itemid, filepath', 'filename', false);
     $choices = [];
     foreach ($files as $file) {
-        $choices[$file->get_filename()] = $file->get_filename();
+        if ($file->get_filename() !== '.') {
+            $choices[$file->get_filename()] = $file->get_filename();
+        }
     }
     $choices['default.scss'] = 'default.scss';
     $choices['plain.scss'] = 'plain.scss';
@@ -79,7 +81,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_receptic/scsspre';
     $title = get_string('rawscsspre', 'theme_receptic');
     $description = get_string('rawscsspre_desc', 'theme_receptic');
-    $setting = new admin_setting_configtextarea($name, $title, $description, '', PARAM_RAW);
+    $setting = new admin_setting_scsscode($name, $title, $description, '', PARAM_RAW);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
@@ -87,7 +89,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_receptic/scss';
     $title = get_string('rawscss', 'theme_receptic');
     $description = get_string('rawscss_desc', 'theme_receptic');
-    $setting = new admin_setting_configtextarea($name, $title, $description, '', PARAM_RAW);
+    $setting = new admin_setting_scsscode($name, $title, $description, '', PARAM_RAW);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
     $settings->add($page);
@@ -126,7 +128,6 @@ if ($ADMIN->fulltree) {
         $title = $activity->localname;
         $default = false;
         $setting = new admin_setting_configcheckbox($name, $title, '', $default);
-        //$setting->set_updatedcallback('theme_reset_all_caches');
         $page->add($setting);
     }
     // Resources.
@@ -137,9 +138,18 @@ if ($ADMIN->fulltree) {
         //$description = get_string('enablecategorycolorsdesc', 'theme_receptic');
         $default = false;
         $setting = new admin_setting_configcheckbox($name, $title, '', $default);
-        //$setting->set_updatedcallback('theme_reset_all_caches');
         $page->add($setting);
     }
-$settings->add($page);
-    //$ADMIN->add('theme_receptic', $settingspage);
+    $settings->add($page);
+
+    $page = new admin_settingpage('theme_receptic_toolbarsettings', get_string('toolbarsettings', 'theme_receptic'));
+    // Add user course list to the navigation bar.
+    $name = 'theme_receptic/personalcourselistintoolbar';
+    $title = get_string('personalcourselistintoolbar', 'theme_receptic');
+    $description = get_string('personalcourselistintoolbar_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
+    $page->add($setting);
+
+    $settings->add($page);
+
 }
