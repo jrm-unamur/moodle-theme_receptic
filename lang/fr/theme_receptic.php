@@ -52,3 +52,6 @@ $string['resourceslistdesc'] = 'Select resource types to display on top of tools
 $string['hideblocks'] = 'Masquer les blocs';
 $string['showblocks'] = 'Afficher les blocs';
 $string['editmode'] = 'Mode édition';
+$string['toolbarsettings'] = 'Barre de navigation';
+$string['personalcourselistintoolbar'] = 'Liste des cours';
+$string['personalcourselistintoolbar_desc'] = 'Afficher la liste des cours de l\'utilisateur dans la barre de navigation';
