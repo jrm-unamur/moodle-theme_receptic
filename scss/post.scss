@@ -55,6 +55,7 @@
 @media (min-width: 768px) {
     [data-region="drawer"] {
         top: 130px;
+        height: calc(100% - 130px);
     }
 }
 
@@ -86,7 +87,6 @@ body.noblocks #region-main-settings-menu.has-blocks, body.noblocks #region-main.
 
 .switch:after {
     font-family: FontAwesome;
-    color: #d9534f;
     content: "\f044";
     font-size: 1.2rem;
 }
@@ -113,4 +113,36 @@ body.editing .switch:after {
 
 .notifytiny {
     margin-top: 150px;
+}
+
+#back-to-top {
+    position: fixed;
+    bottom: 32px;
+    right: 40px;
+    text-align: center;
+    cursor: pointer;
+    opacity: .5;
+    filter:alpha(opacity=50);
+    display:none;
+}
+#back-to-top a.arrow {
+    padding: 5px 10px;
+    font-size: 36px;
+    color: #333;
+    background: #EEE;
+    border: 1px solid #CCC;
+    border-bottom: 1px solid #AAA;
+    border-radius: 5px;
+}
+#back-to-top a.text {
+    display: block;
+    background: white;
+    visibility: hidden;
+    position: relative;
+    top: 10px;
+}
+#back-to-top a {
+    text-decoration: none;
+    border: 0;
+    outline: none;
 }
