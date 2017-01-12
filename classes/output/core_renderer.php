@@ -233,7 +233,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $branchurl = new moodle_url('/calendar/view.php?view=month');
                 $menu->add($branchlabel, $branchurl, $branchtitle);
             }
-            if (!empty($this->page->theme->settings->navbarpersonalcourselist) || true) {
+            if (!empty($this->page->theme->settings->personalcourselistintoolbar)) {
                 //$branchtitle = get_string('mycourses', 'theme_unamurui');
                 $branchtitle = 'My courses';
                 $branchlabel = '<i class="fa fa-briefcase"></i> ' . $branchtitle;
@@ -327,6 +327,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $this->language->add($langname, new moodle_url($this->page->url, array('lang' => $langtype)), $langname);
             }
         }
+
 
         $content = '';
         foreach ($menu->get_children() as $item) {
