@@ -146,3 +146,191 @@ body.editing .switch:after {
     border: 0;
     outline: none;
 }
+
+.block-control-actions {
+    padding-right: 0.5rem;
+    img {
+        height: 1rem;
+    }
+}
+
+
+// Main calendar restyling.
+.path-calendar {
+    .cal_courses_flt {
+        label {
+            font-weight: bold;
+        }
+    }
+    .calendartable {
+        width: 100%;
+
+        th,
+        td {
+            width: 14%;
+            vertical-align: top;
+            text-align: center;
+            border: 0;
+        }
+    }
+
+    .calendar-controls {
+        .previous,
+        .next,
+        .current {
+            display: block;
+            float: left;
+            width: 12%;
+        }
+
+        .previous {
+            text-align: left;
+        }
+
+        .current {
+            text-align: center;
+            width: 76%;
+        }
+
+        .next {
+            text-align: right;
+        }
+    }
+
+    .filters {
+        table {
+            border-collapse: separate;
+            border-spacing: 2px;
+            width: 100%;
+        }
+    }
+
+    .maincalendar {
+        vertical-align: top;
+        padding: 0;
+
+        .bottom {
+            text-align: center;
+            padding: 5px 0 0 0;
+        }
+
+        .heightcontainer {
+            height: 100%;
+            position: relative;
+            h2:before {
+                font-family: FontAwesome;
+                content: "\f073";
+                padding-right: 0.5rem;
+            }
+        }
+
+        .calendarmonth {
+            width: 98%;
+            margin: 10px auto;
+        }
+
+        .calendarmonth {
+            ul {
+                margin: 0;
+
+                li {
+                    list-style-type: none;
+                    margin-top: 4px;
+                }
+            }
+
+            td {
+                height: 5em;
+            }
+        }
+
+        .calendar-controls {
+            .previous,
+            .next {
+                width: 30%;
+            }
+
+            .current {
+                width: 39.95%;
+            }
+        }
+
+        .controls {
+            width: 98%;
+            margin: 10px auto;
+        }
+
+        .calendar_event_course,
+        .calendar_event_global,
+        .calendar_event_group,
+        .calendar_event_user {
+            border-width: 1px 1px 1px 12px;
+            border-style: solid;
+        }
+
+        .calendar_event_course {
+            border-color: $calendarEventCourseColor;
+        }
+
+        .calendar_event_global {
+            border-color: $calendarEventGlobalColor;
+        }
+
+        .calendar_event_group {
+            border-color: $calendarEventGroupColor;
+        }
+
+        .calendar_event_user {
+            border-color: $calendarEventUserColor;
+        }
+        //.calendar-event-panel {
+        //    background-color: $grayLighter;
+        //    border: 2px solid $grayLighter;
+        //    .yui3-overlay-content {
+        //        padding: 19px;
+        //        background-color: lighten($wellBackground, 3%);
+        //        border: 1px solid darken($wellBackground, 7%);
+        //        @include border-radius($baseBorderRadius);
+        //        @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, .05));
+        //    }
+        //}
+        .calendar-event-panel {
+            @extend .card;
+        }
+
+        .calendar-controls {
+            .current {
+                @extend .h2;
+            }
+        }
+
+        .calendartable {
+            td,
+            li {
+                padding: 5px;
+            }
+
+            li {
+                padding-left: 10px;
+                text-align: left;
+            }
+        }
+
+        .header {
+            overflow: hidden;
+
+            .buttons {
+                float: right;
+            }
+        }
+
+        .event .card-header img {
+            vertical-align: baseline;
+        }
+
+    }
+}
+
+#region-main .card-block {
+    box-shadow: 1px 2px 3px 0 #ccc;
+}
