@@ -143,6 +143,37 @@ if ($ADMIN->fulltree) {
     $settings->add($page);
 
     $page = new admin_settingpage('theme_receptic_toolbarsettings', get_string('toolbarsettings', 'theme_receptic'));
+    // Enable/disable navigation drawer.
+    $name = 'theme_receptic/enablenavdrawer';
+    $title = get_string('enablenavdrawer', 'theme_receptic');
+    $description = get_string('enablenavdrawer_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
+    $page->add($setting);
+
+    // Add a home link to the navigation bar.
+    $name = 'theme_receptic/navbarhomelink';
+    $title = get_string('navbarhomelink', 'theme_receptic');
+    $description = get_string('navbarhomelink_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Add a dashboard link to the navigation bar.
+    $name = 'theme_receptic/navbardashboardlink';
+    $title = get_string('navbardashboardlink', 'theme_receptic');
+    $description = get_string('navbardashboardlink_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Add a calendar link to the navigation bar.
+    $name = 'theme_receptic/navbarcalendarlink';
+    $title = get_string('navbarcalendarlink', 'theme_receptic');
+    $description = get_string('navbarcalendarlink_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
     // Add user course list to the navigation bar.
     $name = 'theme_receptic/personalcourselistintoolbar';
     $title = get_string('personalcourselistintoolbar', 'theme_receptic');

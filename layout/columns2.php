@@ -57,7 +57,8 @@ $templatecontext = [
     'regionmainsettingsmenu' => $regionmainsettingsmenu,
     'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu),
     'displaybrandbanner' => true,
-    'googlefonts' => $googlefonts
+    'googlefonts' => $googlefonts,
+    'shownavdrawer' => $PAGE->theme->settings->enablenavdrawer
 ];
 
 $templatecontext['flatnavigation'] = $PAGE->flatnav;

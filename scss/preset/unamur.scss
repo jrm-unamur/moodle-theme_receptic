@@ -184,6 +184,9 @@ $blocks-column-width : 260px !default;
             @include hover-focus {
                 color: #c0c0c0;
             }
+            .fa {
+                padding-right: 3px;
+            }
         }
         [data-region="drawer-toggle"] {
             .btn-secondary {

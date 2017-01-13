@@ -29,6 +29,7 @@ use moodle_url;
 use custom_menu_item;
 use custom_menu;
 use context_system;
+use renderer_base;
 
 defined('MOODLE_INTERNAL') || die;
 
@@ -70,7 +71,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             }*/
         }
 
-        return $this->render_from_template('theme_receptic/extra_navbar_buttons', $templatecontext);
+        return $this->render_from_template('theme_receptic/extra-navbar-buttons', $templatecontext);
 
     }
 
@@ -206,6 +207,16 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return $html;
     }
 
+    public function mainnavbar_extra_components() {
+        if (!empty($this->page->theme->settings->navbarhomelink)) {
+            $branchtitle = get_string('home');
+            $branchlabel = '<i class="fa fa-home"></i>' . $branchtitle;
+            $branchurl = new moodle_url('/?redirect=0');
+            //$menu->add($branchlabel, $branchurl, $branchtitle);
+        }
+
+    }
+
     /*
      * This renders the bootstrap top menu.
      *
@@ -331,8 +342,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         $content = '';
         foreach ($menu->get_children() as $item) {
+            $text = $item->get_text();
             $context = $item->export_for_template($this);
-            $content .= $this->render_from_template('core/custom_menu_item', $context);
+            $context->text = $text;
+
+            $content .= $this->render_from_template('theme_receptic/mycustom_menu_item', $context);
         }
 
         return $content;
