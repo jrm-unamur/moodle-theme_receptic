@@ -30,6 +30,11 @@ use custom_menu_item;
 use custom_menu;
 use context_system;
 use renderer_base;
+use external_settings;
+use action_menu;
+use action_link;
+use navigation_node;
+use pix_icon;
 
 defined('MOODLE_INTERNAL') || die;
 
@@ -189,10 +194,10 @@ class core_renderer extends \theme_boost\output\core_renderer {
                     }
                     $html = '<a href="' .
                         $url .
-                        '"  class="switch " title="' .
+                        '"  class="switch largescreen" title="' .
                         $editstring .
                         '">' .
-                        //get_string('editmode', 'theme_receptic') .
+                        get_string('editmode', 'theme_receptic') .
                         ' </a>';
                     if (!empty($this->page->theme->settings->hidedefaulteditingbutton) && 'my-index' !== $pagetype) {
                         // Unset button on page.
@@ -224,6 +229,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
      */
     protected function render_custom_menu(custom_menu $menu) {
         global $CFG, $USER;
+
+        require_once($CFG->libdir . '/externallib.php');
+
         if (!empty($this->page->theme->settings->navbarhomelink)) {
             $branchtitle = get_string('home');
             $branchlabel = '<i class="fa fa-home"></i>' . $branchtitle;
@@ -244,9 +252,15 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $branchurl = new moodle_url('/calendar/view.php?view=month');
                 $menu->add($branchlabel, $branchurl, $branchtitle);
             }
+            if (!empty($this->page->theme->settings->privatefileslink) &&
+                    has_capability('moodle/user:manageownfiles', context_system::instance())) {
+                $title = 'Mes Fichiers';
+                $label = '<i class="fa fa-folder"></i> ' . $title;
+                $url = new moodle_url('/user/files.php', array('returnurl' => $this->page->url->out()));
+                $menu->add($label, $url, $title);
+            }
             if (!empty($this->page->theme->settings->personalcourselistintoolbar)) {
-                //$branchtitle = get_string('mycourses', 'theme_unamurui');
-                $branchtitle = 'My courses';
+                $branchtitle = get_string('mycourses', 'theme_receptic');
                 $branchlabel = '<i class="fa fa-briefcase"></i> ' . $branchtitle;
                 $branchurl = new moodle_url('/my/index.php');
 
@@ -267,8 +281,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
                     }
 
                 } else {
-                    //$nocoursesstring = get_string('emptycourselist', 'theme_unamurui');
-                    $nocoursesstring = 'emptycourselist';
+                    $nocoursesstring = get_string('emptycourselist', 'theme_receptic');
+
                     $branch->add('<em>' . $nocoursesstring . '</em>', new moodle_url('/'), $nocoursesstring);
                 }
                 $branch->add(
@@ -316,6 +330,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 }
 
             }
+
+
         }
 
         $langs = get_string_manager()->get_list_of_translations();
@@ -342,13 +358,173 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         $content = '';
         foreach ($menu->get_children() as $item) {
-            $text = $item->get_text();
+            $settings = external_settings::get_instance();
+            $settings->set_raw(true);
             $context = $item->export_for_template($this);
-            $context->text = $text;
 
             $content .= $this->render_from_template('theme_receptic/mycustom_menu_item', $context);
         }
 
         return $content;
     }
+
+    public function mycourse_settings_menu() {
+        $context = $this->page->context;
+        $menu = new action_menu();
+
+        $items = $this->page->navbar->get_items();
+        $currentnode = end($items);
+
+        $showcoursemenu = true;
+        $showfrontpagemenu = false;
+        $showusermenu = false;
+
+        // We are on the course home page.
+        if (($context->contextlevel == CONTEXT_COURSE)) {
+            $showcoursemenu = true;
+        }
+
+        // This is the site front page.
+        if ($context->contextlevel == CONTEXT_COURSE &&
+            !empty($currentnode) &&
+            $currentnode->key === 'home') {
+            $showfrontpagemenu = true;
+        }
+
+        // This is the user profile page.
+        if ($context->contextlevel == CONTEXT_USER &&
+            !empty($currentnode) &&
+            ($currentnode->key === 'myprofile')) {
+            $showusermenu = true;
+        }
+
+
+        if ($showfrontpagemenu) {
+            $settingsnode = $this->page->settingsnav->find('frontpage', navigation_node::TYPE_SETTING);
+            if ($settingsnode) {
+                // Build an action menu based on the visible nodes from this navigation tree.
+                $skipped = $this->build_action_menu_from_navigation($menu, $settingsnode, false, true);
+
+                // We only add a list to the full settings menu if we didn't include every node in the short menu.
+                if ($skipped) {
+                    $text = get_string('morenavigationlinks');
+                    $url = new moodle_url('/course/admin.php', array('courseid' => $this->page->course->id));
+                    $link = new action_link($url, $text, null, null, new pix_icon('t/edit', $text));
+                    $menu->add_secondary_action($link);
+                }
+            }
+        } else if ($showcoursemenu) {
+            $settingsnode = $this->page->settingsnav->find('courseadmin', navigation_node::TYPE_COURSE);
+            if ($settingsnode) {
+                // Build an action menu based on the visible nodes from this navigation tree.
+                $skipped = $this->build_action_menu_from_navigation($menu, $settingsnode, false, true);
+
+                // We only add a list to the full settings menu if we didn't include every node in the short menu.
+                if ($skipped) {
+                    $text = get_string('morenavigationlinks');
+                    $url = new moodle_url('/course/admin.php', array('courseid' => $this->page->course->id));
+                    $link = new action_link($url, $text, null, null, new pix_icon('t/edit', $text));
+                    $menu->add_secondary_action($link);
+                }
+            }
+        } else if ($showusermenu) {
+            // Get the course admin node from the settings navigation.
+            $settingsnode = $this->page->settingsnav->find('useraccount', navigation_node::TYPE_CONTAINER);
+            if ($settingsnode) {
+                // Build an action menu based on the visible nodes from this navigation tree.
+                $this->build_action_menu_from_navigation($menu, $settingsnode);
+            }
+        }
+
+        return $this->render_myaction_menu($menu);
+    }
+
+    public function render_myaction_menu(action_menu $menu) {
+
+        // We don't want the class icon there!
+        foreach ($menu->get_secondary_actions() as $action) {
+            if ($action instanceof \action_menu_link && $action->has_class('icon')) {
+                $action->attributes['class'] = preg_replace('/(^|\s+)icon(\s+|$)/i', '', $action->attributes['class']);
+            }
+        }
+
+        if ($menu->is_empty()) {
+            return '';
+        }
+        $context = $menu->export_for_template($this);
+
+        // We do not want the icon with the caret, the caret is added by Bootstrap.
+        if (empty($context->primary->menutrigger)) {
+            $newurl = $this->pix_url('t/edit', 'moodle');
+            $context->primary->icon['attributes'] = array_reduce($context->primary->icon['attributes'],
+                function($carry, $item) use ($newurl) {
+                    if ($item['name'] === 'src') {
+                        $item['value'] = $newurl->out(false);
+                    }
+                    $carry[] = $item;
+                    return $carry;
+                }, []
+            );
+        }
+        $context->primary->actiontext = '<i class="fa fa-cog"></i>' . $this->page->course->shortname;
+        $context->classes .= ' nav-item action-menu-in-navbar';
+        $context->primary->icon = '';
+
+
+        return $this->render_from_template('core/action_menu', $context);
+    }
+
+    /**
+     * Take a node in the nav tree and make an action menu out of it.
+     * The links are injected in the action menu.
+     *
+     * @param action_menu $menu
+     * @param navigation_node $node
+     * @param boolean $indent
+     * @param boolean $onlytopleafnodes
+     * @return boolean nodesskipped - True if nodes were skipped in building the menu
+     */
+    private function build_action_menu_from_navigation(action_menu $menu,
+                                                       navigation_node $node,
+                                                       $indent = false,
+                                                       $onlytopleafnodes = false) {
+        $skipped = false;
+        // Build an action menu based on the visible nodes from this navigation tree.
+        foreach ($node->children as $menuitem) {
+            if ($menuitem->display) {
+                if ($onlytopleafnodes && $menuitem->children->count()) {
+                    $skipped = true;
+                    continue;
+                }
+                if ($menuitem->action) {
+                    if ($menuitem->action instanceof action_link) {
+                        $link = $menuitem->action;
+                        // Give preference to setting icon over action icon.
+                        if (!empty($menuitem->icon)) {
+                            $link->icon = $menuitem->icon;
+                        }
+                    } else {
+                        $link = new action_link($menuitem->action, $menuitem->text, null, null, $menuitem->icon);
+                    }
+                } else {
+                    if ($onlytopleafnodes) {
+                        $skipped = true;
+                        continue;
+                    }
+                    $link = new action_link(new moodle_url('#'), $menuitem->text, null, ['disabled' => true], $menuitem->icon);
+                }
+                if ($indent) {
+                    $link->add_class('m-l-1');
+                }
+                if (!empty($menuitem->classes)) {
+                    $link->add_class(implode(" ", $menuitem->classes));
+                }
+
+                $menu->add_secondary_action($link);
+                $skipped = $skipped || $this->build_action_menu_from_navigation($menu, $menuitem, true);
+            }
+        }
+        return $skipped;
+    }
+
 }

@@ -1,19 +1,13 @@
 @import "fontawesome/font-awesome";
 
-/*body.pagelayout-login {
-    background-image: url([[pix:theme_receptic|loginbackgroundimage]]);
-    background-size: cover;
-}*/
-
 .brand-banner {
-    /*background: linear-gradient(to bottom, #ECF0F1 0%,#ECF0F1 30%,#3c8e3a 31%,#69be28 95%);*/
     background: linear-gradient(to bottom, #ECF0F1 0%,#ECF0F1 30%,darken($link-hover-color,5%) 31%,$link-hover-color 95%);
     height: 80px;
 }
 
 
 .navbar-sm-logo {
-    background-image: url([[pix:theme_receptic|loginbackgroundimage]]);
+    //background-image: url([[pix:theme_receptic|loginbackgroundimage]]);
     background-size: cover;
     width: 34px;
     height: 34px;
@@ -79,21 +73,14 @@ body.noblocks #region-main-settings-menu.has-blocks, body.noblocks #region-main.
     display: none;
 }
 
-@media (min-width: 768px) {
-    .navbar-nav > li > a.switch {
-        padding-bottom: 0;
-    }
-}
-
 .switch:after {
-    font-family: FontAwesome;
-    content: "\f044";
-    font-size: 1.2rem;
+    color: #d9534f;
+    content: "OFF";
 }
 
 body.editing .switch:after {
     color: #55ab26;
-    //content: "ON";
+    content: "ON";
 }
 
 .extra-buttons {
@@ -106,7 +93,7 @@ body.editing .switch:after {
 }
 
 #page-content > a {
-    position: absolute;
+    position: fixed;
     right: 5px;
     padding-top: 1rem;
 }
@@ -333,4 +320,25 @@ body.editing .switch:after {
 
 #region-main .card.card-block {
     box-shadow: 1px 2px 3px 0 #ccc;
+}
+
+.action-menu-in-navbar {
+    padding-top: 6px;
+}
+
+.action-menu.nav-item .fa {
+    padding-right: 3px
+}
+
+.navbar-dark .dropdown-item a {
+    color: #555;
+}
+
+.navbar-dark .dropdown-item a:hover,
+.navbar-dark .dropdown-item a:focus {
+    color: #777;
+}
+
+.path-course #nav-drawer nav:nth-of-type(2) {
+    display: none;
 }

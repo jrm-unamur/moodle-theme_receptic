@@ -28,8 +28,26 @@ user_preference_allow_ajax_update('drawer-open-nav', PARAM_ALPHA);
 user_preference_allow_ajax_update('drawer-open-blocks', PARAM_ALPHA);
 require_once($CFG->libdir . '/behat/lib.php');
 
+$context = $this->page->context;
+$iscontextcourse = $context->contextlevel == CONTEXT_COURSE;
+$iscontextadmin = $context->contextlevel == CONTEXT_SYSTEM;
+if ($context->contextlevel == CONTEXT_SYSTEM) {
+    $shownavdrawer = true;
+} else if ($context->contextlevel == CONTEXT_USER || $this->page->course->id == SITEID) {
+    $shownavdrawer = false;
+} else {
+    $shownavdrawer = true;
+}
+
+/*if (($iscontextcourse || $iscontextadmin) && $PAGE->theme->settings->enablenavdrawer) {
+    $shownavdrawer = true;
+} else {
+    $shownavdrawer = false;
+}*/
 if (isloggedin()) {
-    $navdraweropen = (get_user_preferences('drawer-open-nav', 'true') == 'true');
+    $navdraweropen = (get_user_preferences('drawer-open-nav', 'true') == 'true'
+            && $shownavdrawer
+            );
 } else {
     $navdraweropen = false;
 }
@@ -47,6 +65,7 @@ $googlefonts = array(
     'Roboto+Condensed',
     'Roboto:400,400italic,700,700italic,900,900italic'
 );
+
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
     'output' => $OUTPUT,
@@ -58,7 +77,8 @@ $templatecontext = [
     'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu),
     'displaybrandbanner' => true,
     'googlefonts' => $googlefonts,
-    'shownavdrawer' => $PAGE->theme->settings->enablenavdrawer
+    'shownavdrawer' => $shownavdrawer,
+    'iscontextcourse' => $iscontextcourse
 ];
 
 $templatecontext['flatnavigation'] = $PAGE->flatnav;

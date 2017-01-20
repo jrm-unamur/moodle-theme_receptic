@@ -174,6 +174,14 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
+    // Add a private files link to the navigation bar.
+    $name = 'theme_receptic/privatefileslink';
+    $title = get_string('privatefileslink', 'theme_receptic');
+    $description = get_string('privatefileslink_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
     // Add user course list to the navigation bar.
     $name = 'theme_receptic/personalcourselistintoolbar';
     $title = get_string('personalcourselistintoolbar', 'theme_receptic');

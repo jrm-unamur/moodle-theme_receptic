@@ -135,7 +135,6 @@ $blocks-column-width : 260px !default;
 .navbar-dark {
     background-color: #fff;
     background-image: linear-gradient(to bottom, #626262 0%, #494949 100%);
-    border-bottom: $border-width solid #e5e5e5;
 
     .container {
         padding-left: 0;
@@ -209,7 +208,7 @@ $blocks-column-width : 260px !default;
         margin-top: 5px;
         margin-left: 25px;
         a {
-            margin-right: 17px;
+            margin-right: 1rem;
         }
     }
 }
@@ -312,6 +311,12 @@ $blocks-column-width : 260px !default;
     }
     .content {
         padding: 4px 1rem;
+        h3:before {
+            content: "";
+        }
+    }
+    h3:before {
+        font-family: FontAwesome;
     }
 }
 
@@ -325,10 +330,6 @@ $blocks-column-width : 260px !default;
 .block_calendar_month h3:before,
 .block_calendar_upcoming h3:before {
     content: "\f073";
-}
-
-.block_calendar_month h3.eventskey:before {
-    content: "";
 }
 
 .block_recent_activity h3:before {

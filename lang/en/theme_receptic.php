@@ -65,3 +65,7 @@ $string['navbarcalendarlink'] = 'Calendar shortcut';
 $string['navbarcalendarlink_desc'] = 'Add a calendar shortcut to the navigation bar';
 $string['navbarpersonalcourselist'] = 'Personal course list';
 $string['navbarpersonalcourselist_desc'] = 'Add the logged in user course list in a dropdown';
+$string['privatefileslink'] = 'Private files shortcut';
+$string['privatefileslink_desc'] = 'Add a "My private files" shortcut to the navigation bar';
+$string['emptycourselist'] = 'No courses';
+$string['mycourses'] = 'My courses';

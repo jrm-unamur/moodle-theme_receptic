@@ -63,3 +63,7 @@ $string['navbardashboardlink'] = 'Raccourci vers le tableau de bord';
 $string['navbardashboardlink_desc'] = 'Ajoute un lien vers le tableau de bord dans la barre de navigation';
 $string['navbarcalendarlink'] = 'Raccourci vers le calendrier';
 $string['navbarcalendarlink_desc'] = 'Ajoute un lien vers le calendrier dans la barre de navigation';
+$string['privatefileslink'] = 'Raccourci vers les fichiers personnels';
+$string['privatefileslink_desc'] = 'Ajoute un lien vers les fichiers personnels dans la barre de navigation';
+$string['emptycourselist'] = 'Aucun cours';
+$string['mycourses'] = 'Mes cours';
