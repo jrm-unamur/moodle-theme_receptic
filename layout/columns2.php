@@ -25,12 +25,12 @@
 defined('MOODLE_INTERNAL') || die();
 
 user_preference_allow_ajax_update('drawer-open-nav', PARAM_ALPHA);
-user_preference_allow_ajax_update('drawer-open-blocks', PARAM_ALPHA);
+user_preference_allow_ajax_update('blocks-collapsed', PARAM_ALPHA);
 require_once($CFG->libdir . '/behat/lib.php');
 
 $context = $this->page->context;
 $iscontextcourse = $context->contextlevel == CONTEXT_COURSE;
-$iscontextadmin = $context->contextlevel == CONTEXT_SYSTEM;
+
 if ($context->contextlevel == CONTEXT_SYSTEM) {
     $shownavdrawer = true;
 } else if ($context->contextlevel == CONTEXT_USER || $this->page->course->id == SITEID) {
@@ -39,22 +39,24 @@ if ($context->contextlevel == CONTEXT_SYSTEM) {
     $shownavdrawer = true;
 }
 
-/*if (($iscontextcourse || $iscontextadmin) && $PAGE->theme->settings->enablenavdrawer) {
-    $shownavdrawer = true;
-} else {
-    $shownavdrawer = false;
-}*/
 if (isloggedin()) {
     $navdraweropen = (get_user_preferences('drawer-open-nav', 'true') == 'true'
             && $shownavdrawer
             );
+    $blockscollapsed = get_user_preferences('blocks-collapsed', 'false') == 'true';
 } else {
     $navdraweropen = false;
+    $blockscollapsed = true;
 }
 $extraclasses = [];
 if ($navdraweropen) {
     $extraclasses[] = 'drawer-open-left';
 }
+
+if ($blockscollapsed) {
+    $extraclasses[] = 'noblocks';
+}
+
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 $blockshtml = $OUTPUT->blocks('side-pre');
 $hasblocks = strpos($blockshtml, 'data-block=') !== false;

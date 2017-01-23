@@ -10,15 +10,20 @@ define(['jquery', 'core/log'], function($, log) {
         init: function() {
             log.debug('UnamurUI AMD module initialized');
             $(document).ready(function($) {
-                $(this).scrollTop(0);
+                $('body').scrollTop(0);
 
                 $("body").on( "click", ".toggleblocks", function() {
+                    if($('body').hasClass('noblocks')) {
+                        M.util.set_user_preference('blocks-collapsed', 'false');
+                    } else {
+                        M.util.set_user_preference('blocks-collapsed', 'true');
+                    }
                     $('body').toggleClass('noblocks');
                 });
                 var offset = 50;
                 var duration = 500;
                 $(window).scroll(function(){
-                    if ($(this).scrollTop() > offset) {
+                    if ($('body').scrollTop() > offset) {
                         $('#back-to-top').fadeIn(duration);
                     } else {
                         $('#back-to-top').fadeOut(duration);
