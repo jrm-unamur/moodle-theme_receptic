@@ -74,6 +74,19 @@ body.noblocks #region-main-settings-menu.has-blocks, body.noblocks #region-main.
 }
 
 .switch:after {
+    font-family: FontAwesome;
+    color: #d9534f;
+    content: "\f011";
+}
+
+body.editing .switch:after {
+    font-family: FontAwesome;
+    color: #55ab26;
+    content: "\f011";
+}
+
+/*.switch:after {
+    font-family: FontAwesome;
     color: #d9534f;
     content: "OFF";
 }
@@ -81,7 +94,7 @@ body.noblocks #region-main-settings-menu.has-blocks, body.noblocks #region-main.
 body.editing .switch:after {
     color: #55ab26;
     content: "ON";
-}
+}*/
 
 .extra-buttons {
     margin-left: 25px;
@@ -96,6 +109,62 @@ body.editing .switch:after {
     position: fixed;
     right: 5px;
     padding-top: 1rem;
+}
+
+#page-header .card {
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.25);
+}
+
+/*#page-my-index #region-main .block.block_course_overview {
+    background-color: $body-bg;
+    .card-block {
+        padding: 0;
+        .card-text.content {
+            padding: 0;
+            margin: 0;
+            .box.welcome_area {
+                padding: 1rem;
+                background-color: #fff;
+                box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.25);
+                .box {
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+}*/
+
+.block.block_course_overview {
+    margin-bottom: 0 !important;
+    .card-title {
+        margin-bottom: 0;
+    }
+    .content {
+        padding: 0;
+        margin: 0;
+    }
+    h2.title {
+        font-size: 1.3rem;
+    }
+    .card-block {
+        padding: 1.5rem 1.5rem 0;
+    }
+}
+
+.path-my #region-main .card.card-block {
+    padding: 0;
+    min-height: 0;
+}
+
+.path-my .course_list div.coursebox {
+    margin: 0;
+    border-color: #ddd;
+    border-width: 0 0 1px;
+    border-style: solid;
+}
+
+.path-my .course_list div:last-of-type {
+    border: none;
 }
 
 .notifytiny {
@@ -342,3 +411,4 @@ body.editing .switch:after {
 .path-course #nav-drawer nav:nth-of-type(2) {
     display: none;
 }
+
