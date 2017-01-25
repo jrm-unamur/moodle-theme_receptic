@@ -548,4 +548,41 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return $skipped;
     }
 
+    public function blocks($region, $classes = array(), $tag = 'aside') {
+        $displayregion = $this->page->apply_theme_region_manipulations($region);
+        $classes = (array)$classes;
+        $classes[] = 'block-region';
+        $attributes = array(
+            'id' => 'block-region-'.preg_replace('#[^a-zA-Z0-9_\-]+#', '-', $displayregion),
+            'class' => join(' ', $classes),
+            'data-blockregion' => $displayregion,
+            'data-droptarget' => '1'
+        );
+        if ($this->page->blocks->region_has_content($displayregion, $this)) {
+            $content = $this->blocks_for_region($displayregion);
+        } else {
+            $content = '';
+        }
+        // Add-a-block button over blocks column in editing mode.
+        if ($region == 'side-pre' && isset($this->page->theme->addblockposition) &&
+            $this->page->theme->addblockposition == BLOCK_ADDBLOCK_POSITION_CUSTOM &&
+            $this->page->user_is_editing() && $this->page->user_can_edit_blocks() &&
+            ($addable = $this->page->blocks->get_addable_blocks())) {
+            $url = new moodle_url($this->page->url, ['bui_addblock' => '', 'sesskey' => sesskey()]);
+            $addblock = '<div class="add_block_button">' .
+                    '<a class="btn btn-default" href="' . $url->out() . '" data-key="addblock" >' .
+                    '<i class="fa fa-plus"></i> ' .
+                    get_string('addblock') .
+                    '</a></div>';
+            $content = $addblock . $content;
+            $blocks = [];
+            foreach ($addable as $block) {
+                $blocks[] = $block->name;
+            }
+            $params = array('blocks' => $blocks, 'url' => '?' . $url->get_query_string(false));
+            $this->page->requires->js_call_amd('core/addblockmodal', 'init', array($params));
+        }
+        return html_writer::tag($tag, $content, $attributes);
+    }
+
 }

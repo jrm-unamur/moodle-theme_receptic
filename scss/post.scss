@@ -111,6 +111,10 @@ body.editing .switch:after {
     padding-top: 1rem;
 }
 
+body.editing #page-content > a {
+    padding-top: 3rem;
+}
+
 #page-header .card {
     box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.25);
 }
@@ -410,5 +414,16 @@ body.editing .switch:after {
 
 .path-course #nav-drawer nav:nth-of-type(2) {
     display: none;
+}
+
+.add_block_button {
+
+    a {
+        width: 100%;
+        margin-bottom: 0.5rem;
+        i {
+            color: #1a9e9f;
+        }
+    }
 }
 

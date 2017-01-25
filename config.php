@@ -36,7 +36,7 @@ $THEME->yuicssmodules = array();
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';
 $THEME->requiredblocks = 'settings';
 // Move the add block functionality to be in the flat navigation rather than the block region.
-$THEME->addblockposition = BLOCK_ADDBLOCK_POSITION_FLATNAV;
+$THEME->addblockposition = BLOCK_ADDBLOCK_POSITION_CUSTOM;
 // Override preset selection from boost theme to allow selecting preset from both themes.
 $THEME->scss = function($theme) {
     return theme_receptic_get_main_scss_content($theme);
