@@ -427,3 +427,64 @@ body.editing #page-content > a {
     }
 }
 
+li:target {
+    margin-top: 0 !important;
+    padding-top: 1rem !important;
+}
+
+.card-header {
+    padding-left: .5rem;
+    padding-right: .5rem;
+    background-color: #fff;
+    border: none;
+}
+
+.course-content ul li.section.main,
+.course-content ul li.section.main:last-child {
+    border-width: 0 0 1px;
+    border-style: solid;
+    border-color: #ddd;
+}
+
+a.sectiontoggle {
+    float: left;
+    margin: 0 3px 3px;
+    padding: 2px 18px 2px 0;
+    background-repeat: no-repeat;
+    background-position: center center;
+    cursor: pointer;
+    color: #fff;
+
+}
+a.sectiontoggle[aria-expanded="false"] {
+    background-image: url([[pix:moodle|t/collapsed]]);
+}
+
+a.sectiontoggle[aria-expanded="true"] {
+    background-image: url([[pix:moodle|t/expanded]]);
+}
+
+
+.accordion {
+    padding-left: 0;
+}
+
+.course-content ul.topics li.section .left {
+    padding: 0;
+}
+
+body:not(.editing) .course-content ul.topics li.section .left.side {
+    display: none;
+}
+
+body.editing .course-content ul.topics li.section .left .icon.spacer {
+    width: 0;
+}
+
+#changenumsections .icon.smallicon,
+.section-modchooser .icon.smallicon {
+    width: 12px;
+    height: 12px;
+}
+
+
