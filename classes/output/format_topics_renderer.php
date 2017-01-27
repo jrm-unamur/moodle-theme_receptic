@@ -223,4 +223,27 @@ class format_topics_renderer extends \format_topics_renderer
 
         return $o;
     }
+
+    /**
+     * Override to add spacer into current section too.
+     * Generate the content to displayed on the left part of a section
+     * before course modules are included
+     *
+     * @param stdClass $section The course_section entry from DB
+     * @param stdClass $course The course entry from DB
+     * @param bool $onsectionpage true if being printed on a section page
+     * @return string HTML to output.
+     */
+    protected function section_left_content($section, $course, $onsectionpage) {
+        $o = $this->output->spacer();
+
+        if ($section->section != 0) {
+            // Only in the non-general sections.
+            if (course_get_format($course)->is_section_current($section)) {
+                $o .= get_accesshide(get_string('currentsection', 'format_'.$course->format));
+            }
+        }
+
+        return $o;
+    }
 }

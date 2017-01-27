@@ -427,10 +427,17 @@ body.editing #page-content > a {
     }
 }
 
-li:target {
+/*li:target {
     margin-top: 0 !important;
     padding-top: 1rem !important;
-}
+}*/
+
+/*:target {
+    padding-top: 160px !important;
+    margin-top: -140px !important;
+}*/
+
+
 
 .card-header {
     padding-left: .5rem;
@@ -495,6 +502,27 @@ body.editing .course-content ul.topics li.section .left .icon.spacer {
     margin-left: 0;
 }
 
-.course-content .current {
+.course-content .current .content {
     background-color: #d9edf7;
+}
+
+li.section:target {
+    padding-top: 160px !important; /* stylelint-disable declaration-no-important */
+    margin-top: -130px !important; /* negative fixed header height */
+}
+
+span.section-handle > .icon {
+    margin-left: .5rem;
+}
+
+.course-content .current:before {
+    border: none;
+}
+
+.course-content .current .content {
+    border-left: 2px solid $brand-primary;
+}
+
+ul.accordion li.section:first-of-type:target {
+    margin-top: -30px !important;
 }
