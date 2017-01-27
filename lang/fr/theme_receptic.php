@@ -67,3 +67,4 @@ $string['privatefileslink'] = 'Raccourci vers les fichiers personnels';
 $string['privatefileslink_desc'] = 'Ajoute un lien vers les fichiers personnels dans la barre de navigation';
 $string['emptycourselist'] = 'Aucun cours';
 $string['mycourses'] = 'Mes cours';
+$string['addsection'] = 'Ajouter une section';

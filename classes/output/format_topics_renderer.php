@@ -117,8 +117,7 @@ class format_topics_renderer extends \format_topics_renderer
             echo html_writer::start_tag('div', array('id' => 'changenumsections', 'class' => 'mdl-right'));
 
             // Increase number of sections.
-            //$straddsection = html_writer::span(get_string('addsection', 'theme_unamurui'));
-            $straddsection = html_writer::span('addsection');
+            $straddsection = html_writer::span(get_string('addsection', 'theme_receptic'));
             $url = new moodle_url('/course/changenumsections.php',
                 array('courseid' => $course->id,
                     'increase' => true,

@@ -69,3 +69,4 @@ $string['privatefileslink'] = 'Private files shortcut';
 $string['privatefileslink_desc'] = 'Add a "My private files" shortcut to the navigation bar';
 $string['emptycourselist'] = 'No courses';
 $string['mycourses'] = 'My courses';
+$string['addsection'] = 'Add new section';

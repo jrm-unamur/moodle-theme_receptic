@@ -481,10 +481,18 @@ body.editing .course-content ul.topics li.section .left .icon.spacer {
     width: 0;
 }
 
+#changenumsections {
+    padding: 1rem 0;
+}
+
 #changenumsections .icon.smallicon,
 .section-modchooser .icon.smallicon {
     width: 12px;
     height: 12px;
+}
+
+.course-content ul li.section.hidden .sectionname > span {
+    margin-left: 0;
 }
 
 
