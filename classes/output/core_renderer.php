@@ -400,7 +400,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $showusermenu = false;
 
         // We are on the course home page.
-        if (($context->contextlevel == CONTEXT_COURSE)) {
+        if (($context->contextlevel == CONTEXT_COURSE || $context->contextlevel == CONTEXT_MODULE)) {
             $showcoursemenu = true;
         }
 

@@ -29,7 +29,7 @@ user_preference_allow_ajax_update('blocks-collapsed', PARAM_ALPHA);
 require_once($CFG->libdir . '/behat/lib.php');
 
 $context = $this->page->context;
-$iscontextcourse = $context->contextlevel == CONTEXT_COURSE;
+$iscontextcourse = $context->contextlevel == CONTEXT_COURSE || $context->contextlevel == CONTEXT_MODULE;
 
 if ($context->contextlevel == CONTEXT_SYSTEM) {
     $shownavdrawer = true;
