@@ -33,27 +33,6 @@ class format_topics_renderer extends \format_topics_renderer
         echo $this->course_activity_clipboard($course, 0);
 
         // Now the list of sections..
-     /*   echo $this->start_section_list();
-
-        echo '<li class="section main clearfix" id="section-0">' .
-            //'<div class="card-header" role="tab" id="heading0">' .
-            '<a class="sectiontoggle" data-toggle="collapse" data-parent="accordion" href="#collapse-0" aria-expanded="false" aria-controls="collapse-1">&nbsp;</a> ' .
-            '<h3 class="sectionname">' .
-            '<a href="http://det-prototype.det.fundp.ac.be/jrmsandbox/course/view.php?id=4#section-0">Généralités</a> ' .
-            '</h3>' .
-           // '</div>' .
-            '<div id="collapse-0" class="collapse show" role="tabpanel" aria-labelledby="heading0"> ' .
-            //'<div class="card-block">' .
-            '<div class="summary"><div class="no-overflow"><p></p><ul><li>jfqmfd<br></li><li>dsdfmqdf<br></li></ul><p></p></div></div>' .
-            '<ul class="section img-text"><li class="activity forum modtype_forum " id="module-41"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="http://det-prototype.det.fundp.ac.be/jrmsandbox/mod/forum/view.php?id=41"><img src="http://det-prototype.det.fundp.ac.be/jrmsandbox/theme/image.php?theme=receptic&amp;component=forum&amp;image=icon" class="iconlarge activityicon" alt=" " role="presentation"><span class="instancename">Annonces<span class="accesshide "> Forum</span></span></a></div></div></div></div></li><li class="activity resource modtype_resource " id="module-43"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="http://det-prototype.det.fundp.ac.be/jrmsandbox/mod/resource/view.php?id=43"><img src="http://det-prototype.det.fundp.ac.be/jrmsandbox/theme/image.php?theme=receptic&amp;component=core&amp;image=f%2Fjpeg-24" class="iconlarge activityicon" alt=" " role="presentation"><span class="instancename">File<span class="accesshide "> Fichier</span></span></a></div><span class="actions"><form method="post" action="http://det-prototype.det.fundp.ac.be/jrmsandbox/course/togglecompletion.php" class="togglecompletion"><div><input type="hidden" name="id" value="43"><input type="hidden" name="sesskey" value="rBvjlQhG3M"><input type="hidden" name="modulename" value="File"><input type="hidden" name="completionstate" value="1"><input type="image" src="http://det-prototype.det.fundp.ac.be/jrmsandbox/theme/image.php?theme=receptic&amp;component=core&amp;image=i%2Fcompletion-manual-n" alt="Non terminé&nbsp;: File. Sélectionner pour marquer comme terminé." title="Marquer comme terminé&nbsp;: File" aria-live="polite"></div></form></span></div></div></div></li><li class="activity resource modtype_resource " id="module-44"><div><div class="mod-indent-outer"><div class="mod-indent"></div><div><div class="activityinstance"><a class="" onclick="" href="http://det-prototype.det.fundp.ac.be/jrmsandbox/mod/resource/view.php?id=44"><img src="http://det-prototype.det.fundp.ac.be/jrmsandbox/theme/image.php?theme=receptic&amp;component=core&amp;image=f%2Fpng-24" class="iconlarge activityicon" alt=" " role="presentation"><span class="instancename">Another file<span class="accesshide "> Fichier</span></span></a></div><span class="actions"><form method="post" action="http://det-prototype.det.fundp.ac.be/jrmsandbox/course/togglecompletion.php" class="togglecompletion"><div><input type="hidden" name="id" value="44"><input type="hidden" name="sesskey" value="rBvjlQhG3M"><input type="hidden" name="modulename" value="Another file"><input type="hidden" name="completionstate" value="1"><input type="image" src="http://det-prototype.det.fundp.ac.be/jrmsandbox/theme/image.php?theme=receptic&amp;component=core&amp;image=i%2Fcompletion-manual-n" alt="Non terminé&nbsp;: Another file. Sélectionner pour marquer comme terminé." title="Marquer comme terminé&nbsp;: Another file" aria-live="polite"></div></form></span></div></div></div></li></ul>' .
-           // '</div>' .
-        '</div></li>';
-
-
-        echo $this->end_section_list();*/
-
-
-        // Now the list of sections..
         echo $this->start_section_list();
 
         foreach ($modinfo->get_section_info_all() as $section => $thissection) {
@@ -203,7 +182,9 @@ class format_topics_renderer extends \format_topics_renderer
         }
         $sectionname = html_writer::tag('span', $this->section_title($section, $course));
         //jrm add collapse toggle
-        if ($section->section != 0) {
+        if (course_get_format($course)->is_section_current($section)) {
+            $o.= '<a class="sectiontoggle" data-toggle="collapse" data-parent="accordion" href="#collapse-' . $section->section . '" aria-expanded="false" aria-controls="collapse-1">&nbsp;</a> ';
+        } else if ($section->section != 0) {
             $o.= '<a class="sectiontoggle" data-toggle="collapse" data-parent="accordion" href="#collapse-' . $section->section . '" aria-expanded="false" aria-controls="collapse-1">&nbsp;</a> ';
         }
         //jrm end collapse toggle
@@ -211,7 +192,7 @@ class format_topics_renderer extends \format_topics_renderer
         $o.= $this->output->heading($sectionname, 3, 'sectionname' . $classes);
 
         //jrm add div around content to allow section collapsing
-        if ($section->section == 0) {
+        if ($section->section == 0 || course_get_format($course)->is_section_current($section)) {
             $classes = "collapse in show";
         } else {
             $classes = "collapse show";
