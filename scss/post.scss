@@ -533,9 +533,6 @@ ul.accordion li.section:first-of-type:target {
     margin-top: -30px !important;
 }
 
-div.completionprogress {
-    margin-top: 1rem;
-}
 
 /*#page-course-view-topics #region-main .card.card-block {
     box-shadow: none;
@@ -546,3 +543,7 @@ div.completionprogress {
 #page-course-view-topics #region-main .card.card-block .course-content ul.topics {
     padding: 1.25rem;
 }*/
+
+#page.container-fluid {
+    padding-top: 6px;
+}

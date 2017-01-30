@@ -20,6 +20,8 @@ define(['jquery', 'core/log'], function($, log) {
                     }
                     $('body').toggleClass('noblocks');
                 });
+
+
                 var offset = 50;
                 var duration = 500;
                 $(window).scroll(function(){
@@ -32,6 +34,11 @@ define(['jquery', 'core/log'], function($, log) {
                 $('#back-to-top').click(function (event) {
                     event.preventDefault();
                     $('html, body').animate({scrollTop: 0}, duration);
+                    return false;
+                });
+                $('div.media').first().on('click', function() {
+                    event.preventDefault();
+                    $('html, body').animate({scrollTop: 150}, 50);
                     return false;
                 });
             });
