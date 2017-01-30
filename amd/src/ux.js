@@ -36,7 +36,7 @@ define(['jquery', 'core/log'], function($, log) {
                     $('html, body').animate({scrollTop: 0}, duration);
                     return false;
                 });
-                $('div.media').first().on('click', function() {
+                $('div.media').first().on('click', function(event) {
                     event.preventDefault();
                     $('html, body').animate({scrollTop: 150}, 50);
                     return false;
