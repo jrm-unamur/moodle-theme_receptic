@@ -41,6 +41,22 @@ define(['jquery', 'core/log'], function($, log) {
                     $('html, body').animate({scrollTop: 150}, 50);
                     return false;
                 });
+                $('div.media').on('click', function(event) {
+                    var href = $(event.target).parent().parent().parent().attr('href');
+                    var index = href.slice(-1);
+                    var attr = '#collapse-' + index;
+                    $(attr).collapse('show');
+                });
+                $('.collapse').on('show.bs.collapse', function(event) {
+                    $(event.target).siblings('div.section-summary-activities').each(function(i, item) {
+                        $(item).hide();
+                    });
+                });
+                $('.collapse').on('hide.bs.collapse', function(event) {
+                    $(event.target).siblings('div.section-summary-activities').each(function(i, item) {
+                        $(item).show();
+                    });
+                });
             });
         }
     };

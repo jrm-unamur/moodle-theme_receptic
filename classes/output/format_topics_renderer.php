@@ -183,14 +183,14 @@ class format_topics_renderer extends \format_topics_renderer
         $sectionname = html_writer::tag('span', $this->section_title($section, $course));
         //jrm add collapse toggle
         if (course_get_format($course)->is_section_current($section)) {
-            $o.= '<a class="sectiontoggle" data-toggle="collapse" data-parent="accordion" href="#collapse-' . $section->section . '" aria-expanded="false" aria-controls="collapse-1">&nbsp;</a> ';
+            $o.= '<a class="sectiontoggle" data-toggle="collapse" data-parent="accordion" href="#collapse-' . $section->section . '" aria-expanded="true" aria-controls="collapse-' . $section->section . '">&nbsp;</a> ';
         } else if ($section->section != 0) {
-            $o.= '<a class="sectiontoggle" data-toggle="collapse" data-parent="accordion" href="#collapse-' . $section->section . '" aria-expanded="false" aria-controls="collapse-1">&nbsp;</a> ';
+            $o.= '<a class="sectiontoggle" data-toggle="collapse" data-parent="accordion" href="#collapse-' . $section->section . '" aria-expanded="false" aria-controls="collapse-' . $section->section . '">&nbsp;</a> ';
         }
         //jrm end collapse toggle
 
         $o.= $this->output->heading($sectionname, 3, 'sectionname' . $classes);
-
+        $o.= $this->section_summary($section, $course, null);
         //jrm add div around content to allow section collapsing
         if ($section->section == 0 || course_get_format($course)->is_section_current($section)) {
             $classes = "collapse in show";
@@ -200,9 +200,9 @@ class format_topics_renderer extends \format_topics_renderer
             $o.= '<div id="collapse-' . $section->section . '" class="' . $classes . '" role="tabpanel" aria-labelledby="heading' . $section->section . '">';
         //jrm end div
 
-        $o.= html_writer::start_tag('div', array('class' => 'summary'));
+        /*$o.= html_writer::start_tag('div', array('class' => 'summary'));
         $o.= $this->format_summary_text($section);
-        $o.= html_writer::end_tag('div');
+        $o.= html_writer::end_tag('div');*/
 
         $context = context_course::instance($course->id);
         $o .= $this->section_availability_message($section,
