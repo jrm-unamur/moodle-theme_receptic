@@ -76,13 +76,14 @@ body.noblocks #region-main-settings-menu.has-blocks, body.noblocks #region-main.
 .switch:after {
     font-family: FontAwesome;
     color: #d9534f;
-    content: "\f011";
+    content: "\f044";
+    font-size: 1.3rem;
 }
 
 body.editing .switch:after {
     font-family: FontAwesome;
     color: #55ab26;
-    content: "\f011";
+    content: "\f044";
 }
 
 /*.switch:after {
@@ -624,4 +625,37 @@ body.editing .section-summmary-activities {
 
 .section-modchooser {
     padding: 0 6px;
+}
+
+/* Modals */
+.moodle-dialogue-base .moodle-dialogue-wrap.moodle-dialogue-content,
+.user-enroller-panel .uep-wrap {
+    border-radius: 0;
+    box-shadow: 0 3px 9px rgba(0,0,0,0.5);
+    border-style: solid;
+    border-color: $gray;
+    border-width: 0 0 0 6px;
+}
+
+.moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd,
+.moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd.yui3-widget-hd,
+.user-enroller-panel .uep-wrap .uep-header {
+    color: $brand-success;
+    font-family: $headings-font-family;
+    text-align: center;
+}
+
+.moodle-dialogue-base button.closebutton {
+    opacity: 1;
+    padding-top: .4rem;
+}
+
+.moodle-dialogue-base .closebutton::after {
+    font-family: FontAwesome;
+    content: "\f00d";
+    color: $brand-primary;
+}
+
+.choosercontainer #chooseform .submitbuttons {
+    text-align: center;
 }
