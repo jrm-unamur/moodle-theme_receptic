@@ -218,7 +218,7 @@ class format_topics_renderer extends \format_topics_renderer
      */
     protected function section_footer() {
         $o = html_writer::end_tag('div'); //jrm end div surrounding content to allow section collapsing
-        $o.= html_writer::end_tag('div');
+        //$o.= html_writer::end_tag('div');
         $o.= html_writer::end_tag('li');
 
         return $o;
@@ -243,6 +243,20 @@ class format_topics_renderer extends \format_topics_renderer
                 $o .= get_accesshide(get_string('currentsection', 'format_'.$course->format));
             }
         }
+
+        return $o;
+    }
+
+    protected function section_summary($section, $course, $mods) {
+        $o = '';
+        $o.= html_writer::start_tag('div', array('class' => 'summarytext'));
+        $o.= $this->format_summary_text($section);
+        $o.= html_writer::end_tag('div');
+        $o.= $this->section_activity_summary($section, $course, null);
+
+        $context = context_course::instance($course->id);
+        $o .= $this->section_availability_message($section,
+            has_capability('moodle/course:viewhiddensections', $context));
 
         return $o;
     }
