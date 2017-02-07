@@ -13,8 +13,8 @@ use completion_info;
 use html_writer;
 use moodle_url;
 
-require_once($CFG->dirroot . "/course/format/topics/renderer.php");
-class format_topics_renderer extends \format_topics_renderer {
+require_once($CFG->dirroot . "/course/format/weeks/renderer.php");
+class format_weeks_renderer extends \format_weeks_renderer {
     /** overrides format_section_renderer_base */
     public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
         global $PAGE;

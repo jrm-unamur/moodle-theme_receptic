@@ -34,7 +34,7 @@ $THEME->enable_dock = false;
 $THEME->yuicssmodules = array();
 // Mandatory to be able to override renderers.
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';
-$THEME->requiredblocks = 'settings';
+$THEME->requiredblocks = '';
 // Move the add block functionality to be in the flat navigation rather than the block region.
 $THEME->addblockposition = BLOCK_ADDBLOCK_POSITION_CUSTOM;
 // Override preset selection from boost theme to allow selecting preset from both themes.

@@ -476,7 +476,8 @@ a.sectiontoggle[aria-expanded="true"] {
     padding-left: 0;
 }
 
-.course-content ul.topics li.section .left {
+.course-content ul.topics li.section .left,
+.course-content ul.weeks li.section .left {
     padding: 0;
 }
 
@@ -489,11 +490,13 @@ a.sectiontoggle[aria-expanded="true"] {
     padding: .5rem 0;
 }
 
-body:not(.editing) .course-content ul.topics li.section .left.side {
+body:not(.editing) .course-content ul.topics li.section .left.side,
+body:not(.editing) .course-content ul.weeks li.section .left.side{
     display: none;
 }
 
-body.editing .course-content ul.topics li.section .left .icon.spacer {
+body.editing .course-content ul.topics li.section .left .icon.spacer,
+body.editing .course-content ul.weeks li.section .left .icon.spacer {
     width: 0;
 }
 

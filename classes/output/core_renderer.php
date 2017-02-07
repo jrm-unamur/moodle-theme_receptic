@@ -530,9 +530,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
         // Build an action menu based on the visible nodes from this navigation tree.
         foreach ($node->children as $menuitem) {
             // Skip non-useful menu items in course settings menu.
-            /*if ($menuitem->key == 'turneditingonoff') {
+            if ($menuitem->key == 'turneditingonoff') {
                 continue;
-            };*/
+            };
             if ($menuitem->display) {
                 if ($onlytopleafnodes && $menuitem->children->count()) {
                     $skipped = true;
