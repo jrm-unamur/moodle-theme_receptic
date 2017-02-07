@@ -70,3 +70,4 @@ $string['privatefileslink_desc'] = 'Add a "My private files" shortcut to the nav
 $string['emptycourselist'] = 'No courses';
 $string['mycourses'] = 'My courses';
 $string['addsection'] = 'Add new section';
+$string['unenrolme'] = 'Unenroll me from this course.';

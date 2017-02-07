@@ -68,3 +68,4 @@ $string['privatefileslink_desc'] = 'Ajoute un lien vers les fichiers personnels 
 $string['emptycourselist'] = 'Aucun cours';
 $string['mycourses'] = 'Mes cours';
 $string['addsection'] = 'Ajouter une section';
+$string['unenrolme'] = 'Me désinscrire de ce cours.';
