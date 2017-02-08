@@ -59,7 +59,7 @@ if ($blockscollapsed) {
 
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 $blockshtml = $OUTPUT->blocks('side-pre');
-$hasblocks = strpos($blockshtml, 'data-block=') !== false;
+$hasblocks = (strpos($blockshtml, 'data-block=') !== false) || $PAGE->user_is_editing();
 $regionmainsettingsmenu = $OUTPUT->region_main_settings_menu();
 $googlefonts = array(
     'Open+Sans:400,400italic,700,700italic,800,800italic',
