@@ -482,7 +482,7 @@ a.sectiontoggle[aria-expanded="true"] {
 }
 
 .section .left.side {
-    margin-top: 0.8rem;
+    margin-top: 0.9rem;
 }
 
 .course-content ul.topics li.section .content,
@@ -742,12 +742,26 @@ img.activityicon {
     overflow-y: visible;
 }
 
+.navbar-static-top .dropdown .dropdown-submenu .dropdown-menu {
+    overflow-y: auto;
+}
+
 .navbar-dark .navbar-nav .nav-item + .nav-item.dropdown-submenu {
     margin-left:0;
 }
 
 .dropdown-item.with-icon {
     padding-left: 5px;
+}
+
+h3.sectionname {
+    font-size: 1.5rem;
+    padding-top: 3px;
+}
+
+.course-content ul.topics li.section,
+.course-content ul.weeks li.section {
+    padding: 0;
 }
 
 /*.dropdown-submenu { position: relative }

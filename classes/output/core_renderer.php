@@ -61,7 +61,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
             $templatecontext->editbutton = $this->custom_menu_editing();
             $templatecontext->isloggedin = isloggedin();
-            /*$callnineoneone = core_plugin_manager::instance()->get_plugin_info('local_callnineoneone');
+            $callnineoneone = core_plugin_manager::instance()->get_plugin_info('local_callnineoneone');
             global $COURSE, $USER;
             if($callnineoneone &&
                 (has_capability('local/callnineoneone:call', context_system::instance()) || user_has_role_assignment($USER->id, 3))){
@@ -73,13 +73,12 @@ class core_renderer extends \theme_boost\output\core_renderer {
                     'url' => $this->page->url,
                     'courseid' => $COURSE->id
                 ));
-                //$url = new moodle_url('/local/callnineoneone/view.php',
-                //  array());
-                $html = '<li title="' . get_string('callnineoneone', 'local_callnineoneone') . '"><a href="' . $url . '">' . '<i style="font-size:larger;" class="fa fa-ambulance"></i></a></li>';
-                $templatecontext->callnineoneone = $html;
+
+                $html = '<a title="' . get_string('callnineoneone', 'local_callnineoneone') . '" href="' . $url . '">' . '<i style="font-size:larger;" class="fa fa-ambulance"></i></a>';
+                $templatecontext->callnineoneonebutton = $html;
             } else {
-                $templatecontext->callnineoneone = '';
-            }*/
+                $templatecontext->callnineoneonebutton = '';
+            }
         }
 
         return $this->render_from_template('theme_receptic/extra-navbar-buttons', $templatecontext);
@@ -390,6 +389,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             // Try again - crazy nav tree!
             $admin = $this->page->settingsnav->find('root', navigation_node::TYPE_SITE_ADMIN);
         }
+
         //print_object($admin);
         if ($admin) {
             $title = 'Admin';
@@ -477,7 +477,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     public function render_myaction_menu(action_menu $menu) {
-
+        global $COURSE;
         // We don't want the class icon there!
         foreach ($menu->get_secondary_actions() as $action) {
             if ($action instanceof \action_menu_link && $action->has_class('icon')) {
@@ -507,7 +507,14 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $context->classes .= ' nav-item action-menu-in-navbar';
         $context->primary->icon = '';
 
-
+        //horrible hack
+        $participants = new stdClass();
+        $action = new action_link(new moodle_url('/user/index.php?id=' . $COURSE->id), 'Participants', null, array('role' => 'menuitem'), new pix_icon('i/users', ''));
+        $participantslink = $action->export_for_template($this);
+        $participants->actionlink = $participantslink;
+        $item = new stdClass();
+        $item->content = $participants;
+        array_splice($context->secondary->items, 2, 0, $item);
         return $this->render_from_template('core/action_menu', $context);
     }
 
@@ -533,6 +540,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             if ($menuitem->key == 'turneditingonoff') {
                 continue;
             };
+
             if ($menuitem->display) {
                 if ($onlytopleafnodes && $menuitem->children->count()) {
                     $skipped = true;
