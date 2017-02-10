@@ -412,9 +412,9 @@ body.editing #page-content > a {
     color: #777;
 }
 
-.path-course #nav-drawer nav:nth-of-type(2) {
+/*.path-course #nav-drawer nav:nth-of-type(2) {
     display: none;
-}
+}*/
 
 .add_block_button {
 
@@ -764,6 +764,11 @@ h3.sectionname {
     padding: 0;
 }
 
+.popover-region.nav-link a:hover,
+.popover-region.nav-link a:focus {
+    text-decoration: none;
+}
+
 /*.dropdown-submenu { position: relative }
 .dropdown-submenu>.dropdown-menu {
     top: 0;
@@ -797,3 +802,51 @@ h3.sectionname {
     -moz-border-radius: 4px;
     border-radius: 4px;
 }*/
+
+/* Desktops and laptops ----------- */
+@media only screen  and (min-width : 1224px) {
+    [data-region="drawer-toggle"] {
+        display: none;
+    }
+    [data-region="drawer"] {
+        display: none;
+    }
+    body.drawer-open-left {
+        margin: 0;
+    }
+}
+
+/* Mobile ----------- */
+@media only screen  and (max-width : 1223px) {
+    .navbar-nav.largescreens {
+        display: none;
+    }
+}
+
+@media only screen  and (max-width : 767px) {
+    .switch > span {
+        display: none;
+    }
+    .switch:after {
+        font-family: FontAwesome;
+        color: #d9534f;
+        content: "\f044";
+        font-size: 1.3rem;
+    }
+    body.editing .switch:after {
+        font-family: FontAwesome;
+        color: #55ab26;
+        content: "\f044";
+    }
+}
+
+@media only screen  and (min-width : 768px) {
+    .switch:after {
+        color: #d9534f;
+        content: "OFF";
+    }
+    body.editing .switch:after {
+        color: #55ab26;
+        content: "ON";
+    }
+}

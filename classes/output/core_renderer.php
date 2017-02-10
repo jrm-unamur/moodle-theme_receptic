@@ -200,10 +200,10 @@ class core_renderer extends \theme_boost\output\core_renderer {
                     $html = '<a href="' .
                         $url .
                         '"  class="switch largescreen" title="' .
-                        $editstring .
-                        '">' .
+
+                        '"><span>' .
                         get_string('editmode', 'theme_receptic') .
-                        ' </a>';
+                        ' </span></a>';
                     if (!empty($this->page->theme->settings->hidedefaulteditingbutton) && 'my-index' !== $pagetype) {
                         // Unset button on page.
                         $this->page->set_button('');
