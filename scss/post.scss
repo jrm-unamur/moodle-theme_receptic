@@ -743,7 +743,7 @@ img.activityicon {
 }
 
 .navbar-static-top .dropdown .dropdown-submenu .dropdown-menu {
-    overflow-y: auto;
+    overflow-y: visible;
 }
 
 .navbar-dark .navbar-nav .nav-item + .nav-item.dropdown-submenu {
@@ -849,4 +849,22 @@ h3.sectionname {
         color: #55ab26;
         content: "ON";
     }
+}
+
+.shrinked {
+     font-size: .8rem;
+     margin-top: 0;
+ }
+
+.shrinked .dropdown-menu {
+    font-size: .8rem;
+    margin-top: -3px;
+}
+
+.moodle-dialogue:focus {
+    outline: none;
+}
+
+abbr[title] {
+    border: none;
 }
