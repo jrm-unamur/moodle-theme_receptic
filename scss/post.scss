@@ -421,9 +421,9 @@ body.editing #page-content > a {
     a {
         width: 100%;
         margin-bottom: 0.5rem;
-        i {
+        /*i {
             color: #1a9e9f;
-        }
+        }*/
     }
 }
 
@@ -867,4 +867,61 @@ h3.sectionname {
 
 abbr[title] {
     border: none;
+}
+
+img.iconlarge {
+    height: 24px;
+    width: 24px;
+}
+
+.path-mod h2 img.icon,
+.path-my .activity_overview img.icon {
+    filter: grayscale(100%);
+}
+.path-mod h2 img.icon {
+    margin-top: 0;
+    margin-bottom: .5rem;
+}
+
+.path-mod h2 a.btn-link,
+#completionprogressid a.btn-link {
+    margin-bottom: .3rem;
+}
+
+.path-mod h2 a.btn-link:before{
+    font-family: FontAwesome;
+    content: "\f059";
+    color: #1a9e9f;
+    padding-left: 1rem;
+    font-size: 1.8rem;
+}
+
+#completionprogressid a.btn-link:before {
+    font-family: FontAwesome;
+    content: "\f059";
+    color: #1a9e9f;
+    padding-left: .5rem;
+    font-size: 1.2rem;
+}
+
+.path-mod h2 a.btn-link:hover,
+.path-mod h2 a.btn-link:hover:before,
+.path-mod h2 a.btn-link:focus,
+.path-mod h2 a.btn-link:focus:before,
+#completionprogressid a.btn-link:hover,
+#completionprogressid a.btn-link:hover:before,
+#completionprogressid a.btn-link:focus,
+#completionprogressid a.btn-link:focus:before {
+    text-decoration: none;
+    color: $brand-success;
+    outline: none;
+}
+
+.path-mod h2 a img,
+#completionprogressid a img {
+    display:none;
+}
+
+.col-form-label {
+    font-weight:bold;
 }

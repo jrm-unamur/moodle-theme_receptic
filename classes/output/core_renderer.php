@@ -214,7 +214,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 }
             }
         }
-        return $html;
+        return '<div class="popover-region nav-link" style="padding-top:.6rem; margin-right:1.5rem;">' .
+                $html .
+                '</div>';
     }
 
     /*public function mainnavbar_extra_components() {
@@ -599,7 +601,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             ($addable = $this->page->blocks->get_addable_blocks())) {
             $url = new moodle_url($this->page->url, ['bui_addblock' => '', 'sesskey' => sesskey()]);
             $addblock = '<div class="add_block_button">' .
-                    '<a class="btn btn-default" href="' . $url->out() . '" data-key="addblock" >' .
+                    '<a class="btn btn-primary" href="' . $url->out() . '" data-key="addblock" >' .
                     '<i class="fa fa-plus"></i> ' .
                     get_string('addblock') .
                     '</a></div>';

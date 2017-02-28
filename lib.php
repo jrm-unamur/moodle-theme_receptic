@@ -141,10 +141,10 @@ function theme_receptic_update_settings_images($settingname) {
     theme_reset_all_caches();
 }
 
-function theme_receptic_render_navbar_output(\theme_boost\output\core_renderer $renderer) {
-    global $USER, $PAGE, $COURSE;
-    $output = '';
-    if(has_capability('local/callnineoneone:call', context_system::instance())
+//function theme_receptic_render_navbar_output(\theme_receptic\output\core_renderer $renderer) {
+  //  global $USER, $PAGE, $COURSE;
+   // $output = '';
+   /* if(has_capability('local/callnineoneone:call', context_system::instance())
         || user_has_role_assignment($USER->id, 3)){
 
         $url = new moodle_url('/local/callnineoneone/view.php', array(
@@ -163,11 +163,7 @@ function theme_receptic_render_navbar_output(\theme_boost\output\core_renderer $
         'pagelayout' => $PAGE->pagelayout,
         'url' => $PAGE->url,
         'courseid' => $COURSE->id
-    ));
+    ));*/
 
-    $output .= '<div class="popover-region nav-link" style="padding-top:.6rem; margin-right:1.5rem;">' .
-                $renderer->custom_menu_editing() .
-                '</div>';
-
-    return $output;
-}
+ //   return $output;
+//}

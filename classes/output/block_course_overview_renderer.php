@@ -33,6 +33,14 @@ class theme_receptic_block_course_overview_renderer extends block_course_overvie
      */
     public function course_overview($courses, $overviews)
     {
+        //If no user custom order sort by shortname.
+        if(empty(block_course_overview_get_myorder())) {
+            usort($courses, function($a, $b)
+            {
+                return strcmp($a->shortname, $b->shortname);
+            });
+        }
+
         $html = '';
         $config = get_config('block_course_overview');
         if ($config->showcategories != BLOCKS_COURSE_OVERVIEW_SHOWCATEGORIES_NONE) {
