@@ -214,9 +214,212 @@ body.editing #page-content > a {
     }
 }
 
+.path-calendar {
+    .calendartable {
+        width: 100%;
+
+        th,
+        td {
+            width: 14%;
+            vertical-align: top;
+            text-align: center;
+            border: 0;
+        }
+    }
+
+    .calendar-controls {
+        .previous,
+        .next,
+        .current {
+            display: block;
+            float: left;
+            width: 12%;
+        }
+
+        .previous {
+            text-align: left;
+        }
+
+        .current {
+            text-align: center;
+            width: 76%;
+        }
+
+        .next {
+            text-align: right;
+        }
+    }
+
+    .filters {
+        table {
+            border-collapse: separate;
+            border-spacing: 2px;
+            width: 100%;
+        }
+    }
+
+    .maincalendar {
+        vertical-align: top;
+        padding: 0;
+
+        .bottom {
+            text-align: center;
+            padding: 5px 0 0 0;
+        }
+
+        .heightcontainer {
+            height: 100%;
+            position: relative;
+            > h2:before {
+                font-family: FontAwesome;
+                content: "\f073";
+                padding-right: .5rem;
+            }
+        }
+
+        .calendarmonth {
+            width: 100%;
+            margin: 0;
+            margin-bottom: 1rem;
+            border: 1px solid #c4c4c4;
+            border-top: none;
+        }
+
+        .calendarmonth {
+            ul {
+                margin: 0;
+                padding: 0;
+
+                li {
+                    list-style-type: none;
+                    margin-top: 4px;
+                }
+            }
+            td {
+                border: 1px dotted #ddd;
+                color: #6b6b6b;
+                height: 5em;
+            }
+            th {
+                padding: 15px 0;
+                background-color: #eee;
+                color: #333;
+                font-weight: normal;
+                font-size: 1.2em;
+                border: none;
+            }
+            .weekend {
+                background-color: #f3f3f3;
+            }
+        }
+
+        .calendar-controls {
+            .previous,
+            .next {
+                width: 30%;
+                background-color: $brand-primary;
+                color: #fff;
+                padding: 1rem 0;
+                text-align: center;
+            }
+
+            .current {
+                width: 39.95%;
+                padding: 10px 10px 0;
+                border-top: 1px solid #c4c4c4;
+            }
+            a:hover,
+            a:focus,
+            a:active {
+                text-decoration: none;
+                color: #ddd;
+            }
+        }
+
+        .controls {
+            width: 100%;
+            margin: 10px 0 0;
+        }
+
+        .calendar_event_course,
+        .calendar_event_global,
+        .calendar_event_group,
+        .calendar_event_user {
+            border-width: 1px 1px 1px 12px;
+            border-style: solid;
+        }
+
+        .calendar_event_course {
+            border-color: $calendarEventCourseColor;
+        }
+
+        .calendar_event_global {
+            border-color: $calendarEventGlobalColor;
+        }
+
+        .calendar_event_group {
+            border-color: $calendarEventGroupColor;
+        }
+
+        .calendar_event_user {
+            border-color: $calendarEventUserColor;
+        }
+        //.calendar-event-panel {
+        //    background-color: $grayLighter;
+        //    border: 2px solid $grayLighter;
+        //    .yui3-overlay-content {
+        //        padding: 19px;
+        //        background-color: lighten($wellBackground, 3%);
+        //        border: 1px solid darken($wellBackground, 7%);
+        //        @include border-radius($baseBorderRadius);
+        //        @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, .05));
+        //    }
+        //}
+        .calendar-event-panel {
+            @extend .card;
+        }
+
+        .calendar-controls {
+            .current {
+                @extend .h2;
+            }
+        }
+
+        .calendartable {
+            td,
+            li {
+                padding: 5px;
+            }
+
+            li {
+                padding-left: 10px;
+                text-align: left;
+            }
+        }
+
+        .header {
+            overflow: hidden;
+            margin: 1rem auto;
+
+            .buttons {
+                float: right;
+            }
+        }
+
+        .event .card-header img {
+            vertical-align: baseline;
+        }
+
+        .ical-link {
+            bakcground-color: $brand-primary;
+            font-size: 1rem;
+        }
+
+    }
+}
 
 // Main calendar restyling.
-.path-calendar {
+/*.path-calendar {
     .cal_courses_flt {
         label {
             font-weight: bold;
@@ -389,7 +592,7 @@ body.editing #page-content > a {
         }
 
     }
-}
+}*/
 
 #region-main .card.card-block {
     box-shadow: 1px 2px 3px 0 #ccc;
@@ -652,15 +855,25 @@ body.editing .section-summmary-activities {
     text-align: center;
 }
 
-.moodle-dialogue-base button.closebutton {
+.moodle-dialogue-base button.closebutton,
+.user-enroller-panel .uep-header .close {
     opacity: 1;
     padding-top: .4rem;
 }
 
-.moodle-dialogue-base .closebutton::after {
+.moodle-dialogue-base .closebutton::after,
+.user-enroller-panel .uep-header .close:after{
     font-family: FontAwesome;
     content: "\f00d";
     color: $brand-primary;
+}
+
+.user-enroller-panel .uep-header .close {
+    color: #fff;
+}
+
+.user-enroller-panel .uep-header .close:hover {
+    opacity: .5;
 }
 
 .choosercontainer #chooseform .submitbuttons {
@@ -885,22 +1098,24 @@ img.iconlarge {
 
 .path-mod h2 a.btn-link,
 #completionprogressid a.btn-link {
-    margin-bottom: .3rem;
+    /*margin-bottom: .3rem;*/
 }
 
 .path-mod h2 a.btn-link:before{
-    font-family: FontAwesome;
+    /*moved to .help-icon*/
+    /*font-family: FontAwesome;
     content: "\f059";
     color: #1a9e9f;
-    padding-left: 1rem;
+    padding-left: 1rem;*/
     font-size: 1.8rem;
 }
 
 #completionprogressid a.btn-link:before {
-    font-family: FontAwesome;
+    /*moved to .help-icon*/
+    /*font-family: FontAwesome;
     content: "\f059";
     color: #1a9e9f;
-    padding-left: .5rem;
+    padding-left: .5rem;*/
     font-size: 1.2rem;
 }
 
@@ -924,4 +1139,458 @@ img.iconlarge {
 
 .col-form-label {
     font-weight:bold;
+}
+
+.help-icon {
+    margin-bottom: .2rem;
+}
+
+.help-icon:before {
+    font-family: FontAwesome;
+    content: "\f059";
+    color: #1a9e9f;
+    padding-left: .5rem;
+    font-size: 1.2rem;
+}
+
+h2 .help-icon:before {
+    font-size: 1.8rem;
+    padding-left: 1rem;
+}
+
+.help-icon:hover,
+.help-icon:hover:before,
+.help-icon:focus,
+.help-icon:focus:before {
+    text-decoration: none;
+    color: $brand-success;
+    outline: none;
+}
+
+input[type=submit] {
+    color: #fff;
+    background-color: #1a9e9f;
+    border-color: #1a9e9f;
+    display: inline-block;
+    font-weight: normal;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    /*border-radius: .25rem;*/
+}
+
+/*input[type=submit]:hover {
+    color: #fff;
+    background-color: $brand-success;
+    border-color: $brand-success;
+}*/
+
+input[type=submit].btn-secondary {
+    color: #fff;
+    background-color: #696969;
+    border-color: #696969;
+}
+
+input[type=submit].btn-secondary:hover {
+    color: #fff;
+    background-color: #505050;
+    border-color: #505050;
+}
+
+input[type=submit]:disabled {
+    cursor: $cursor-disabled;
+    opacity: .65;
+}
+
+input[type=submit]:disabled:hover {
+    background-color: $brand-primary;
+    border-color: $brand-primary;
+}
+
+input[type=submit].btn-secondary:disabled:hover {
+    background-color: #696969;
+    border-color: #696969;
+}
+
+.buttons {
+    text-align: center;
+}
+
+.backlink {
+    text-align: center;
+}
+
+#gradetreesubmit {
+    text-align: center;
+}
+
+/* Question bank page */
+#page-question-edit #displayoptions {
+    background-color: #efefef;
+    padding: 1rem;
+}
+
+#page-question-edit .boxaligncenter.categoryinfo {
+    padding-left: 0;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+label {
+    font-weight: bold;
+}
+
+#page-question-edit .createnewquestion {
+    margin: 1rem 0;
+}
+
+#page-question-edit .singlebutton button[type="submit"] {
+    margin-left: 0;
+    background-color: $brand-primary;
+    border-color: $brand-primary;
+    color: #fff;
+}
+
+/*#page-question-edit .singlebutton button[type="submit"]:hover {
+    background-color: $brand-success;
+    border-color: $brand-success;
+}*/
+
+#categoryquestions th.header {
+    padding-bottom: .5rem;
+    text-align: center;
+    border-bottom: 2px solid #eee;
+}
+
+#categoryquestions td.creatorname,
+#categoryquestions td.modifiername {
+    text-align: center;
+    font-size: smaller;
+    line-height: 1.2em;
+    padding: 5px;
+}
+
+#categoryquestions .qtype {
+    width: 3rem;
+}
+
+
+.questionbankwindow .choosecategory label,
+.questionbankwindow input[type=checkbox] {
+    margin-right: .5rem;
+}
+
+.btn-secondary, .btn-default {
+    color: #fff;
+    background-color: #696969;
+    border-color: #696969;
+}
+
+.btn-secondary:hover, .btn-default:hover,
+.btn-secondary:active, .btn-default:active,
+.btn-secondary:focus, .btn-default:focus {
+    background-color: #505050;
+    border-color: #505050;
+    color:#fff;
+}
+
+.filemanager .btn-secondary {
+    color: #373a3c;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.btn {
+    border-radius: 0;
+}
+
+/*.btn-primary:hover {
+    background-color: $brand-success;
+    border-color: $brand-success;
+}*/
+
+.filepicker-filelist,
+.filepicker-container {
+    border: 1px solid #bbb;
+    margin-top: .5rem;
+}
+
+.form-inline .form-check {
+    padding-right: .5rem;
+}
+
+.form-group.row input[type=submit] {
+    margin-left: 1rem;
+}
+
+.fcontainer .form-group.row input[type=submit] {
+    margin-left: 0;
+}
+
+.choosercontainer label {
+    font-weight: normal;
+}
+
+ul {
+    padding-left: 1rem;
+}
+
+.path-user .userlist .controls,
+.path-user .userlist .rolesform {
+    margin-bottom: .5rem;
+}
+
+.path-user .userlist #participants {
+    margin-top: 1rem;
+}
+
+.path-user #participantsform #checknone {
+    margin-left: .5rem;
+}
+
+#page-enrol-users #filterform {
+     background-color: #efefef;
+     padding: 1rem;
+}
+
+.moodle-dialogue .confirmation-buttons {
+    text-align: center;
+}
+
+.moodle-dialogue .confirmation-buttons .btn {
+    margin-bottom: .5rem;
+}
+
+.uep-header h2,
+.moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd h1 {
+    font-size: 1.5rem;
+}
+
+.uep-content.modal-body {
+    padding: 0;
+}
+.uep-content .uep-controls {
+    background-color: #efefef;
+    padding: 1rem;
+    border-bottom: 1px solid #bbb;
+}
+
+.uep-content .uep-search-results .totalusers {
+    background-color: #efefef;
+    padding: 5px;
+    border-bottom: 1px solid #BBB;
+    font-size: .8rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.uep-content .uep-search-results .users {
+    font-size: .9rem;
+}
+
+
+
+#page-mod-quiz-edit input[type=checkbox] {
+    margin-right: 5px;
+}
+
+#page-mod-quiz-edit .section-heading,
+.path-mod-quiz #mod_quiz_navblock h3.mod_quiz-section-heading {
+    font-size: 1.2rem;
+    padding: .5rem 0;
+}
+
+// Style attempt page
+#page-mod-quiz-attempt .que,
+#page-mod-quiz-review .que,
+#page-question-preview .que {
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.4);
+    padding: 15px;
+    background-color: #fcf8e3;
+    margin-botto: 0;
+}
+
+.que .formulation {
+    background: transparent;
+    border: none;
+    color: #333;
+}
+
+.que .info {
+    border: none;
+    border-radius: 0;
+}
+
+.que .info .editquestion img {
+    margin-left: 0;
+}
+
+.que .answer label {
+    font-weight: normal;
+}
+
+.que .answer .m-l-1 {
+    margin-left: .5rem !important;
+}
+
+.que h3.no {
+    font-size: 1em;
+}
+
+.que span.qno {
+    font-size: 1.3em;
+}
+
+.que .outcome {
+    background-color: #eee;
+    margin-left: 15px;
+}
+
+#mod-quiz-navblock h3 {
+    font-size: 1.2rem;
+}
+
+    // Quiz module
+.path-mod-quiz .mod-quiz-edit-content {
+    // Force the quiz edit page to always be large enough to prevent scrolling when accessing the menu.
+    margin-bottom: 10rem;
+}
+
+#page-mod-quiz-mod #id_reviewoptionshdr .col-md-3,
+#page-mod-quiz-mod #id_reviewoptionshdr .col-md-9 {
+    width: auto;
+}
+#page-mod-quiz-mod #id_reviewoptionshdr .form-group {
+    float: left;
+    width: 20rem;
+    display: inline-block;
+    min-height: 12rem;
+}
+
+#page-mod-quiz-mod #id_reviewoptionshdr .btn-link {
+    line-height: 1.5;
+    vertical-align: bottom;
+}
+#page-mod-quiz-mod #id_reviewoptionshdr .form-inline {
+    float: left;
+    clear: left;
+}
+#page-mod-quiz-mod #id_reviewoptionshdr .form-check {
+    width: 90%;
+    height: 22px;
+}
+
+// Question navigation block.
+.path-mod-quiz #mod_quiz_navblock {
+    .qnbutton {
+        text-decoration: none;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: normal;
+        background-color: $brand-primary;
+        background-image: none;
+        height: 40px;
+        width: 30px;
+        border-radius: 0;
+        border: 0;
+        overflow: visible;
+        margin: 0 6px 6px 0;
+    }
+
+    span.qnbutton {
+        cursor: default;
+        background-color: $input-bg-disabled;
+        color: $gray;
+    }
+
+    a.qnbutton:hover,
+    a.qnbutton:active,
+    a.qnbutton:focus {
+        /*text-decoration: underline;*/
+    }
+
+    .qnbutton .thispageholder {
+        border: 1px solid $gray-light;
+        border-radius: 0px;
+        z-index: 1;
+    }
+
+    .qnbutton.thispage .thispageholder {
+        border-width: 3px;
+    }
+
+    .allquestionsononepage .qnbutton.thispage .thispageholder {
+        border-width: 1px;
+    }
+
+    .qnbutton.flagged .thispageholder {
+        background: transparent url([[pix:theme|mod/quiz/flag-on]]) 15px 0 no-repeat;
+    }
+
+    .qnbutton .trafficlight {
+        border: 0;
+        background: $brand-primary none center / 10px no-repeat scroll;
+        height: 20px;
+        margin-top: 20px;
+        border-radius: 0 0 3px 3px;
+    }
+
+    .qnbutton.notyetanswered .trafficlight,
+    .qnbutton.invalidanswer .trafficlight {
+        background-color: $brand-primary;
+    }
+
+    .qnbutton.invalidanswer .trafficlight {
+        background-image: url([[pix:theme|mod/quiz/warningtriangle]]);
+    }
+
+    .qnbutton.correct .trafficlight {
+        /*background-image: url([[pix:theme|mod/quiz/checkmark]]);*/
+        background-color: $state-success-text;
+    }
+
+    .qnbutton.correct .trafficlight:before {
+        font-family: FontAwesome;
+        content: "\f00c";
+        color: #fff;
+    }
+
+    .qnbutton.blocked .trafficlight {
+        background-image: url([[pix:core|t/locked]]);
+        background-color: $input-bg-disabled;
+    }
+
+    .qnbutton.notanswered .trafficlight,
+    .qnbutton.incorrect .trafficlight {
+        background-color: $state-danger-text;
+    }
+    .qnbutton.incorrect .trafficlight {
+        /*background-image: url([[pix:theme|mod/quiz/cross]]);*/
+    }
+
+    .qnbutton.incorrect .trafficlight:before {
+        font-family: FontAwesome;
+        content: "\f00d";
+        color: #fff;
+    }
+
+    .qnbutton.partiallycorrect .trafficlight {
+        background-image: url([[pix:theme|mod/quiz/whitecircle]]);
+        background-color: $state-warning-text;
+    }
+
+    .qnbutton.complete .trafficlight,
+    .qnbutton.answersaved .trafficlight,
+    .qnbutton.requiresgrading .trafficlight {
+        background-color: $gray-light;
+    }
 }
