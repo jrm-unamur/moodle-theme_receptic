@@ -826,7 +826,7 @@ body.editing .section-summmary-activities {
     margin: 3px;
     white-space: nowrap;
     display: inline-block;
-    color: #696969;
+    color: $gray;
 }
 
 .course-content .summarytext {
@@ -1196,14 +1196,14 @@ input[type=submit] {
 
 input[type=submit].btn-secondary {
     color: #fff;
-    background-color: #696969;
-    border-color: #696969;
+    background-color: $gray;
+    border-color: $gray;
 }
 
 input[type=submit].btn-secondary:hover {
     color: #fff;
-    background-color: #505050;
-    border-color: #505050;
+    background-color: $gray-dark;
+    border-color: $gray-dark;
 }
 
 input[type=submit]:disabled {
@@ -1217,8 +1217,8 @@ input[type=submit]:disabled:hover {
 }
 
 input[type=submit].btn-secondary:disabled:hover {
-    background-color: #696969;
-    border-color: #696969;
+    background-color: $gray;
+    border-color: $gray;
 }
 
 .buttons {
@@ -1291,15 +1291,15 @@ label {
 
 .btn-secondary, .btn-default {
     color: #fff;
-    background-color: #696969;
-    border-color: #696969;
+    background-color: $gray;
+    border-color: $gray;
 }
 
 .btn-secondary:hover, .btn-default:hover,
 .btn-secondary:active, .btn-default:active,
 .btn-secondary:focus, .btn-default:focus {
-    background-color: #505050;
-    border-color: #505050;
+    background-color: $gray-dark;
+    border-color: $gray-dark;
     color:#fff;
 }
 
@@ -1593,4 +1593,18 @@ ul {
     .qnbutton.requiresgrading .trafficlight {
         background-color: $gray-light;
     }
+}
+
+#page-question-preview #page.container-fluid {
+    padding: 1.5rem;
+    margin-top: 0;
+}
+
+#page-question-preview .notifytiny {
+    margin-top: 0;
+}
+
+#page-question-preview #previewcontrols input {
+    margin-right: .5rem;
+    margin-bottom: .5rem;
 }

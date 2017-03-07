@@ -6,11 +6,17 @@
  */
 
 // Colors
-$gray-dark:                 #373a3c !default;
+/*$gray-dark:                 #373a3c !default;
 $gray:                      #494949 !default;
 $gray-light:                #696969 !default;
 $gray-lighter:              #eceeef !default;
-$gray-lightest:             #f7f7f9 !default;
+$gray-lightest:             #f7f7f9 !default;*/
+
+$gray-dark:                 #494949 !default;
+$gray:                      #696969 !default;
+$gray-light:                #898989 !default;
+$gray-lighter:              #c9c9c9 !default;
+$gray-lightest:             #f1f1f1 !default;
 
 $brand-primary:             #1a9e9f !default;
 $brand-success:             #55ab26 !default;
@@ -134,7 +140,7 @@ $blocks-column-width : 260px !default;
 
 .navbar-dark {
     background-color: #fff;
-    background-image: linear-gradient(to bottom, #626262 0%, #494949 100%);
+    background-image: linear-gradient(to bottom, $gray 0%, $gray-dark 100%);
 
     .container {
         padding-left: 0;
@@ -190,7 +196,7 @@ $blocks-column-width : 260px !default;
         [data-region="drawer-toggle"] {
             .btn-secondary {
                 color: #fff;
-                background-color: #494949;
+                background-color: $gray-dark;
                 border-color: #888888;
                 @include hover-focus {
                     color: #c0c0c0;
