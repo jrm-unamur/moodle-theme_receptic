@@ -203,9 +203,9 @@ class format_topics_renderer extends \format_topics_renderer {
         $o.= $this->format_summary_text($section);
         $o.= html_writer::end_tag('div');*/
 
-        $context = context_course::instance($course->id);
+        /*$context = context_course::instance($course->id);
         $o .= $this->section_availability_message($section,
-            has_capability('moodle/course:viewhiddensections', $context));
+            has_capability('moodle/course:viewhiddensections', $context));*/
 
         return $o;
     }

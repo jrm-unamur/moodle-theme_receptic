@@ -322,7 +322,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                         'M\'inscre aux cours de mon programme'
                     );
                 }
-                if (true) {//(has_capability('local/createcourse:create', context_system::instance())) {
+                if (has_capability('local/createcourse:create', context_system::instance())) {
                     $branch->add(
                         '#######',
                         new moodle_url('/'),
@@ -386,13 +386,13 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     public function admin_link() {
+        global $CFG;
         $admin = $this->page->settingsnav->find('siteadministration', navigation_node::TYPE_SITE_ADMIN);
         if (!$admin) {
             // Try again - crazy nav tree!
             $admin = $this->page->settingsnav->find('root', navigation_node::TYPE_SITE_ADMIN);
         }
 
-        //print_object($admin);
         if ($admin) {
             $title = 'Admin';
             $label = '<i class="fa fa-cog"> </i>' . $title;
@@ -403,7 +403,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
         //$admin = $this->page->settingsnav->find('root', navigation_node::TYPE_SITE_ADMIN);
         if ($admin) {
-            return $this->render_from_template('theme_receptic/custom_admin_menu', ['node' => $admin]);
+            $expanded = count($admin->get_children_key_list());
+            return $this->render_from_template('theme_receptic/custom_admin_menu', ['node' => $admin, 'url' => $CFG->wwwroot . '/admin/search.php', 'expanded' => $expanded]);
         }
     }
 
@@ -454,6 +455,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             }
         } else if ($showcoursemenu) {
             $settingsnode = $this->page->settingsnav->find('courseadmin', navigation_node::TYPE_COURSE);
+
             if ($settingsnode) {
                 // Build an action menu based on the visible nodes from this navigation tree.
                 $skipped = $this->build_action_menu_from_navigation($menu, $settingsnode, false, true);

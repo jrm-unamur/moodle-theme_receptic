@@ -1341,7 +1341,7 @@ label {
 }
 
 ul {
-    padding-left: 1rem;
+    padding-left: 1.5rem;
 }
 
 .path-user .userlist .controls,
@@ -1357,9 +1357,12 @@ ul {
     margin-left: .5rem;
 }
 
-#page-enrol-users #filterform {
-     background-color: #efefef;
-     padding: 1rem;
+#page-enrol-users #filterform,
+#filterform,
+#exportsettingsform {
+    background-color: #efefef;
+    padding: 1rem;
+    margin-bottom: .75rem;
 }
 
 .moodle-dialogue .confirmation-buttons {
@@ -1607,4 +1610,26 @@ ul {
 #page-question-preview #previewcontrols input {
     margin-right: .5rem;
     margin-bottom: .5rem;
+}
+
+.path-course-view .content > div.availabilityinfo {
+    margin-left: 2rem;
+}
+
+.course-content .summarytext {
+    margin-left: 1.5rem;
+}
+
+div.availabilityinfo:before {
+    font-family: FontAwesome;
+    content: "\f071";
+    color: $brand-danger;
+    padding-right: 5px;
+}
+
+.availability-connector .label {
+    font-size: 14px;
+    background-color: $brand-primary;
+    margin: 4px;
+    margin-lef: 25px;
 }

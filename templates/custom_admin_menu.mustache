@@ -36,6 +36,7 @@
         }
     }
 }}
+{{#expanded}}
 <span class="dropdown nav-item">
     <a class="dropdown-toggle nav-link" id="drop-down-{{uniqid}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
         <i class="fa fa-cog"></i> Admin
@@ -44,8 +45,13 @@
         {{#node.children}}
             {{> theme_receptic/custom_admin_submenu }}
         {{/node.children}}
+
     </div>
 </span>
+{{/expanded}}
+{{^expanded}}
+    <a class="nav-item nav-link" href="{{{url}}}" title="Administration"><i class="fa fa-cog"></i> Admin</a>
+{{/expanded}}
 <!--<span class="btn-group pull-right">
     <button class="btn btn-transparent btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
     <div class="dropdown-menu">
