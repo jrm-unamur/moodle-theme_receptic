@@ -6,11 +6,8 @@
  */
 
 // Colors
-/*$gray-dark:                 #373a3c !default;
-$gray:                      #494949 !default;
-$gray-light:                #696969 !default;
-$gray-lighter:              #eceeef !default;
-$gray-lightest:             #f7f7f9 !default;*/
+$white:                     #fff !default;
+$red:                       #d9534f !default;
 
 $gray-dark:                 #494949 !default;
 $gray:                      #696969 !default;
@@ -51,7 +48,7 @@ $table-bg:                      transparent !default;
 $table-bg-accent:               #fafafa !default;
 $table-bg-hover:                $gray-lighter;
 $table-bg-active:               $table-bg-hover !default;
-$table-border-color:            #f4f4f4 !default;
+$table-border-color:            $gray-lightest !default;
 
 // Dropdowns
 $dropdown-border-color:          #e2e2e2 !default;
@@ -64,7 +61,7 @@ $navbar-light-active-color:         $brand-primary !default;
 
 // Cards
 $card-border-radius:       0 !default;
-$card-border-color:        rgba(238, 238, 238, 1) !default;
+$card-border-color:        $gray-lightest !default;
 
 // Breadcrumbs
 $breadcrumb-bg:                 transparent !default;
@@ -79,67 +76,39 @@ $blocks-column-width : 260px !default;
 @import "moodle";
 
 /**
- * Navigation bar identity.
+ * Brand banner and logos.
  */
-.navbar-light {
-    background-color: #fff;
-    border-bottom: $border-width solid #e5e5e5;
 
-    .container {
-        padding-left: 0;
-        padding-right: 0;
+.brand-banner {
+    background: linear-gradient(to bottom, $gray-lightest 0%, $gray-lightest 30%,darken($link-hover-color,5%) 31%,$link-hover-color 95%);
+    height: 80px;
+
+    img {
+        height: 55px;
     }
 
-    .navbar-brand {
-        padding-left: 1rem;
-        padding-right: 1rem;
-        margin-right: $spacer * 2;
-        color: transparent;
-        background-color: transparent;
-        /*@include hover-focus {
-            color: #fff;
-        }
-        &.has-logo {
-            color: $brand-primary;
-            background-color: transparent;
-            @include hover-focus {
-                color: $brand-primary;
-            }
-        }*/
+    .left-logo {
+        position: absolute;
+        top: 10px;
+        left: 15px;
+        height: 55px;
+        box-shadow: 4px 4px 15px $gray;
     }
 
-    /*.navbar-brand {
-        padding-left: 1rem;
-        padding-right: 1rem;
-        margin-right: $spacer * 2;
-        color: #fff;
-        background-color: $brand-primary;
-        @include hover-focus {
-            color: #fff;
-        }
-        &.has-logo {
-            color: $brand-primary;
-            background-color: transparent;
-            @include hover-focus {
-                color: $brand-primary;
-            }
-        }
-    }*/
-
-    .navbar-nav {
-        .nav-item + .nav-item {
-            margin-left: $spacer * 2;
-        }
-        .nav-link {
-            font-size: $font-size-sm;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+    .right-logo {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        height: 55px;
+        box-shadow: 4px 4px 15px $gray;
     }
 }
 
+/**
+ * Navigation bar identity.
+ */
 .navbar-dark {
-    background-color: #fff;
+    background-color: $white;
     background-image: linear-gradient(to bottom, $gray 0%, $gray-dark 100%);
 
     .container {
@@ -153,26 +122,16 @@ $blocks-column-width : 260px !default;
         margin-right: $spacer * 2;
         color: transparent;
         background-color: transparent;
-        /*@include hover-focus {
-            color: #fff;
-        }
-        &.has-logo {
-            color: $brand-primary;
-            background-color: transparent;
-            @include hover-focus {
-                color: $brand-primary;
-            }
-        }*/
     }
     a {
-        color: #fff;
+        color: $white;
         @include hover-focus {
-            color: #c0c0c0;
+            color: $gray-lighter;
         }
         &.dropdown-item {
-            color: #555;
+            color: $gray-dark;
             @include hover-focus {
-                color: #777;
+                color: $gray;
             }
         }
     }
@@ -185,9 +144,9 @@ $blocks-column-width : 260px !default;
             font-size: $font-size-root;
             text-transform: inherit;
             letter-spacing: normal;
-            color: #fff;
+            color: $white;
             @include hover-focus {
-                color: #c0c0c0;
+                color: $gray-lighter;
             }
             .fa {
                 padding-right: 3px;
@@ -195,11 +154,11 @@ $blocks-column-width : 260px !default;
         }
         [data-region="drawer-toggle"] {
             .btn-secondary {
-                color: #fff;
+                color: $white;
                 background-color: $gray-dark;
-                border-color: #888888;
+                border-color: $gray-light;
                 @include hover-focus {
-                    color: #c0c0c0;
+                    color: $gray-lighter;
                 }
             }
         }
@@ -227,15 +186,10 @@ $blocks-column-width : 260px !default;
     border-radius: 0;
     .dropdown-item:first-of-type {
         padding-top: 8px;
-        //padding-bottom: 8px;
-        //border-bottom: $border-width solid $dropdown-border-color;
         &:last-child {
             border-bottom: 0;
         }
     }
-    /*.dropdown-divider {
-        display: none;
-    }*/
 }
 
 /**
@@ -270,131 +224,162 @@ $blocks-column-width : 260px !default;
 /**
  * Blocks.
  */
-.block-region .card-block {
-    .card-title {
-        padding-bottom: ($spacer/2);
-    }
-}
-
-.block {
+.block-region .block {
     border-style: solid;
     border-width: 0 0 0 6px;
     border-color: $gray;
+
+    .card-block {
+        box-shadow: 1px 2px 3px 0 $gray-lighter;
+        padding: 1rem .5rem;
+
+        .block-control-actions {
+            padding-right: 0.5rem;
+        }
+        .card-title {
+            border-bottom: 1px solid $gray-lighter;
+            color: $brand-success;
+            font-size: 1.3rem;
+            text-transform: none;
+            font-weight: 500;
+            padding-bottom: ($spacer/2);
+            padding-left: .5rem;
+        }
+        .card-title:before {
+            font-family: FontAwesome;
+            font-size: 1rem;
+            color: $gray;
+            margin-right: 0.5rem;
+            text-align: center;
+            float: left;
+            padding-top: .2rem;
+        }
+        h3:before {
+            font-family: FontAwesome;
+        }
+        .content {
+            padding: 4px 1rem;
+            h3:before {
+                content: "";
+            }
+        }
+    }
     &.block_course_overview {
         border: none;
         .card-block {
             box-shadow: none;
         }
-    }
-    .card-title {
-        border-bottom: 1px solid $gray-lighter;
-        color: $brand-success;
-        font-size: 1.3rem;
-        text-transform: none;
-        font-weight: 500;
-        padding-left: .5rem;
-    }
-    .card-title:before {
-        font-family: FontAwesome;
-        font-size: 1rem;
-        color: $gray;
-        margin-right: 0.5rem;
-        text-align: center;
-        float: left;
-        padding-top: .2rem;
-    }
-    .block-control-actions {
-        padding-right: 0.5rem;
-    }
-    .card-block {
-        box-shadow: 1px 2px 3px 0 #ccc;
-        padding: 1rem .5rem;
-    }
-    .content {
-        padding: 4px 1rem;
         h3:before {
-            content: "";
+            content: "\f19d";
         }
     }
-    h3:before {
-        font-family: FontAwesome;
+    &.block_calendar_month h3:before,
+    &.block_calendar_upcoming h3:before {
+        content: "\f073";
     }
-}
 
-[data-region="blocks-column"] {
-    img {
-        height: 1rem !important;
-        width: 1rem !important;
+    &.block_recent_activity h3:before {
+        content: "\f017";
     }
-}
 
-.block_calendar_month h3:before,
-.block_calendar_upcoming h3:before {
-    content: "\f073";
-}
+    &.block_settings h3:before {
+        content: "\f085";
+    }
 
-.block_recent_activity h3:before {
-    content: "\f017";
-}
+    &.block_glossary_random h3:before {
+        content: "\f15d";
+    }
 
-.block_settings h3:before {
-    content: "\f085";
-}
+    &.block_login h3:before {
+        content: "\f090";
+    }
 
-.block_glossary_random h3:before {
-    content: "\f15d";
-}
+    &.block_news_items h3:before {
+        content: "\f0a1";
+    }
 
-.block_login h3:before {
-    content: "\f090";
-}
+    &.block_private_files h3:before {
+        content: "\f07b";
+    }
 
-.block_news_items h3:before {
-    content: "\f0a1";
-}
+    &.block_admin_bookmarks h3:before {
+        content: "\f02e";
+    }
 
-.block_private_files h3:before {
-    content: "\f07b";
-}
+    &.block_messages h3:before {
+        content: "\f0e0";
+    }
 
-.block_admin_bookmarks h3:before {
-    content: "\f02e";
-}
+    &.block_navigation h3:before {
+        content: "\f0e8";
+    }
 
-.block_messages h3:before {
-    content: "\f0e0";
-}
+    &.block_participants h3:before {
+        content: "\f0c0";
+    }
 
-.block_navigation h3:before {
-    content: "\f0e8";
-}
+    &.block_search_forums h3:before {
+        content: "\f0e6";
+    }
 
-.block_participants h3:before {
-    content: "\f0c0";
-}
+    &.block_activity_results h3:before {
+        content: "\f080";
+    }
 
-.block_search_forums h3:before {
-    content: "\f0e6";
-}
+    &.block_online_users h3:before {
+        content: "\f1eb";
+    }
 
-.block_activity_results h3:before {
-    content: "\f080";
-}
+    &.block_course_overview h3:before {
+        content: "\f19d";
+    }
 
-.block_online_users h3:before {
-    content: "\f1eb";
-}
+    &.block_mycobraglossary h3:before {
+        content: "\f15d";
+    }
 
-.block_course_overview h3:before {
-    content: "\f19d";
-}
+    &.block_theme_selector h3:before {
+        content: "\f1fc";
+    }
+    .minicalendarblock {
+        caption {
+            padding-bottom: 0;
+            padding-top: 1.5rem;
+        }
+    }
 
-.block_mycobraglossary h3:before {
-    content: "\f15d";
-}
-
-.block_theme_selector h3:before {
-    content: "\f1fc";
+    .minicalendar, .minicalendarblock .minicalendar.calendartable {
+        td {
+            border: 1px solid $gray-lighter;
+        }
+        .content {
+            padding: 4px 0.5rem;
+        }
+        th > abbr[title]{
+            border-bottom: 1px solid $gray-lighter;
+        }
+        td:nth-child(even) {
+            background-color: $gray-lightest;
+        }
+        td.today {
+            background-color: $gray-dark;
+            color: $white;
+            a {
+                color: $white;
+                font-weight: bold;
+            }
+            .calendar-event-panel {
+                color: $gray-dark;
+            }
+        }
+    }
+    .calendar-event-panel {
+        background-color: $gray-lightest;
+        border: 1px solid $gray-lighter;
+        .yui3-overlay-content {
+            margin-bottom: 0;
+        }
+    }
 }
 
 /**
@@ -408,48 +393,6 @@ $blocks-column-width : 260px !default;
 }
 
 /**
- * Calendar block.
- */
-.block_calendar_month {
-    td {
-        border: 1px solid #ddd;
-    }
-    .content {
-        padding: 4px 0.5rem;
-    }
-}
-
-.block {
-    .minicalendar {
-        th > abbr[title]{
-            border-bottom: 1px solid #ddd;
-        }
-        td:nth-child(even) {
-            background-color: #fafafa;
-        }
-        td.today {
-            background-color: $gray-dark;
-            color: #fff;
-            a {
-                color: #fff;
-                font-weight: bold;
-            }
-            .calendar-event-panel {
-                color: $gray-dark;
-            }
-        }
-    }
-    .calendar-event-panel {
-        background-color: #eee;
-        border: 1px solid $gray-lighter;
-        .yui3-overlay-content {
-            margin-bottom: 0;
-        }
-    }
-}
-
-
-/**
  * Form styles.
  */
 
@@ -459,6 +402,32 @@ $blocks-column-width : 260px !default;
 
 .form-inline .form-group {
     margin-top: 0;
+}
+
+/**
+  * Theme widgets.
+  */
+body {
+    // Edition mode toggle.
+    switch:after {
+        color: $red;
+        content: "OFF";
+    }
+    // Toggle blocks
+    #page-content > a {
+        position: fixed;
+        right: 5px;
+        padding-top: 1rem;
+    }
+    &.editing {
+        .switch:after {
+            color: $brand-success;
+            content: "ON";
+        }
+        #page-content > a {
+            padding-top: 3rem;
+        }
+    }
 }
 
 

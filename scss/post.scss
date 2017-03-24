@@ -1,37 +1,11 @@
 @import "fontawesome/font-awesome";
 
-.brand-banner {
-    background: linear-gradient(to bottom, #ECF0F1 0%,#ECF0F1 30%,darken($link-hover-color,5%) 31%,$link-hover-color 95%);
-    height: 80px;
-}
-
-
 .navbar-sm-logo {
     //background-image: url([[pix:theme_receptic|loginbackgroundimage]]);
     background-size: cover;
     width: 34px;
     height: 34px;
     background-color: transparent;
-}
-
-.brand-banner img {
-    height: 55px;
-}
-
-.left-logo {
-    position: absolute;
-    top: 10px;
-    left: 15px;
-    height: 55px;
-    box-shadow: 4px 4px 15px #616365;
-}
-
-.right-logo {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    height: 55px;
-    box-shadow: 4px 4px 15px #616365;
 }
 
 @media (min-width: 768px) {
@@ -86,7 +60,7 @@ body.editing .switch:after {
     content: "\f044";
 }*/
 
-.switch:after {
+/*.switch:after {
     color: #d9534f;
     content: "OFF";
 }
@@ -94,18 +68,18 @@ body.editing .switch:after {
 body.editing .switch:after {
     color: #55ab26;
     content: "ON";
-}
+}*/
 
-.extra-buttons {
+/*.extra-buttons {
     margin-left: 25px;
     margin-right: 25px;
 }
 
 .extra-buttons a:hover {
     text-decoration: none;
-}
+}*/
 
-#page-content > a {
+/*#page-content > a {
     position: fixed;
     right: 5px;
     padding-top: 1rem;
@@ -113,7 +87,7 @@ body.editing .switch:after {
 
 body.editing #page-content > a {
     padding-top: 3rem;
-}
+}*/
 
 #page-header .card {
     box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.25);
@@ -1631,5 +1605,5 @@ div.availabilityinfo:before {
     font-size: 14px;
     background-color: $brand-primary;
     margin: 4px;
-    margin-lef: 25px;
+    margin-left: 25px;
 }
