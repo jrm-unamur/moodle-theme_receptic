@@ -322,7 +322,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
                         'M\'inscre aux cours de mon programme'
                     );
                 }
-                if (has_capability('local/createcourse:create', context_system::instance())) {
+                if (has_capability('local/createcourse:create', context_system::instance())
+                        || has_capability('moodle/course:create', context_system::instance())) {
                     $branch->add(
                         '#######',
                         new moodle_url('/'),

@@ -107,7 +107,7 @@ $blocks-column-width : 260px !default;
 /**
  * Navigation bar identity.
  */
-.navbar-dark {
+.navbar-receptic {
     background-color: $white;
     background-image: linear-gradient(to bottom, $gray 0%, $gray-dark 100%);
 
@@ -131,6 +131,19 @@ $blocks-column-width : 260px !default;
         &.dropdown-item {
             color: $gray-dark;
             @include hover-focus {
+                color: $gray;
+            }
+        }
+    }
+
+    .dropdown-item a {
+        color: $gray-dark;
+        &:hover, &:focus {
+            color: $gray;
+        }
+        .icon:before {
+            color: $gray-dark;
+            &:hover, &:hover {
                 color: $gray;
             }
         }
@@ -176,6 +189,13 @@ $blocks-column-width : 260px !default;
             margin-right: 1rem;
         }
     }
+}
+
+/**
+ * Default color for link icons.
+ */
+a .icon {
+    color: $gray-dark;
 }
 
 /**
