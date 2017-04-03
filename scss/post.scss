@@ -657,7 +657,7 @@ a.sectiontoggle[aria-expanded="true"] {
 }
 
 .section .left.side {
-    margin-top: 0.9rem;
+    margin-top: 0.6rem;
 }
 
 .course-content ul.topics li.section .content,
@@ -1604,4 +1604,15 @@ div.availabilityinfo:before {
     background-color: $brand-primary;
     margin: 4px;
     margin-left: 25px;
+}
+
+.fa-smaller {
+    font-size: 14px;
+    margin-right: .5rem;
+    margin-left: 0;
+}
+
+.navbar .navbar-nav .popover-region.nav-link.editswitch {
+    padding-top: .5rem;
+    margin-right: 1.5rem;
 }
