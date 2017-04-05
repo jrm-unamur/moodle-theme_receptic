@@ -202,10 +202,11 @@ $blocks-column-width : 260px !default;
 }
 
 /**
- * Default color for link icons.
+ * Default color for link icons and action icons.
  */
-a .icon {
-    color: $gray-dark;
+a .icon,
+span .icon {
+    color: $gray;
 }
 
 /**

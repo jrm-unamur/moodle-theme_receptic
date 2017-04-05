@@ -1334,7 +1334,7 @@ ul {
 #exportsettingsform {
     background-color: #efefef;
     padding: 1rem;
-    margin-bottom: .75rem;
+    margin-bottom: 1.5rem;
 }
 
 .moodle-dialogue .confirmation-buttons {
@@ -1616,3 +1616,58 @@ div.availabilityinfo:before {
     padding-top: .5rem;
     margin-right: 1.5rem;
 }
+
+div.editor_atto_toolbar button .icon {
+    color: $gray;
+}
+
+.dropdown-item {
+    color: #494949;
+}
+.dropdown-item:hover {
+    color: #696969;
+}
+
+.userenrolment th,
+.userenrolment td {
+    padding: .5rem;
+}
+
+.userenrolment th {
+    vertical-align: bottom;
+    border-bottom: (2 * $table-border-width) solid $table-border-color;
+}
+
+.userenrolment td {
+    border-top: $table-border-width solid $table-border-color;
+}
+
+.userenrolment .col_role,
+.userenrolment .col_lastcourseaccess,
+.userenrolment .col_group,
+.userenrolment .col_group,
+.userenrolment .col_enrol {
+    padding-top: 3px;
+}
+
+.userenrolment .col_group .addgroup,
+.userenrolment .col_group .group,
+.userenrolment .col_role .addrole,
+.userenrolment .col_enrol .enrolment {
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.userenrolment .col_role i,
+.userenrolment .col_group i {
+    padding-bottom: 5px;
+}
+
+.userenrolment a:hover {
+    text-decoration: none;
+}
+
+.dropdown-item .icon {
+    vertical-align: baseline;
+}
+

@@ -141,6 +141,12 @@ function theme_receptic_update_settings_images($settingname) {
     theme_reset_all_caches();
 }
 
+function theme_receptic_get_fontawesome_icon_map() {
+    return [
+        //'core:t/delete' => 'fa-futbol-o',
+        ];
+}
+
 //function theme_receptic_render_navbar_output(\theme_receptic\output\core_renderer $renderer) {
   //  global $USER, $PAGE, $COURSE;
    // $output = '';
