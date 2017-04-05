@@ -29,6 +29,7 @@ use moodle_url;
 use custom_menu_item;
 use custom_menu;
 use context_system;
+use context_course;
 use renderer_base;
 use external_settings;
 use action_menu;
@@ -53,10 +54,10 @@ class core_renderer extends \theme_boost\output\core_renderer {
     // Methods for editmode button in bar.
     public function custom_menu_editing() {
         $html = '';
-        //if (!empty($this->page->theme->settings->editbutton)) {
-        if(true){
+        if (!empty($this->page->theme->settings->editbutton)) {
             if ($this->page->user_allowed_editing()) {
-                $buttontoadd = true; // Only set to false when cannot determine what the URL / params should be for a page type.
+                // Only set to false when cannot determine what the URL / params should be for a page type.
+                $buttontoadd = true;
                 $pagetype = $this->page->pagetype;
                 if (strpos($pagetype, 'admin-setting') !== false) {
                     $pagetype = 'admin-setting'; // Deal with all setting page types.
@@ -155,11 +156,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 }
                 if ($buttontoadd) {
                     $url->param('sesskey', sesskey());
-                    if ($this->page->user_is_editing()) {
-                        $editstring = get_string('turneditingoff');
-                    } else {
-                        $editstring = get_string('turneditingon');
-                    }
                     if (!empty($this->page->theme->settings->hidedefaulteditingbutton) && 'my-index' !== $pagetype) {
                         // Unset button on page.
                         $this->page->set_button('');
@@ -409,15 +405,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
 
         if ($admin) {
-            $title = 'Admin';
-            $label = '<i class="fa fa-cog"> </i>' . $title;
-            $url = $admin->action;
-            $menuitem = new custom_menu_item($label, $url, $title);
-            $context = $menuitem->export_for_template($this);
-            //return $this->render_from_template('theme_receptic/mycustom_menu_item', $context);
-        }
-        //$admin = $this->page->settingsnav->find('root', navigation_node::TYPE_SITE_ADMIN);
-        if ($admin) {
             $expanded = count($admin->get_children_key_list());
             return $this->render_from_template('theme_receptic/custom_admin_menu', ['node' => $admin, 'url' => $CFG->wwwroot . '/admin/search.php', 'expanded' => $expanded]);
         }
@@ -495,7 +482,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return $this->render_myaction_menu($menu);
     }
 
-    public function render_myaction_menu(action_menu $menu) {
+    public function render_myaction_menu(action_menu $menu, $location = 'navbar') {
         global $COURSE;
         // We don't want the class icon there!
         foreach ($menu->get_secondary_actions() as $action) {
@@ -509,24 +496,14 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
         $context = $menu->export_for_template($this);
 
-        // We do not want the icon with the caret, the caret is added by Bootstrap.
-        if (empty($context->primary->menutrigger)) {
-            $newurl = $this->pix_url('t/edit', 'moodle');
-            $context->primary->icon['attributes'] = array_reduce($context->primary->icon['attributes'],
-                function($carry, $item) use ($newurl) {
-                    if ($item['name'] === 'src') {
-                        $item['value'] = $newurl->out(false);
-                    }
-                    $carry[] = $item;
-                    return $carry;
-                }, []
-            );
+        // Rendering slightly different in navbar and course header
+        if ($location == 'navbar') {
+            $context->primary->actiontext = '<i class="fa fa-cog"></i>' . $this->page->course->shortname;
+            $context->classes .= ' nav-item action-menu-in-navbar';
+            $context->primary->icon = '';
         }
-        $context->primary->actiontext = '<i class="fa fa-cog"></i>' . $this->page->course->shortname;
-        $context->classes .= ' nav-item action-menu-in-navbar';
-        $context->primary->icon = '';
 
-        //horrible hack
+        //horrible hack to add Participants link into course admin menu since navdrawer is disabled.
         $participants = new stdClass();
         $action = new action_link(new moodle_url('/user/index.php?id=' . $COURSE->id), 'Participants', null, array('role' => 'menuitem'), new pix_icon('i/users', ''));
         $participantslink = $action->export_for_template($this);
@@ -534,6 +511,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $item = new stdClass();
         $item->content = $participants;
         array_splice($context->secondary->items, 2, 0, $item);
+        //print_object($context);
         return $this->render_from_template('core/action_menu', $context);
     }
 
@@ -691,7 +669,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $showusermenu = true;
         }
 
-
         if ($showfrontpagemenu) {
             $settingsnode = $this->page->settingsnav->find('frontpage', navigation_node::TYPE_SETTING);
             if ($settingsnode) {
@@ -728,8 +705,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $this->build_action_menu_from_navigation($menu, $settingsnode);
             }
         }
-
-        return $this->render($menu);
+        if ($showcoursemenu) {
+            return $this->render_myaction_menu($menu, 'header');
+        } else {
+            return $this->render($menu);
+        }
     }
 
     public function my_schoolbag_menu() {
@@ -829,115 +809,5 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
 
         return $this->render_from_template('theme_receptic/myschoolbag', $context);
-    }
-
-    public function my_schoolbag_menu2() {
-        global $CFG, $USER;
-        $o = '';
-        $o .= html_writer::start_span('dropdown nav-item');
-        $o .= html_writer::link('#', /*get_string('mycourses', 'theme_receptic')*/'<i class="fa fa-briefcase"></i> Mon cartable', array('class' => 'dropdown-toggle nav-link', 'data-toggle' => 'dropdown', 'aria-expanded' => 'false', 'haspopup' => 'true'));
-        $o .= html_writer::start_div('dropdown-menu multi-level');
-        /*$o .= html_writer::start_span('dropdown dropdown-item dropdown-submenu nav-item');
-        $o .= html_writer::link('#', '<i class="fa fa-graduation-cap"></i> ' . get_string('mycourses', 'theme_receptic'), array('data-toggle' => 'dropdown'));
-        $o .= html_writer::start_div('dropdown-menu');
-        if ($mycourses = enrol_get_my_courses(null, 'fullname ASC')) {
-
-            foreach ($mycourses as $mycourse) {
-                if ($mycourse->visible) {
-                    $o .= html_writer::link(new moodle_url('/course/view.php?id=' . $mycourse->id), '<i class="fa fa-book"></i> ' . format_string($mycourse->shortname . ' - ' . $mycourse->fullname), array('class' => 'dropdown-item'));
-
-                } else if (has_capability('moodle/course:viewhiddencourses', context_course::instance($mycourse->id))) {
-
-                    $o .= html_writer::link(new moodle_url('/course/view.php?id=' . $mycourse->id), '<span class="dimmed_text"><i class="fa fa-eye-slash"></i> ' . format_string($mycourse->shortname . ' - ' . $mycourse->fullname), array('class' => 'dropdown-item'));
-                }
-            }
-
-
-        } else {
-            $o .= html_writer::span(get_string('emptycourselist', 'theme_receptic'), 'dropdown-item font-italic');
-        }
-        $o .= html_writer::div('', 'dropdown-divider');
-        $label = '<i class="fa fa-list"></i> ' . get_string('fulllistofcourses');
-        $url = new moodle_url($CFG->wwwroot . '/course/index.php');
-        $o .= html_writer::link($url, $label, array('class' => 'dropdown-item'));
-
-        if (substr_count($USER->email, '@student.unamur.be')) {
-            $o .= html_writer::div('', 'dropdown-divider');
-            $label = '<i class="fa fa-plus"></i> ' . 'M\'inscrire aux cours de mon programme...';
-            $url = new moodle_url($CFG->wwwroot . '/local/unamur/noe/enrolnoecourses.php');
-            $o .= html_writer::link($url, $label, array('class' => 'dropdown-item'));
-        }
-        $divider = false;
-        if (has_capability('local/createcourse:create', context_system::instance()) || is_siteadmin()) {
-            $o .= html_writer::div('', 'dropdown-divider');
-            $label = '<i class="fa fa-plus"></i> ' . 'Créer un cours...';
-            $url = new moodle_url($CFG->wwwroot . '/local/createcourse/index.php');
-            $o .= html_writer::link($url, $label, array('class' => 'dropdown-item'));
-            $divider = true;
-        }
-        if (has_capability('moodle/course:create', context_system::instance())) {
-            if (!$divider) {
-                $o .= html_writer::div('', 'dropdown-divider');
-            }
-            $label = '<i class="fa fa-plus"></i> ' . 'Créer un cours... (manuel)';
-            $url = new moodle_url($CFG->wwwroot . '/course/edit.php?category=1&returnto=topcat');
-            $o .= html_writer::link($url, $label, array('class' => 'dropdown-item'));
-        }
-
-        $o .= html_writer::end_div();
-        $o .= html_writer::end_span();*/
-
-        if (!empty($this->page->theme->settings->privatefileslink) &&
-            has_capability('moodle/user:manageownfiles', context_system::instance())) {
-            $title = 'Mes fichiers';
-            $label = '<i class="fa fa-folder" style="padding-right:4px;"></i> ' . $title;
-            $url = new moodle_url('/user/files.php', array('returnurl' => $this->page->url->out()));
-            $o .= html_writer::link($url, $label, array('class' => 'dropdown-item'));
-        }
-
-        $eee = core_plugin_manager::instance()->get_plugin_info('local_eee');
-
-        if (!is_null($eee)) {
-            if ((student_has_evaluation() || teacher_has_evaluation()) && !is_allowed_to_admin_eval()) {
-                $title = get_string('myevaluations', 'local_eee');
-                $label = '<i class="fa fa-thumbs-up"></i> ' . $title;
-                $url =  new moodle_url('/local/eee/index.php');
-                $o .= html_writer::link($url, $label, array('class' => 'dropdown-item'));
-            } else if (is_allowed_to_admin_eval()) {
-                $o .= html_writer::start_span('dropdown dropdown-item dropdown-submenu nav-item');
-                $o .= html_writer::link('#', '<i class="fa fa-thumbs-up" style="padding-right:4px;"></i> ' . get_string('evaluations', 'local_eee'), array('data-toggle' => 'dropdown'));
-                $o .= html_writer::start_div('dropdown-menu');
-                if (teacher_has_evaluation() || true) {
-                    $title = get_string('myevaluations', 'local_eee');
-                    $label = '<i class="fa fa-clipboard"></i> ' . $title;
-                    $url =  new moodle_url('/local/eee/index.php');
-                    $o .= html_writer::link($url, $label, array('class' => 'dropdown-item'));
-                    $o .= html_writer::div('', 'dropdown-divider');
-                }
-                $title = get_string('eeeresults', 'local_eee');
-                $label = '<i class="fa fa-bar-chart"></i> ' . $title;
-                $url =  new moodle_url('/local/eee/result/index.php');
-                $o .= html_writer::link($url, $label, array('class' => 'dropdown-item'));
-
-                $title = get_string('eeeparticipation', 'local_eee');
-                $label = '<i class="fa fa-hand-o-up"></i> ' . $title;
-                $url =  new moodle_url('/local/eee/admin/participation.php');
-                $o .= html_writer::link($url, $label, array('class' => 'dropdown-item'));
-
-                if (has_capability('local/eee:manage', context_system::instance())) {
-                    $title = get_string('admin', 'local_eee');
-                    $label = '<i class="fa fa-cog"></i> ' . $title;
-                    $url = new moodle_url('/local/eee/admin/index.php');
-                    $o .= html_writer::link($url, $label, array('class' => 'dropdown-item'));
-                }
-
-                $o .= html_writer::end_div();
-                $o .= html_writer::end_span();
-            }
-        }
-
-        $o .= html_writer::end_div();
-        $o .= html_writer::end_span();
-        return $o;
     }
 }
