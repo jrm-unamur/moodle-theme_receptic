@@ -127,6 +127,16 @@ body.editing #page-content > a {
     }
 }
 
+.block-region .block.block_myoverview {
+    border: none;
+    .card-block {
+        box-shadow: none;
+    }
+    h3:before {
+        content: "\f1e5";
+    }
+}
+
 .path-my #region-main .card.card-block {
     padding: 0;
     min-height: 0;
@@ -1114,7 +1124,7 @@ img.iconlarge {
 }
 
 .help-icon {
-    margin-bottom: .2rem;
+    /*margin-bottom: .2rem;*/
 }
 
 .help-icon:before {
@@ -1671,3 +1681,68 @@ div.editor_atto_toolbar button .icon {
     vertical-align: baseline;
 }
 
+// File picker.
+.fp-file,
+.fp-folder {
+    margin-bottom: 45px;
+}
+
+.file-picker .fp-content {
+    max-height: 420px;
+}
+
+.fp-toolbar .btn-secondary,
+.fp-viewbar .btn-secondary {
+    background-color: $white;
+    border-color: $gray-lighter;
+}
+
+.fp-viewbar:not(.disabled) a.checked {
+    background-color: $gray-lighter;
+    border-color: $gray-lighter;
+}
+
+.fp-toolbar .btn-secondary:hover,
+.fp-viewbar .btn-secondary:hover {
+    background-color: $gray-lighter;
+}
+
+:focus {
+    outline: none;
+}
+
+.fp-pathbar .fp-path-folder-name {
+    margin-left: 24px;
+}
+
+.fp-iconview .fp-filename-field {
+    height: 43px;
+}
+
+// Forms
+.fitem .initialism.text-danger {
+    margin-bottom: .2rem;
+}
+
+// Fix display of enrol select box in courses
+.path-enrol .roleassigntable #existingcell,
+.path-enrol .roleassigntable #potentialcell {
+    width: 42%;
+}
+
+.path-enrol .roleassigntable #buttonscell {
+    width: 16%;
+}
+
+#existingcell .form-inline input,
+#potentialcell .form-inline input {
+    margin-bottom: .5rem;
+}
+
+select[size], select[multiple], select[size][multiple] {
+    border-color: $gray-lighter;
+}
+
+.singleselect.d-inline-block {
+    margin-left: .5rem;
+}

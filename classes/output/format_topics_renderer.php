@@ -18,7 +18,7 @@ class format_topics_renderer extends \format_topics_renderer {
     /** overrides format_section_renderer_base */
     public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
         global $PAGE;
-
+//echo parent::print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused);return;
         $modinfo = get_fast_modinfo($course);
         $course = course_get_format($course)->get_course();
 
@@ -34,7 +34,9 @@ class format_topics_renderer extends \format_topics_renderer {
         // Now the list of sections..
         echo $this->start_section_list();
 
-        foreach ($modinfo->get_section_info_all() as $section => $thissection) {
+        $sections = $modinfo->get_section_info_all();
+        $course->numsections = count($sections);
+        foreach (/*$modinfo->get_section_info_all()*/ $sections as $section => $thissection) {
             if ($section == 0) {
                 // 0-section is displayed a little different then the others
                 if ($thissection->summary or !empty($modinfo->sections[0]) or $PAGE->user_is_editing()) {
@@ -92,29 +94,7 @@ class format_topics_renderer extends \format_topics_renderer {
 
             echo $this->end_section_list();
 
-            echo html_writer::start_tag('div', array('id' => 'changenumsections', 'class' => 'mdl-right'));
-
-            // Increase number of sections.
-            $straddsection = html_writer::span(get_string('addsection', 'theme_receptic'));
-            $url = new moodle_url('/course/changenumsections.php',
-                array('courseid' => $course->id,
-                    'increase' => true,
-                    'sesskey' => sesskey()));
-            $icon = $this->output->pix_icon('t/add', $straddsection);
-            echo html_writer::link($url, $icon . $straddsection, array('class' => 'increase-sections'));
-
-            /*if ($course->numsections > 0) {
-                // Reduce number of sections sections.
-                $strremovesection = get_string('reducesections', 'moodle');
-                $url = new moodle_url('/course/changenumsections.php',
-                    array('courseid' => $course->id,
-                        'increase' => false,
-                        'sesskey' => sesskey()));
-                $icon = $this->output->pix_icon('t/switch_minus', $strremovesection);
-                echo html_writer::link($url, $icon.get_accesshide($strremovesection), array('class' => 'reduce-sections'));
-            }*/
-
-            echo html_writer::end_tag('div');
+            echo $this->change_number_sections($course, 0);
         } else {
             echo $this->end_section_list();
         }

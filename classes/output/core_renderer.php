@@ -526,7 +526,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
      * @param boolean $onlytopleafnodes
      * @return boolean nodesskipped - True if nodes were skipped in building the menu
      */
-    private function build_action_menu_from_navigation(action_menu $menu,
+    protected function build_action_menu_from_navigation(action_menu $menu,
                                                        navigation_node $node,
                                                        $indent = false,
                                                        $onlytopleafnodes = false) {
@@ -535,6 +535,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         foreach ($node->children as $menuitem) {
             // Skip non-useful menu items in course settings menu.
             if ($menuitem->key == 'turneditingonoff') {
+
                 continue;
             };
 

@@ -147,29 +147,3 @@ function theme_receptic_get_fontawesome_icon_map() {
         ];
 }
 
-//function theme_receptic_render_navbar_output(\theme_receptic\output\core_renderer $renderer) {
-  //  global $USER, $PAGE, $COURSE;
-   // $output = '';
-   /* if(has_capability('local/callnineoneone:call', context_system::instance())
-        || user_has_role_assignment($USER->id, 3)){
-
-        $url = new moodle_url('/local/callnineoneone/view.php', array(
-            'bodyid' => $PAGE->bodyid,
-            'pagetype' => $PAGE->pagetype,
-            'pagelayout' => $PAGE->pagelayout,
-            'url' => $PAGE->url,
-            'courseid' => $COURSE->id
-        ));
-
-        $output .= '<div class="popover-region nav-link" style="padding-top:.6rem; margin-right:1.5rem;"><a title="' . get_string('callnineoneone', 'local_callnineoneone') . '" href="' . $url . '">' . '<i style="font-size:larger;" class="fa fa-ambulance"></i></a></div>';
-    }
-    $url = new moodle_url('/local/callnineoneone/view.php', array(
-        'bodyid' => $PAGE->bodyid,
-        'pagetype' => $PAGE->pagetype,
-        'pagelayout' => $PAGE->pagelayout,
-        'url' => $PAGE->url,
-        'courseid' => $COURSE->id
-    ));*/
-
- //   return $output;
-//}
