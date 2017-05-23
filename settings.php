@@ -189,6 +189,23 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
     $page->add($setting);
 
+    // Add an edit button in the navigation bar.
+    $name = 'theme_receptic/editbutton';
+    $title = get_string('editbutton', 'theme_receptic');
+    $description = get_string('editbuttondesc', 'theme_receptic');
+    $default = 0;
+    $choices = array(0 => 'No', 1 => 'Yes');
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $page->add($setting);
+
+    // Hide default edit button.
+    $name = 'theme_receptic/hidedefaulteditingbutton';
+    $title = get_string('hidedefaulteditingbutton', 'theme_receptic');
+    $description = get_string('hidedefaulteditingbuttondesc', 'theme_receptic');
+    $default = false;
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
+    $page->add($setting);
+
     $settings->add($page);
 
 }

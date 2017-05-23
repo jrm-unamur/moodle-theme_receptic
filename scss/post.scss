@@ -1,5 +1,3 @@
-@import "fontawesome/font-awesome";
-
 .navbar-sm-logo {
     //background-image: url([[pix:theme_receptic|loginbackgroundimage]]);
     background-size: cover;
@@ -126,6 +124,16 @@ body.editing #page-content > a {
     }
     .card-block {
         padding: 1.5rem 1.5rem 0;
+    }
+}
+
+.block-region .block.block_myoverview {
+    border: none;
+    .card-block {
+        box-shadow: none;
+    }
+    h3:before {
+        content: "\f1e5";
     }
 }
 
@@ -659,7 +667,7 @@ a.sectiontoggle[aria-expanded="true"] {
 }
 
 .section .left.side {
-    margin-top: 0.9rem;
+    margin-top: 0.6rem;
 }
 
 .course-content ul.topics li.section .content,
@@ -913,7 +921,7 @@ img.activityicon {
     border-radius: 6px 0 6px 6px;
 }
 
-.navbar-dark .navbar-nav .nav-link.subtoggle {
+.navbar-receptic .navbar-nav .nav-link.subtoggle {
     color: #555;
 }
 
@@ -933,7 +941,7 @@ img.activityicon {
     overflow-y: visible;
 }
 
-.navbar-dark .navbar-nav .nav-item + .nav-item.dropdown-submenu {
+.navbar-receptic .navbar-nav .nav-item + .nav-item.dropdown-submenu {
     margin-left:0;
 }
 
@@ -1116,7 +1124,7 @@ img.iconlarge {
 }
 
 .help-icon {
-    margin-bottom: .2rem;
+    /*margin-bottom: .2rem;*/
 }
 
 .help-icon:before {
@@ -1336,7 +1344,7 @@ ul {
 #exportsettingsform {
     background-color: #efefef;
     padding: 1rem;
-    margin-bottom: .75rem;
+    margin-bottom: 1.5rem;
 }
 
 .moodle-dialogue .confirmation-buttons {
@@ -1606,4 +1614,135 @@ div.availabilityinfo:before {
     background-color: $brand-primary;
     margin: 4px;
     margin-left: 25px;
+}
+
+.fa-smaller {
+    font-size: 14px;
+    margin-right: .5rem;
+    margin-left: 0;
+}
+
+.navbar .navbar-nav .popover-region.nav-link.editswitch {
+    padding-top: .5rem;
+    margin-right: 1.5rem;
+}
+
+div.editor_atto_toolbar button .icon {
+    color: $gray;
+}
+
+.dropdown-item {
+    color: #494949;
+}
+.dropdown-item:hover {
+    color: #696969;
+}
+
+.userenrolment th,
+.userenrolment td {
+    padding: .5rem;
+}
+
+.userenrolment th {
+    vertical-align: bottom;
+    border-bottom: (2 * $table-border-width) solid $table-border-color;
+}
+
+.userenrolment td {
+    border-top: $table-border-width solid $table-border-color;
+}
+
+.userenrolment .col_role,
+.userenrolment .col_lastcourseaccess,
+.userenrolment .col_group,
+.userenrolment .col_group,
+.userenrolment .col_enrol {
+    padding-top: 3px;
+}
+
+.userenrolment .col_group .addgroup,
+.userenrolment .col_group .group,
+.userenrolment .col_role .addrole,
+.userenrolment .col_enrol .enrolment {
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.userenrolment .col_role i,
+.userenrolment .col_group i {
+    padding-bottom: 5px;
+}
+
+.userenrolment a:hover {
+    text-decoration: none;
+}
+
+.dropdown-item .icon {
+    vertical-align: baseline;
+}
+
+// File picker.
+.fp-file,
+.fp-folder {
+    margin-bottom: 45px;
+}
+
+.file-picker .fp-content {
+    max-height: 420px;
+}
+
+.fp-toolbar .btn-secondary,
+.fp-viewbar .btn-secondary {
+    background-color: $white;
+    border-color: $gray-lighter;
+}
+
+.fp-viewbar:not(.disabled) a.checked {
+    background-color: $gray-lighter;
+    border-color: $gray-lighter;
+}
+
+.fp-toolbar .btn-secondary:hover,
+.fp-viewbar .btn-secondary:hover {
+    background-color: $gray-lighter;
+}
+
+:focus {
+    outline: none;
+}
+
+.fp-pathbar .fp-path-folder-name {
+    margin-left: 24px;
+}
+
+.fp-iconview .fp-filename-field {
+    height: 43px;
+}
+
+// Forms
+.fitem .initialism.text-danger {
+    margin-bottom: .2rem;
+}
+
+// Fix display of enrol select box in courses
+.path-enrol .roleassigntable #existingcell,
+.path-enrol .roleassigntable #potentialcell {
+    width: 42%;
+}
+
+.path-enrol .roleassigntable #buttonscell {
+    width: 16%;
+}
+
+#existingcell .form-inline input,
+#potentialcell .form-inline input {
+    margin-bottom: .5rem;
+}
+
+select[size], select[multiple], select[size][multiple] {
+    border-color: $gray-lighter;
+}
+
+.singleselect.d-inline-block {
+    margin-left: .5rem;
 }

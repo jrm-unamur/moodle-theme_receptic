@@ -24,7 +24,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $THEME->name = 'receptic';
-$THEME->sheets = ['font-awesome'];
+//$THEME->sheets = ['font-awesome'];
 // For TinyMCE only.
 $THEME->editor_sheets = [];
 $THEME->parents = ['boost'];

@@ -107,7 +107,7 @@ $blocks-column-width : 260px !default;
 /**
  * Navigation bar identity.
  */
-.navbar-dark {
+.navbar-receptic {
     background-color: $white;
     background-image: linear-gradient(to bottom, $gray 0%, $gray-dark 100%);
 
@@ -128,9 +128,35 @@ $blocks-column-width : 260px !default;
         @include hover-focus {
             color: $gray-lighter;
         }
+        .icon
+        //&.nav-link > .icon {
+          //  color: $white;
+            //@include hover-focus {
+              //  color: $gray-lighter;
+            //}
+            .fa-smaller {
+                margin-right: .5rem;
+            }
+       // }
         &.dropdown-item {
             color: $gray-dark;
             @include hover-focus {
+                color: $gray;
+            }
+        }
+    }
+    .dropdown a:first-of-type > .icon {
+        margin-left: 0;
+    }
+
+    .dropdown-item a {
+        color: $gray-dark;
+        &:hover, &:focus {
+            color: $gray;
+        }
+        .icon:before {
+            color: $gray-dark;
+            &:hover, &:focus {
                 color: $gray;
             }
         }
@@ -147,9 +173,6 @@ $blocks-column-width : 260px !default;
             color: $white;
             @include hover-focus {
                 color: $gray-lighter;
-            }
-            .fa {
-                padding-right: 3px;
             }
         }
         [data-region="drawer-toggle"] {
@@ -179,6 +202,14 @@ $blocks-column-width : 260px !default;
 }
 
 /**
+ * Default color for link icons and action icons.
+ */
+a .icon,
+span .icon {
+    color: $gray;
+}
+
+/**
  * Styling the dropdown menus.
  */
 .dropdown-menu {
@@ -189,6 +220,9 @@ $blocks-column-width : 260px !default;
         &:last-child {
             border-bottom: 0;
         }
+    }
+    a.icon {
+        vertical-align: baseline;
     }
 }
 
