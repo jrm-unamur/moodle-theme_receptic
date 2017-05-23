@@ -716,6 +716,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
     public function my_schoolbag_menu() {
 
         $context = new stdClass();
+        $context->displaymenu = false;
         //Display link to my private files for users with required capability.
         if (!empty($this->page->theme->settings->privatefileslink) &&
             has_capability('moodle/user:manageownfiles', context_system::instance())) {
@@ -733,10 +734,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
         $eee = core_plugin_manager::instance()->get_plugin_info('local_eee');
         if ($eee) {
+
             $myevaluationscontext = array(
-                'extraclasses' => 'fa-smaller',
+                'extraclasses' => 'fa-smaller'/*,
                 'aria-label' => $label,
-                'title' => $label
+                'title' => $label*/
             );
             $context->myevaluationsurl = new moodle_url('/local/eee/index.php', array('returnurl' => $this->page->url->out()));
             //Simple menu item for "my evaluations link"
