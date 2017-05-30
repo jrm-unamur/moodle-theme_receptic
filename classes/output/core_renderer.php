@@ -511,6 +511,14 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $item = new stdClass();
         $item->content = $participants;
         array_splice($context->secondary->items, 2, 0, $item);
+
+        $groups = new stdClass();
+        $action = new action_link(new moodle_url('/group/index.php?id=' . $COURSE->id), 'Groupes', null, array('role' => 'menuitem'), new pix_icon('i/group', ''));
+        $groupslink = $action->export_for_template($this);
+        $groups->actionlink = $groupslink;
+        $item = new stdClass();
+        $item->content = $groups;
+        array_splice($context->secondary->items, 3, 0, $item);
         //print_object($context);
         return $this->render_from_template('core/action_menu', $context);
     }
