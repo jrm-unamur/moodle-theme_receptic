@@ -30,6 +30,7 @@ require_once($CFG->libdir . '/behat/lib.php');
 
 $context = $this->page->context;
 $iscontextcourse = $context->contextlevel == CONTEXT_COURSE || $context->contextlevel == CONTEXT_MODULE;
+$params = new stdClass();
 
 if ($context->contextlevel == CONTEXT_SYSTEM) {
     $shownavdrawer = true;
@@ -38,7 +39,7 @@ if ($context->contextlevel == CONTEXT_SYSTEM) {
 } else {
     $shownavdrawer = true;
 }
-
+$shownavdrawer = true;
 if (isloggedin()) {
     $navdraweropen = (get_user_preferences('drawer-open-nav', 'true') == 'true'
             && $shownavdrawer
@@ -80,7 +81,9 @@ $templatecontext = [
     'displaybrandbanner' => true,
     'googlefonts' => $googlefonts,
     'shownavdrawer' => $shownavdrawer,
-    'iscontextcourse' => $iscontextcourse
+    'courseadminmenu' => $iscontextcourse && $this->page->theme->settings->courseadminmenuintoolbar,
+    'iscontextcourse' => $iscontextcourse,
+    'adminlink' => $this->page->theme->settings->adminmenuintoolbar
 ];
 
 $templatecontext['flatnavigation'] = $PAGE->flatnav;

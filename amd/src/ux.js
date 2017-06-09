@@ -10,7 +10,7 @@ define(['jquery', 'core/log'], function($, log) {
         init: function() {
             log.debug('UnamurUI AMD module initialized');
             $(document).ready(function($) {
-                $('body').scrollTop(0);
+                //$('body').scrollTop(0);
 
                 $("body").on( "click", ".toggleblocks", function() {
                     if($('body').hasClass('noblocks')) {
@@ -36,11 +36,11 @@ define(['jquery', 'core/log'], function($, log) {
                     $('html, body').animate({scrollTop: 0}, duration);
                     return false;
                 });
-                $('div.media').first().on('click', function(event) {
+                /*$('div.media').first().on('click', function(event) {
                     event.preventDefault();
                     $('html, body').animate({scrollTop: 150}, 50);
                     return false;
-                });
+                });*/
                 $('div.media').on('click', function(event) {
                     var href = $(event.target).parent().parent().parent().attr('href');
                     var index = href.slice(-1);

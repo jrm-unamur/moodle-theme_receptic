@@ -234,10 +234,12 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $menu->add($branchlabel, $branchurl, $branchtitle);
             }
 
-            $title = 'myschoolbag';
-            $label = $title;
-            $url = new moodle_url('/');
-            $menu->add($label, $url, $title);
+            if (!empty($this->page->theme->settings->displaymyschoolbagmenu)) {
+                $title = 'myschoolbag';
+                $label = $title;
+                $url = new moodle_url('/');
+                $menu->add($label, $url, $title);
+            }
 
             if (!empty($this->page->theme->settings->personalcourselistintoolbar)) {
                 $branchtitle = get_string('mycourses', 'theme_receptic');
@@ -742,11 +744,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
         $eee = core_plugin_manager::instance()->get_plugin_info('local_eee');
         if ($eee) {
-
+            $context->displaymenu = false;
             $myevaluationscontext = array(
-                'extraclasses' => 'fa-smaller'/*,
-                'aria-label' => $label,
-                'title' => $label*/
+                'extraclasses' => 'fa-smaller',
+                'aria-label' => get_string('myevaluations', 'local_eee'),
+                'title' => get_string('myevaluations', 'local_eee')
             );
             $context->myevaluationsurl = new moodle_url('/local/eee/index.php', array('returnurl' => $this->page->url->out()));
             //Simple menu item for "my evaluations link"

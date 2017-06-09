@@ -189,6 +189,27 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
     $page->add($setting);
 
+    // Add user course list to the navigation bar.
+    $name = 'theme_receptic/displaymyschoolbagmenu';
+    $title = get_string('displaymyschoolbagmenu', 'theme_receptic');
+    $description = get_string('displaymyschoolbagmenu_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
+    $page->add($setting);
+
+    // Add platform administration menu to the navigation bar.
+    $name = 'theme_receptic/courseadminmenuintoolbar';
+    $title = get_string('courseadminmenuintoolbar', 'theme_receptic');
+    $description = get_string('courseadminmenuintoolbar_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
+    $page->add($setting);
+
+    // Add platform administration menu to the navigation bar.
+    $name = 'theme_receptic/adminmenuintoolbar';
+    $title = get_string('adminmenuintoolbar', 'theme_receptic');
+    $description = get_string('adminmenuintoolbar_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, 0);
+    $page->add($setting);
+
     // Add an edit button in the navigation bar.
     $name = 'theme_receptic/editbutton';
     $title = get_string('editbutton', 'theme_receptic');
@@ -201,7 +222,7 @@ if ($ADMIN->fulltree) {
     // Hide default edit button.
     $name = 'theme_receptic/hidedefaulteditingbutton';
     $title = get_string('hidedefaulteditingbutton', 'theme_receptic');
-    $description = get_string('hidedefaulteditingbuttondesc', 'theme_receptic');
+    $description = get_string('hidedefaulteditingbutton_desc', 'theme_receptic');
     $default = false;
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
     $page->add($setting);
