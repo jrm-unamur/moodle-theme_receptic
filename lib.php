@@ -147,3 +147,29 @@ function theme_receptic_get_fontawesome_icon_map() {
         ];
 }
 
+function theme_receptic_extend_navigation(global_navigation $nav) {
+    global $COURSE;
+    print_object('coucou');
+    // Ajouter une condition pour n'afficher que pour les createurs de cours.
+    if (has_capability('local/createcourse:create', context_system::instance())) {
+        $syscontext = context_system::instance();
+        //if ($COURSE->id == SITEID) {
+        $noeitem = $nav->add(get_string('createcourse', 'local_createcourse'), '/local/createcourse/index.php',
+            navigation_node::TYPE_SETTING, null , 'noecreatecourse2', new pix_icon('i/course' , ''));
+        $noeitem->showinflatnavigation = true;
+        $noeitem->myshowdivider = true;
+        if (has_capability('moodle/course:create', context_system::instance())) {
+            $manualitem = $nav->add(get_string('createcourse', 'local_createcourse') . ' ... (manuel2)', '/course/edit.php?category=1&returnto=topcat',
+                navigation_node::TYPE_SETTING, null , 'manualcreatecourse2', new pix_icon('i/course' , ''));
+            $manualitem->showinflatnavigation = true;
+            if (empty($noeitem)) {
+                $manualitem->myshowdivider = true;
+            }
+        }
+        //if(is_siteadmin())print_object($item);
+
+        //}
+    }
+}
+
+
