@@ -513,6 +513,14 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $item = new stdClass();
         $item->content = $participants;
         array_splice($context->secondary->items, 2, 0, $item);
+
+        $groups = new stdClass();
+        $action = new action_link(new moodle_url('/group/index.php?id=' . $COURSE->id), 'Groupes', null, array('role' => 'menuitem'), new pix_icon('i/group', ''));
+        $groupslink = $action->export_for_template($this);
+        $groups->actionlink = $groupslink;
+        $item = new stdClass();
+        $item->content = $groups;
+        array_splice($context->secondary->items, 3, 0, $item);
         //print_object($context);
         return $this->render_from_template('core/action_menu', $context);
     }
@@ -718,6 +726,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
     public function my_schoolbag_menu() {
 
         $context = new stdClass();
+        $context->displaymenu = false;
         //Display link to my private files for users with required capability.
         if (!empty($this->page->theme->settings->privatefileslink) &&
             has_capability('moodle/user:manageownfiles', context_system::instance())) {

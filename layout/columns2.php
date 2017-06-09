@@ -35,7 +35,7 @@ $params = new stdClass();
 if ($context->contextlevel == CONTEXT_SYSTEM) {
     $shownavdrawer = true;
 } else if ($context->contextlevel == CONTEXT_USER || $this->page->course->id == SITEID) {
-    $shownavdrawer = false;
+    $shownavdrawer = true;
 } else {
     $shownavdrawer = true;
 }
