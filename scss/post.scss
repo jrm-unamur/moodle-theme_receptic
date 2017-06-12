@@ -1825,6 +1825,21 @@ button.btn[data-action="toggle-drawer"] {
     padding-right: 0;
 }
 
+.block_myoverview [data-action="view-more"]:disabled {
+    display: none;
+}
+
+.video-js .vjs-big-play-button {
+    top: 40%;
+    left: 40%;
+}
+
+.video-js {
+    border: 1px solid #ddd;
+}
+
+
+
 
 
 
