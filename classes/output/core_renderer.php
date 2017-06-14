@@ -506,7 +506,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
 
         //horrible hack to add Participants link into course admin menu since navdrawer is disabled.
-        $participants = new stdClass();
+        /*$participants = new stdClass();
         $action = new action_link(new moodle_url('/user/index.php?id=' . $COURSE->id), 'Participants', null, array('role' => 'menuitem'), new pix_icon('i/users', ''));
         $participantslink = $action->export_for_template($this);
         $participants->actionlink = $participantslink;
@@ -520,7 +520,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $groups->actionlink = $groupslink;
         $item = new stdClass();
         $item->content = $groups;
-        array_splice($context->secondary->items, 3, 0, $item);
+        array_splice($context->secondary->items, 3, 0, $item);*/
         //print_object($context);
         return $this->render_from_template('core/action_menu', $context);
     }

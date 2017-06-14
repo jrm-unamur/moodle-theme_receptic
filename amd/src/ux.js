@@ -11,6 +11,7 @@ define(['jquery', 'core/log'], function($, log) {
             log.debug('UnamurUI AMD module initialized');
             $(document).ready(function($) {
                 //$('body').scrollTop(0);
+                $('.block_myoverview [data-action="more-courses"]').removeClass('hidden');
 
                 $("body").on( "click", ".toggleblocks", function() {
                     if($('body').hasClass('noblocks')) {
@@ -57,6 +58,7 @@ define(['jquery', 'core/log'], function($, log) {
                         $(item).show();
                     });
                 });
+
             });
         }
     };

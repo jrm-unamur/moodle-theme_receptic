@@ -612,6 +612,11 @@ body.editing #page-content > a {
     }
 }
 
+.add_course_button,
+.enrolme_button {
+    text-align: right;
+}
+
 /*li:target {
     margin-top: 0 !important;
     padding-top: 1rem !important;
@@ -1772,8 +1777,13 @@ button.btn[data-action="toggle-drawer"] {
 }
 
 #nav-drawer .list-group [data-key="mycourses"] > div:before {
+     content: "\f19d";
+     padding-right: 0;
+}
+
+#nav-drawer .list-group [data-key="coursehome"] > div:before {
     content: "\f19d";
-    padding-right: 0;
+    padding-right: .2rem;
 }
 
 #nav-drawer .list-group [data-key="fulllistofcourses"] > div:before {
@@ -1821,11 +1831,20 @@ button.btn[data-action="toggle-drawer"] {
     content: "\f013";
 }
 
+#nav-drawer .list-group [data-key="participants"] > div:before {
+    content: "\f0c0";
+}
+
+#nav-drawer .list-group [data-key="grades"] > div:before {
+    content: "\f0ce";
+}
+
 .media-left {
     padding-right: 0;
 }
 
-.block_myoverview [data-action="view-more"]:disabled {
+.block_myoverview [data-action="view-more"]:disabled,
+.block_myoverview [data-action="more-courses"]:disabled{
     display: none;
 }
 
@@ -1838,6 +1857,9 @@ button.btn[data-action="toggle-drawer"] {
     border: 1px solid #ddd;
 }
 
+.block_myoverview .event-icon img {
+    filter: grayscale(100%);
+}
 
 
 
