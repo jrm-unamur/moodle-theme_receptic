@@ -45,7 +45,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
         $data = $main->export_for_template($this);
         $createcourseplugin = core_plugin_manager::instance()->get_plugin_info('local_createcourse');
         if ($createcourseplugin && has_capability('local/createcourse:create', context_system::instance())) {
-            $data['urls']['addcourse'] = new moodle_url('/local/coursecreate/index.php');
+            $data['urls']['addcourse'] = new moodle_url('/local/createcourse/index.php');
             $data['cancreatecourse'] = true;
         }
         if (substr_count($USER->email, '@student.unamur.be')) {
