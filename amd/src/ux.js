@@ -7,10 +7,19 @@ define(['jquery', 'core/log'], function($, log) {
     "use strict";
 
     return {
-        init: function() {
+        init: function($args) {
             log.debug('UnamurUI AMD module initialized');
             $(document).ready(function($) {
                 //$('body').scrollTop(0);
+                var sectiontoggles = JSON.parse($args.sectionstoggle);
+
+                setTimeout(function () {
+                    for (var section in sectiontoggles) {
+                        section = '#collapse-' + parseInt(section);
+                        $(section).collapse('show');
+                    }
+                }, 0);
+                $('.summarytext').remove();
                 $('.block_myoverview [data-action="more-courses"]').removeClass('hidden');
 
                 $("body").on( "click", ".toggleblocks", function() {
@@ -21,7 +30,6 @@ define(['jquery', 'core/log'], function($, log) {
                     }
                     $('body').toggleClass('noblocks');
                 });
-
 
                 var offset = 50;
                 var duration = 500;
@@ -37,23 +45,37 @@ define(['jquery', 'core/log'], function($, log) {
                     $('html, body').animate({scrollTop: 0}, duration);
                     return false;
                 });
-                /*$('div.media').first().on('click', function(event) {
-                    event.preventDefault();
+                $('div.media').first().on('click', function(event) {
+                    //event.preventDefault();
                     $('html, body').animate({scrollTop: 150}, 50);
                     return false;
-                });*/
+                });
                 $('div.media').on('click', function(event) {
                     var href = $(event.target).parent().parent().parent().attr('href');
-                    var index = href.slice(-1);
+                    var index = href.substring(href.lastIndexOf('-') + 1);
                     var attr = '#collapse-' + index;
                     $(attr).collapse('show');
                 });
                 $('.collapse').on('show.bs.collapse', function(event) {
+                    var sectionstringid = $(event.target).attr('id');
+                    var sectionid = sectionstringid.substring(sectionstringid.lastIndexOf('-') + 1);
+                    if (!sectiontoggles.hasOwnProperty(sectionid)) {
+                        sectiontoggles[sectionid] = "true";
+                        M.util.set_user_preference('sections-toggle-' + $args.course, JSON.stringify(sectiontoggles));
+                        console.log('user preference updated (+)');
+                    }
                     $(event.target).siblings('div.section-summary-activities').each(function(i, item) {
                         $(item).hide();
                     });
                 });
                 $('.collapse').on('hide.bs.collapse', function(event) {
+                    var sectionstringid = $(event.target).attr('id');
+                    var sectionid = sectionstringid.substring(sectionstringid.lastIndexOf('-') + 1);
+                    if (sectiontoggles.hasOwnProperty(sectionid)) {
+                        delete sectiontoggles[sectionid];
+                        M.util.set_user_preference('sections-toggle-' + $args.course, JSON.stringify(sectiontoggles));
+                        console.log('user preference updated (-)');
+                    }
                     $(event.target).siblings('div.section-summary-activities').each(function(i, item) {
                         $(item).show();
                     });
