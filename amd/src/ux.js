@@ -45,7 +45,7 @@ define(['jquery', 'core/log'], function($, log) {
                     $('html, body').animate({scrollTop: 0}, duration);
                     return false;
                 });
-                $('div.media').first().on('click', function(event) {
+                $('div.media').first().on('click', function(/*event*/) {
                     //event.preventDefault();
                     $('html, body').animate({scrollTop: 150}, 50);
                     return false;
@@ -62,7 +62,6 @@ define(['jquery', 'core/log'], function($, log) {
                     if (!sectiontoggles.hasOwnProperty(sectionid)) {
                         sectiontoggles[sectionid] = "true";
                         M.util.set_user_preference('sections-toggle-' + $args.course, JSON.stringify(sectiontoggles));
-                        console.log('user preference updated (+)');
                     }
                     $(event.target).siblings('div.section-summary-activities').each(function(i, item) {
                         $(item).hide();
@@ -74,7 +73,6 @@ define(['jquery', 'core/log'], function($, log) {
                     if (sectiontoggles.hasOwnProperty(sectionid)) {
                         delete sectiontoggles[sectionid];
                         M.util.set_user_preference('sections-toggle-' + $args.course, JSON.stringify(sectiontoggles));
-                        console.log('user preference updated (-)');
                     }
                     $(event.target).siblings('div.section-summary-activities').each(function(i, item) {
                         $(item).show();
