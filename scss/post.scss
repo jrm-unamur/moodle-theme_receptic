@@ -1861,6 +1861,15 @@ button.btn[data-action="toggle-drawer"] {
     filter: grayscale(100%);
 }
 
+.collapsing {
+    -webkit-transition: none;
+    transition: none;
+}
+
+.accordion.topics .collapse {
+    padding-top: .5rem;
+}
+
 
 
 

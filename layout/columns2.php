@@ -26,9 +26,20 @@ defined('MOODLE_INTERNAL') || die();
 
 user_preference_allow_ajax_update('drawer-open-nav', PARAM_ALPHA);
 user_preference_allow_ajax_update('blocks-collapsed', PARAM_ALPHA);
+$context = $this->page->context;
+if ($context->contextlevel == CONTEXT_COURSE) {
+    user_preference_allow_ajax_update('sections-toggle-' . $this->page->course->id, PARAM_RAW);
+}
 require_once($CFG->libdir . '/behat/lib.php');
 
-$context = $this->page->context;
+$sectionstogglestate = get_user_preferences('sections-toggle-' . $this->page->course->id);
+
+if (empty($sectionstogglestate)) {
+    $sectionstogglestate = '{}';
+}
+$params = array('course' => $this->page->course->id, 'sectionstoggle' => $sectionstogglestate);
+$this->page->requires->js_call_amd('theme_receptic/ux', 'init', array($params));
+
 $iscontextcourse = $context->contextlevel == CONTEXT_COURSE || $context->contextlevel == CONTEXT_MODULE;
 $params = new stdClass();
 
@@ -83,7 +94,7 @@ $templatecontext = [
     'shownavdrawer' => $shownavdrawer,
     'courseadminmenu' => $iscontextcourse && $this->page->theme->settings->courseadminmenuintoolbar,
     'iscontextcourse' => $iscontextcourse,
-    'adminlink' => $this->page->theme->settings->adminmenuintoolbar
+    'adminlink' => $this->page->theme->settings->adminmenuintoolbar,
 ];
 
 $templatecontext['flatnavigation'] = $PAGE->flatnav;
