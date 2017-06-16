@@ -15,17 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    
+ * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Unversite de Namur
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->version = '2016111735';
-$plugin->requires = '2016070700';
-$plugin->component = 'theme_receptic';
-$plugin->dependencies = [
-    'theme_boost' => '2016102100'
-];
+class theme_receptic_observer
+{
+    public static function user_loggedout(core\event\base $event) {
+        global $DB;
+        $eventdata = $event->get_data();
+        $DB->delete_records_select('user_preferences', $DB->sql_like('name', ':name') . ' AND userid=:userid ',
+            array( 'name' => 'sections-toggle-%', 'userid' => $eventdata['userid']));
+    }
+}
