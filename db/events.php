@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    
+ * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Unversite de Namur
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -23,9 +23,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = '2016111735';
-$plugin->requires = '2016070700';
-$plugin->component = 'theme_receptic';
-$plugin->dependencies = [
-    'theme_boost' => '2016102100'
-];
+$observers = array(
+    array(
+        'eventname' => 'core\event\user_loggedout',
+        'callback' => 'theme_receptic_observer::user_loggedout',
+    ),
+);
