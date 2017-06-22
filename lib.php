@@ -149,7 +149,6 @@ function theme_receptic_get_fontawesome_icon_map() {
 
 function theme_receptic_extend_navigation(global_navigation $nav) {
     global $COURSE;
-    print_object('coucou');
     // Ajouter une condition pour n'afficher que pour les createurs de cours.
     if (has_capability('local/createcourse:create', context_system::instance())) {
         $syscontext = context_system::instance();
