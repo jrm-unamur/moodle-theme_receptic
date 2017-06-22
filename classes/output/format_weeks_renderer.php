@@ -34,7 +34,10 @@ class format_weeks_renderer extends \format_weeks_renderer {
         // Now the list of sections..
         echo $this->start_section_list();
 
-        foreach ($modinfo->get_section_info_all() as $section => $thissection) {
+        $sections = $modinfo->get_section_info_all();
+        $course->numsections = count($sections);
+
+        foreach (/*$modinfo->get_section_info_all()*/ $sections as $section => $thissection) {
             if ($section == 0) {
                 // 0-section is displayed a little different then the others
                 if ($thissection->summary or !empty($modinfo->sections[0]) or $PAGE->user_is_editing()) {
@@ -181,9 +184,9 @@ class format_weeks_renderer extends \format_weeks_renderer {
         $o.= $this->format_summary_text($section);
         $o.= html_writer::end_tag('div');*/
 
-        $context = context_course::instance($course->id);
+        /*$context = context_course::instance($course->id);
         $o .= $this->section_availability_message($section,
-            has_capability('moodle/course:viewhiddensections', $context));
+            has_capability('moodle/course:viewhiddensections', $context));*/
 
         return $o;
     }
