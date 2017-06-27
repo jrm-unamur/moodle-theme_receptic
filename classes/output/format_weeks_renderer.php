@@ -169,7 +169,8 @@ class format_weeks_renderer extends \format_weeks_renderer {
         }
         //jrm end collapse toggle
 
-        $o.= $this->output->heading($sectionname, 3, 'sectionname' . $classes);
+        $o.= '<div class="clearfix">' . $this->output->heading($sectionname, 3, 'sectionname' . $classes);
+        $o .= $this->section_availability($section) . '</div>';
         $o.= $this->section_summary($section, $course, null);
         //jrm add div around content to allow section collapsing
         if ($section->section == 0 || course_get_format($course)->is_section_current($section)) {
@@ -234,10 +235,58 @@ class format_weeks_renderer extends \format_weeks_renderer {
         $o.= html_writer::end_tag('div');
         $o.= $this->section_activity_summary($section, $course, null);
 
-        $context = context_course::instance($course->id);
-        $o .= $this->section_availability_message($section,
-            has_capability('moodle/course:viewhiddensections', $context));
+        //$context = context_course::instance($course->id);
+        //$o .= $this->section_availability_message($section,
+            //has_capability('moodle/course:viewhiddensections', $context));
 
+        return $o;
+    }
+
+    public function section_availability($section) {
+        $context = context_course::instance($section->course);
+        $canviewhidden = has_capability('moodle/course:viewhiddensections', $context);
+        return html_writer::span($this->section_availability_message($section, $canviewhidden), 'section_availability');
+    }
+
+    /**
+     * If section is not visible, display the message about that ('Not available
+     * until...', that sort of thing). Otherwise, returns blank.
+     *
+     * For users with the ability to view hidden sections, it shows the
+     * information even though you can view the section and also may include
+     * slightly fuller information (so that teachers can tell when sections
+     * are going to be unavailable etc). This logic is the same as for
+     * activities.
+     *
+     * @param section_info $section The course_section entry from DB
+     * @param bool $canviewhidden True if user can view hidden sections
+     * @return string HTML to output
+     */
+    protected function section_availability_message($section, $canviewhidden) {
+        global $CFG;
+        $o = '';
+        if (!$section->visible) {
+            if ($canviewhidden) {
+                $o .= $this->courserenderer->availability_info(get_string('hiddenfromstudents'), 'ishidden');
+            }
+        } else if (!$section->uservisible) {
+            if ($section->availableinfo) {
+                // Note: We only get to this function if availableinfo is non-empty,
+                // so there is definitely something to print.
+                $formattedinfo = \core_availability\info::format_info(
+                    $section->availableinfo, $section->course);
+                $o .= $this->courserenderer->availability_info($formattedinfo);
+            }
+        } else if ($canviewhidden && !empty($CFG->enableavailability)) {
+            // Check if there is an availability restriction.
+            $ci = new \core_availability\info_section($section);
+            $fullinfo = $ci->get_full_information();
+            if ($fullinfo) {
+                $formattedinfo = \core_availability\info::format_info(
+                    $fullinfo, $section->course);
+                $o .= $this->courserenderer->availability_info($formattedinfo);
+            }
+        }
         return $o;
     }
 }

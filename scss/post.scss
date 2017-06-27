@@ -645,7 +645,7 @@ body.editing #page-content > a {
 
 a.sectiontoggle {
     float: left;
-    margin: 0 3px 3px;
+    margin: 1px 3px 3px;
     padding: 2px 18px 2px 0;
     background-repeat: no-repeat;
     background-position: center center;
@@ -661,6 +661,19 @@ a.sectiontoggle[aria-expanded="true"] {
     background-image: url([[pix:moodle|t/expanded]]);
 }
 
+.collapsible-actions .expandall {
+    padding-left: 20px;
+    background: url([[pix:moodle|t/collapsed]]) 2px center no-repeat;
+}
+
+.collapsible-actions .collapseall {
+    padding-left: 20px;
+    background: url([[pix:moodle|t/expanded]]) 2px center no-repeat;
+}
+
+.course-content .collapsible-actions {
+    text-align: center;
+}
 
 .accordion {
     padding-left: 0;
@@ -1920,7 +1933,42 @@ button.btn[data-action="toggle-drawer"] {
     display: none;
 }
 
+.course-content .summarytext {
+    margin-left: 2.5rem;
+}
 
+.course-content .summarytext p {
+    margin-bottom: 0;
+}
+
+h3.sectionname {
+    float: left;
+}
+
+span.section_availability {
+    margin-left: 1rem;
+}
+
+span.availabilityinfo:before {
+    font-family: FontAwesome;
+    content: "";
+    color: #ff4136;
+    padding-right: 5px;
+    vertical-align: sub;
+}
+
+span.availabilityinfo .tag.tag-info {
+    margin-top: .4rem;
+}
+
+.section .activity .availabilityinfo {
+    display: block;
+    margin: 0;
+}
+
+.tag-info {
+    background-color: $link-hover-color;
+}
 
 
 

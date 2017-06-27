@@ -19,7 +19,7 @@ define(['jquery', 'core/log'], function($, log) {
                         $(section).collapse('show');
                     }
                 }, 0);
-                $('.summarytext').remove();
+                //$('.summarytext').remove();
                 $('.block_myoverview [data-action="more-courses"]').removeClass('hidden');
 
                 $("body").on( "click", ".toggleblocks", function() {
@@ -29,6 +29,26 @@ define(['jquery', 'core/log'], function($, log) {
                         M.util.set_user_preference('blocks-collapsed', 'true');
                     }
                     $('body').toggleClass('noblocks');
+                });
+//btn.setHTML(M.util.get_string('expandall', 'moodle'));
+                // Handle toggle all sections.
+                $('body').on('click', '.expandall', function(event) {
+                    event.preventDefault();
+                    $(this).removeClass('expandall').addClass('collapseall').html(M.util.get_string('collapseall', 'moodle'));
+
+                    $('.sectiontoggle').each(function(index) {
+                        var section = '#collapse-' + (index + 1);
+                        $(section).collapse('show');
+                    })
+                });
+
+                $('body').on('click', '.collapseall', function(event) {
+                    event.preventDefault();
+                    $(this).removeClass('collapseall').addClass('expandall').html(M.util.get_string('expandall', 'moodle'));
+                    $('.sectiontoggle').each(function(index) {
+                        var section = '#collapse-' + (index + 1);
+                        $(section).collapse('hide');
+                    })
                 });
 
                 var offset = 50;
