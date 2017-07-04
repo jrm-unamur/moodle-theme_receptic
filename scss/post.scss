@@ -1631,10 +1631,6 @@ ul {
     margin-left: 2rem;
 }
 
-.course-content .summarytext {
-    margin-left: 1.5rem;
-}
-
 div.availabilityinfo:before {
     font-family: FontAwesome;
     content: "\f071";
@@ -1909,12 +1905,47 @@ button.btn[data-action="toggle-drawer"] {
     color: #3a3a3a;
 }
 
-.content-item-container:hover {
+.popover-region-notifications .content-item-container:hover,
+.popover-region-messages .content-item-container:hover {
     background-color: $gray-lightest;
+}
+
+.content-item-container:hover,
+.content-item-container.unread:hover {
+    color: $body-color;
 }
 
 .content-item-container .notification-image img {
     filter: grayscale(100%);
+}
+.content-item-footer .timestamp,
+.content-item-container:hover .content-item-footer .timestamp {
+    color: $body-color;
+}
+
+.content-item-container:hover {
+    background-color: $gray-lighter;
+}
+
+.content-item-container.unread {
+    background-color: $gray-lightest;
+}
+
+.content-item-container.unread:hover {
+    background-color: $gray-lighter;
+}
+
+.content-item-container.selected {
+    background-color: $link-hover-color;
+    border-color: $link-color;
+}
+
+.content-item-container.selected:hover {
+    color: $white;
+}
+
+.content-item-container.selected:hover .content-item-footer .timestamp {
+    color: $white;
 }
 
 .newmessage-link a:hover,
@@ -1924,17 +1955,16 @@ button.btn[data-action="toggle-drawer"] {
     color: $link-hover-color;
 }
 
-.content-item-footer .timestamp,
-.content-item-container:hover .content-item-footer .timestamp {
-    color: #3a3a3a;
-}
-
 .mobiletheme .nomobile {
     display: none;
 }
 
 .course-content .summarytext {
     margin-left: 2.5rem;
+}
+
+body.editing .course-content .summarytext {
+    margin-left: 4rem;
 }
 
 .course-content .summarytext p {
