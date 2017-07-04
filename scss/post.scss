@@ -1079,6 +1079,12 @@ h3.sectionname {
     }
 }
 
+@media all and (max-width: 1199px) {
+    .toggleblocks {
+        display: none;
+    }
+}
+
 .shrinked {
      font-size: .8rem;
      margin-top: 0;
