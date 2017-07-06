@@ -10,7 +10,7 @@ define(['jquery', 'core/log'], function($, log) {
         init: function($args) {
             log.debug('UnamurUI AMD module initialized');
             $(document).ready(function($) {
-                //$('body').scrollTop(0);
+                // ... $('body').scrollTop(0).
                 var sectiontoggles = JSON.parse($args.sectionstoggle);
 
                 setTimeout(function () {
@@ -19,7 +19,7 @@ define(['jquery', 'core/log'], function($, log) {
                         $(section).collapse('show');
                     }
                 }, 0);
-                //$('.summarytext').remove();
+                // ... $('.summarytext').remove().
                 $('.block_myoverview [data-action="more-courses"]').removeClass('hidden');
 
                 $("body").on( "click", ".toggleblocks", function() {
@@ -30,25 +30,27 @@ define(['jquery', 'core/log'], function($, log) {
                     }
                     $('body').toggleClass('noblocks');
                 });
-//btn.setHTML(M.util.get_string('expandall', 'moodle'));
+
                 // Handle toggle all sections.
                 $('body').on('click', '.expandall', function(event) {
                     event.preventDefault();
-                    $(this).removeClass('expandall').addClass('collapseall').html(M.util.get_string('collapseall', 'moodle'));
+                    var target = event.target;
+                    $(target).removeClass('expandall').addClass('collapseall').html(M.util.get_string('collapseall', 'moodle'));
 
                     $('.sectiontoggle').each(function(index) {
                         var section = '#collapse-' + (index + 1);
                         $(section).collapse('show');
-                    })
+                    });
                 });
 
                 $('body').on('click', '.collapseall', function(event) {
                     event.preventDefault();
-                    $(this).removeClass('collapseall').addClass('expandall').html(M.util.get_string('expandall', 'moodle'));
+                    var target = event.target;
+                    $(target).removeClass('collapseall').addClass('expandall').html(M.util.get_string('expandall', 'moodle'));
                     $('.sectiontoggle').each(function(index) {
                         var section = '#collapse-' + (index + 1);
                         $(section).collapse('hide');
-                    })
+                    });
                 });
 
                 var offset = 50;
@@ -65,17 +67,19 @@ define(['jquery', 'core/log'], function($, log) {
                     $('html, body').animate({scrollTop: 0}, duration);
                     return false;
                 });
-                $('div.media').first().on('click', function(/*event*/) {
-                    //event.preventDefault();
+
+                $('div.media').first().on('click', function() {
                     $('html, body').animate({scrollTop: 150}, 50);
                     return false;
                 });
+
                 $('div.media').on('click', function(event) {
                     var href = $(event.target).parent().parent().parent().attr('href');
                     var index = href.substring(href.lastIndexOf('-') + 1);
                     var attr = '#collapse-' + index;
                     $(attr).collapse('show');
                 });
+
                 $('.collapse').on('show.bs.collapse', function(event) {
                     var sectionstringid = $(event.target).attr('id');
                     var sectionid = sectionstringid.substring(sectionstringid.lastIndexOf('-') + 1);
@@ -87,6 +91,7 @@ define(['jquery', 'core/log'], function($, log) {
                         $(item).hide();
                     });
                 });
+
                 $('.collapse').on('hide.bs.collapse', function(event) {
                     var sectionstringid = $(event.target).attr('id');
                     var sectionid = sectionstringid.substring(sectionstringid.lastIndexOf('-') + 1);
@@ -98,7 +103,6 @@ define(['jquery', 'core/log'], function($, log) {
                         $(item).show();
                     });
                 });
-
             });
         }
     };
