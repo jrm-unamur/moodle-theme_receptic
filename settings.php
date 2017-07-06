@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    
+ * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Unversite de Namur
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -28,7 +28,7 @@ if ($ADMIN->fulltree) {
     // General settings page.
     $page = new admin_settingpage('theme_receptic_general', get_string('generalsettings', 'theme_receptic'));
 
-    // Scss variable overriding $brand-primary
+    // Scss variable overriding $brand-primary.
     $name = 'theme_receptic/brandcolor';
     $title = get_string('brandcolor_desc', 'theme_receptic');
     $setting = new admin_setting_configcolourpicker($name, $title, $description, '');
@@ -57,7 +57,7 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    // Add file uploader to add preset files to our theme
+    // Add file uploader to add preset files to our theme.
     $name = 'theme_receptic/presetfiles';
     $title = get_string('presetfiles', 'theme_receptic');
     $descriptin = get_string('presetfiles_desc', 'theme_receptic');
@@ -65,7 +65,7 @@ if ($ADMIN->fulltree) {
             array('maxfiles' => 20, 'accepted_types' => array('.scss')));
     $page->add($setting);
 
-    // Add background logo to login page
+    // Add background logo to login page.
     $name = 'theme_receptic/loginbackgroundimage';
     $title = get_string('loginbackgroundimage', 'theme_receptic');
     $description = get_string('loginbackgroundimage_desc', 'theme_receptic');
@@ -97,7 +97,6 @@ if ($ADMIN->fulltree) {
     $page = new admin_settingpage('theme_receptic_toolselector', get_string('toolselector', 'theme_receptic'));
 
     if (!$modules = $DB->get_records('modules', array('visible' => 1), 'name ASC')) {
-        //print_error('moduledoesnotexist', 'error');
         $modules = array();
     }
 
@@ -121,8 +120,10 @@ if ($ADMIN->fulltree) {
         return strcmp($a->localname, $b->localname);
     });
 
-    //Activities.
-    $page->add(new admin_setting_heading('activitieslist', get_string('activitieslist', 'theme_receptic'), get_string('activitieslistdesc', 'theme_receptic')));
+    // Activities.
+    $page->add(new admin_setting_heading('activitieslist',
+            get_string('activitieslist', 'theme_receptic'),
+            get_string('activitieslistdesc', 'theme_receptic')));
     foreach ($activities as $activity) {
         $name = 'theme_receptic/' . $activity->name . 'inshortlist';
         $title = $activity->localname;
@@ -131,11 +132,12 @@ if ($ADMIN->fulltree) {
         $page->add($setting);
     }
     // Resources.
-    $page->add(new admin_setting_heading('resourceslist', get_string('resourceslist', 'theme_receptic'), get_string('activitieslistdesc', 'theme_receptic')));
+    $page->add(new admin_setting_heading('resourceslist',
+            get_string('resourceslist', 'theme_receptic'),
+            get_string('activitieslistdesc', 'theme_receptic')));
     foreach ($resources as $resource) {
         $name = 'theme_receptic/' . $resource->name . 'inshortlist';
         $title = $resource->localname;
-        //$description = get_string('enablecategorycolorsdesc', 'theme_receptic');
         $default = false;
         $setting = new admin_setting_configcheckbox($name, $title, '', $default);
         $page->add($setting);

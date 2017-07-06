@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    
+ * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Unversite de Namur
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -33,7 +33,6 @@ use moodle_url;
 use stdClass;
 
 global $CFG;
-//require_once($CFG->dirroot . '/course/classes/output/modchooser.php');
 
 class modchooser extends \core_course\output\modchooser {
     public function __construct(stdClass $course, array $modules) {
@@ -47,7 +46,6 @@ class modchooser extends \core_course\output\modchooser {
         $advancedmodules = array();
         foreach ($modules as $module) {
             if (get_config('theme_receptic', $module->name . 'inshortlist')) {
-            //if ($settings->{$module->name . 'inshortlist'}) {
                 $preferredmodules[] = $module;
             } else {
                 $advancedmodules[] = $module;

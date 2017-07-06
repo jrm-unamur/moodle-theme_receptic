@@ -59,10 +59,13 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 // Only set to false when cannot determine what the URL / params should be for a page type.
                 $buttontoadd = true;
                 $pagetype = $this->page->pagetype;
+                $ismodeditview = strpos($pagetype, 'mod') !== false
+                        && ((strpos($pagetype, 'edit') !== false)
+                            || (strpos($pagetype, 'view') !== false)
+                            || strpos($pagetype, 'mod') !== false);
                 if (strpos($pagetype, 'admin-setting') !== false) {
                     $pagetype = 'admin-setting'; // Deal with all setting page types.
-                } else if ((strpos($pagetype, 'mod') !== false) &&
-                    ((strpos($pagetype, 'edit') !== false) || (strpos($pagetype, 'view') !== false) || strpos($pagetype, 'mod') !== false)) {
+                } else if ($ismodeditview) {
                     $pagetype = 'mod-edit-view'; // Deal with all mod edit / view page types.
                 } else if (strpos($pagetype, 'mod-data-field') !== false) {
                     $pagetype = 'mod-data-field'; // Deal with all mod data field page types.
@@ -136,23 +139,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
                             $url->param('edit', 'on');
                         }
                         break;
-                    /*default:
-                        //$url = $this->page->url;
-                        $course = $this->page->course;
-                        if ($this->page->url->compare(new moodle_url('/course/view.php'), URL_MATCH_BASE)) {
-                            // We are on the course page, retain the current page params e.g. section.
-                            $url = clone($this->page->url);
-                            //$baseurl->param('sesskey', sesskey());
-                        } else {
-                            // Edit on the main course page.
-                            $url = new moodle_url('/course/view.php', array('id'=>$course->id, 'return'=>$this->page->url->out_as_local_url(false)));
-                        }
-                        if ($this->page->user_is_editing()) {
-                            $url->param('edit', 'off');
-                        } else {
-                            $url->param('edit', 'on');
-                        }
-                        break;*/
                 }
                 if ($buttontoadd) {
                     $url->param('sesskey', sesskey());
@@ -262,10 +248,12 @@ class core_renderer extends \theme_boost\output\core_renderer {
                         $templatecontext['aria-label'] = $mycourse->shortname . ' - ' . $mycourse->fullname;
                         $templatecontext['title'] = $mycourse->shortname . ' - ' . $mycourse->fullname;
                         if ($mycourse->visible) {
-                            $branch->add(
-                                $this->fa_icon($templatecontext) . format_string($mycourse->shortname . ' - ' . $mycourse->fullname),
-                                new moodle_url('/course/view.php?id=' . $mycourse->id),
-                                $mycourse->shortname);
+                            $branch->add($this->fa_icon($templatecontext) .
+                                        format_string($mycourse->shortname .
+                                        ' - ' .
+                                        $mycourse->fullname),
+                                    new moodle_url('/course/view.php?id=' . $mycourse->id),
+                                    $mycourse->shortname);
 
                         } else if (has_capability('moodle/course:viewhiddencourses', context_course::instance($mycourse->id))) {
                             $templatecontext['key'] = 'fa-eye-slash';
@@ -350,11 +338,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                         'Créer un cours'
                     );
                 }
-
-
             }
-
-
         }
 
         $langs = get_string_manager()->get_list_of_translations();
@@ -408,7 +392,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         if ($admin) {
             $expanded = count($admin->get_children_key_list());
-            return $this->render_from_template('theme_receptic/custom_admin_menu', ['node' => $admin, 'url' => $CFG->wwwroot . '/admin/search.php', 'expanded' => $expanded]);
+            return $this->render_from_template('theme_receptic/custom_admin_menu',
+                    ['node' => $admin, 'url' => $CFG->wwwroot . '/admin/search.php', 'expanded' => $expanded]);
         }
     }
 
@@ -441,7 +426,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
             ($currentnode->key === 'myprofile')) {
             $showusermenu = true;
         }
-
 
         if ($showfrontpagemenu) {
             $settingsnode = $this->page->settingsnav->find('frontpage', navigation_node::TYPE_SETTING);
@@ -498,30 +482,12 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
         $context = $menu->export_for_template($this);
 
-        // Rendering slightly different in navbar and course header
+        // Rendering slightly different in navbar and course header.
         if ($location == 'navbar') {
             $context->primary->actiontext = '<i class="fa fa-cog"></i>' . $this->page->course->shortname;
             $context->classes .= ' nav-item action-menu-in-navbar';
             $context->primary->icon = '';
         }
-
-        //horrible hack to add Participants link into course admin menu since navdrawer is disabled.
-        /*$participants = new stdClass();
-        $action = new action_link(new moodle_url('/user/index.php?id=' . $COURSE->id), 'Participants', null, array('role' => 'menuitem'), new pix_icon('i/users', ''));
-        $participantslink = $action->export_for_template($this);
-        $participants->actionlink = $participantslink;
-        $item = new stdClass();
-        $item->content = $participants;
-        array_splice($context->secondary->items, 2, 0, $item);
-
-        $groups = new stdClass();
-        $action = new action_link(new moodle_url('/group/index.php?id=' . $COURSE->id), 'Groupes', null, array('role' => 'menuitem'), new pix_icon('i/group', ''));
-        $groupslink = $action->export_for_template($this);
-        $groups->actionlink = $groupslink;
-        $item = new stdClass();
-        $item->content = $groups;
-        array_splice($context->secondary->items, 3, 0, $item);*/
-        //print_object($context);
         return $this->render_from_template('core/action_menu', $context);
     }
 
@@ -727,7 +693,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         $context = new stdClass();
         $context->displaymenu = false;
-        //Display link to my private files for users with required capability.
+        // Display link to my private files for users with required capability.
         if (!empty($this->page->theme->settings->privatefileslink) &&
             has_capability('moodle/user:manageownfiles', context_system::instance())) {
             $context->privatefiles = true;
@@ -751,7 +717,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 'title' => get_string('myevaluations', 'local_eee')
             );
             $context->myevaluationsurl = new moodle_url('/local/eee/index.php', array('returnurl' => $this->page->url->out()));
-            //Simple menu item for "my evaluations link"
+            // Simple menu item for "my evaluations link".
             if (student_has_evaluation() || teacher_has_evaluation()
                     && !is_allowed_to_admin_eval()) {
                 $context->displaymenu = true;
@@ -761,7 +727,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $context->myevaluationsitem = $this->fa_icon($myevaluationscontext) . $label;
 
             } else if (is_allowed_to_admin_eval()) {
-                //Submenu for various evaluations-related links.
+                // Submenu for various evaluations-related links.
                 $context->displaymenu = true;
                 $context->multilevel = true;
                 $label = get_string('evaluations', 'local_eee');
@@ -795,7 +761,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
                     'title' => $label
                 );
                 $context->participationitem = $this->fa_icon($templatecontext) . $label;
-                $context->participationurl = new moodle_url('/local/eee/admin/participation.php', array('returnurl' => $this->page->url->out()));
+                $context->participationurl = new moodle_url('/local/eee/admin/participation.php',
+                        array('returnurl' => $this->page->url->out()));
                 if (has_capability('local/eee:manage', context_system::instance())) {
                     $context->manage = true;
                     $label = get_string('admin', 'local_eee');
@@ -806,7 +773,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
                         'title' => $label
                     );
                     $context->manageitem = $this->fa_icon($templatecontext) . $label;
-                    $context->manageurl = new moodle_url('/local/eee/admin/index.php', array('returnurl' => $this->page->url->out()));
+                    $context->manageurl = new moodle_url('/local/eee/admin/index.php',
+                            array('returnurl' => $this->page->url->out()));
                 }
             }
         }

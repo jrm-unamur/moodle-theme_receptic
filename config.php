@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    
+ * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Universite de Namur
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -24,7 +24,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $THEME->name = 'receptic';
-//$THEME->sheets = ['font-awesome'];
 // For TinyMCE only.
 $THEME->editor_sheets = [];
 $THEME->parents = ['boost'];
@@ -34,14 +33,16 @@ $THEME->enable_dock = false;
 $THEME->yuicssmodules = array();
 // Mandatory to be able to override renderers.
 $THEME->rendererfactory = 'theme_overridden_renderer_factory';
-$THEME->requiredblocks = ''; //'settings';
+// Add settings and/or navigation to get legacy moodle blocks.
+$THEME->requiredblocks = '';
 // Move the add block functionality to be in the flat navigation rather than the block region.
 $THEME->addblockposition = BLOCK_ADDBLOCK_POSITION_CUSTOM;
 // Override preset selection from boost theme to allow selecting preset from both themes.
 $THEME->scss = function($theme) {
     return theme_receptic_get_main_scss_content($theme);
 };
-// Function that returns some SCSS as a string to prepend to the main SCSS file. (like brandprimary in boost theme). Callback is defined in lib.php file.
+// Function that returns some SCSS as a string to prepend to the main SCSS file.
+// (like brandprimary in boost theme). Callback is defined in lib.php file.
 $THEME->prescsscallback = 'theme_receptic_get_pre_scss';
 // Function that returns SCSS to append to our main SCSS for this theme.
 $THEME->extrascsscallback = 'theme_receptic_get_extra_scss';

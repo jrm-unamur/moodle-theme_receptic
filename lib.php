@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    
+ * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Universite de Namur
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -52,19 +52,12 @@ function theme_receptic_get_pre_scss($theme) {
     }
 
     return $scss;
-
-    // 2. To use 'brandcolor' and 'scsspre' variables from boost theme. Value is therefore defined in boost theme and not in our custom one. To use this code uncomment below and comment code under 1.
-    /*$theme = theme_config::load('boost');
-    return theme_boost_get_pre_scss($theme);*/
 }
 
 // Function that generates a chunk of SCSS code to be added to the end of the main scss file.
 function theme_receptic_get_extra_scss($theme) {
     // 1. To define our own extra scss variable. To use it uncomment the code below and comment under 2.
     return !empty($theme->settings->scss) ? $theme->settings->scss : '';
-    // 2. To use 'scss' variable from boost theme. (See theme_receptic_get_pre_scss -> 2). To use it uncomment the code below and uncomment under 1.
-    /*$theme = theme_config::load('boost');
-    return theme_boost_get_extra_scss($theme);*/
 }
 
 function theme_receptic_get_main_scss_content($theme) {
@@ -85,7 +78,7 @@ function theme_receptic_get_main_scss_content($theme) {
         $scss .= file_get_contents($CFG->dirroot . '/theme/boost/scss/preset/default.scss');
     }
 
-    // Add 2 scss file to the beginning and end of main
+    // Add 2 scss file to the beginning and end of main.
     $pre = file_get_contents($CFG->dirroot . '/theme/receptic/scss/pre.scss');
     $fa = file_get_contents($CFG->dirroot . '/theme/receptic/scss/fontawesome/font-awesome.scss');
     $post = file_get_contents($CFG->dirroot . '/theme/receptic/scss/post.scss');
@@ -113,7 +106,7 @@ function theme_receptic_update_settings_images($settingname) {
     // Store file extension in a variable for further use.
     $extension = substr($filename, strrpos($filename, '.') + 1);
 
-    // Path in the moodle file system
+    // Path in the moodle file system.
     $fullpath = "/{$syscontext->id}/{$component}/{$settingname}/0{$filename}";
 
     $fs = get_file_storage();
@@ -121,7 +114,8 @@ function theme_receptic_update_settings_images($settingname) {
     // Best way to get a file if we know the exact path.
     if ($file = $fs->get_file_by_hash(sha1($fullpath))) {
 
-        // The stored file has been found --> copy it to dataroot in a location matched by the search for location in theme_config::resolve_image_location.
+        // The stored file has been found --> copy it to dataroot in a location
+        // matched by the search for location in theme_config::resolve_image_location.
         $pathname = $CFG->dataroot . '/pix_plugins/theme/receptic/' . $settingname . '.' . $extension;
 
         // Retrieve any previous files with maybe different path extensions.
@@ -143,11 +137,10 @@ function theme_receptic_update_settings_images($settingname) {
 
 function theme_receptic_get_fontawesome_icon_map() {
     return [
-        //'core:t/delete' => 'fa-futbol-o',
         ];
 }
 
-function theme_receptic_extend_navigation(global_navigation $nav) {
+/*function theme_receptic_extend_navigation(global_navigation $nav) {
     global $COURSE;
     // Ajouter une condition pour n'afficher que pour les createurs de cours.
     if (has_capability('local/createcourse:create', context_system::instance())) {
@@ -158,17 +151,13 @@ function theme_receptic_extend_navigation(global_navigation $nav) {
         $noeitem->showinflatnavigation = true;
         $noeitem->myshowdivider = true;
         if (has_capability('moodle/course:create', context_system::instance())) {
-            $manualitem = $nav->add(get_string('createcourse', 'local_createcourse') . ' ... (manuel2)', '/course/edit.php?category=1&returnto=topcat',
-                navigation_node::TYPE_SETTING, null , 'manualcreatecourse2', new pix_icon('i/course' , ''));
-            $manualitem->showinflatnavigation = true;
+            $manualitem = $nav->add(get_string('createcourse', 'local_createcourse') . ' ... (manuel2)',
+                    '/course/edit.php?category=1&returnto=topcat',
+                    navigation_node::TYPE_SETTING, null , 'manualcreatecourse2', new pix_icon('i/course' , ''));
+            $manualitem->showinflatnavigation = false;
             if (empty($noeitem)) {
                 $manualitem->myshowdivider = true;
             }
         }
-        //if(is_siteadmin())print_object($item);
-
-        //}
     }
-}
-
-
+}*/

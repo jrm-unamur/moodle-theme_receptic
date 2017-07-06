@@ -1,11 +1,26 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Created by PhpStorm.
- * User: jmeuriss
- * Date: 21/09/16
- * Time: 08:21
+ * @package    theme_receptic
+ * @author     Jean-Roch Meurisse
+ * @copyright  2016 - Cellule TICE - Unversite de Namur
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 namespace theme_receptic\output;
 
 use context_course;
@@ -13,7 +28,10 @@ use completion_info;
 use html_writer;
 use moodle_url;
 
-require_once($CFG->dirroot . "/course/format/weeks/renderer.php");
+defined('MOODLE_INTERNAL') || die;
+
+require_once($CFG->dirroot . '/course/format/weeks/renderer.php');
+
 class format_weeks_renderer extends \format_weeks_renderer {
     /** overrides format_section_renderer_base */
     public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
@@ -37,9 +55,9 @@ class format_weeks_renderer extends \format_weeks_renderer {
         $sections = $modinfo->get_section_info_all();
         $course->numsections = count($sections);
 
-        foreach (/*$modinfo->get_section_info_all()*/ $sections as $section => $thissection) {
+        foreach ($sections as $section => $thissection) {
             if ($section == 0) {
-                // 0-section is displayed a little different then the others
+                // 0-section is displayed a little different then the others.
                 if ($thissection->summary or !empty($modinfo->sections[0]) or $PAGE->user_is_editing()) {
                     echo $this->section_header($thissection, $course, false, 0);
                     echo $this->courserenderer->course_section_cm_list($course, $thissection, 0);
@@ -49,7 +67,7 @@ class format_weeks_renderer extends \format_weeks_renderer {
                 continue;
             }
             if ($section > $course->numsections) {
-                // activities inside this section are 'orphaned', this section will be printed as 'stealth' below
+                // Activities inside this section are 'orphaned', this section will be printed as 'stealth' below.
                 continue;
             }
             // Show the section if the user is permitted to access it, OR if it's not available
@@ -85,7 +103,7 @@ class format_weeks_renderer extends \format_weeks_renderer {
             // Print stealth sections if present.
             foreach ($modinfo->get_section_info_all() as $section => $thissection) {
                 if ($section <= $course->numsections or empty($modinfo->sections[$section])) {
-                    // this is not stealth section or it is empty
+                    // This is not stealth section or it is empty.
                     continue;
                 }
                 echo $this->stealth_section_header($section);
@@ -136,24 +154,24 @@ class format_weeks_renderer extends \format_weeks_renderer {
             }
         }
 
-        $o.= html_writer::start_tag('li', array('id' => 'section-'.$section->section,
-            'class' => 'section main clearfix'.$sectionstyle, 'role'=>'region',
-            'aria-label'=> get_section_name($course, $section)));
+        $o .= html_writer::start_tag('li', array('id' => 'section-' . $section->section,
+            'class' => 'section main clearfix' . $sectionstyle, 'role' => 'region',
+            'aria-label' => get_section_name($course, $section)));
 
         // Create a span that contains the section title to be used to create the keyboard section move menu.
         $o .= html_writer::tag('span', get_section_name($course, $section), array('class' => 'hidden sectionname'));
 
         $leftcontent = $this->section_left_content($section, $course, $onsectionpage);
-        $o.= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
+        $o .= html_writer::tag('div', $leftcontent, array('class' => 'left side'));
 
         $rightcontent = $this->section_right_content($section, $course, $onsectionpage);
-        $o.= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
-        $o.= html_writer::start_tag('div', array('class' => 'content'));
+        $o .= html_writer::tag('div', $rightcontent, array('class' => 'right side'));
+        $o .= html_writer::start_tag('div', array('class' => 'content'));
 
-        // When not on a section page, we display the section titles except the general section if null
+        // When not on a section page, we display the section titles except the general section if null.
         $hasnamenotsecpg = (!$onsectionpage && ($section->section != 0 || !is_null($section->name)));
 
-        // When on a section page, we only display the general section title, if title is not the default one
+        // When on a section page, we only display the general section title, if title is not the default one.
         $hasnamesecpg = ($onsectionpage && ($section->section == 0 && !is_null($section->name)));
 
         $classes = ' accesshide';
@@ -161,33 +179,39 @@ class format_weeks_renderer extends \format_weeks_renderer {
             $classes = '';
         }
         $sectionname = html_writer::tag('span', $this->section_title($section, $course));
-        //jrm add collapse toggle
+        // Jrm add collapse toggle.
         if (course_get_format($course)->is_section_current($section)) {
-            $o.= '<a class="sectiontoggle" data-toggle="collapse" data-parent="accordion" href="#collapse-' . $section->section . '" aria-expanded="true" aria-controls="collapse-' . $section->section . '">&nbsp;</a> ';
+            $o .= '<a class="sectiontoggle" data-toggle="collapse" data-parent="accordion" href="#collapse-' .
+                  $section->section .
+                  '" aria-expanded="true" aria-controls="collapse-' .
+                  $section->section .
+                  '">&nbsp;</a> ';
         } else if ($section->section != 0) {
-            $o.= '<a class="sectiontoggle" data-toggle="collapse" data-parent="accordion" href="#collapse-' . $section->section . '" aria-expanded="false" aria-controls="collapse-' . $section->section . '">&nbsp;</a> ';
+            $o .= '<a class="sectiontoggle" data-toggle="collapse" data-parent="accordion" href="#collapse-' .
+                  $section->section .
+                  '" aria-expanded="false" aria-controls="collapse-' .
+                  $section->section .
+                  '">&nbsp;</a> ';
         }
-        //jrm end collapse toggle
+        // Jrm end collapse toggle.
 
-        $o.= '<div class="clearfix">' . $this->output->heading($sectionname, 3, 'sectionname' . $classes);
+        $o .= '<div class="clearfix">' . $this->output->heading($sectionname, 3, 'sectionname' . $classes);
         $o .= $this->section_availability($section) . '</div>';
-        $o.= $this->section_summary($section, $course, null);
-        //jrm add div around content to allow section collapsing
+        $o .= $this->section_summary($section, $course, null);
+        // Jrm add div around content to allow section collapsing.
         if ($section->section == 0 || course_get_format($course)->is_section_current($section)) {
             $classes = "collapse in show";
         } else {
             $classes = "collapse show";
         }
-            $o.= '<div id="collapse-' . $section->section . '" class="' . $classes . '" role="tabpanel" aria-labelledby="heading' . $section->section . '">';
-        //jrm end div
-
-        /*$o.= html_writer::start_tag('div', array('class' => 'summary'));
-        $o.= $this->format_summary_text($section);
-        $o.= html_writer::end_tag('div');*/
-
-        /*$context = context_course::instance($course->id);
-        $o .= $this->section_availability_message($section,
-            has_capability('moodle/course:viewhiddensections', $context));*/
+            $o .= '<div id="collapse-' .
+                 $section->section .
+                 '" class="' .
+                 $classes .
+                 '" role="tabpanel" aria-labelledby="heading' .
+                 $section->section .
+                 '">';
+        // Jrm end div.
 
         return $o;
     }
@@ -198,9 +222,8 @@ class format_weeks_renderer extends \format_weeks_renderer {
      * @return string HTML to output.
      */
     protected function section_footer() {
-        $o = html_writer::end_tag('div'); //jrm end div surrounding content to allow section collapsing
-        //$o.= html_writer::end_tag('div');
-        $o.= html_writer::end_tag('li');
+        $o = html_writer::end_tag('div'); // Jrm end div surrounding content to allow section collapsing.
+        $o .= html_writer::end_tag('li');
 
         return $o;
     }
@@ -230,14 +253,10 @@ class format_weeks_renderer extends \format_weeks_renderer {
 
     protected function section_summary($section, $course, $mods) {
         $o = '';
-        $o.= html_writer::start_tag('div', array('class' => 'summarytext'));
-        $o.= $this->format_summary_text($section);
-        $o.= html_writer::end_tag('div');
-        $o.= $this->section_activity_summary($section, $course, null);
-
-        //$context = context_course::instance($course->id);
-        //$o .= $this->section_availability_message($section,
-            //has_capability('moodle/course:viewhiddensections', $context));
+        $o .= html_writer::start_tag('div', array('class' => 'summarytext'));
+        $o .= $this->format_summary_text($section);
+        $o .= html_writer::end_tag('div');
+        $o .= $this->section_activity_summary($section, $course, null);
 
         return $o;
     }

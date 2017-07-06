@@ -26,8 +26,10 @@
 namespace theme_receptic\output;
 
 use mod_quiz_view_object;
-class mod_quiz_renderer extends \mod_quiz_renderer
-{
+
+defined('MOODLE_INTERNAL') || die;
+
+class mod_quiz_renderer extends \mod_quiz_renderer  {
     /**
      * Override to separate message output from edit button output
      * Generate a message saying that this quiz has no questions, with a button to

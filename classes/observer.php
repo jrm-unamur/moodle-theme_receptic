@@ -21,8 +21,9 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-class theme_receptic_observer
-{
+defined('MOODLE_INTERNAL') || die();
+
+class theme_receptic_observer {
     public static function user_loggedout(core\event\base $event) {
         global $DB;
         $eventdata = $event->get_data();

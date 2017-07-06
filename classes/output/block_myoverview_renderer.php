@@ -15,13 +15,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * myoverview block rendrer
- *
- * @package    block_myoverview
- * @copyright  2016 Ryan Wyllie <ryan@moodle.com>
+ * @package    theme_receptic
+ * @author     Jean-Roch Meurisse
+ * @copyright  2016 - Cellule TICE - Unversite de Namur
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/blocks/myoverview/classes/output/renderer.php');
 
@@ -57,7 +57,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
         $selfenrol = false;
 
         $courses = $data['coursesview']['inprogress']['pages'][0]['courses'];
-        foreach($courses as &$course) {
+        foreach ($courses as &$course) {
             $instances = enrol_get_instances($course->id, true);
             foreach ($instances as $instance) { // Need to check enrolment methods for self enrol.
                 $plugin = $plugins[$instance->enrol];
