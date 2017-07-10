@@ -73,7 +73,7 @@ $breadcrumb-divider-rtl: "/" !default;
 $blocks-column-width : 260px !default;
 
 // Import everything.
-@import "moodle";
+@import "main";
 
 /**
  * Brand banner and logos.
@@ -105,6 +105,28 @@ $blocks-column-width : 260px !default;
 }
 
 /**
+ * Position banners, page and drawer according to screen size (brand banner for large displays).
+ */
+@media (min-width: 768px) {
+    .pos-f-t-lower {
+        top: 80px;
+    }
+}
+
+@media (min-width: 768px) {
+    #page {
+        margin-top: 129px;
+    }
+}
+
+@media (min-width: 768px) {
+    [data-region="drawer"] {
+        top: 129px;
+        height: calc(100% - 129px);
+    }
+}
+
+/**
  * Navigation bar identity.
  */
 .navbar-receptic {
@@ -116,28 +138,11 @@ $blocks-column-width : 260px !default;
         padding-right: 0;
     }
 
-    .navbar-brand {
-        padding-left: 1rem;
-        padding-right: 1rem;
-        margin-right: $spacer * 2;
-        color: transparent;
-        background-color: transparent;
-    }
     a {
         color: $white;
         @include hover-focus {
             color: $gray-lighter;
         }
-        .icon
-        //&.nav-link > .icon {
-          //  color: $white;
-            //@include hover-focus {
-              //  color: $gray-lighter;
-            //}
-            .fa-smaller {
-                margin-right: .5rem;
-            }
-       // }
         &.dropdown-item {
             color: $gray-dark;
             @include hover-focus {
@@ -199,6 +204,12 @@ $blocks-column-width : 260px !default;
             margin-right: 1rem;
         }
     }
+    .popover-region {
+        &.navlink a:hover,
+        &.navlink a:focus {
+            text-decoration: none;
+        }
+    }
 }
 
 /**
@@ -256,177 +267,6 @@ span .icon {
 }
 
 /**
- * Blocks.
- */
-.block-region .block {
-    border-style: solid;
-    border-width: 0 0 0 6px;
-    border-color: $gray;
-
-    .card-block {
-        box-shadow: 1px 2px 3px 0 $gray-lighter;
-        padding: 1rem .5rem;
-
-        .block-control-actions {
-            padding-right: 0.5rem;
-        }
-        .card-title {
-            border-bottom: 1px solid $gray-lighter;
-            color: $brand-success;
-            font-size: 1.3rem;
-            text-transform: none;
-            font-weight: 500;
-            padding-bottom: ($spacer/2);
-            padding-left: .5rem;
-        }
-        .card-title:before {
-            font-family: FontAwesome;
-            font-size: 1rem;
-            color: $gray;
-            margin-right: 0.5rem;
-            text-align: center;
-            float: left;
-            padding-top: .2rem;
-        }
-        h3:before {
-            font-family: FontAwesome;
-        }
-        .content {
-            padding: 4px 1rem;
-            h3:before {
-                content: "";
-            }
-        }
-    }
-    &.block_course_overview {
-        border: none;
-        .card-block {
-            box-shadow: none;
-        }
-        h3:before {
-            content: "\f19d";
-        }
-    }
-    &.block_calendar_month h3:before,
-    &.block_calendar_upcoming h3:before {
-        content: "\f073";
-    }
-
-    &.block_recent_activity h3:before {
-        content: "\f017";
-    }
-
-    &.block_settings h3:before {
-        content: "\f085";
-    }
-
-    &.block_glossary_random h3:before {
-        content: "\f15d";
-    }
-
-    &.block_login h3:before {
-        content: "\f090";
-    }
-
-    &.block_news_items h3:before {
-        content: "\f0a1";
-    }
-
-    &.block_private_files h3:before {
-        content: "\f07b";
-    }
-
-    &.block_admin_bookmarks h3:before {
-        content: "\f02e";
-    }
-
-    &.block_messages h3:before {
-        content: "\f0e0";
-    }
-
-    &.block_navigation h3:before {
-        content: "\f0e8";
-    }
-
-    &.block_participants h3:before {
-        content: "\f0c0";
-    }
-
-    &.block_search_forums h3:before {
-        content: "\f0e6";
-    }
-
-    &.block_activity_results h3:before {
-        content: "\f080";
-    }
-
-    &.block_online_users h3:before {
-        content: "\f1eb";
-    }
-
-    &.block_course_overview h3:before {
-        content: "\f19d";
-    }
-
-    &.block_mycobraglossary h3:before {
-        content: "\f15d";
-    }
-
-    &.block_theme_selector h3:before {
-        content: "\f1fc";
-    }
-    .minicalendarblock {
-        caption {
-            padding-bottom: 0;
-            padding-top: 1.5rem;
-        }
-    }
-
-    .minicalendar, .minicalendarblock .minicalendar.calendartable {
-        td {
-            border: 1px solid $gray-lighter;
-        }
-        .content {
-            padding: 4px 0.5rem;
-        }
-        th > abbr[title]{
-            border-bottom: 1px solid $gray-lighter;
-        }
-        td:nth-child(even) {
-            background-color: $gray-lightest;
-        }
-        td.today {
-            background-color: $gray-dark;
-            color: $white;
-            a {
-                color: $white;
-                font-weight: bold;
-            }
-            .calendar-event-panel {
-                color: $gray-dark;
-            }
-        }
-    }
-    .calendar-event-panel {
-        background-color: $gray-lightest;
-        border: 1px solid $gray-lighter;
-        .yui3-overlay-content {
-            margin-bottom: 0;
-        }
-    }
-}
-
-/**
- * Navigation.
- */
-.block_navigation,
-.block_settings {
-    .block_tree .tree_item {
-        margin: ($spacer/2) 0;
-    }
-}
-
-/**
  * Form styles.
  */
 
@@ -443,7 +283,7 @@ span .icon {
   */
 body {
     // Edition mode toggle.
-    switch:after {
+    .switch:after {
         color: $red;
         content: "OFF";
     }
@@ -454,14 +294,55 @@ body {
         padding-top: 1rem;
     }
     &.editing {
+        // Edition mode toggle.
         .switch:after {
             color: $brand-success;
             content: "ON";
         }
+        // Toggle blocks
         #page-content > a {
             padding-top: 3rem;
         }
     }
+    .popover-region.nav-link.editswitch,
+    .popover-region.nav-link.call911 {
+        margin-right: 1.5rem;
+        .fa {
+            font-size: larger;
+        }
+    }
 }
 
+// Back to top button.
+#back-to-top {
+    position: fixed;
+    bottom: 32px;
+    right: 40px;
+    text-align: center;
+    cursor: pointer;
+    opacity: .5;
+    filter:alpha(opacity=50);
+    display:none;
+    a {
+        text-decoration: none;
+        border: 0;
+        outline: none;
+        &.arrow {
+            padding: 5px 10px;
+            font-size: 36px;
+            color: #333;
+            background: #EEE;
+            border: 1px solid #CCC;
+            border-bottom: 1px solid #AAA;
+            border-radius: 5px;
+        }
+        &.text {
+            display: block;
+            background: white;
+            visibility: hidden;
+            position: relative;
+            top: 10px;
+        }
+    }
+}
 
