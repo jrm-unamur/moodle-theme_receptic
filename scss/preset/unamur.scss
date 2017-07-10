@@ -185,6 +185,7 @@ $blocks-column-width : 260px !default;
                 color: $white;
                 background-color: $gray-dark;
                 border-color: $gray-light;
+                border-radius: .25rem;
                 @include hover-focus {
                     color: $gray-lighter;
                 }

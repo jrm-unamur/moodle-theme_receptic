@@ -92,6 +92,10 @@
         .list-group-item:last-child {
             border-radius: 0;
         }
+        [data-action="view-more"]:disabled,
+        [data-action="more-courses"]:disabled {
+            display: none;
+        }
     }
     &.block_calendar_month h3:before,
     &.block_calendar_upcoming h3:before {
