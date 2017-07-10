@@ -1,140 +1,5 @@
-.navbar-sm-logo {
-    //background-image: url([[pix:theme_receptic|loginbackgroundimage]]);
-    background-size: cover;
-    width: 34px;
-    height: 34px;
-    background-color: transparent;
-}
-
-@media (min-width: 768px) {
-    .pos-f-t-lower {
-        top: 80px;
-    }
-}
-
-@media (min-width: 768px) {
-    #page {
-        margin-top: 130px;
-    }
-}
-
-@media (min-width: 768px) {
-    [data-region="drawer"] {
-        top: 130px;
-        height: calc(100% - 130px);
-    }
-}
-
-body.noblocks [data-region="blocks-column"] {
-    display: none;
-}
-
-body.noblocks #region-main-settings-menu.has-blocks, body.noblocks #region-main.has-blocks {
-    width: 100%;
-}
-
-.sbl {
-    display: none;
-}
-
-.noblocks .sbl {
-    display: inline;
-}
-
-.noblocks .hbl {
-    display: none;
-}
-
-/*.switch:after {
-    font-family: FontAwesome;
-    color: #d9534f;
-    content: "\f044";
-    font-size: 1.3rem;
-}
-
-body.editing .switch:after {
-    font-family: FontAwesome;
-    color: #55ab26;
-    content: "\f044";
-}*/
-
-/*.switch:after {
-    color: #d9534f;
-    content: "OFF";
-}
-
-body.editing .switch:after {
-    color: #55ab26;
-    content: "ON";
-}*/
-
-/*.extra-buttons {
-    margin-left: 25px;
-    margin-right: 25px;
-}
-
-.extra-buttons a:hover {
-    text-decoration: none;
-}*/
-
-/*#page-content > a {
-    position: fixed;
-    right: 5px;
-    padding-top: 1rem;
-}
-
-body.editing #page-content > a {
-    padding-top: 3rem;
-}*/
-
 #page-header .card {
     box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.25);
-}
-
-/*#page-my-index #region-main .block.block_course_overview {
-    background-color: $body-bg;
-    .card-block {
-        padding: 0;
-        .card-text.content {
-            padding: 0;
-            margin: 0;
-            .box.welcome_area {
-                padding: 1rem;
-                background-color: #fff;
-                box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.25);
-                .box {
-                    box-shadow: none;
-                }
-            }
-        }
-    }
-}*/
-
-.block.block_course_overview {
-    margin-bottom: 0 !important;
-    .card-title {
-        margin-bottom: 0;
-    }
-    .content {
-        padding: 0;
-        margin: 0;
-    }
-    h2.title {
-        font-size: 1.3rem;
-    }
-    .card-block {
-        padding: 1.5rem 1.5rem 0;
-    }
-}
-
-.block-region .block.block_myoverview {
-    border: none;
-    .card-block {
-        box-shadow: none;
-    }
-    h3:before {
-        content: "\f1e5";
-    }
 }
 
 .path-my #region-main .card.card-block {
@@ -142,492 +7,24 @@ body.editing #page-content > a {
     min-height: 0;
 }
 
-.path-my .course_list div.coursebox {
-    margin: 0;
-    border-color: #ddd;
-    border-width: 0 0 1px;
-    border-style: solid;
-}
-
-.path-my .course_list div:last-of-type {
-    border: none;
-}
-
 .notifytiny {
     margin-top: 150px;
 }
 
-#back-to-top {
-    position: fixed;
-    bottom: 32px;
-    right: 40px;
-    text-align: center;
-    cursor: pointer;
-    opacity: .5;
-    filter:alpha(opacity=50);
-    display:none;
-}
-#back-to-top a.arrow {
-    padding: 5px 10px;
-    font-size: 36px;
-    color: #333;
-    background: #EEE;
-    border: 1px solid #CCC;
-    border-bottom: 1px solid #AAA;
-    border-radius: 5px;
-}
-#back-to-top a.text {
-    display: block;
-    background: white;
-    visibility: hidden;
-    position: relative;
-    top: 10px;
-}
-#back-to-top a {
-    text-decoration: none;
-    border: 0;
-    outline: none;
-}
 
-.block-control-actions {
-    padding-right: 0.5rem;
-    img {
-        height: 1rem;
-    }
-}
-
-.path-calendar {
-    .calendartable {
-        width: 100%;
-
-        th,
-        td {
-            width: 14%;
-            vertical-align: top;
-            text-align: center;
-            border: 0;
-        }
-    }
-
-    .calendar-controls {
-        .previous,
-        .next,
-        .current {
-            display: block;
-            float: left;
-            width: 12%;
-        }
-
-        .previous {
-            text-align: left;
-        }
-
-        .current {
-            text-align: center;
-            width: 76%;
-        }
-
-        .next {
-            text-align: right;
-        }
-    }
-
-    .filters {
-        table {
-            border-collapse: separate;
-            border-spacing: 2px;
-            width: 100%;
-        }
-    }
-
-    .maincalendar {
-        vertical-align: top;
-        padding: 0;
-
-        .bottom {
-            text-align: center;
-            padding: 5px 0 0 0;
-        }
-
-        .heightcontainer {
-            height: 100%;
-            position: relative;
-            > h2:before {
-                font-family: FontAwesome;
-                content: "\f073";
-                padding-right: .5rem;
-            }
-        }
-
-        .calendarmonth {
-            width: 100%;
-            margin: 0;
-            margin-bottom: 1rem;
-            border: 1px solid #c4c4c4;
-            border-top: none;
-        }
-
-        .calendarmonth {
-            ul {
-                margin: 0;
-                padding: 0;
-
-                li {
-                    list-style-type: none;
-                    margin-top: 4px;
-                }
-            }
-            td {
-                border: 1px dotted #ddd;
-                color: #6b6b6b;
-                height: 5em;
-            }
-            th {
-                padding: 15px 0;
-                background-color: #eee;
-                color: #333;
-                font-weight: normal;
-                font-size: 1.2em;
-                border: none;
-            }
-            .weekend {
-                background-color: #f3f3f3;
-            }
-        }
-
-        .calendar-controls {
-            .previous,
-            .next {
-                width: 30%;
-                background-color: $brand-primary;
-                color: #fff;
-                padding: 1rem 0;
-                text-align: center;
-            }
-
-            .current {
-                width: 39.95%;
-                padding: 10px 10px 0;
-                border-top: 1px solid #c4c4c4;
-            }
-            a:hover,
-            a:focus,
-            a:active {
-                text-decoration: none;
-                color: #ddd;
-            }
-        }
-
-        .controls {
-            width: 100%;
-            margin: 10px 0 0;
-        }
-
-        .calendar_event_course,
-        .calendar_event_global,
-        .calendar_event_group,
-        .calendar_event_user {
-            border-width: 1px 1px 1px 12px;
-            border-style: solid;
-        }
-
-        .calendar_event_course {
-            border-color: $calendarEventCourseColor;
-        }
-
-        .calendar_event_global {
-            border-color: $calendarEventGlobalColor;
-        }
-
-        .calendar_event_group {
-            border-color: $calendarEventGroupColor;
-        }
-
-        .calendar_event_user {
-            border-color: $calendarEventUserColor;
-        }
-        //.calendar-event-panel {
-        //    background-color: $grayLighter;
-        //    border: 2px solid $grayLighter;
-        //    .yui3-overlay-content {
-        //        padding: 19px;
-        //        background-color: lighten($wellBackground, 3%);
-        //        border: 1px solid darken($wellBackground, 7%);
-        //        @include border-radius($baseBorderRadius);
-        //        @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, .05));
-        //    }
-        //}
-        .calendar-event-panel {
-            @extend .card;
-        }
-
-        .calendar-controls {
-            .current {
-                @extend .h2;
-            }
-        }
-
-        .calendartable {
-            td,
-            li {
-                padding: 5px;
-            }
-
-            li {
-                padding-left: 10px;
-                text-align: left;
-            }
-        }
-
-        .header {
-            overflow: hidden;
-            margin: 1rem auto;
-
-            .buttons {
-                float: right;
-            }
-        }
-
-        .event .card-header img {
-            vertical-align: baseline;
-        }
-
-        .ical-link {
-            bakcground-color: $brand-primary;
-            font-size: 1rem;
-        }
-
-    }
-}
-
-// Main calendar restyling.
-/*.path-calendar {
-    .cal_courses_flt {
-        label {
-            font-weight: bold;
-        }
-    }
-    .calendartable {
-        width: 100%;
-
-        th,
-        td {
-            width: 14%;
-            vertical-align: top;
-            text-align: center;
-            border: 0;
-        }
-    }
-
-    .calendar-controls {
-        .previous,
-        .next,
-        .current {
-            display: block;
-            float: left;
-            width: 12%;
-        }
-
-        .previous {
-            text-align: left;
-        }
-
-        .current {
-            text-align: center;
-            width: 76%;
-        }
-
-        .next {
-            text-align: right;
-        }
-    }
-
-    .filters {
-        table {
-            border-collapse: separate;
-            border-spacing: 2px;
-            width: 100%;
-        }
-    }
-
-    .maincalendar {
-        vertical-align: top;
-        padding: 0;
-
-        .bottom {
-            text-align: center;
-            padding: 5px 0 0 0;
-        }
-
-        .heightcontainer {
-            height: 100%;
-            position: relative;
-            h2:before {
-                font-family: FontAwesome;
-                content: "\f073";
-                padding-right: 0.5rem;
-            }
-        }
-
-        .calendarmonth {
-            width: 98%;
-            margin: 10px auto;
-        }
-
-        .calendarmonth {
-            ul {
-                margin: 0;
-
-                li {
-                    list-style-type: none;
-                    margin-top: 4px;
-                }
-            }
-
-            td {
-                height: 5em;
-            }
-        }
-
-        .calendar-controls {
-            .previous,
-            .next {
-                width: 30%;
-            }
-
-            .current {
-                width: 39.95%;
-            }
-        }
-
-        .controls {
-            width: 98%;
-            margin: 10px auto;
-        }
-
-        .calendar_event_course,
-        .calendar_event_global,
-        .calendar_event_group,
-        .calendar_event_user {
-            border-width: 1px 1px 1px 12px;
-            border-style: solid;
-        }
-
-        .calendar_event_course {
-            border-color: $calendarEventCourseColor;
-        }
-
-        .calendar_event_global {
-            border-color: $calendarEventGlobalColor;
-        }
-
-        .calendar_event_group {
-            border-color: $calendarEventGroupColor;
-        }
-
-        .calendar_event_user {
-            border-color: $calendarEventUserColor;
-        }
-        //.calendar-event-panel {
-        //    background-color: $grayLighter;
-        //    border: 2px solid $grayLighter;
-        //    .yui3-overlay-content {
-        //        padding: 19px;
-        //        background-color: lighten($wellBackground, 3%);
-        //        border: 1px solid darken($wellBackground, 7%);
-        //        @include border-radius($baseBorderRadius);
-        //        @include box-shadow(inset 0 1px 1px rgba(0, 0, 0, .05));
-        //    }
-        //}
-        .calendar-event-panel {
-            @extend .card;
-        }
-
-        .calendar-controls {
-            .current {
-                @extend .h2;
-            }
-        }
-
-        .calendartable {
-            td,
-            li {
-                padding: 5px;
-            }
-
-            li {
-                padding-left: 10px;
-                text-align: left;
-            }
-        }
-
-        .header {
-            overflow: hidden;
-
-            .buttons {
-                float: right;
-            }
-        }
-
-        .event .card-header img {
-            vertical-align: baseline;
-        }
-
-    }
-}*/
 
 #region-main .card.card-block {
     box-shadow: 1px 2px 3px 0 #ccc;
-}
-
-.action-menu-in-navbar {
-    padding-top: 6px;
 }
 
 .action-menu.nav-item .fa {
     padding-right: 3px
 }
 
-.navbar-dark .dropdown-item a {
-    color: #555;
-}
-
-.navbar-dark .dropdown-item a:hover,
-.navbar-dark .dropdown-item a:focus {
-    color: #777;
-}
-
-/*.path-course #nav-drawer nav:nth-of-type(2) {
-    display: none;
-}*/
-
-.add_block_button {
-
-    a {
-        width: 100%;
-        margin-bottom: 0.5rem;
-        /*i {
-            color: #1a9e9f;
-        }*/
-    }
-}
-
 .add_course_button,
 .enrolme_button {
     text-align: right;
 }
-
-/*li:target {
-    margin-top: 0 !important;
-    padding-top: 1rem !important;
-}*/
-
-/*:target {
-    padding-top: 160px !important;
-    margin-top: -140px !important;
-}*/
-
-
 
 .card-header {
     padding-left: .5rem;
@@ -705,12 +102,6 @@ body.editing .course-content ul.weeks li.section .left .icon.spacer {
 
 #changenumsections {
     padding: 1rem 0;
-}
-
-#changenumsections .icon.smallicon,
-.section-modchooser .icon.smallicon {
-    width: 12px;
-    height: 12px;
 }
 
 .course-content ul li.section.hidden .sectionname > span {
@@ -977,11 +368,6 @@ h3.sectionname {
     padding: 0;
 }
 
-.popover-region.nav-link a:hover,
-.popover-region.nav-link a:focus {
-    text-decoration: none;
-}
-
 /*.dropdown-submenu { position: relative }
 .dropdown-submenu>.dropdown-menu {
     top: 0;
@@ -1065,6 +451,9 @@ h3.sectionname {
 @media only screen  and (min-width : 768px) {
     .navbar-nav .nav-link.editswitch {
         padding-top: .525rem;
+    }
+    .navbar-nav .nav-link.call911 {
+        padding-top: .6rem;
     }
     .switch:after {
         color: $brand-danger;
@@ -1657,10 +1046,6 @@ div.availabilityinfo:before {
     margin-left: 0;
 }
 
-.navbar .navbar-nav .popover-region.nav-link.editswitch {
-    margin-right: 1.5rem;
-}
-
 div.editor_atto_toolbar button .icon {
     color: $gray;
 }
@@ -1781,100 +1166,8 @@ select[size], select[multiple], select[size][multiple] {
     margin-left: .5rem;
 }
 
-button.btn[data-action="toggle-drawer"] {
-    border-radius: .25rem;
-}
-
-#nav-drawer .list-group .list-group-item {
-    cursor: pointer;
-}
-
-#nav-drawer .list-group .list-group-item > div:before {
-    font-family: FontAwesome;
-    padding-right: .4rem;
-}
-#nav-drawer .list-group [data-key="myhome"] > div:before {
-    content: "\f0e4";
-}
-
-#nav-drawer .list-group [data-key="home"] > div:before {
-    content: "\f015";
-}
-
-#nav-drawer .list-group [data-key="privatefiles"] > div:before {
-    content: "\f07b";
-}
-
-#nav-drawer .list-group [data-key="mycourses"] > div:before {
-     content: "\f19d";
-     padding-right: 0;
-}
-
-#nav-drawer .list-group [data-key="coursehome"] > div:before {
-    content: "\f19d";
-    padding-right: .2rem;
-}
-
-#nav-drawer .list-group [data-key="fulllistofcourses"] > div:before {
-    content: "\f03a";
-}
-
-#nav-drawer .list-group [data-key="myevaluations"] > div:before {
-    content: "\f164";
-}
-
-#nav-drawer .list-group [data-key="courseadmin"] > div:before {
-    content: "\f013";
-}
-
-#nav-drawer .list-group [data-key="noecreatecourse"] > div:before,
-#nav-drawer .list-group [data-key="manualcreatecourse"] > div:before {
-    content: "\f067";
-}
-
-#nav-drawer .list-group .list-group-item > div.m-l-1:before {
-    content: "\f02d";
-}
-
-#nav-drawer .list-group [data-key="sitesettings"] > div:before {
-    content: "\f085";
-}
-
-#nav-drawer .list-group [data-key="calendar"] > div:before {
-    content: "\f073";
-}
-
-#nav-drawer .list-group [data-key="eee"] > div:before {
-    content: "\f164";
-}
-
-#nav-drawer .list-group [data-key="eeeresults"] > div.m-l-1:before {
-    content: "\f080";
-}
-
-#nav-drawer .list-group [data-key="eeeparticipation"] > div.m-l-1:before {
-    content: "\f0a6";
-}
-
-#nav-drawer .list-group [data-key="eeeadmin"] > div.m-l-1:before {
-    content: "\f013";
-}
-
-#nav-drawer .list-group [data-key="participants"] > div:before {
-    content: "\f0c0";
-}
-
-#nav-drawer .list-group [data-key="grades"] > div:before {
-    content: "\f0ce";
-}
-
 .media-left {
     padding-right: 0;
-}
-
-.block_myoverview [data-action="view-more"]:disabled,
-.block_myoverview [data-action="more-courses"]:disabled{
-    display: none;
 }
 
 .video-js .vjs-big-play-button {
@@ -1897,68 +1190,6 @@ button.btn[data-action="toggle-drawer"] {
 
 .accordion.topics .collapse {
     padding-top: .5rem;
-}
-
-.newmessage-link a,
-.popover-region-seeall-text,
-.content-item-container h3,
-.popover-region-notifications .view-more,
-.popover-region-notifications .notification-message {
-    color: $link-color;
-}
-
-.popover-region-messages .content-item-body p {
-    color: #3a3a3a;
-}
-
-.popover-region-notifications .content-item-container:hover,
-.popover-region-messages .content-item-container:hover {
-    background-color: $gray-lightest;
-}
-
-.content-item-container:hover,
-.content-item-container.unread:hover {
-    color: $body-color;
-}
-
-.content-item-container .notification-image img {
-    filter: grayscale(100%);
-}
-.content-item-footer .timestamp,
-.content-item-container:hover .content-item-footer .timestamp {
-    color: $body-color;
-}
-
-.content-item-container:hover {
-    background-color: $gray-lighter;
-}
-
-.content-item-container.unread {
-    background-color: $gray-lightest;
-}
-
-.content-item-container.unread:hover {
-    background-color: $gray-lighter;
-}
-
-.content-item-container.selected {
-    background-color: $link-hover-color;
-    border-color: $link-color;
-}
-
-.content-item-container.selected:hover {
-    color: $white;
-}
-
-.content-item-container.selected:hover .content-item-footer .timestamp {
-    color: $white;
-}
-
-.newmessage-link a:hover,
-.popover-region-seeall-text:hover,
-.popover-region-notifications .view-more:hover,
-.popover-region-notifications .notification-message:hover {
-    color: $link-hover-color;
 }
 
 .mobiletheme .nomobile {
@@ -2005,6 +1236,7 @@ span.availabilityinfo .tag.tag-info {
 .tag-info {
     background-color: $link-hover-color;
 }
+
 
 
 

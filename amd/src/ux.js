@@ -23,12 +23,12 @@ define(['jquery', 'core/log'], function($, log) {
                 $('.block_myoverview [data-action="more-courses"]').removeClass('hidden');
 
                 $("body").on( "click", ".toggleblocks", function() {
-                    if($('body').hasClass('noblocks')) {
+                    if($('body').hasClass('blocks-hidden')) {
                         M.util.set_user_preference('blocks-collapsed', 'false');
                     } else {
                         M.util.set_user_preference('blocks-collapsed', 'true');
                     }
-                    $('body').toggleClass('noblocks');
+                    $('body').toggleClass('blocks-hidden');
                 });
 
                 // Handle toggle all sections.

@@ -66,7 +66,7 @@ if ($navdraweropen) {
 }
 
 if ($blockscollapsed) {
-    $extraclasses[] = 'noblocks';
+    $extraclasses[] = 'blocks-hidden';
 }
 
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);

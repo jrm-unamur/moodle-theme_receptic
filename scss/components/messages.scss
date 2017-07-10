@@ -1,0 +1,131 @@
+.popover-region {
+    .view-more,
+    .notification-message,
+    .popover-region-seeall-text,
+    .newmessage-link,
+    .content-item-container h3 {
+        color: $link-color;
+        &:hover {
+            color: $link-hover-color;
+        }
+    }
+    .content-item-container:hover {
+        background-color: $gray-lightest;
+    }
+    .content-item-body p {
+        color: $body-color;
+    }
+}
+
+.content-item-container {
+    .notification-image img {
+        filter: grayscale(100%);
+    }
+    .content-item-footer .timestamp,
+    &:hover,
+    &.unread:hover,
+    &:hover .content-item-footer .timestamp {
+        color: $body-color;
+    }
+    &:hover,
+    &.unread:hover {
+        background-color: $gray-lighter;
+    }
+    &.unread {
+        background-color: $gray-lightest;
+    }
+    &.selected {
+        background-color: $link-hover-color;
+        border: $link-hover-color;
+        &:hover,
+        &:hover .content-item-footer .timestamp {
+            color: $white;
+        }
+    }
+
+}
+
+.messaging-area-container {
+    .messaging-area {
+        .contacts-area {
+            .contacts {
+                .contact {
+                    color: $body-color;
+                    &:hover,
+                    &:hover .information .lastmessage {
+                        background-color: $gray-lightest;
+                        color: $body-color;
+                    }
+                    &.selected,
+                    &.selected:hover,
+                    &.selected:hover .information .lastmessage {
+                        background-color: $link-hover-color;
+                        border: $link-hover-color;
+                        color: $white;
+                    }
+                    .picture {
+                        border-color: #e3e3e3;
+                        &:hover {
+                            border-color: $link-color;
+                        }
+                    }
+                    .information .lastmessage {
+                        height: 38px;
+                    }
+                }
+            }
+            .tabs {
+                .tab {
+                    color: $link-color;
+                    &:hover {
+                        color: $link-hover-color;
+                    }
+                    &.selected {
+                        color: $body-color;
+                        background-color: $gray-lighter;
+                    }
+                }
+            }
+        }
+    }
+    a,
+    .btn.btn-link {
+        color: $link-color;
+        &:hover {
+            color: $link-hover-color;
+        }
+    }
+}
+
+/*.content-item-container:hover,
+.content-item-container.unread:hover {
+    color: $body-color;
+}
+.content-item-footer .timestamp,
+.content-item-container:hover .content-item-footer .timestamp {
+    color: $body-color;
+}
+.content-item-container:hover {
+    background-color: $gray-lighter;
+}
+.content-item-container.unread {
+    background-color: $gray-lightest;
+}
+.content-item-container.unread:hover {
+    background-color: $gray-lighter;
+}
+
+
+.content-item-container.selected {
+    background-color: $link-hover-color;
+    border-color: $link-color;
+}
+
+.content-item-container.selected:hover {
+    color: $white;
+}
+
+.content-item-container.selected:hover .content-item-footer .timestamp {
+    color: $white;
+}*/
+

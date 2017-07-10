@@ -1,0 +1,193 @@
+.path-calendar {
+    .calendartable {
+        width: 100%;
+
+        th,
+        td {
+            width: 14%;
+            vertical-align: top;
+            text-align: center;
+            border: 0;
+        }
+    }
+
+    .calendar-controls {
+        .previous,
+        .next,
+        .current {
+            display: block;
+            float: left;
+            width: 12%;
+        }
+
+        .previous {
+            text-align: left;
+        }
+
+        .current {
+            text-align: center;
+            width: 76%;
+        }
+
+        .next {
+            text-align: right;
+        }
+    }
+
+    .filters {
+        table {
+            border-collapse: separate;
+            border-spacing: 2px;
+            width: 100%;
+        }
+    }
+
+    .maincalendar {
+        vertical-align: top;
+        padding: 0;
+
+        .bottom {
+            text-align: center;
+            padding: 5px 0 0 0;
+        }
+
+        .heightcontainer {
+            height: 100%;
+            position: relative;
+            > h2:before {
+                font-family: FontAwesome;
+                content: "\f073";
+                padding-right: .5rem;
+            }
+        }
+
+        .calendarmonth {
+            width: 100%;
+            margin: 0;
+            margin-bottom: 1rem;
+            border: 1px solid #c4c4c4;
+            border-top: none;
+        }
+
+        .calendarmonth {
+            ul {
+                margin: 0;
+                padding: 0;
+
+                li {
+                    list-style-type: none;
+                    margin-top: 4px;
+                }
+            }
+            td {
+                border: 1px dotted #ddd;
+                color: #6b6b6b;
+                height: 5em;
+            }
+            th {
+                padding: 15px 0;
+                background-color: #eee;
+                color: #333;
+                font-weight: normal;
+                font-size: 1.2em;
+                border: none;
+            }
+            .weekend {
+                background-color: #f3f3f3;
+            }
+        }
+
+        .calendar-controls {
+            .previous,
+            .next {
+                width: 30%;
+                background-color: $brand-primary;
+                color: #fff;
+                padding: 1rem 0;
+                text-align: center;
+            }
+
+            .current {
+                width: 39.95%;
+                padding: 10px 10px 0;
+                border-top: 1px solid #c4c4c4;
+            }
+            a:hover,
+            a:focus,
+            a:active {
+                text-decoration: none;
+                color: #ddd;
+            }
+        }
+
+        .controls {
+            width: 100%;
+            margin: 10px 0 0;
+        }
+
+        .calendar_event_course,
+        .calendar_event_global,
+        .calendar_event_group,
+        .calendar_event_user {
+            border-width: 1px 1px 1px 12px;
+            border-style: solid;
+        }
+
+        .calendar_event_course {
+            border-color: $calendarEventCourseColor;
+        }
+
+        .calendar_event_global {
+            border-color: $calendarEventGlobalColor;
+        }
+
+        .calendar_event_group {
+            border-color: $calendarEventGroupColor;
+        }
+
+        .calendar_event_user {
+            border-color: $calendarEventUserColor;
+        }
+
+        .calendar-event-panel {
+            @extend .card;
+        }
+
+        .calendar-controls {
+            .current {
+                @extend .h2;
+            }
+        }
+
+        .calendartable {
+            td,
+            li {
+                padding: 5px;
+            }
+
+            li {
+                padding-left: 10px;
+                text-align: left;
+            }
+        }
+
+        .header {
+            overflow: hidden;
+            margin: 1rem auto;
+
+            .buttons {
+                float: right;
+            }
+        }
+
+        .event .card-header img {
+            vertical-align: baseline;
+        }
+
+        .ical-link {
+            bakcground-color: $brand-primary;
+            font-size: 1rem;
+        }
+
+    }
+}
