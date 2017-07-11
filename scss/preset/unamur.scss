@@ -284,9 +284,15 @@ span .icon {
   */
 body {
     // Edition mode toggle.
-    .switch:after {
-        color: $red;
-        content: "OFF";
+    .switch {
+        &:after {
+            color: $red;
+            content: "OFF";
+        }
+        i {
+            color: $red;
+            padding-top: .3rem;
+        }
     }
     // Toggle blocks
     #page-content > a {
@@ -296,9 +302,14 @@ body {
     }
     &.editing {
         // Edition mode toggle.
-        .switch:after {
-            color: $brand-success;
-            content: "ON";
+        .switch {
+            &:after {
+                color: $brand-success;
+                content: "ON";
+            }
+            i {
+                color: $brand-success;
+            }
         }
         // Toggle blocks
         #page-content > a {

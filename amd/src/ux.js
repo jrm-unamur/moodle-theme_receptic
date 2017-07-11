@@ -20,6 +20,7 @@ define(['jquery', 'core/log'], function($, log) {
                     }
                 }, 0);
                 // ... $('.summarytext').remove().
+
                 $('.block_myoverview [data-action="more-courses"]').removeClass('hidden');
 
                 $("body").on( "click", ".toggleblocks", function() {
@@ -87,9 +88,9 @@ define(['jquery', 'core/log'], function($, log) {
                         sectiontoggles[sectionid] = "true";
                         M.util.set_user_preference('sections-toggle-' + $args.course, JSON.stringify(sectiontoggles));
                     }
-                    $(event.target).siblings('div.section-summary-activities').each(function(i, item) {
+                    /*$(event.target).siblings('div.section-summary-activities').each(function(i, item) {
                         $(item).hide();
-                    });
+                    });*/
                 });
 
                 $('.collapse').on('hide.bs.collapse', function(event) {
@@ -99,9 +100,9 @@ define(['jquery', 'core/log'], function($, log) {
                         delete sectiontoggles[sectionid];
                         M.util.set_user_preference('sections-toggle-' + $args.course, JSON.stringify(sectiontoggles));
                     }
-                    $(event.target).siblings('div.section-summary-activities').each(function(i, item) {
+                    /*$(event.target).siblings('div.section-summary-activities').each(function(i, item) {
                         $(item).show();
-                    });
+                    });*/
                 });
             });
         }

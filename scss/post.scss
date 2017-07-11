@@ -2,14 +2,20 @@
     box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.25);
 }
 
+.notifytiny {
+     margin-top: 150px;
+}
+
 .path-my #region-main .card.card-block {
-    padding: 0;
+    padding: 1rem;
     min-height: 0;
 }
 
-.notifytiny {
-    margin-top: 150px;
+.path-my #region-main .card.card-block .card-block {
+    padding: 0;
 }
+
+
 
 
 
@@ -21,11 +27,6 @@
     padding-right: 3px
 }
 
-.add_course_button,
-.enrolme_button {
-    text-align: right;
-}
-
 .card-header {
     padding-left: .5rem;
     padding-right: .5rem;
@@ -33,116 +34,9 @@
     border: none;
 }
 
-.course-content ul li.section.main,
-.course-content ul li.section.main:last-child {
-    border-width: 0 0 1px;
-    border-style: solid;
-    border-color: #ddd;
-}
-
-a.sectiontoggle {
-    float: left;
-    margin: 1px 3px 3px;
-    padding: 2px 18px 2px 0;
-    background-repeat: no-repeat;
-    background-position: center center;
-    cursor: pointer;
-    color: #fff;
-
-}
-a.sectiontoggle[aria-expanded="false"] {
-    background-image: url([[pix:moodle|t/collapsed]]);
-}
-
-a.sectiontoggle[aria-expanded="true"] {
-    background-image: url([[pix:moodle|t/expanded]]);
-}
-
-.collapsible-actions .expandall {
-    padding-left: 20px;
-    background: url([[pix:moodle|t/collapsed]]) 2px center no-repeat;
-}
-
-.collapsible-actions .collapseall {
-    padding-left: 20px;
-    background: url([[pix:moodle|t/expanded]]) 2px center no-repeat;
-}
-
-.course-content .collapsible-actions {
-    text-align: center;
-}
-
-.accordion {
-    padding-left: 0;
-}
-
-.course-content ul.topics li.section .left,
-.course-content ul.weeks li.section .left {
-    padding: 0;
-}
-
-.section .left.side {
-    margin-top: 0.6rem;
-}
-
-.course-content ul.topics li.section .content,
-.course-content ul.weeks li.section .content {
-    padding: .5rem 0;
-}
-
-body:not(.editing) .course-content ul.topics li.section .left.side,
-body:not(.editing) .course-content ul.weeks li.section .left.side{
-    display: none;
-}
-
-body.editing .course-content ul.topics li.section .left .icon.spacer,
-body.editing .course-content ul.weeks li.section .left .icon.spacer {
-    width: 0;
-}
-
-#changenumsections {
-    padding: 1rem 0;
-}
-
-.course-content ul li.section.hidden .sectionname > span {
-    margin-left: 0;
-}
-
-.course-content .current {
-    filter: sepia(15%);
-}
-
-.course-content .current .content {
-    background-color: #eceeef;
-}
 
 
-li.section:target {
-    padding-top: 160px !important; /* stylelint-disable declaration-no-important */
-    margin-top: -130px !important; /* negative fixed header height */
-}
 
-span.section-handle > .icon {
-    margin-left: .5rem;
-}
-
-.course-content .current:before {
-    border: none;
-}
-
-.course-content .current .content {
-    border-left: 2px solid $brand-primary;
-}
-
-/*ul.accordion {
-    background-color: #fff;
-    padding: 1.25rem;
-    box-shadow: 1px 2px 3px 0 #ccc;
-}*/
-
-ul.accordion li.section:first-of-type:target {
-    margin-top: -30px !important;
-}
 
 
 /*#page-course-view-topics #region-main .card.card-block {
@@ -157,75 +51,6 @@ ul.accordion li.section:first-of-type:target {
 
 #page.container-fluid {
     padding-top: 6px;
-}
-
-/* page-course-index : list of all courses grouped by collapsible categories */
-.course_category_tree .category h3.categoryname {
-    font-size: 1.5rem;
-    line-height: 2rem;
-}
-
-.course_category_tree .category > .info {
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-    margin: 3px 0;
-    padding-top: 3px;
-}
-
-.coursebox {
-    padding: 0;
-}
-
-.courses .coursebox.collapsed {
-    padding: 0;
-}
-
-.coursebox > .info > .coursename a {
-    background: none;
-
-}
-
-.coursebox > .info > .coursename a:before {
-    font-family: FontAwesome;
-    content: "\f19d";
-    color: #000000;
-    padding-right: 0.5rem;
-    text-decoration: none;
-
-}
-
-.coursebox .moreinfo {
-    float: left;
-}
-
-.coursebox .enrolmenticons {
-    float: right;
-    padding: 3px 0;
-}
-
-.coursebox .content .teachers {
-    margin: 3px 5px 3px 50px;
-}
-
-.current .section-summary-activities,
-#section-0 .section-summary-activities,
-body.editing .section-summmary-activities {
-    display:none;
-}
-
-.course-content .section-summary-activities .activity-count {
-    font-size: .875rem;
-    margin: 3px;
-    white-space: nowrap;
-    display: inline-block;
-    color: $gray;
-}
-
-.course-content .summarytext {
-    margin: 2px 5px;
-}
-
-.section-modchooser {
-    padding: 0 6px;
 }
 
 /* Modals */
@@ -358,69 +183,12 @@ img.activityicon {
     padding-left: 5px;
 }
 
-h3.sectionname {
-    font-size: 1.5rem;
-    padding-top: 3px;
-}
-
-.course-content ul.topics li.section,
-.course-content ul.weeks li.section {
-    padding: 0;
-}
-
-/*.dropdown-submenu { position: relative }
-.dropdown-submenu>.dropdown-menu {
-    top: 0;
-    left: 100%;
-    margin-top: -6px;
-    margin-left: -1px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-}
-.dropdown-submenu:hover>.dropdown-menu { display: block }
-.dropdown-submenu>a:after {
-    display: block;
-    content: " ";
-    float: right;
-    width: 0;
-    height: 0;
-    border-color: transparent;
-    border-style: solid;
-    border-width: 5px 0 5px 5px;
-    border-left-color: #ccc;
-    margin-top: 5px;
-    margin-right: -10px;
-}
-.dropdown-submenu:hover>a:after { border-left-color: #ccc }
-.dropdown-submenu.pull-left { float: none }
-.dropdown-submenu.pull-left>.dropdown-menu {
-    left: -100%;
-    margin-left: 10px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-}*/
-
-/* Desktops and laptops ----------- */
-/*@media only screen  and (min-width : 1224px) {
-    [data-region="drawer-toggle"] {
-        display: none;
-    }
-    [data-region="drawer"] {
-        display: none;
-    }
-    body.drawer-open-left {
-        margin: 0;
-    }
-}*/
-
 /* Mobile ----------- */
-@media only screen  and (max-width : 1223px) {
+/*@media only screen  and (max-width : 1223px) {
     .navbar-nav.largescreens {
         display: none;
     }
-}
+}*/
 
 @media only screen  and (max-width : 767px) {
     .switch > span,
@@ -438,14 +206,13 @@ h3.sectionname {
         color: #55ab26;
         content: "\f044";
     }*/
-    .switch i {
+    /*.switch i {
         color: $brand-danger;
-        font-size: 1.3rem;
-        padding-top: 3px;
+        padding-top: .3rem;
     }
     body.editing .switch i {
         color: $brand-success;
-    }
+    }*/
 }
 
 @media only screen  and (min-width : 768px) {
@@ -455,7 +222,7 @@ h3.sectionname {
     .navbar-nav .nav-link.call911 {
         padding-top: .6rem;
     }
-    .switch:after {
+    /*.switch:after {
         color: $brand-danger;
         content: "OFF";
     }
@@ -465,7 +232,7 @@ h3.sectionname {
     }
     .switch i {
         display: none;
-    }
+    }*/
 }
 
 @media all and (max-width: 1199px) {
@@ -1196,7 +963,7 @@ select[size], select[multiple], select[size][multiple] {
     display: none;
 }
 
-.course-content .summarytext {
+/*.course-content .summarytext {
     margin-left: 2.5rem;
 }
 
@@ -1206,11 +973,11 @@ body.editing .course-content .summarytext {
 
 .course-content .summarytext p {
     margin-bottom: 0;
-}
+}*/
 
-h3.sectionname {
+/*h3.sectionname {
     float: left;
-}
+}*/
 
 span.section_availability {
     margin-left: 1rem;
