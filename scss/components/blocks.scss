@@ -96,6 +96,10 @@
         [data-action="more-courses"]:disabled {
             display: none;
         }
+        .add_course_button,
+        .enrolme_button {
+            text-align: right;
+        }
     }
     &.block_calendar_month h3:before,
     &.block_calendar_upcoming h3:before {
