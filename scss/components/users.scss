@@ -1,0 +1,76 @@
+// Fix display of enrol select box in courses
+.path-enrol .roleassigntable #existingcell,
+.path-enrol .roleassigntable #potentialcell {
+    width: 42%;
+}
+
+.path-enrol .roleassigntable #buttonscell {
+    width: 16%;
+}
+
+#existingcell .form-inline input,
+#potentialcell .form-inline input {
+    margin-bottom: .5rem;
+}
+
+select[size], select[multiple], select[size][multiple] {
+    border-color: $gray-lighter;
+}
+
+.userenrolment th,
+.userenrolment td {
+    padding: .5rem;
+}
+
+.userenrolment th {
+    vertical-align: bottom;
+    border-bottom: (2 * $table-border-width) solid $table-border-color;
+}
+
+.userenrolment td {
+    border-top: $table-border-width solid $table-border-color;
+}
+
+.userenrolment .col_role,
+.userenrolment .col_lastcourseaccess,
+.userenrolment .col_group,
+.userenrolment .col_group,
+.userenrolment .col_enrol {
+    padding-top: 3px;
+}
+
+.userenrolment .col_group .addgroup,
+.userenrolment .col_group .group,
+.userenrolment .col_role .addrole,
+.userenrolment .col_enrol .enrolment {
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.userenrolment .col_role i,
+.userenrolment .col_group i {
+    padding-bottom: 5px;
+}
+
+.userenrolment a:hover {
+    text-decoration: none;
+}
+
+.path-user .userlist .controls,
+.path-user .userlist .rolesform {
+    margin-bottom: .5rem;
+}
+
+.path-user .userlist #participants {
+    margin-top: 1rem;
+}
+
+.path-user #participantsform #checknone {
+    margin-left: .5rem;
+}
+
+#page-enrol-users #filterform {
+    background-color: #efefef;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}

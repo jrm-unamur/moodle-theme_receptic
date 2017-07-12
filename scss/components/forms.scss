@@ -1,0 +1,30 @@
+.col-form-label {
+    font-weight:bold;
+}
+
+.form-inline .form-check {
+    padding-right: .5rem;
+}
+
+.form-group.row input[type=submit] {
+    margin-left: 1rem;
+}
+
+.fcontainer .form-group.row input[type=submit] {
+    margin-left: 0;
+}
+
+#filterform,
+#exportsettingsform {
+    background-color: #efefef;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.fitem .initialism.text-danger {
+    margin-bottom: .2rem;
+}
+
+.singleselect.d-inline-block {
+    margin-left: .5rem;
+}

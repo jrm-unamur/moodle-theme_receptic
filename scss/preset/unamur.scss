@@ -46,7 +46,7 @@ $headings-font-family: "Roboto Condensed", "Roboto", "Open Sans", sans-serif !de
 // Tables
 $table-bg:                      transparent !default;
 $table-bg-accent:               #fafafa !default;
-$table-bg-hover:                $gray-lighter;
+$table-bg-hover:                $gray-lightest;
 $table-bg-active:               $table-bg-hover !default;
 $table-border-color:            $gray-lightest !default;
 
@@ -222,6 +222,90 @@ span .icon {
 }
 
 /**
+ * Buttons.
+ */
+.btn {
+    border-radius: 0;
+}
+.btn-secondary, .btn-default {
+    color: #fff;
+    background-color: $gray;
+    border-color: $gray;
+}
+
+.btn-secondary:hover, .btn-default:hover,
+.btn-secondary:active, .btn-default:active,
+.btn-secondary:focus, .btn-default:focus {
+    background-color: $gray-dark;
+    border-color: $gray-dark;
+    color:#fff;
+}
+
+input[type=submit] {
+    color: #fff;
+    background-color: #1a9e9f;
+    border-color: #1a9e9f;
+    display: inline-block;
+    font-weight: normal;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+}
+
+input[type=submit].btn-secondary {
+    color: #fff;
+    background-color: $gray;
+    border-color: $gray;
+}
+
+input[type=submit].btn-secondary:hover {
+    color: #fff;
+    background-color: $gray-dark;
+    border-color: $gray-dark;
+}
+
+input[type=submit]:disabled {
+    cursor: $cursor-disabled;
+    opacity: .65;
+}
+
+input[type=submit]:disabled:hover {
+    background-color: $brand-primary;
+    border-color: $brand-primary;
+}
+
+input[type=submit].btn-secondary:disabled:hover {
+    background-color: $gray;
+    border-color: $gray;
+}
+
+.buttons {
+    text-align: center;
+}
+
+.backlink {
+    text-align: center;
+}
+
+.availability-button {
+    text-align: center;
+}
+
+#gradetreesubmit {
+    text-align: center;
+}
+
+
+/**
  * Styling the dropdown menus.
  */
 .dropdown-menu {
@@ -231,6 +315,12 @@ span .icon {
         padding-top: 8px;
         &:last-child {
             border-bottom: 0;
+        }
+    }
+    .dropdown-item {
+        color: #494949;
+        &:hover {
+            color: #696969;
         }
     }
     a.icon {
@@ -322,6 +412,9 @@ body {
         .fa {
             font-size: larger;
         }
+        a:hover {
+            text-decoration: none;
+        }
     }
 }
 
@@ -355,6 +448,26 @@ body {
             position: relative;
             top: 10px;
         }
+    }
+}
+
+@media only screen  and (min-width : 768px) {
+    .navbar-nav .nav-link.editswitch {
+        padding-top: .525rem;
+    }
+    .navbar-nav .nav-link.call911 {
+        padding-top: .6rem;
+    }
+}
+@media only screen  and (max-width : 767px) {
+    .navbar-nav .nav-link.call911 {
+        padding-top: .6rem;
+    }
+}
+
+@media only screen  and (max-width : 767px) {
+    .switch:after {
+        display: none;
     }
 }
 

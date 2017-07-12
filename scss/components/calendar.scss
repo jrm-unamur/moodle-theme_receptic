@@ -180,14 +180,28 @@
             }
         }
 
-        .event .card-header img {
-            vertical-align: baseline;
+        .event {
+            .card-header {
+                padding-left: .5rem;
+                padding-right: .5rem;
+                background-color: #fff;
+                border: none;
+                img {
+                    vertical-align: baseline;
+                    filter: grayscale(100%);
+                }
+            }
+
         }
 
         .ical-link {
-            bakcground-color: $brand-primary;
+            background-color: $brand-primary;
             font-size: 1rem;
         }
 
     }
+}
+
+.calendar-filters.filters .calendar-event i {
+    vertical-align: baseline
 }

@@ -128,6 +128,10 @@ body.editing .course-content .summarytext {
     .sectiontoggle.collapsed ~ .section-summary-activities {
         display: block;
     }
+    .collapsing {
+        -webkit-transition: none;
+        transition: none;
+    }
 }
 
 /* page-course-index : list of all courses grouped by collapsible categories */
@@ -177,3 +181,55 @@ body.editing .course-content .summarytext {
     }
 }
 
+// Availability infos.
+span.section_availability {
+    margin-left: 1rem;
+}
+
+span.availabilityinfo:before {
+    font-family: FontAwesome;
+    content: "";
+    color: $brand-danger;
+    padding-right: 5px;
+    vertical-align: sub;
+}
+
+span.availabilityinfo .tag.tag-info {
+    margin-top: .4rem;
+}
+
+.section .activity .availabilityinfo {
+    display: block;
+    margin: 0;
+}
+
+.tag-info {
+    background-color: $link-hover-color;
+}
+
+.path-course-view .content > div.availabilityinfo {
+    margin-left: 2rem;
+}
+
+div.availabilityinfo:before {
+    font-family: FontAwesome;
+    content: "\f071";
+    color: $brand-danger;
+    padding-right: 5px;
+}
+
+.availability-connector .label {
+    font-size: 14px;
+    background-color: $brand-primary;
+    margin: 4px;
+    margin-left: 25px;
+    padding-bottom: 5px;
+}
+
+img {
+    &.activityicon {
+        height: 1.5rem;
+        width: 1.5rem;
+        filter: grayscale(100%);
+    }
+}
