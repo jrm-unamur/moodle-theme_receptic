@@ -191,7 +191,7 @@ class format_topics_renderer extends \format_topics_renderer {
                   $section->section .
                   '">&nbsp;</a> ';
         } else if ($section->section != 0) {
-            $o .= '<a class="sectiontoggle" data-toggle="collapse" data-parent="accordion" href="#collapse-' .
+            $o .= '<a class="sectiontoggle collapsed" data-toggle="collapse" data-parent="accordion" href="#collapse-' .
                 $section->section .
                 '" aria-expanded="false" aria-controls="collapse-' .
                 $section->section .

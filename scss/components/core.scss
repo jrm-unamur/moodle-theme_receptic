@@ -1,0 +1,173 @@
+// Position warning messages.
+.notifytiny {
+    margin-top: 150px;
+}
+
+// Style shared elements
+#page.container-fluid {
+    padding-top: 6px;
+}
+
+#page-header .card {
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.25);
+}
+
+#region-main .card.card-block {
+    box-shadow: 1px 2px 3px 0 #ccc;
+}
+
+.path-my #region-main .card.card-block {
+    padding: 1rem;
+    min-height: 0;
+    .car-block {
+        padding: 0;
+    }
+}
+
+/* Modals */
+.moodle-dialogue:focus {
+    outline: none;
+}
+.moodle-dialogue .confirmation-buttons {
+    text-align: center;
+}
+
+.moodle-dialogue .confirmation-buttons .btn {
+    margin-bottom: .5rem;
+}
+
+.moodle-dialogue-base .moodle-dialogue-wrap.moodle-dialogue-content,
+.user-enroller-panel .uep-wrap {
+    border-radius: 0;
+    box-shadow: 0 3px 9px rgba(0,0,0,0.5);
+    border-style: solid;
+    border-color: $gray;
+    border-width: 0 0 0 6px;
+}
+
+.moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd,
+.moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd.yui3-widget-hd,
+.user-enroller-panel .uep-wrap .uep-header {
+    color: $brand-success;
+    font-family: $headings-font-family;
+    text-align: center;
+}
+
+.moodle-dialogue-base button.closebutton,
+.user-enroller-panel .uep-header .close {
+    opacity: 1;
+    padding-top: .4rem;
+}
+
+.moodle-dialogue-base .closebutton::after,
+.user-enroller-panel .uep-header .close:after {
+    font-family: FontAwesome;
+    content: "\f00d";
+    color: $brand-primary;
+}
+
+.user-enroller-panel .uep-header .close {
+    color: #fff;
+}
+
+.user-enroller-panel .uep-header .close:hover {
+    opacity: .5;
+}
+
+.choosercontainer label {
+    font-weight: normal;
+}
+
+.choosercontainer #chooseform .submitbuttons {
+    text-align: center;
+}
+
+.choosercontainer #chooseform .option .icon {
+    height: 1.5rem;
+    width: 1.5rem;
+    filter: grayscale(100%);
+}
+
+.uep-header h2,
+.moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd h1 {
+    font-size: 1.5rem;
+}
+
+.uep-content.modal-body {
+    padding: 0;
+}
+.uep-content .uep-controls {
+    background-color: #efefef;
+    padding: 1rem;
+    border-bottom: 1px solid #bbb;
+}
+
+.uep-content .uep-search-results .totalusers {
+    background-color: #efefef;
+    padding: 5px;
+    border-bottom: 1px solid #BBB;
+    font-size: .8rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.uep-content .uep-search-results .users {
+    font-size: .9rem;
+}
+
+/*
+ * Help icons.
+ */
+.help-icon {
+    margin-bottom: .2rem;
+    &:before {
+        font-family: FontAwesome;
+        content: "\f059";
+        color: #1a9e9f;
+        padding-left: .5rem;
+        font-size: 1.2rem;
+    }
+}
+
+h2 .help-icon:before {
+    font-size: 1.8rem;
+    padding-left: 1rem;
+}
+
+.help-icon:hover,
+.help-icon:hover:before,
+.help-icon:focus,
+.help-icon:focus:before {
+    text-decoration: none;
+    color: $brand-success;
+    outline: none;
+}
+
+.dropdown-item .icon {
+    vertical-align: baseline;
+}
+
+ul {
+    padding-left: 1.5rem;
+}
+
+div.editor_atto_toolbar button .icon {
+    color: $gray;
+}
+
+.media-left {
+    padding-right: 0;
+}
+
+.video-js .vjs-big-play-button {
+    top: 40%;
+    left: 40%;
+}
+
+.video-js {
+    border: 1px solid #ddd;
+}
+
+.mobiletheme .nomobile {
+    display: none;
+}

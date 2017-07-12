@@ -1,0 +1,49 @@
+// File picker.
+.fp-file,
+.fp-folder {
+    margin-bottom: 45px;
+}
+
+.file-picker .fp-content {
+    max-height: 420px;
+}
+
+.fp-toolbar .btn-secondary,
+.fp-viewbar .btn-secondary {
+    background-color: $white;
+    border-color: $gray-lighter;
+}
+
+.fp-viewbar:not(.disabled) a.checked {
+    background-color: $gray-lighter;
+    border-color: $gray-lighter;
+}
+
+.fp-toolbar .btn-secondary:hover,
+.fp-viewbar .btn-secondary:hover {
+    background-color: $gray-lighter;
+}
+
+:focus {
+    outline: none;
+}
+
+.fp-pathbar .fp-path-folder-name {
+    margin-left: 24px;
+}
+
+.fp-iconview .fp-filename-field {
+    height: 43px;
+}
+
+.filepicker-filelist,
+.filepicker-container {
+    border: 1px solid #bbb;
+    margin-top: .5rem;
+}
+
+.filemanager .btn-secondary {
+    color: #373a3c;
+    background-color: #fff;
+    border-color: #ccc;
+}
