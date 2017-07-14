@@ -104,15 +104,15 @@
     {{/shownavdrawer}}
 </div>
 <footer id="page-footer" class="p-y-1 bg-inverse">
-    <div class="container">
+    <div class="container text-sm-center">
         <div id="course-footer">{{{ output.course_footer }}}</div>
 
         {{# output.page_doc_link }}
             <p class="helplink">{{{ output.page_doc_link }}}</p>
         {{/ output.page_doc_link }}
 
-        {{{ output.login_info }}}
-        {{{ output.home_link }}}
+        {{! output.login_info }}
+        {{! output.home_link }}
         <nav class="nav navbar-nav hidden-lg-up">
             {{# output.custom_menu_flat }}
                 <ul class="list-unstyled p-t-1">
@@ -120,6 +120,8 @@
                 </ul>
             {{/ output.custom_menu_flat }}
         </nav>
+        {{{ output.contact_info }}}
+        {{{ output.moodle_credits }}}
         {{{ output.standard_footer_html }}}
         <div id="back-to-top">
             <a class="arrow" href="#top" >▲</a>

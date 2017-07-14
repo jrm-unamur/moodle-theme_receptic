@@ -71,6 +71,9 @@ body.editing .course-content .summarytext {
                 li.activity {
                     padding-left: 0;
                 }
+                .fp-icon .icon {
+                    filter: grayscale(100%);
+                }
             }
         }
     }
@@ -232,4 +235,8 @@ img {
         width: 1.5rem;
         filter: grayscale(100%);
     }
+}
+
+#page-mod-folder-view .fp-icon .icon {
+    filter: grayscale(100%);
 }

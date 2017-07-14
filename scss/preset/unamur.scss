@@ -80,7 +80,7 @@ $blocks-column-width : 260px !default;
  */
 
 .brand-banner {
-    background: linear-gradient(to bottom, $gray-lightest 0%, $gray-lightest 30%,darken($link-hover-color,5%) 31%,$link-hover-color 95%);
+    background: linear-gradient(to bottom, $gray-lightest 0%, $gray-lightest 30%,darken($link-hover-color,5%) 31%, lighten($link-hover-color,5%) 95%);
     height: 80px;
 
     img {
@@ -116,6 +116,9 @@ $blocks-column-width : 260px !default;
 @media (min-width: 768px) {
     #page {
         margin-top: 129px;
+    }
+    body.path-login #page {
+        margin-top: 115px;
     }
 }
 
@@ -210,6 +213,9 @@ $blocks-column-width : 260px !default;
         &.navlink a:focus {
             text-decoration: none;
         }
+    }
+    .usermenu .login {
+        display: none;
     }
 }
 
@@ -469,5 +475,19 @@ body {
     .switch:after {
         display: none;
     }
+}
+
+.usertour {
+    @extend .container;
+    @extend .text-sm-center;
+}
+
+.fitem .initialism i {
+    vertical-align: text-bottom;
+}
+
+abbr[title] {
+    border: none;
+    text-decoration: none;
 }
 

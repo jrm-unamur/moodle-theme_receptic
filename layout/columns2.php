@@ -95,6 +95,7 @@ $templatecontext = [
     'courseadminmenu' => $iscontextcourse && $this->page->theme->settings->courseadminmenuintoolbar,
     'iscontextcourse' => $iscontextcourse,
     'adminlink' => $this->page->theme->settings->adminmenuintoolbar,
+    'shownavbar' => true
 ];
 
 $templatecontext['flatnavigation'] = $PAGE->flatnav;

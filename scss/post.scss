@@ -1,8 +1,25 @@
 .path-mod h2 img.icon {
     margin-top: 0;
     margin-bottom: .5rem;
+    filter: grayscale(100%);
+    width: 24px;
+    height: 24px;
 }
 
+#page-login-index {
+    .form {
+        .input-group-addon {
+            width: 36px;
+        }
+    }
+    .navbar-receptic {
+        height: 50px;
+    }
+}
+
+.card.welcome-panel {
+    background-color: $body-bg;
+}
 
 
 
