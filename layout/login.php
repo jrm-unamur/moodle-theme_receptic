@@ -14,18 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * @package    theme_receptic
- * @author     Jean-Roch Meurisse
- * @copyright  2016 - Cellule TICE - Unversite de Namur
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = '2016111737';
-$plugin->requires = '2016070700';
-$plugin->component = 'theme_receptic';
-$plugin->dependencies = [
-    'theme_boost' => '2016102100'
+/**
+ * A login page layout for the boost theme.
+ *
+ * @package   theme_boost
+ * @copyright 2016 Damyon Wiese
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+$bodyattributes = $OUTPUT->body_attributes();
+
+$templatecontext = [
+    'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
+    'output' => $OUTPUT,
+    'bodyattributes' => $bodyattributes,
+    'forgetpasslink' => false,
+    'displaybrandbanner' => true
 ];
+
+echo $OUTPUT->render_from_template('theme_receptic/login', $templatecontext);
+

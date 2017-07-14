@@ -791,4 +791,42 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
         return $this->render_from_template('theme_receptic/myschoolbag', $context);
     }
+
+    /**
+     * Renders the login form.
+     *
+     * @param \core_auth\output\login $form The renderable.
+     * @return string
+     */
+    public function render_login(\core_auth\output\login $form) {
+        global $SITE;
+
+        $context = $form->export_for_template($this);
+
+        // Override because rendering is not supported in template yet.
+        $context->cookieshelpiconformatted = $this->help_icon('cookiesenabled');
+        $context->errorformatted = $this->error_text($context->error);
+        $url = $this->get_logo_url();
+        if ($url) {
+            $url = $url->out(false);
+        }
+        $context->logourl = $url;
+        $context->sitename = format_string($SITE->fullname, true, ['context' => context_course::instance(SITEID), "escape" => false]);
+
+        return $this->render_from_template('core/login', $context);
+    }
+
+    public function contact_info() {
+        return '<div class="contactinfo text--center">
+<p>Contacter l\'équipe WebCampus:<br/><a href="mailto:webcampus-migration@unamur.be"> <i class="fa fa-envelope"></i> </a> ou <i class="fa fa-phone"></i> 081/72 50 75</p></div>';
+    }
+
+    public function moodle_credits() {
+
+        return '<div class="moodlecredits text--center">Utilise ' .
+        '<a title="Moodle" href="http://moodle.org/" target"_blank">' .
+        //'<img src="' . $this->pix_icon('moodlelogo') . '" alt="'.get_string('moodlelogo').'" /></a></div>';
+        $this->pix_icon('moodlelogo', 'moodle', 'moodle', array('style' => 'margin-bottom:.5rem;width:75px')) .
+        '</a></div>';
+    }//$pix, $alt, $component='moodle', array $attributes = null
 }
