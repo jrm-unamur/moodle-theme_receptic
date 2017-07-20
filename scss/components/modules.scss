@@ -131,8 +131,9 @@ label {
 }
 
 #page-mod-quiz-mod #id_reviewoptionshdr .btn-link {
-    line-height: 1.5;
-    vertical-align: bottom;
+    line-height: 1.25;
+    vertical-align: middle;
+    /*margin-bottom: .1rem;*/
 }
 #page-mod-quiz-mod #id_reviewoptionshdr .form-inline {
     float: left;
@@ -262,4 +263,18 @@ label {
     margin-right: .5rem;
     margin-bottom: .5rem;
 }
+
+// Mod forum.
+.path-mod-forum :target~.forumpost:before {
+    background: $link-color;
+}
+
+// Mod assign.
+.path-mod-assign [data-region="user-selector"] {
+    [data-action="previous-user"],
+    [data-action="next-user"] {
+        vertical-align: middle;
+    }
+}
+
 

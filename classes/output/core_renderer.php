@@ -826,7 +826,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return '<div class="moodlecredits text--center">Utilise ' .
         '<a title="Moodle" href="http://moodle.org/" target"_blank">' .
         //'<img src="' . $this->pix_icon('moodlelogo') . '" alt="'.get_string('moodlelogo').'" /></a></div>';
-        $this->pix_icon('moodlelogo', 'moodle', 'moodle', array('style' => 'margin-bottom:.5rem;width:75px')) .
+        $this->pix_icon('moodlelogo', 'moodle', 'moodle', array('class' => 'moodlelogofooter')) .
         '</a></div>';
     }//$pix, $alt, $component='moodle', array $attributes = null
 }
