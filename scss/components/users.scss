@@ -70,7 +70,17 @@ select[size], select[multiple], select[size][multiple] {
 }
 
 #page-enrol-users #filterform {
-    background-color: #efefef;
+    background-color: $gray-lightest;
     padding: 1rem;
     margin-bottom: 1.5rem;
+}
+
+#page-grade-report-overview-index {
+    #overview-grade {
+        margin-bottom: 1.5rem;
+    }
+    #region-main h2 {
+        margin-bottom: 1.5rem;
+        font-size: 1rem;
+    }
 }

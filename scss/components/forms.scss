@@ -17,7 +17,7 @@
 
 #filterform,
 #exportsettingsform {
-    background-color: #efefef;
+    background-color: $gray-lightest;
     padding: 1rem;
     margin-bottom: 1.5rem;
 }
@@ -28,5 +28,69 @@
 
 .singleselect.d-inline-block {
     margin-left: .5rem;
+}
+
+.logselecform,
+.participationselectform {
+    background-color: $gray-lightest;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    select {
+        margin: 0 .5rem .5rem 0;
+    }
+    input[type=submit].btn-secondary {
+        display: block;
+    }
+}
+
+#livelogs-pause-button {
+    margin-bottom: .5rem;
+}
+
+#page-report-participation-index {
+    .participationselectform {
+        input[type=submit].btn-primary {
+            margin-bottom: .5rem;
+        }
+    }
+    .singleselect.d-inline-block {
+        background-color: $gray-lightest;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+        margin-left: 0;
+    }
+    #studentsform {
+        .selectbuttons input[type=button] {
+            margin-right: .5rem;
+        }
+        #formactionselect,
+        input[type=submit]{
+            margin-left: .5rem;
+        }
+    }
+}
+
+#page-report-stats-index,
+#page-admin-report-stats-index {
+    .generaltable td {
+        vertical-align: middle;
+    }
+}
+
+#page-local-lectopt-fillininfo {
+    .form-group.progCode {
+        margin: 0;
+    }
+}
+
+#page-course-completion {
+    fieldset {
+        .form-group {
+            margin: 0;
+        }
+        .form-group:last-of-type {
+            margin-bottom: 1rem;
+        }
+    }
 }
 

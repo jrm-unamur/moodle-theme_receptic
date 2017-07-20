@@ -240,3 +240,43 @@ img {
 #page-mod-folder-view .fp-icon .icon {
     filter: grayscale(100%);
 }
+
+.activity .icon {
+    filter: grayscale(100%);
+}
+
+#page-course-bulkcompletion,
+#page-course-editdefaultcompletion,
+#page-edit-tree-index {
+    .modules {
+        img {
+            filter: grayscale(100%);
+            height: 16px;
+            width: 16px;
+            &.icon {
+                filter: grayscale(0%);
+            }
+        }
+    }
+}
+
+.import-course-selector {
+    .ics-search {
+        input {
+            margin-bottom: .5rem;
+        }
+    }
+}
+
+#page-grade-edit-tree-index {
+    .generaltable td {
+        padding: .5rem;
+    }
+    .setup-grades img.icon {
+        filter: grayscale(100%);
+    }
+}
+
+.path-grade #choosepluginreport {
+    margin-bottom: .5rem;
+}
