@@ -169,6 +169,11 @@
                             <button type="submit" class="btn btn-primary m-t-1" id="loginbtn">{{#str}}login{{/str}}</button>
                             </div>
                         </form>
+                        {{#cansignup}}
+                            <form class="text-sm-center m-t-1" action="{{signupurl}}" method="get" id="signup">
+                                <button type="submit" class="btn btn-secondary">{{#str}}startsignup{{/str}}</button>
+                            </form>
+                        {{/cansignup}}
                     </div>
                 </div>
                 <div class="row">
