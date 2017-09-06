@@ -30,4 +30,16 @@ class theme_receptic_observer {
         $DB->delete_records_select('user_preferences', $DB->sql_like('name', ':name') . ' AND userid=:userid ',
             array( 'name' => 'sections-toggle-%', 'userid' => $eventdata['userid']));
     }
+
+    public static function user_created(core\event\base $event) {
+        global $DB;
+        $eventdata = $event->get_data();
+        $user = $DB->get_record('user', array('id' => $eventdata['objectid']));
+        $roles = get_archetype_roles('coursecreator');
+        $sitecontext = context_system::instance();
+        $creatorrole = array_shift($roles);
+        if ($creatorrole !== false and noe_is_teacher('gdeville')) {
+            role_assign($creatorrole->id, $user->id, $sitecontext->id);
+        }
+    }
 }

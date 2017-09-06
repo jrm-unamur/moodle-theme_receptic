@@ -28,4 +28,8 @@ $observers = array(
         'eventname' => 'core\event\user_loggedout',
         'callback' => 'theme_receptic_observer::user_loggedout',
     ),
+    array(
+        'eventname' => 'core\event\user_created',
+        'callback' => 'theme_receptic_observer::user_created',
+    ),
 );

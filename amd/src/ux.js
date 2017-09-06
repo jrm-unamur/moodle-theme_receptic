@@ -104,6 +104,7 @@ define(['jquery', 'core/log'], function($, log) {
                         $(item).show();
                     });*/
                 });
+                $('#chooserform #item_lesson').parent().parent().remove();
             });
         }
     };

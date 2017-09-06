@@ -277,4 +277,141 @@ label {
     }
 }
 
+// Mod chat.
+#page-mod-chat-gui_basic-index #page.container-fluid {
+    margin-top: 2rem;
+}
+
+#page-mod-chat-gui_ajax-index .form-control {
+    border-radius: 0;
+    &:focus {
+        border-color: $brand-primary;
+    }
+}
+
+// Mod choicegroup.
+#page-mod-choicegroup-mod {
+    #expandButton, #collapseButton, #addGroupButton, #removeGroupButton {
+        color: #fff;
+        background-color: #696969;
+        border-color: #696969;
+        display: inline-block;
+        font-weight: 400;
+        line-height: 1.25;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        cursor: pointer;
+        user-select: none;
+        border: 1px solid transparent;
+        padding: .5rem 1rem;
+        font-size: 1rem;
+        margin-bottom: .5rem;
+    }
+}
+
+.path-mod-choicegroup {
+    table.choicegroups {
+        margin: 0;
+        th, td {
+            vertical-align: top;
+        }
+
+    }
+    table.results {
+        .attemptaction input[type=checkbox] {
+            margin-right: .5rem
+        }
+        .image img {
+            margin-top: -.5rem;
+        }
+    }
+    .responseaction {
+        text-align: left;
+        label {
+            margin-left: 2rem;
+        }
+    }
+    .downloadreport button {
+        margin-bottom: .5rem;
+    }
+}
+
+// Mod feedback.
+.path-mod-feedback {
+    div.feedback_info {
+        margin-left: .5rem;
+    }
+    h3:last-of-type {
+        margin-top: 1rem;
+    }
+    #feedback_dragarea {
+        margin-left: .5rem;
+    }
+}
+
+#showentrytable {
+    .cell {
+        vertical-align: middle;
+    }
+}
+
+.feedback_form {
+    .form-group {
+        .col-md-3 label .icon,
+        .col-md-3 span .icon {
+            padding-left: .3rem;
+            vertical-align: baseline;
+        }
+        &.feedback-item-info {
+            padding-top: .5rem;
+            padding-bottom: .5rem;
+            margin-bottom: 0;
+        }
+        &.feedback-item-multichoice.multichoice-horizontal .felement {
+            padding-top: .5rem;
+            label {
+                margin-right: 1rem;
+            }
+        }
+        &.feedback-item-multichoice.multichoice-vertical .felement {
+            margin-top: -1rem;
+            label {
+                margin-right: 1rem;
+            }
+        }
+    }
+}
+
+/*#feedback_complete_form {
+    .form-group {
+        .col-md-3 label .icon {
+            padding-left: .3rem;
+            vertical-align: baseline;
+        }
+    }
+}*/
+
+#feedback_sendmessageform {
+    .buttons input[type=button] {
+        color: #fff;
+        background-color: #696969;
+        border-color: #696969;
+        display: inline-block;
+        font-weight: 400;
+        line-height: 1.25;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        cursor: pointer;
+        user-select: none;
+        border: 1px solid transparent;
+        padding: .5rem 1rem;
+        font-size: 1rem;
+        margin-bottom: .5rem;
+    }
+    fieldset {
+        border-bottom: none;
+    }
+}
 

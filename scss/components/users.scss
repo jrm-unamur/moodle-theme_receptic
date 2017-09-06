@@ -84,3 +84,12 @@ select[size], select[multiple], select[size][multiple] {
         font-size: 1rem;
     }
 }
+
+#page-admin-roles-usersroles {
+    .box.generalbox > ul > li:first-of-type > h4.contextname {
+        margin-top: 0;
+    }
+    ul li h4.contextname {
+        margin-top: 1rem;
+    }
+}
