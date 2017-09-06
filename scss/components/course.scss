@@ -200,6 +200,12 @@ span.availabilityinfo:before {
 
 span.availabilityinfo .tag.tag-info {
     margin-top: .4rem;
+    background-color: $gray-lightest;
+    filter: sepia(15%);
+    color: $body-color;
+    border: 2px solid $brand-primary;
+    border-radius: 0;
+    text-align: center;
 }
 
 .section .activity .availabilityinfo {
