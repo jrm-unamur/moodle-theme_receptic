@@ -81,3 +81,4 @@ $string['courseadminmenuintoolbar'] = 'Menu d\'administration du cours';
 $string['courseadminmenuintoolbar_desc'] = 'Ajouter le menu d\'administration du cours à la barre de navigation';
 $string['adminmenuintoolbar'] = 'Menu d\'administration du site';
 $string['adminmenuintoolbar_desc'] = 'Ajouter le menu d\'administration de la plateforme à la barre de navigation';
+$string['connectme'] = 'Me connecter';

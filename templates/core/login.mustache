@@ -119,22 +119,21 @@
                             <script>document.getElementById('anchor').value = location.hash;</script>
                             {{#hasidentityproviders}}
 
-                                <div class="potentialidplist" class="m-t-1">
-                                    <h5 class="m-t-2">Etudiant ou membre du personnel de l'UNamur</h5>
+                                <div class="potentialidplist connectbox" class="m-t-1">
+                                    <h4 class="m-t-1 text-xs-center">Etudiant ou membre du personnel de l'UNamur</h4>
                                     {{#identityproviders}}
                                         <div class="potentialidp text-sm-center">
-                                            <a href="{{url}}" title={{#quote}}{{name}}{{/quote}}>
+                                            <a href="{{url}}" title={{#quote}}Me connecter{{/quote}}>
                                                 <i class="fa fa-sign-in" style="font-size:3rem;"></i>
                                             {{#iconurl}}
-
                                                 <img src="{{iconurl}}" alt="" width="20%" height="20%"/>
                                             {{/iconurl}}
-
                                             </a>
                                         </div>
                                     {{/identityproviders}}
+                                    <h4 class="m-t-1 text-xs-center">Cliquez l'icône ci-dessus</h4>
                                 </div>
-                                <h5 class="m-t-3">Autre utilisateur</h5>
+                                <h4 class="m-t-10" style="margin-top:10rem;">Utilisateur extérieur</h4>
                             {{/hasidentityproviders}}
                             <label for="username" class="sr-only">
                                 {{^canloginbyemail}}
@@ -145,6 +144,7 @@
                                 {{/canloginbyemail}}
                             </label>
                             <div class="form-group input-group input-group-username">
+                                <input type="text" style="display:none" name="nothing" autofocus>
                                 <span class="input-group-addon"><i class="fa fa-user-circle"></i></span>
                                 <input type="text" name="username" id="username"
                                        class="form-control"
@@ -159,12 +159,6 @@
                                        class="form-control"
                                         placeholder={{#quote}}{{#str}}password{{/str}}{{/quote}}>
                             </div>
-                            {{#rememberusername}}
-                                <div class="rememberpass m-t-1">
-                                    <input type="checkbox" name="rememberusername" id="rememberusername" value="1" {{#username}}checked="checked"{{/username}} />
-                                    <label for="rememberusername">{{#str}} rememberusername, admin {{/str}}</label>
-                                </div>
-                            {{/rememberusername}}
                             <div class="text-sm-center">
                             <button type="submit" class="btn btn-primary m-t-1" id="loginbtn">{{#str}}login{{/str}}</button>
                             </div>
