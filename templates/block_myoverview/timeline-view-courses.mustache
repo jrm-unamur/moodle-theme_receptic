@@ -66,14 +66,6 @@
                         {{#courses}} {{> block_myoverview/course-item }} {{/courses}}
                     </ul>
                 {{/pages}}
-                <div class="text-xs-center text-center m-t-1">
-                    <button type="button" class="btn btn-secondary hidden" data-action="more-courses">
-                        {{#str}} morecourses, block_myoverview {{/str}}
-                        <span class="hidden" data-region="loading-icon-container">
-                            {{> core/loading }}
-                        </span>
-                    </button>
-                </div>
             {{/haspages}}
             {{^haspages}}
                 <div class="text-xs-center text-center m-t-3">
