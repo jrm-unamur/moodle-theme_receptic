@@ -71,6 +71,21 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                 }
             }
         }
+        $courses = $data['coursesview']['future']['pages'][0]['courses'];
+        foreach ($courses as &$course) {
+            $instances = enrol_get_instances($course->id, true);
+            foreach ($instances as $instance) { // Need to check enrolment methods for self enrol.
+                $plugin = $plugins[$instance->enrol];
+                if (is_enrolled(context_course::instance($course->id))) {
+                    $unenrolurl = $plugin->get_unenrolself_link($instance);
+                    if ($unenrolurl) {
+                        $course->unenrolurl = $unenrolurl->out();
+                        break;
+                    }
+
+                }
+            }
+        }
         return $this->render_from_template('block_myoverview/main', $data);
     }
 }
