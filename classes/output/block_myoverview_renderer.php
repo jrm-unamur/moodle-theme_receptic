@@ -71,6 +71,10 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                 }
             }
         }
+        //print_object($data['coursesview']['inprogress']['pages'][0]['courses']);
+        //print_object(count($data['coursesview']['inprogress']['pages']));
+        $lastpage = count($data['coursesview']['inprogress']['pages']) - 1;
+        //print_object($lastindex);
         $courses = $data['coursesview']['future']['pages'][0]['courses'];
         foreach ($courses as &$course) {
             $instances = enrol_get_instances($course->id, true);
@@ -85,7 +89,9 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
 
                 }
             }
+            $data['coursesview']['inprogress']['pages'][$lastpage]['courses'][] = $course;
         }
+        //print_object($data['coursesview']['inprogress']['pages'][0]['courses']);
         return $this->render_from_template('block_myoverview/main', $data);
     }
 }

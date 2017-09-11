@@ -29,22 +29,7 @@
                 {{#pages}}
                     <ul class="list-group unstyled hidden" data-region="course-block">
                         {{#courses}} {{> block_myoverview/course-item }} {{/courses}}
-                        {{#future}}
-                            {{#haspages}}
-                                {{#pages}}
-                                        {{#courses}} {{> block_myoverview/course-item }} {{/courses}}
-                                {{/pages}}
-                            {{/haspages}}
-                            {{^haspages}}
-                                <div class="text-xs-center text-center m-t-3">
-                                    <img class="empty-placeholder-image-lg"
-                                         src="{{urls.noevents}}"
-                                         alt="{{#str}} nocoursesinprogress, block_myoverview {{/str}}"
-                                         role="presentation">
-                                    <p class="text-muted m-t-1">{{#str}} nocoursesinprogress, block_myoverview {{/str}}</p>
-                                </div>
-                            {{/haspages}}
-                        {{/future}}
+
                     </ul>
                 {{/pages}}
                 <div class="text-xs-center text-center m-t-1">
@@ -75,6 +60,7 @@
                 <p class="text-muted m-t-1">{{#str}} nocoursesinprogress, block_myoverview {{/str}}</p>
             </div>
         {{/inprogress}}
+
     {{/coursesview}}
 </div>
 {{#js}}
