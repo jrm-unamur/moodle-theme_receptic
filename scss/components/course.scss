@@ -287,3 +287,17 @@ img {
 .path-grade #choosepluginreport {
     margin-bottom: .5rem;
 }
+
+//Disable shortname fullname and category select from course edit form
+#page-course-edit.format-topics #id_fullname,
+#page-course-edit.format-topics #id_shortname,
+#page-course-edit.format-topics #id_category,
+#page-course-edit.format-weeks #id_fullname,
+#page-course-edit.format-weeks #id_shortname,
+#page-course-edit.format-weeks #id_category {
+    pointer-events: none;
+    tabindex: -1;
+    border: none;
+    box-shadow: none;
+    max-width: 75%;
+}
