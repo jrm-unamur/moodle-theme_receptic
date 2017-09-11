@@ -21,12 +21,12 @@ define(['jquery', 'core/log'], function($, log) {
                 }, 0);
                 // ... $('.summarytext').remove().
                 //Disable shortname, fullname and category for course edit form
-                $('#page-course-edit.format-topics #id_fullname').prop('disabled', true);
+                /*$('#page-course-edit.format-topics #id_fullname').prop('disabled', true);
                 $('#page-course-edit.format-topics #id_shortname').prop('disabled', true);
                 $('#page-course-edit.format-topics #id_category').prop('disabled', true);
                 $('#page-course-edit.format-weeks #id_fullname').prop('disabled', true);
                 $('#page-course-edit.format-weeks #id_shortname').prop('disabled', true);
-                $('#page-course-edit.format-weeks #id_category').prop('disabled', true);
+                $('#page-course-edit.format-weeks #id_category').prop('disabled', true);*/
 
                 $('.block_myoverview [data-action="more-courses"]').removeClass('hidden');
 
