@@ -38,7 +38,7 @@ class theme_receptic_observer {
         $roles = get_archetype_roles('coursecreator');
         $sitecontext = context_system::instance();
         $creatorrole = array_shift($roles);
-        if ($creatorrole !== false and noe_is_teacher('gdeville')) {
+        if ($creatorrole !== false and noe_is_teacher($user->username)) {
             role_assign($creatorrole->id, $user->id, $sitecontext->id);
         }
     }
