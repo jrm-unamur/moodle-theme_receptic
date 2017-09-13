@@ -183,6 +183,42 @@ div.editor_atto_toolbar button .icon {
     margin-bottom: 0;
 }
 
+#page-login-index {
+    #accordion {
+        margin-top:5rem;
+        .card {
+            border-color: $gray-light;
+        }
+        .card-header {
+            background-color:white;
+            border:none;
+        }
+        .card-block {
+            padding-top: 0;
+            .input-group-username {
+                margin-top: 1rem;
+            }
+        }
+        a.sectiontoggle {
+            float: left;
+            margin: 1px 3px 3px;
+            padding: 2px 18px 2px 1.5rem;
+            background-repeat: no-repeat;
+            background-position: left center;
+            cursor: pointer;
+            color: $body-color;
+            &[aria-expanded="false"] {
+                background-image: url([[pix:moodle|t/collapsed]]);
+            }
+            &[aria-expanded="true"] {
+                background-image: url([[pix:moodle|t/expanded]]);
+            }
+        }
+
+    }
+}
+
+
 .connectbox {
     padding: 0.5rem;
     border: 3px solid $brand-success;

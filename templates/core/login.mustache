@@ -130,8 +130,20 @@
                                     {{/identityproviders}}
                                     <h4 class="m-t-1 text-xs-center">Cliquez sur l'icône ci-dessus</h4>
                                 </div>
-                                <h4 class="m-t-10" style="margin-top:10rem;">Utilisateur extérieur</h4>
+                                <!--<h4 class="m-t-10" style="margin-top:10rem;">Utilisateur extérieur</h4>-->
                             {{/hasidentityproviders}}
+                            <div id="accordion" role="tablist" aria-multiselectable="true">
+                                <div class="card">
+                                    <div class="card-header" role="tab" id="headingOne">
+                                        <h5 class="mb-0">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="sectiontoggle collapsed">
+                                                <span>Utilisateur extérieur</span>
+                                            </a>
+                                        </h5>
+                                    </div>
+
+                                    <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="card-block">
                             <label for="username" class="sr-only">
                                 {{^canloginbyemail}}
                                     {{#str}} username {{/str}}
@@ -159,6 +171,7 @@
                             <div class="text-sm-center">
                             <button type="submit" class="btn btn-primary m-t-1" id="loginbtn">{{#str}}login{{/str}}</button>
                             </div>
+                                            </div></div></div></div>
                         </form>
                         {{#cansignup}}
                             <form class="text-sm-center m-t-1" action="{{signupurl}}" method="get" id="signup">
