@@ -12,6 +12,10 @@
             &[data-key="myhome"] > div:before {
                 content: "\f0e4";
             }
+            &[data-key="bve"] > div:before {
+                content: "\f05a";
+                padding-right: .9rem;
+            }
             &[data-key="home"] > div:before {
                 content: "\f015";
             }
