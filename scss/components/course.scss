@@ -138,7 +138,8 @@ body.editing .course-content .summarytext {
 }
 
 /* page-course-index : list of all courses grouped by collapsible categories */
-.course_category_tree {
+.course_category_tree,
+#page-course-search {
     .category {
         > .info {
             box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
@@ -150,38 +151,38 @@ body.editing .course-content .summarytext {
             }
         }
     }
-        .courses {
-            .coursebox {
+    .courses {
+        .coursebox {
+            padding: 0;
+            &.collapsed {
                 padding: 0;
-                &.collapsed {
-                    padding: 0;
-                }
-                > .info >.coursename a {
-                    background: none;
-                    &:before {
-                        font-family: FontAwesome;
-                        content: "\f19d";
-                        color: #000000;
-                        padding-right: 0.5rem;
-                        text-decoration: none;
-                    }
-                }
-                .moreinfo {
-                    float: left;
-                    .fa-info:before {
-                        content: "\f05a";
-                    }
-                }
-                .enrolmenticons {
-                    display: none;
-                    float: right;
-                    padding: 3px 0;
-                }
-                .content .teachers {
-                    margin: 3px 5px 3px 50px;
+            }
+            > .info >.coursename a {
+                background: none;
+                &:before {
+                    font-family: FontAwesome;
+                    content: "\f19d";
+                    color: #000000;
+                    padding-right: 0.5rem;
+                    text-decoration: none;
                 }
             }
+            .moreinfo {
+                float: left;
+                .fa-info:before {
+                    content: "\f05a";
+                }
+            }
+            .enrolmenticons {
+                display: none;
+                float: right;
+                padding: 3px 0;
+            }
+            .content .teachers {
+                margin: 3px 5px 3px 50px;
+            }
         }
+    }
     //}
 }
 
