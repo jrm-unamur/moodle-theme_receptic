@@ -131,47 +131,83 @@
                                     <h4 class="m-t-1 text-xs-center">Cliquez sur l'icône ci-dessus</h4>
                                 </div>
                                 <!--<h4 class="m-t-10" style="margin-top:10rem;">Utilisateur extérieur</h4>-->
-                            {{/hasidentityproviders}}
-                            <div id="accordion" role="tablist" aria-multiselectable="true">
-                                <div class="card">
-                                    <div class="card-header" role="tab" id="headingOne">
-                                        <h5 class="mb-0">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="sectiontoggle collapsed">
-                                                <span>Utilisateur extérieur</span>
-                                            </a>
-                                        </h5>
-                                    </div>
+                                <div id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="card">
+                                        <div class="card-header" role="tab" id="headingOne">
+                                            <h5 class="mb-0">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="sectiontoggle collapsed">
+                                                    <span>Utilisateur extérieur</span>
+                                                </a>
+                                            </h5>
+                                        </div>
 
-                                    <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
-                                        <div class="card-block">
-                            <label for="username" class="sr-only">
-                                {{^canloginbyemail}}
-                                    {{#str}} username {{/str}}
-                                {{/canloginbyemail}}
-                                {{#canloginbyemail}}
-                                    {{#str}} usernameemail {{/str}}
-                                {{/canloginbyemail}}
-                            </label>
-                            <div class="form-group input-group input-group-username">
-                                <input type="text" style="display:none" name="nothing" autofocus>
-                                <span class="input-group-addon"><i class="fa fa-user-circle"></i></span>
-                                <input type="text" name="username" id="username"
-                                       class="form-control"
-                                       value="{{username}}"
-                                        placeholder={{#quote}}{{^canloginbyemail}}{{#str}}username{{/str}}{{/canloginbyemail}}{{#canloginbyemail}}{{#str}}usernameemail{{/str}}{{/canloginbyemail}}{{/quote}}>
-                            </div>
+                                        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                                            <div class="card-block">
+                                                <label for="username" class="sr-only">
+                                                    {{^canloginbyemail}}
+                                                        {{#str}} username {{/str}}
+                                                    {{/canloginbyemail}}
+                                                    {{#canloginbyemail}}
+                                                        {{#str}} usernameemail {{/str}}
+                                                    {{/canloginbyemail}}
+                                                </label>
+                                                <div class="form-group input-group input-group-username">
+                                                    <input type="text" style="display:none" name="nothing" autofocus>
+                                                    <span class="input-group-addon"><i class="fa fa-user-circle"></i></span>
+                                                    <input type="text" name="username" id="username"
+                                                           class="form-control"
+                                                           value="{{username}}"
+                                                            placeholder={{#quote}}{{^canloginbyemail}}{{#str}}username{{/str}}{{/canloginbyemail}}{{#canloginbyemail}}{{#str}}usernameemail{{/str}}{{/canloginbyemail}}{{/quote}}>
+                                                </div>
 
-                            <label for="password" class="sr-only">{{#str}} password {{/str}}</label>
-                            <div class="form-group input-group input-group-password">
-                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                <input type="password" name="password" id="password" value=""
-                                       class="form-control"
-                                        placeholder={{#quote}}{{#str}}password{{/str}}{{/quote}}>
-                            </div>
-                            <div class="text-sm-center">
-                            <button type="submit" class="btn btn-primary m-t-1" id="loginbtn">{{#str}}login{{/str}}</button>
-                            </div>
+                                                <label for="password" class="sr-only">{{#str}} password {{/str}}</label>
+                                                <div class="form-group input-group input-group-password">
+                                                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                                    <input type="password" name="password" id="password" value=""
+                                                           class="form-control"
+                                                            placeholder={{#quote}}{{#str}}password{{/str}}{{/quote}}>
+                                                </div>
+                                                <div class="text-sm-center">
+                                                    <button type="submit" class="btn btn-primary m-t-1" id="loginbtn">{{#str}}login{{/str}}</button>
+                                                </div>
                                             </div></div></div></div>
+                            {{/hasidentityproviders}}
+                            {{^hasidentityproviders}}
+                                <label for="username" class="sr-only">
+                                    {{^canloginbyemail}}
+                                        {{#str}} username {{/str}}
+                                    {{/canloginbyemail}}
+                                    {{#canloginbyemail}}
+                                        {{#str}} usernameemail {{/str}}
+                                    {{/canloginbyemail}}
+                                </label>
+                                <div class="form-group input-group input-group-username">
+                                    <input type="text" style="display:none" name="nothing" autofocus>
+                                    <span class="input-group-addon"><i class="fa fa-user-circle"></i></span>
+                                    <input type="text" name="username" id="username"
+                                           class="form-control"
+                                           value="{{username}}"
+                                            placeholder={{#quote}}{{^canloginbyemail}}{{#str}}username{{/str}}{{/canloginbyemail}}{{#canloginbyemail}}{{#str}}usernameemail{{/str}}{{/canloginbyemail}}{{/quote}}>
+                                </div>
+
+                                <label for="password" class="sr-only">{{#str}} password {{/str}}</label>
+                                <div class="form-group input-group input-group-password">
+                                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                    <input type="password" name="password" id="password" value=""
+                                           class="form-control"
+                                            placeholder={{#quote}}{{#str}}password{{/str}}{{/quote}}>
+                                </div>
+                                {{#rememberusername}}
+                                    <div class="rememberpass m-t-1">
+                                        <input type="checkbox" name="rememberusername" id="rememberusername" value="1" {$
+                                        <label for="rememberusername">{{#str}} rememberusername, admin {{/str}}</label>
+                                    </div>
+                                {{/rememberusername}}
+                                <div class="text-sm-center">
+                                    <button type="submit" class="btn btn-primary m-t-1" id="loginbtn">{{#str}}login{{/str}}</button>
+                                </div>
+                            {{/hasidentityproviders}}
+
                         </form>
                         {{#cansignup}}
                             <form class="text-sm-center m-t-1" action="{{signupurl}}" method="get" id="signup">
