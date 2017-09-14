@@ -56,26 +56,54 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
         $plugins   = enrol_get_plugins(true);
         $selfenrol = false;
 
-        $courses = $data['coursesview']['inprogress']['pages'][0]['courses'];
-        foreach ($courses as &$course) {
-            $instances = enrol_get_instances($course->id, true);
-            foreach ($instances as $instance) { // Need to check enrolment methods for self enrol.
-                $plugin = $plugins[$instance->enrol];
-                if (is_enrolled(context_course::instance($course->id))) {
-                    $unenrolurl = $plugin->get_unenrolself_link($instance);
-                    if ($unenrolurl) {
-                        $course->unenrolurl = $unenrolurl->out();
-                        break;
+        foreach ($data['coursesview']['inprogress']['pages'] as $page) {
+            $courses = $page['courses'];
+            //$courses = $data['coursesview']['inprogress']['pages'][0]['courses'];
+            foreach ($courses as &$course) {
+                $instances = enrol_get_instances($course->id, true);
+                foreach ($instances as $instance) { // Need to check enrolment methods for self enrol.
+                    $plugin = $plugins[$instance->enrol];
+                    if (is_enrolled(context_course::instance($course->id))) {
+                        $unenrolurl = $plugin->get_unenrolself_link($instance);
+                        if ($unenrolurl) {
+                            $course->unenrolurl = $unenrolurl->out();
+                            break;
+                        }
                     }
-
                 }
             }
         }
+        /*foreach ($data['coursesview']['inprogress']['pages'] as &$tosort) {
+            usort($tosort['courses'], function($a, $b) {
+                return strcmp($a->shortname, $b->shortname);
+            });
+        }*/
         //print_object($data['coursesview']['inprogress']['pages'][0]['courses']);
-        //print_object(count($data['coursesview']['inprogress']['pages']));
+        //print_object($data['coursesview']['inprogress']['pages']);
+
         $lastpage = count($data['coursesview']['inprogress']['pages']) - 1;
         //print_object($lastindex);
-        $courses = $data['coursesview']['future']['pages'][0]['courses'];
+        foreach ($data['coursesview']['future']['pages'] as $page) {
+            $courses = $page['courses'];
+            //$courses = $data['coursesview']['future']['pages'][0]['courses'];
+            foreach ($courses as &$course) {
+                $instances = enrol_get_instances($course->id, true);
+                foreach ($instances as $instance) { // Need to check enrolment methods for self enrol.
+                    $plugin = $plugins[$instance->enrol];
+                    if (is_enrolled(context_course::instance($course->id))) {
+                        $unenrolurl = $plugin->get_unenrolself_link($instance);
+                        if ($unenrolurl) {
+                            $course->unenrolurl = $unenrolurl->out();
+                            break;
+                        }
+
+                    }
+                }
+                //$data['coursesview']['inprogress']['pages'][$lastpage]['courses'][] = $course;
+            }
+            $data['coursesview']['inprogress']['pages'][] = $page;
+        }
+        /*$courses = $data['coursesview']['future']['pages'][0]['courses'];
         foreach ($courses as &$course) {
             $instances = enrol_get_instances($course->id, true);
             foreach ($instances as $instance) { // Need to check enrolment methods for self enrol.
@@ -90,8 +118,8 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                 }
             }
             $data['coursesview']['inprogress']['pages'][$lastpage]['courses'][] = $course;
-        }
-        //print_object($data['coursesview']['inprogress']['pages'][0]['courses']);
+        }*/
+        //print_object($data['coursesview']);
         return $this->render_from_template('block_myoverview/main', $data);
     }
 }

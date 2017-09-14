@@ -39,10 +39,12 @@
                 <h4 class="h5"><a {{^visible}}class="dimmed"{{/visible}} href="{{viewurl}}">{{{shortname}}} - {{{fullname}}}</a></h4>
             </div>
         </div>
+        {{#unenrolurl}}
         <div class="col-xs-1 mdl-right">
             <a href="{{unenrolurl}}">
                 <i title="{{#str}}unenrolme, theme_receptic{{/str}}" style="font-size:large;" class="fa fa-sign-out"></i>
             </a>
         </div>
+        {{/unenrolurl}}
     </div>
 </div>
