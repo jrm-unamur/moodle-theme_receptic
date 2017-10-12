@@ -55,7 +55,9 @@
             &[data-key="grades"] > div:before {
                 content: "\f0ce";
             }
-
+            &[data-key="downloadcenter"] > div:before {
+                content: "\f019";
+            }
         }
 
     }

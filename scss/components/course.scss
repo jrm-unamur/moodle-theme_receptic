@@ -13,8 +13,38 @@ body.editing .collapsible-actions {
     margin-top: 1rem;
 }
 
-body.editing .course-content .summarytext {
-    margin-left: 4rem;
+body.editing .course-content {
+    .summarytext {
+        margin-left: 4rem;
+    }
+    a.sectiontoggle {
+        &:hover {
+            text-decoration: none;
+        }
+        .inplaceeditable .quickeditlink {
+            color: $brand-primary;
+        }
+        &[aria-expanded="false"] {
+            background-image: url([[pix:moodle|t/collapsed]]);
+            background-position: left 25%;
+            padding-right: 1rem;
+            padding-left:0;
+        }
+        &[aria-expanded="true"] {
+            background-image: url([[pix:moodle|t/expanded]]);
+            background-position: left 30%;
+            padding-right: 1rem;
+            padding-left:0;
+        }
+    }
+    li.section {
+        .sectionname {
+            color: $brand-primary;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
 }
 
 .course-content {
@@ -111,12 +141,27 @@ body.editing .course-content .summarytext {
         background-repeat: no-repeat;
         background-position: center center;
         cursor: pointer;
-        color: #fff;
+        /*color: #fff;*/
+        font-size: 1.5rem;
+        font-family: $headings-font-family;
         &[aria-expanded="false"] {
             background-image: url([[pix:moodle|t/collapsed]]);
+            background-position: left 40%;
+            padding-left: 1rem;
         }
         &[aria-expanded="true"] {
             background-image: url([[pix:moodle|t/expanded]]);
+            background-position: left 45%;
+            padding-left: 1rem;
+        }
+        &:hover {
+            text-decoration: none;
+        }
+        .sectionname {
+            padding-left: .3rem;
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
     .section-modchooser {

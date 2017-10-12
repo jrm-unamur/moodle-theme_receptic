@@ -28,7 +28,7 @@ use completion_info;
 use html_writer;
 use moodle_url;
 
-defined('MOODLE_INTERNAL') || die;
+defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/course/format/weeks/renderer.php');
 
@@ -54,14 +54,18 @@ class format_weeks_renderer extends \format_weeks_renderer {
 
         $sections = $modinfo->get_section_info_all();
         $course->numsections = count($sections);
-
         foreach ($sections as $section => $thissection) {
             if ($section == 0) {
                 // 0-section is displayed a little different then the others.
                 if ($thissection->summary or !empty($modinfo->sections[0]) or $PAGE->user_is_editing()) {
+                    $this->page->requires->strings_for_js(array('collapseall', 'expandall'), 'moodle');
                     echo $this->section_header($thissection, $course, false, 0);
                     echo $this->courserenderer->course_section_cm_list($course, $thissection, 0);
                     echo $this->courserenderer->course_section_add_cm_control($course, 0, 0);
+                    echo '<div class="collapsible-actions" >
+    <a href="#" class="expandall" role="button">' . get_string('expandall') . '
+    </a>
+</div>';
                     echo $this->section_footer();
                 }
                 continue;
@@ -178,39 +182,64 @@ class format_weeks_renderer extends \format_weeks_renderer {
         if ($hasnamenotsecpg || $hasnamesecpg) {
             $classes = '';
         }
-        $sectionname = html_writer::tag('span', $this->section_title($section, $course));
-        // Jrm add collapse toggle.
-        if (course_get_format($course)->is_section_current($section)) {
-            $o .= '<a class="sectiontoggle" data-toggle="collapse" data-parent="accordion" href="#collapse-' .
-                  $section->section .
-                  '" aria-expanded="true" aria-controls="collapse-' .
-                  $section->section .
-                  '">&nbsp;</a> ';
-        } else if ($section->section != 0) {
-            $o .= '<a class="sectiontoggle collapsed" data-toggle="collapse" data-parent="accordion" href="#collapse-' .
-                  $section->section .
-                  '" aria-expanded="false" aria-controls="collapse-' .
-                  $section->section .
-                  '">&nbsp;</a> ';
-        }
-        // Jrm end collapse toggle.
+        if (!$PAGE->user_is_editing()) {
+            $sectionname = html_writer::tag('span', $this->section_title_without_link($section, $course),
+                array('class' => 'sectionname'));
+            // Jrm add collapse toggle.
+            if (course_get_format($course)->is_section_current($section)) {
+                $o .= '<a class="sectiontoggle" data-toggle="collapse" data-parent="accordion" href="#collapse-' .
+                    $section->section .
+                    '" aria-expanded="true" aria-controls="collapse-' .
+                    $section->section .
+                    '">&nbsp;' . $sectionname . '</a> ';
+            } else if ($section->section != 0) {
+                $o .= '<a class="sectiontoggle collapsed" data-toggle="collapse" data-parent="accordion" href="#collapse-' .
+                    $section->section .
+                    '" aria-expanded="false" aria-controls="collapse-' .
+                    $section->section .
+                    '">&nbsp;' . $sectionname . '</a> ';
+            }
+            // Jrm end collapse toggle.
 
-        $o .= '<div class="clearfix">' . $this->output->heading($sectionname, 3, 'sectionname' . $classes);
-        $o .= $this->section_availability($section) . '</div>';
-        $o .= $this->section_summary($section, $course, null);
-        // Jrm add div around content to allow section collapsing.
+            $o .= '<div class="clearfix">';
+            $o .= $this->section_availability($section) . '</div>';
+            $o .= $this->section_summary($section, $course, null);
+            // Jrm add div around content to allow section collapsing.
+        } else {
+            $sectionname = html_writer::tag('span', $this->section_title_without_link($section, $course));
+            // Jrm add collapse toggle.
+            if (course_get_format($course)->is_section_current($section)) {
+                $o .= '<a class="sectiontoggle" data-toggle="collapse" data-parent="accordion" href="#collapse-' .
+                    $section->section .
+                    '" aria-expanded="true" aria-controls="collapse-' .
+                    $section->section .
+                    '">&nbsp;</a> ';
+            } else if ($section->section != 0) {
+                $o .= '<a class="sectiontoggle collapsed" data-toggle="collapse" data-parent="accordion" href="#collapse-' .
+                    $section->section .
+                    '" aria-expanded="false" aria-controls="collapse-' .
+                    $section->section .
+                    '">&nbsp;</a> ';
+            }
+            // Jrm end collapse toggle.
+
+            $o .= '<div class="clearfix">' . $this->output->heading($sectionname, 3, 'sectionname' . $classes);
+            $o .= $this->section_availability($section) . '</div>';
+            $o .= $this->section_summary($section, $course, null);
+            // Jrm add div around content to allow section collapsing.
+        }
         if ($section->section == 0 || course_get_format($course)->is_section_current($section)) {
             $classes = "collapse in show";
         } else {
             $classes = "collapse show";
         }
             $o .= '<div id="collapse-' .
-                 $section->section .
-                 '" class="' .
-                 $classes .
-                 '" role="tabpanel" aria-labelledby="heading' .
-                 $section->section .
-                 '">';
+                $section->section .
+                '" class="' .
+                $classes .
+                '" role="tabpanel" aria-labelledby="heading' .
+                $section->section .
+                '">';
         // Jrm end div.
 
         return $o;
