@@ -415,3 +415,15 @@ label {
     }
 }
 
+/* wiki */
+.wikisearch form {
+    input {
+        float:left;
+        @extend .btn-secondary;
+    }
+    #searchwiki {
+        @extend .form-control;
+        margin: 0 3px;
+        width: auto;
+    }
+}

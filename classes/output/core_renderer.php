@@ -143,8 +143,12 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 if ($buttontoadd) {
                     $url->param('sesskey', sesskey());
                     if (!empty($this->page->theme->settings->hidedefaulteditingbutton) && 'my-index' !== $pagetype) {
-                        // Unset button on page.
-                        $this->page->set_button('');
+                        if ($this->page->cm->modname !== 'forum'
+                            && $this->page->cm->modname !== 'wiki'
+                            && $this->page->cm->modname !== 'quiz') {
+                            // Unset button on page.
+                            $this->page->set_button('');
+                        }
                     } else if ('my-index' === $pagetype && !$this->page->user_is_editing()) {
                         $this->page->set_button('');
                     }
