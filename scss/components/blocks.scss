@@ -191,7 +191,20 @@
         }
         td:nth-child(even) {
             background-color: $gray-lightest;
+            &.calendar_event_course {
+                background-color: $calendarEventCourseColor;
+            }
+            &.calendar_event_global {
+                background-color: $calendarEventGlobalColor;
+            }
+            &.calendar_event_group {
+                background-color: $calendarEventGroupColor;
+            }
+            &.calendar_event_user {
+                background-color: $calendarEventUserColor;
+            }
         }
+
         td.today {
             background-color: $gray-dark;
             color: $white;
