@@ -73,6 +73,12 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                 }
             }
         }
+
+        if (empty($data['coursesview']['inprogress']) && !empty($data['coursesview']['future']['pages'])) {
+            $data['coursesview']['inprogress']['haspages'] = 1;
+            $data['coursesview']['inprogress']['pages'] = array();
+        }
+
         /*foreach ($data['coursesview']['inprogress']['pages'] as &$tosort) {
             usort($tosort['courses'], function($a, $b) {
                 return strcmp($a->shortname, $b->shortname);
@@ -103,6 +109,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
             }
             $data['coursesview']['inprogress']['pages'][] = $page;
         }
+
         /*$courses = $data['coursesview']['future']['pages'][0]['courses'];
         foreach ($courses as &$course) {
             $instances = enrol_get_instances($course->id, true);
