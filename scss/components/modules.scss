@@ -427,3 +427,22 @@ label {
         width: auto;
     }
 }
+
+/* workshop */
+#page-mod-workshop-allocation {
+    .allocator-ui {
+        .message {
+            font-size: 100%;
+        }
+        .singlebutton button.btn.btn-secondary {
+            border: none;
+            background: none;
+            text-decoration: underline;
+            color: $brand-primary;
+            padding-top: .3rem;
+        }
+        &.hover {
+            color: $brand-success;
+        }
+    }
+}
