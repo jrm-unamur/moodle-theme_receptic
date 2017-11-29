@@ -143,7 +143,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 if ($buttontoadd) {
                     $url->param('sesskey', sesskey());
                     if (!empty($this->page->theme->settings->hidedefaulteditingbutton) && 'my-index' !== $pagetype) {
-                        if ($this->page->cm->modname !== 'forum'
+                        if (isset($this->page->cm->modname) && $this->page->cm->modname !== 'forum'
                             && $this->page->cm->modname !== 'wiki'
                             && $this->page->cm->modname !== 'quiz') {
                             // Unset button on page.
