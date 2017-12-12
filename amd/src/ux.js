@@ -27,6 +27,8 @@ define(['jquery', 'core/log'], function($, log) {
                 $('#page-course-edit.format-weeks #id_fullname').prop('readonly', true);
                 $('#page-course-edit.format-weeks #id_shortname').prop('readonly', true);
                 $('#page-course-edit.format-weeks #id_category').prop('readonly', true);
+                $('#page-course-edit.format-topics #id_coursedisplay').parent().parent().addClass('hidden');
+                $('#page-course-edit.format-weeks #id_coursedisplay').parent().parent().addClass('hidden');
 
                 $('.block_myoverview [data-action="more-courses"]').removeClass('hidden');
 
