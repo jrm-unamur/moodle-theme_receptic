@@ -61,6 +61,14 @@ if (isloggedin()) {
     $blockscollapsed = true;
 }
 $extraclasses = [];
+
+global $USER;
+if ($USER->auth == 'lti') {
+    $extraclasses[] = 'ltibridge';
+    $navdraweropen = false;
+    $blockscollapsed = true;
+}
+
 if ($navdraweropen) {
     $extraclasses[] = 'drawer-open-left';
 }
@@ -68,6 +76,13 @@ if ($navdraweropen) {
 if ($blockscollapsed) {
     $extraclasses[] = 'blocks-hidden';
 }
+
+/*global $USER;
+if ($USER->auth == 'manual') {
+    //$extraclasses = 'ltibridge';
+    $navdraweropen = false;
+    $blockscollapsed = true;
+}*/
 
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 $blockshtml = $OUTPUT->blocks('side-pre');
