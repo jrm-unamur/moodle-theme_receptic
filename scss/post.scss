@@ -21,6 +21,23 @@
     background-color: $body-bg;
 }
 
+.atto_generico_buttons button {
+    @extend .btn-default;
+}
+
+.atto_form button {
+    @extend .btn-primary;
+    margin-top: .5rem;
+}
+
+#id_introeditor_ {
+    margin-top: .5rem;
+}
+
+select.atto_generico_field {
+    @extend .custom-select;
+    margin-left: .5rem;
+}
 
 
 
