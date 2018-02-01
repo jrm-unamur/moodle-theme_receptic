@@ -82,6 +82,9 @@
         border: none;
         .card-block {
             box-shadow: none;
+            .course-info-container {
+                padding: .75rem 1rem;
+            }
         }
         h3:before {
             content: "\f1e5";
@@ -102,6 +105,10 @@
         }
         .event-icon img {
             filter: grayscale(100%);
+        }
+        .courses-view-course-item {
+            height: auto;
+            border: 1px solid #ddd;
         }
     }
     &.block_calendar_month h3:before,

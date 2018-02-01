@@ -224,3 +224,9 @@ div.editor_atto_toolbar button .icon {
     border: 3px solid $brand-success;
 }
 
+$footer-link-color: $brand-primary !default;
+#page-footer a {
+    color: $brand-primary;
+    text-decoration: none;
+}
+

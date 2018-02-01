@@ -77,13 +77,6 @@ if ($blockscollapsed) {
     $extraclasses[] = 'blocks-hidden';
 }
 
-/*global $USER;
-if ($USER->auth == 'manual') {
-    //$extraclasses = 'ltibridge';
-    $navdraweropen = false;
-    $blockscollapsed = true;
-}*/
-
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 $blockshtml = $OUTPUT->blocks('side-pre');
 $hasblocks = (strpos($blockshtml, 'data-block=') !== false) || $PAGE->user_is_editing();
