@@ -16,6 +16,7 @@ $gray-lighter:              #c9c9c9 !default;
 $gray-lightest:             #f1f1f1 !default;
 
 $brand-primary:             #1a9e9f !default;
+$brand-info:                #ad53b2 !default;
 $brand-success:             #55ab26 !default;
 $brand-warning:             #ff8800 !default;
 $brand-danger:              #ff4136 !default;
@@ -393,7 +394,7 @@ body {
     // Toggle blocks
     #page-content > a {
         position: fixed;
-        right: 5px;
+        right: 10px;
         padding-top: 1rem;
     }
     &.editing {

@@ -23,16 +23,16 @@
     {}
 }}
 
-<div id="block-myoverview-{{uniqid}}" class="block-myoverview" data-region="myoverview">
+<div id="block-myoverview-{{uniqid}}" class="block-myoverview hidden" data-region="myoverview">
     <div class="content-centred">
-        {{!<div role="tabpanel" class="tab-pane fade in active" id="myoverview_timeline_view">}}
-            {{# cancreatecourse}}
-                {{> block_myoverview/add_course_button }}
-            {{/cancreatecourse}}
-            {{# noestudent}}
-                {{> block_myoverview/enrolme_button }}
-            {{/noestudent}}
-            {{> block_myoverview/timeline-view }}
-        {{!</div>}}
+        {{# cancreatecourse}}
+            {{> block_myoverview/add_course_button }}
+        {{/cancreatecourse}}
+        {{# noestudent}}
+            {{> block_myoverview/enrolme_button }}
+        {{/noestudent}}
+        {{#coursesview}}
+            {{> block_myoverview/courses-view }}
+        {{/coursesview}}
     </div>
 </div>

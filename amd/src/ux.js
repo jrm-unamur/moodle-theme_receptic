@@ -18,7 +18,7 @@ define(['jquery', 'core/log'], function($, log) {
                         section = '#collapse-' + parseInt(section);
                         $(section).collapse('show');
                     }
-                }, 0);
+                }, 50);
                 // ... $('.summarytext').remove().
                 //Disable shortname, fullname and category for course edit form
                 $('#page-course-edit.format-topics #id_fullname').prop('readonly', true);
@@ -30,7 +30,8 @@ define(['jquery', 'core/log'], function($, log) {
                 $('#page-course-edit.format-topics #id_coursedisplay').parent().parent().addClass('hidden');
                 $('#page-course-edit.format-weeks #id_coursedisplay').parent().parent().addClass('hidden');
 
-                $('.block_myoverview [data-action="more-courses"]').removeClass('hidden');
+                //$('.block_myoverview [data-action="more-courses"]').removeClass('hidden');
+                $('.block_myoverview [data-action="view-more"]').trigger('click');
 
                 $("body").on( "click", ".toggleblocks", function() {
                     if($('body').hasClass('blocks-hidden')) {
@@ -66,7 +67,7 @@ define(['jquery', 'core/log'], function($, log) {
                 var offset = 50;
                 var duration = 500;
                 $(window).scroll(function(){
-                    if ($('body').scrollTop() > offset) {
+                    if ($(window).scrollTop() > offset) {
                         $('#back-to-top').fadeIn(duration);
                     } else {
                         $('#back-to-top').fadeOut(duration);
@@ -114,6 +115,8 @@ define(['jquery', 'core/log'], function($, log) {
                     });*/
                 });
                 $('#chooserform #item_lesson').parent().parent().remove();
+                $('.block-myoverview').show();
+
             });
         }
     };

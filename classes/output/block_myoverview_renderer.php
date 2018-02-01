@@ -55,8 +55,9 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
         }
         $plugins   = enrol_get_plugins(true);
         $selfenrol = false;
-
+//print_object(count($data['coursesview']['inprogress']['pages']));
         foreach ($data['coursesview']['inprogress']['pages'] as $page) {
+            //print_object($page['courses']);
             $courses = $page['courses'];
             //$courses = $data['coursesview']['inprogress']['pages'][0]['courses'];
             foreach ($courses as &$course) {
@@ -89,25 +90,56 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
 
         $lastpage = count($data['coursesview']['inprogress']['pages']) - 1;
         //print_object($lastindex);
-        foreach ($data['coursesview']['future']['pages'] as $page) {
-            $courses = $page['courses'];
-            //$courses = $data['coursesview']['future']['pages'][0]['courses'];
-            foreach ($courses as &$course) {
-                $instances = enrol_get_instances($course->id, true);
-                foreach ($instances as $instance) { // Need to check enrolment methods for self enrol.
-                    $plugin = $plugins[$instance->enrol];
-                    if (is_enrolled(context_course::instance($course->id))) {
-                        $unenrolurl = $plugin->get_unenrolself_link($instance);
-                        if ($unenrolurl) {
-                            $course->unenrolurl = $unenrolurl->out();
-                            break;
-                        }
+        if (isset($data['coursesview']['future'])) {
+            foreach ($data['coursesview']['future']['pages'] as $page) {
+                $courses = $page['courses'];
+                //$courses = $data['coursesview']['future']['pages'][0]['courses'];
+                foreach ($courses as &$course) {
+                    $instances = enrol_get_instances($course->id, true);
+                    foreach ($instances as $instance) { // Need to check enrolment methods for self enrol.
+                        $plugin = $plugins[$instance->enrol];
+                        if (is_enrolled(context_course::instance($course->id))) {
+                            $unenrolurl = $plugin->get_unenrolself_link($instance);
+                            if ($unenrolurl) {
+                                $course->unenrolurl = $unenrolurl->out();
+                                break;
+                            }
 
+                        }
                     }
+                    //$data['coursesview']['inprogress']['pages'][$lastpage]['courses'][] = $course;
                 }
-                //$data['coursesview']['inprogress']['pages'][$lastpage]['courses'][] = $course;
+                //$data['coursesview']['inprogress']['pages'][] = $page;
             }
-            $data['coursesview']['inprogress']['pages'][] = $page;
+        }
+
+        if (isset($data['coursesview']['past'])) {
+            foreach ($data['coursesview']['past']['pages'] as $page) {
+                $courses = $page['courses'];
+                //$courses = $data['coursesview']['future']['pages'][0]['courses'];
+                foreach ($courses as &$course) {
+                    $instances = enrol_get_instances($course->id, true);
+                    foreach ($instances as $instance) { // Need to check enrolment methods for self enrol.
+                        $plugin = $plugins[$instance->enrol];
+                        if (is_enrolled(context_course::instance($course->id))) {
+                            $unenrolurl = $plugin->get_unenrolself_link($instance);
+                            if ($unenrolurl) {
+                                $course->unenrolurl = $unenrolurl->out();
+                                break;
+                            }
+
+                        }
+                    }
+                    //$data['coursesview']['inprogress']['pages'][$lastpage]['courses'][] = $course;
+                }
+                //$data['coursesview']['inprogress']['pages'][] = $page;
+            }
+        }
+
+        if (!empty($data['coursesview']['future']) || !empty($data['coursesview']['past'])) {
+            $data['displaytabs'] = true;
+        } else {
+            $data['displaytabs'] = false;
         }
 
         /*$courses = $data['coursesview']['future']['pages'][0]['courses'];
