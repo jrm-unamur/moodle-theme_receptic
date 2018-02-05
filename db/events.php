@@ -32,4 +32,113 @@ $observers = array(
         'eventname' => 'core\event\user_created',
         'callback' => 'theme_receptic_observer::user_created',
     ),*/
+    array(
+        'eventname' => '\mod_resource\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_assign\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_forum\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_workshop\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_data\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_chat\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_choicegroup\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_choice\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_feedback\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_test\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_glossary\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_lti\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_scorm\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_survey\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_wiki\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_cobra\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_folder\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_book\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_page\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_imscp\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_url\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\core\event\course_viewed',
+        'callback' => 'theme_receptic_observer::course_viewed'
+    )
 );

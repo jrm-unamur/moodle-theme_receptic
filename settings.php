@@ -231,4 +231,31 @@ if ($ADMIN->fulltree) {
 
     $settings->add($page);
 
+    // Configure redballs.
+    $page = new admin_settingpage('theme_receptic_redballs', get_string('redballs', 'theme_receptic'));
+    $name = 'theme_receptic/enableredballs';
+    $title = get_string('enableredballs', 'theme_receptic');
+    $description = get_string('enableredballs_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, true);
+    $page->add($setting);
+
+    $options = array(
+        30  => new lang_string('nummonth', '', 1),
+        21  => new lang_string('numweeks', '', 3),
+        14  => new lang_string('numweeks', '', 2),
+        7  => new lang_string('numweek', '', 1),
+        6  => new lang_string('numdays', '', 6),
+        5  => new lang_string('numdays', '', 5),
+        4  => new lang_string('numdays', '', 4),
+        3  => new lang_string('numdays', '', 3),
+        2  => new lang_string('numdays', '', 2),
+        1  => new lang_string('numday', '', 1));
+    $name = 'theme_receptic/redballs_lookback';
+    $title = get_string('redballslookback', 'theme_receptic');
+    $description = get_string('redballslookback_desc', 'theme_receptic');
+    $setting = new admin_setting_configselect($name, $title, $description, 30, $options);
+    $page->add($setting);
+
+    $settings->add($page);
+
 }

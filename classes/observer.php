@@ -42,4 +42,31 @@ class theme_receptic_observer {
            // role_assign($creatorrole->id, $user->id, $sitecontext->id);
         }
     }*/
+
+    public static function course_module_viewed(core\event\base $event) {
+        global $DB;
+        $eventdata = $event->get_data();
+        $hotusermodules = explode(',', get_user_preferences('user_hot_items'));
+        if (in_array($eventdata['contextinstanceid'], $hotusermodules)) {
+            $hotusermodules = array_diff($hotusermodules, [$eventdata['contextinstanceid']]);
+            set_user_preference('user_hot_items', implode(',', $hotusermodules));
+        }
+    }
+
+    public static function course_viewed(core\event\base $event) {
+        global $DB;
+        $eventdata = $event->get_data();
+        //print_object($eventdata);die();
+        $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
+        $hotusermodules = explode(',', get_user_preferences('user_hot_items'));
+        $labels = $DB->get_records('course_modules', array('module' => $modlabelid, 'course' => $eventdata['courseid']));//print_object(array_keys($labels));print_object($hotusermodules);
+        //print_object($labels);
+        $hotusermodules = array_diff($hotusermodules, array_keys($labels));
+        set_user_preference('user_hot_items', implode(',', $hotusermodules));
+        /*if (in_array($eventdata['contextinstanceid'], $hotusermodules)) {
+            $hotusermodules = array_diff($hotusermodules, [$eventdata['contextinstanceid']]);
+
+        }*/
+
+    }
 }
