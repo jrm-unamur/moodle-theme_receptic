@@ -41,7 +41,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
      * @return string HTML string
      */
     public function render_main(\block_myoverview\output\main $main) {
-        global $USER;
+        global $USER, $DB;
         $data = $main->export_for_template($this);
         $createcourseplugin = core_plugin_manager::instance()->get_plugin_info('local_createcourse');
         if ($createcourseplugin && has_capability('local/createcourse:create', context_system::instance())) {
@@ -51,16 +51,57 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
         if (substr_count($USER->email, '@student.unamur.be')) {
             $data['urls']['enrolme'] = new moodle_url('/local/unamur/noe/enrolnoecourses.php');
             $data['noestudent'] = true;
-
         }
         $plugins   = enrol_get_plugins(true);
-        $selfenrol = false;
-//print_object(count($data['coursesview']['inprogress']['pages']));
+
+        $redballsactivated = get_config('theme_receptic', 'enableredballs');
+
+        if ($redballsactivated) {
+            $userhotitems = get_user_preferences('user_hot_items');
+            if (is_null($userhotitems)) {
+                $defaultredballslookback = get_config('theme_receptic', 'redballs_lookback');
+                $starttime = time() - ($defaultredballslookback * 24 * 60 * 60);
+            } else {
+                $starttime = $DB->get_field('user', 'lastaccess', array('id' => $USER->id));
+            }
+
+            $newitemsforuser = array();
+            if (!empty($userhotitems)) {
+                $newitemsforuser = explode(',', $userhotitems);
+            }
+        }
         foreach ($data['coursesview']['inprogress']['pages'] as $page) {
-            //print_object($page['courses']);
             $courses = $page['courses'];
-            //$courses = $data['coursesview']['inprogress']['pages'][0]['courses'];
             foreach ($courses as &$course) {
+
+                if ($redballsactivated) {
+                    $visibleitems = array();
+                    $newitemsforcourse = $this->get_redballs($course, $starttime);
+                    $newitemsforuser = array_merge($newitemsforuser, $newitemsforcourse);
+                    $newitemsforuser = array_unique($newitemsforuser);
+
+                    $modinfo = get_fast_modinfo($course);
+
+                    foreach ($modinfo->cms as $cm) {
+                        if ($cm->uservisible and in_array($cm->id, $newitemsforuser)) {
+                            $visibleitems[] = $cm->id;
+                        }
+                    }
+
+                    $count = 0;
+                    if (!empty($newitemsforuser)) {
+                        $count = $DB->count_records_sql(
+                            "SELECT COUNT(*)
+                               FROM {course_modules}
+                              WHERE course = :course
+                                AND id IN (" . implode(',', $visibleitems) . ")",
+                            array( 'course' => $course->id )
+                        );
+                    }
+                    $course->newitemscount = $count;
+                    $course->redballcountclass = $count > 9 ? 'high' : '';
+                }
+
                 $instances = enrol_get_instances($course->id, true);
                 foreach ($instances as $instance) { // Need to check enrolment methods for self enrol.
                     $plugin = $plugins[$instance->enrol];
@@ -80,21 +121,37 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
             $data['coursesview']['inprogress']['pages'] = array();
         }
 
-        /*foreach ($data['coursesview']['inprogress']['pages'] as &$tosort) {
-            usort($tosort['courses'], function($a, $b) {
-                return strcmp($a->shortname, $b->shortname);
-            });
-        }*/
-        //print_object($data['coursesview']['inprogress']['pages'][0]['courses']);
-        //print_object($data['coursesview']['inprogress']['pages']);
-
-        $lastpage = count($data['coursesview']['inprogress']['pages']) - 1;
-        //print_object($lastindex);
         if (isset($data['coursesview']['future'])) {
             foreach ($data['coursesview']['future']['pages'] as $page) {
                 $courses = $page['courses'];
-                //$courses = $data['coursesview']['future']['pages'][0]['courses'];
                 foreach ($courses as &$course) {
+
+                    if ($redballsactivated) {
+                        $visibleitems = array();
+                        $newitemsforcourse = $this->get_redballs($course, $starttime);
+                        $newitemsforuser = array_merge($newitemsforuser, $newitemsforcourse);
+                        $newitemsforuser = array_unique($newitemsforuser);
+
+                        foreach ($modinfo->cms as $cm) {
+                            if ($cm->uservisible and in_array($cm->id, $newitemsforuser)) {
+                                $visibleitems[] = $cm->id;
+                            }
+                        }
+
+                        $count = 0;
+                        if (!empty($newitemsforuser)) {
+                            $count = $DB->count_records_sql(
+                                "SELECT COUNT(*)
+                               FROM {course_modules}
+                              WHERE course = :course
+                                AND id IN (" . implode(',', $visibleitems) . ")",
+                                array( 'course' => $course->id )
+                            );
+                        }
+                        $course->newitemscount = $count;
+                        $course->redballcountclass = $count > 9 ? 'high' : '';
+                    }
+
                     $instances = enrol_get_instances($course->id, true);
                     foreach ($instances as $instance) { // Need to check enrolment methods for self enrol.
                         $plugin = $plugins[$instance->enrol];
@@ -107,17 +164,42 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
 
                         }
                     }
-                    //$data['coursesview']['inprogress']['pages'][$lastpage]['courses'][] = $course;
                 }
-                //$data['coursesview']['inprogress']['pages'][] = $page;
             }
         }
 
         if (isset($data['coursesview']['past'])) {
             foreach ($data['coursesview']['past']['pages'] as $page) {
                 $courses = $page['courses'];
-                //$courses = $data['coursesview']['future']['pages'][0]['courses'];
                 foreach ($courses as &$course) {
+
+                    if ($redballsactivated) {
+                        $visibleitems = array();
+                        $newitemsforcourse = $this->get_redballs($course, $starttime);
+                        $newitemsforuser = array_merge($newitemsforuser, $newitemsforcourse);
+                        $newitemsforuser = array_unique($newitemsforuser);
+
+                        foreach ($modinfo->cms as $cm) {
+                            if ($cm->uservisible and in_array($cm->id, $newitemsforuser)) {
+                                $visibleitems[] = $cm->id;
+                            }
+                        }
+
+                        $count = 0;
+                        if (!empty($newitemsforuser)) {
+                            $count = $DB->count_records_sql(
+                                "SELECT COUNT(*)
+                               FROM {course_modules}
+                              WHERE course = :course
+                                AND id IN (" . implode(',', $visibleitems) . ")",
+                                array( 'course' => $course->id )
+                            );
+                        }
+
+                        $course->newitemscount = $count;
+                        $course->redballcountclass = $count > 9 ? 'high' : '';
+                    }
+
                     $instances = enrol_get_instances($course->id, true);
                     foreach ($instances as $instance) { // Need to check enrolment methods for self enrol.
                         $plugin = $plugins[$instance->enrol];
@@ -130,9 +212,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
 
                         }
                     }
-                    //$data['coursesview']['inprogress']['pages'][$lastpage]['courses'][] = $course;
                 }
-                //$data['coursesview']['inprogress']['pages'][] = $page;
             }
         }
 
@@ -141,24 +221,92 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
         } else {
             $data['displaytabs'] = false;
         }
+        if ($redballsactivated) {
+            set_user_preference('user_hot_items', implode(',', array_unique($newitemsforuser)));
+        }
 
-        /*$courses = $data['coursesview']['future']['pages'][0]['courses'];
-        foreach ($courses as &$course) {
-            $instances = enrol_get_instances($course->id, true);
-            foreach ($instances as $instance) { // Need to check enrolment methods for self enrol.
-                $plugin = $plugins[$instance->enrol];
-                if (is_enrolled(context_course::instance($course->id))) {
-                    $unenrolurl = $plugin->get_unenrolself_link($instance);
-                    if ($unenrolurl) {
-                        $course->unenrolurl = $unenrolurl->out();
-                        break;
-                    }
 
-                }
-            }
-            $data['coursesview']['inprogress']['pages'][$lastpage]['courses'][] = $course;
-        }*/
-        //print_object($data['coursesview']);
         return $this->render_from_template('block_myoverview/main', $data);
+    }
+
+    public function get_redballs($course, $starttime) {
+        global $DB, $USER;
+        $count = 0;
+        $query = "SELECT id, contextinstanceid, timecreated
+                    FROM {logstore_standard_log}
+                   WHERE contextlevel = :contextlevel
+                     AND courseid = :courseid
+                     AND userid != :userid
+                     AND (eventname = '\\\core\\\\event\\\course_module_created' OR eventname = '\\\core\\\\event\\\course_module_updated')
+                     AND (crud = :update OR crud = :create)
+                     AND timecreated > :starttime
+                     AND contextinstanceid IN (SELECT id
+                                                 FROM {course_modules})
+                ORDER BY timecreated DESC";
+
+        $records = $DB->get_records_sql($query, array(
+            'contextlevel' => CONTEXT_MODULE,
+            'courseid' => $course->id,
+            'userid' => $USER->id,
+            'starttime' => $starttime,
+            'update' => 'u',
+            'create' => 'c'
+        ));
+
+        $alreadytested = array();
+        $hotcmids = array();
+        foreach ($records as $record) {
+            if (in_array($record->contextinstanceid, $alreadytested)) {
+                continue;
+            } else {
+                $alreadytested[] = $record->contextinstanceid;
+            }
+            $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
+            if ($DB->record_exists('course_modules', array('module' => $modlabelid, 'id' => $record->contextinstanceid))) {
+                $query = "SELECT *
+                            FROM {logstore_standard_log}
+                           WHERE contextlevel = :contextlevel
+                             AND eventname = :event
+                             AND courseid = :courseid
+                             AND timecreated > :timestamp
+                             AND userid = :userid
+                             AND crud = :crud";
+
+                $conditions = array(
+                    'contextlevel' => CONTEXT_COURSE,
+                    'event' => '\core\event\course_viewed',
+                    'courseid' => $course->id,
+                    'crud' => 'r',
+                    'userid' => $USER->id,
+                    'timestamp' => $record->timecreated
+                );
+            } else {
+                $query = "SELECT *
+                            FROM {logstore_standard_log}
+                           WHERE contextlevel = :contextlevel
+                             AND courseid = :courseid
+                             AND timecreated > :timestamp
+                             AND contextinstanceid = :contextinstanceid
+                             AND userid = :userid
+                             AND crud = :crud";
+
+                $conditions = array(
+                    'contextlevel' => CONTEXT_MODULE,
+                    'courseid' => $course->id,
+                    'crud' => 'r',
+                    'userid' => $USER->id,
+                    'contextinstanceid' => $record->contextinstanceid,
+                    'timestamp' => $record->timecreated
+                );
+            }
+
+            if (!$DB->get_records_sql($query, $conditions)) {
+
+                $count++;
+
+                $hotcmids[] = $record->contextinstanceid;
+            }
+        }
+        return $hotcmids;
     }
 }

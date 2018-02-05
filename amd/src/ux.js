@@ -116,7 +116,6 @@ define(['jquery', 'core/log'], function($, log) {
                 });
                 $('#chooserform #item_lesson').parent().parent().remove();
                 $('.block-myoverview').show();
-
             });
         }
     };
