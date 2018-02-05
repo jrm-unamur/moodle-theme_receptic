@@ -89,7 +89,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                     }
 
                     $count = 0;
-                    if (!empty($newitemsforuser)) {
+                    if (!empty($visibleitems)) {
                         $count = $DB->count_records_sql(
                             "SELECT COUNT(*)
                                FROM {course_modules}
@@ -139,7 +139,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                         }
 
                         $count = 0;
-                        if (!empty($newitemsforuser)) {
+                        if (!empty($visibleitems)) {
                             $count = $DB->count_records_sql(
                                 "SELECT COUNT(*)
                                FROM {course_modules}
@@ -186,7 +186,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                         }
 
                         $count = 0;
-                        if (!empty($newitemsforuser)) {
+                        if (!empty($visibleitems)) {
                             $count = $DB->count_records_sql(
                                 "SELECT COUNT(*)
                                FROM {course_modules}
