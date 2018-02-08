@@ -240,8 +240,10 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                    WHERE contextlevel = :contextlevel
                      AND courseid = :courseid
                      AND userid != :userid
-                     AND (eventname = '\\\core\\\\event\\\course_module_created' OR eventname = '\\\core\\\\event\\\course_module_updated')
-                     AND (crud = :update OR crud = :create)
+                     AND (eventname = '\\\core\\\\event\\\course_module_created'
+                         OR eventname = '\\\core\\\\event\\\course_module_updated'
+                         OR eventname = '\\\mod_wiki\\\\event\\\page_updated'
+                         OR eventname = '\\\mod_quiz\\\\event\\\\edit_page_viewed')
                      AND timecreated > :starttime
                      AND contextinstanceid IN (SELECT id
                                                  FROM {course_modules})
