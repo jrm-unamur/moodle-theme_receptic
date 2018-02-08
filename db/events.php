@@ -78,7 +78,7 @@ $observers = array(
     ),
 
     array(
-        'eventname' => '\mod_test\event\course_module_viewed',
+        'eventname' => '\mod_quiz\event\course_module_viewed',
         'callback' => 'theme_receptic_observer::course_module_viewed'
     ),
 
@@ -99,6 +99,11 @@ $observers = array(
 
     array(
         'eventname' => '\mod_survey\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_wiki\event\course_module_viewed',
         'callback' => 'theme_receptic_observer::course_module_viewed'
     ),
 
