@@ -41,7 +41,7 @@ select.atto_generico_field {
 
 .redball-count {
     position: relative;
-    bottom: 2px;
+    bottom: 3px;
     border-radius: 50%;
     width: 10px;
     height: 10px;
@@ -56,8 +56,8 @@ select.atto_generico_field {
     padding: 4px;
 }
 
-section .redball-count {
-    bottom: 3px;
+.section .redball-count {
+    bottom: 4px;
 }
 
 .section.hot .sectionname:before, .hot:before {
@@ -91,6 +91,9 @@ body.editing .section .activity.hot .mod-indent-outer {
     padding-left: 1rem;
 }
 
+.highlight {
+    color: $brand-success !important;
+}
 
 
 

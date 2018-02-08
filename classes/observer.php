@@ -46,6 +46,7 @@ class theme_receptic_observer {
     public static function course_module_viewed(core\event\base $event) {
         global $DB;
         $eventdata = $event->get_data();
+
         $hotusermodules = explode(',', get_user_preferences('user_hot_items'));
         if (in_array($eventdata['contextinstanceid'], $hotusermodules)) {
             $hotusermodules = array_diff($hotusermodules, [$eventdata['contextinstanceid']]);
