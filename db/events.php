@@ -38,7 +38,7 @@ $observers = array(
     ),
 
     array(
-        'eventname' => '\mod_assign\event\course_module_viewed',
+        'eventname' => '\mod_assign\event\submission_status_viewed',
         'callback' => 'theme_receptic_observer::course_module_viewed'
     ),
 

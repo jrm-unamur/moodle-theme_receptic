@@ -62,7 +62,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                 $defaultredballslookback = get_config('theme_receptic', 'redballs_lookback');
                 $starttime = time() - ($defaultredballslookback * 24 * 60 * 60);
             } else {
-                $starttime = $DB->get_field('user', 'lastaccess', array('id' => $USER->id));
+                $starttime = $DB->get_field('user', 'lastlogin', array('id' => $USER->id));
             }
 
             $newitemsforuser = array();
@@ -77,7 +77,9 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                 if ($redballsactivated) {
                     $visibleitems = array();
                     $newitemsforcourse = $this->get_redballs($course, $starttime);
+
                     $newitemsforuser = array_merge($newitemsforuser, $newitemsforcourse);
+
                     $newitemsforuser = array_unique($newitemsforuser);
 
                     $modinfo = get_fast_modinfo($course);
@@ -129,6 +131,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                     if ($redballsactivated) {
                         $visibleitems = array();
                         $newitemsforcourse = $this->get_redballs($course, $starttime);
+
                         $newitemsforuser = array_merge($newitemsforuser, $newitemsforcourse);
                         $newitemsforuser = array_unique($newitemsforuser);
 

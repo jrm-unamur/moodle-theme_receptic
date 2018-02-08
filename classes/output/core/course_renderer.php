@@ -103,7 +103,7 @@ class course_renderer extends \theme_boost\output\core\course_renderer {
         if (!empty($modinfo->sections[$section->section])) {
             foreach ($modinfo->sections[$section->section] as $modnumber) {
                 $mod = $modinfo->cms[$modnumber];
-                if (in_array($mod->id, $userhotmodules)) {
+                if (in_array($mod->id, $userhotmodules) && $mod->uservisible) {
                     $hotcount++;
                     $diplayoptions['hot'] = 'hot';
                     $mod->set_extra_classes($mod->extraclasses . ' hot');
