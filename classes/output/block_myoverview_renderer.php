@@ -41,7 +41,8 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
      * @return string HTML string
      */
     public function render_main(\block_myoverview\output\main $main) {
-        global $USER, $DB;
+        global $CFG, $USER, $DB;
+
         $data = $main->export_for_template($this);
         $createcourseplugin = core_plugin_manager::instance()->get_plugin_info('local_createcourse');
         if ($createcourseplugin && has_capability('local/createcourse:create', context_system::instance())) {
@@ -73,7 +74,12 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
         foreach ($data['coursesview']['inprogress']['pages'] as $page) {
             $courses = $page['courses'];
             foreach ($courses as &$course) {
-
+                $coursecontext = context_course::instance($course->id);
+                if (has_capability('moodle/course:update', $coursecontext)) {
+                    $course->allowtogglevisibility = true;
+                    $course->togglevisibilityurl = $CFG->wwwroot . '/theme/receptic/utils.php';
+                    $course->sesskey = sesskey();
+                }
                 if ($redballsactivated) {
                     $visibleitems = array();
                     $newitemsforcourse = $this->get_redballs($course, $starttime);
@@ -114,6 +120,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                             break;
                         }
                     }
+                    //print_object($course);die();
                 }
             }
         }
