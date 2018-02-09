@@ -46,6 +46,14 @@
                         {{#newitemscount}}
                             <span title="{{newitemscount}} éléments ajoutés/modifiés" class="redball-count {{redballcountclass}}">{{newitemscount}}</span>
                         {{/newitemscount}}
+                        {{#allowtogglevisibility}}
+                        {{#visible}}
+                            <a href="{{togglevisibilityurl}}?action=hide&courseid={{id}}&sesskey={{sesskey}}"><i class="icon fa fa-eye fa-fw " aria-hidden="true" title="{{#str}}hide{{/str}}" aria-label="{{#str}}hide{{/str}}"></i></a>
+                        {{/visible}}
+                        {{^visible}}
+                            <a href="{{togglevisibilityurl}}?action=show&courseid={{id}}&sesskey={{sesskey}}"><i class="icon fa fa-eye-slash fa-fw " aria-hidden="true" title="{{#str}}show{{/str}}" aria-label="{{#str}}show{{/str}}"></i></a>
+                        {{/visible}}
+                        {{/allowtogglevisibility}}
                     </h4>
                 </div>
                 {{#unenrolurl}}
