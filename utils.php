@@ -27,7 +27,7 @@
 
 require_once('../../config.php');
 
-global $DB;
+global $DB, $USER, $COURSE;
 
 $action  = required_param('action', PARAM_ALPHANUMEXT);
 $courseid = required_param('courseid', PARAM_INT);
@@ -48,10 +48,10 @@ $return = new moodle_url('/my');
 
 switch ($action) {
     case 'show':
-        //unset($enabled[$enrol]);
-        //set_config('enrol_plugins_enabled', implode(',', array_keys($enabled)));
-        //core_plugin_manager::reset_caches();
-        //$syscontext->mark_dirty(); // resets all enrol caches
+        $course = $DB->get_record('course', array('id' => $courseid));
+        $trace = new stdClass();
+        $trace->trace = 'Cours ' . $course->shortname . ' (' . $course->id . ') rendu visible par ' . $USER->firstname . ' ' . $USER->lastname;
+        $DB->insert_record('webcampus_trace', $trace);
         $record = new stdClass();
         $record->id = $courseid;
         $record->visible = 1;
@@ -59,6 +59,10 @@ switch ($action) {
         break;
 
     case 'hide':
+        $course = $DB->get_record('course', array('id' => $courseid));
+        $trace = new stdClass();
+        $trace->trace = 'Cours ' . $course->shortname . ' (' . $course->id . ') masqué par ' . $USER->firstname . ' ' . $USER->lastname;
+        $DB->insert_record('webcampus_trace', $trace);
         $record = new stdClass();
         $record->id = $courseid;
         $record->visible = 0;
