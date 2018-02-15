@@ -77,7 +77,7 @@ class course_renderer extends \theme_boost\output\core\course_renderer {
      * @param int $displayoptions
      * @return void
      */
-    public function course_section_cm_list($course, $section, $sectionreturn = null, $displayoptions = array()) {
+    public function mycourse_section_cm_list($course, &$section, $sectionreturn = null, $displayoptions = array()) {
         global $USER;
 
         $output = '';
@@ -120,6 +120,7 @@ class course_renderer extends \theme_boost\output\core\course_renderer {
                 }
             }
         }
+        $section->hotcount = $hotcount;
 
         $sectionoutput = '';
         if (!empty($moduleshtml) || $ismoving) {
@@ -144,6 +145,7 @@ class course_renderer extends \theme_boost\output\core\course_renderer {
 
         // Always output the section module list.
         $output .= html_writer::tag('ul', $sectionoutput, array('class' => 'section img-text'));
-        return array($output, $hotcount);
+        //return array($output, $hotcount);
+        return $output;
     }
 }
