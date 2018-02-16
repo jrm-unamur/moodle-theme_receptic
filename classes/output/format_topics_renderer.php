@@ -55,13 +55,12 @@ class format_topics_renderer extends \format_topics_renderer {
         $sections = $modinfo->get_section_info_all();
         $course->numsections = count($sections);
         foreach ($sections as $section => $thissection) {
+            //print_object($thissection);die();
             if ($section == 0) {
                 // 0-section is displayed a little different then the others.
                 if ($thissection->summary or !empty($modinfo->sections[0]) or $PAGE->user_is_editing()) {
                     $this->page->requires->strings_for_js(array('collapseall', 'expandall'), 'moodle');
-
-                    //list($modules, $thissection->hotcount) = $this->courserenderer->mycourse_section_cm_list($course, $thissection, 0);
-                    $modules = $this->courserenderer->mycourse_section_cm_list($course, $thissection, 0);
+                    $modules = $this->courserenderer->theme_receptic_course_section_cm_list($course, $thissection, 0);
                     echo $this->section_header($thissection, $course, false, 0);
                     echo $modules;
                     echo $this->courserenderer->course_section_add_cm_control($course, 0, 0);
@@ -99,20 +98,13 @@ class format_topics_renderer extends \format_topics_renderer {
             } else {
 
                 if ($thissection->uservisible) {
-                    //list($modules, $thissection->hotcount) = $this->courserenderer->mycourse_section_cm_list($course, $thissection, 0);
-                    $modules = $this->courserenderer->mycourse_section_cm_list($course, $thissection, 0);
-                    //print_object($thissection->hotcount);
-                    /*if ($issectionhot) {
-                        $thissection->ishot = true;
-                    }*/
+                    $modules = $this->courserenderer->theme_receptic_course_section_cm_list($course, $thissection, 0);
                     $control = $this->courserenderer->course_section_add_cm_control($course, $section, 0);
-                }
-                echo $this->section_header($thissection, $course, false, 0);
-                if ($thissection->uservisible) {
+                    echo $this->section_header($thissection, $course, false, 0);
                     echo $modules;
                     echo $control;
+                    echo $this->section_footer();
                 }
-                echo $this->section_footer();
             }
         }
 
@@ -124,7 +116,7 @@ class format_topics_renderer extends \format_topics_renderer {
                     continue;
                 }
                 echo $this->stealth_section_header($section);
-                echo $this->courserenderer->mycourse_section_cm_list($course, $thissection, 0);
+                echo $this->courserenderer->theme_receptic_course_section_cm_list($course, $thissection, 0);
                 echo $this->stealth_section_footer();
             }
 

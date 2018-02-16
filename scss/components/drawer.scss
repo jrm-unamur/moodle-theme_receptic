@@ -52,6 +52,9 @@
             &[data-key="participants"] > div:before {
                 content: "\f0c0";
             }
+            &[data-key="badgesview"] > div:before {
+                content: "\f132";
+            }
             &[data-key="grades"] > div:before {
                 content: "\f0ce";
             }
