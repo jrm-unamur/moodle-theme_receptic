@@ -64,73 +64,83 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 } else if (strpos($pagetype, 'mod-lesson') !== false) {
                     $pagetype = 'mod-lesson'; // Deal with all mod lesson page types.
                 }
-                switch ($pagetype) {
-                    case 'site-index':
-                    case 'calendar-view':  // Slightly faulty as even the navigation link goes back to the frontpage.  TODO: MDL.
-                        $url = new moodle_url('/course/view.php');
-                        $url->param('id', 1);
-                        if ($this->page->user_is_editing()) {
-                            $url->param('edit', 'off');
-                        } else {
-                            $url->param('edit', 'on');
-                        }
-                        break;
-                    case 'admin-index':
-                    case 'admin-setting':
-                        $url = $this->page->url;
-                        if ($this->page->user_is_editing()) {
-                            $url->param('adminedit', 0);
-                        } else {
-                            $url->param('adminedit', 1);
-                        }
-                        break;
-                    case 'course-index':
-                    case 'course-management':
-                    case 'course-search':
-                    case 'mod-resource-mod':
-                    case 'tag-search':
-                        $buttontoadd = false;
-                        break;
-                    case 'mod-data-field':
-                    case 'mod-edit-view':
-                    case 'mod-forum-discuss':
-                    case 'mod-forum-index':
-                    case 'mod-forum-search':
-                    case 'mod-forum-subscribers':
-                    case 'mod-lesson':
-                    case 'mod-quiz-index':
-                    case 'mod-scorm-player':
-                        $url = new moodle_url('/course/view.php');
-                        $url->param('id', $this->page->course->id);
-                        $url->param('return', $this->page->url->out_as_local_url(false));
-                        if ($this->page->user_is_editing()) {
-                            $url->param('edit', 'off');
-                        } else {
-                            $url->param('edit', 'on');
-                        }
-                        break;
-                    case 'my-index':
-                    case 'user-profile':
-                        // TODO: Not sure how to get 'id' param and if it is really needed.
-                        $url = $this->page->url;
-                        // Umm! Both /user/profile.php and /user/profilesys.php have the same page type but different parameters!
-                        if ($this->page->user_is_editing()) {
-                            $url->param('adminedit', 0);
-                            $url->param('edit', 0);
-                        } else {
-                            $url->param('adminedit', 1);
-                            $url->param('edit', 1);
-                        }
+                if (strpos($this->page->bodyclasses, 'path-user')
+                        || strpos($this->page->bodyclasses, 'path-grade')) {
+                    $buttontoadd = false;
+                }
+                if ($buttontoadd) {
+                    switch ($pagetype) {
+                        case 'site-index':
+                        case 'calendar-view':  // Slightly faulty as even the navigation link goes back to the frontpage.  TODO: MDL.
+                            $url = new moodle_url('/course/view.php');
+                            $url->param('id', 1);
+                            if ($this->page->user_is_editing()) {
+                                $url->param('edit', 'off');
+                            } else {
+                                $url->param('edit', 'on');
+                            }
+                            $buttontoadd = false;
+                            break;
+                        case 'admin-index':
+                        case 'admin-setting':
+                            $url = $this->page->url;
+                            if ($this->page->user_is_editing()) {
+                                $url->param('adminedit', 0);
+                            } else {
+                                $url->param('adminedit', 1);
+                            }
+                            break;
+                        case 'badges-view':
+                        case 'course-admin':
+                        case 'course-index':
+                        case 'course-index-category':
+                        case 'course-management':
+                        case 'course-search':
+                        case 'mod-resource-mod':
+                        case 'tag-search':
+                            $buttontoadd = false;
+                            break;
+                        case 'mod-data-field':
+                        case 'mod-edit-view':
+                        case 'mod-forum-discuss':
+                        case 'mod-forum-index':
+                        case 'mod-forum-search':
+                        case 'mod-forum-subscribers':
+                        case 'mod-lesson':
+                        case 'mod-quiz-index':
+                        case 'mod-scorm-player':
+                            $url = new moodle_url('/course/view.php');
+                            $url->param('id', $this->page->course->id);
+                            $url->param('return', $this->page->url->out_as_local_url(false));
+                            if ($this->page->user_is_editing()) {
+                                $url->param('edit', 'off');
+                            } else {
+                                $url->param('edit', 'on');
+                            }
+                            break;
+                        case 'my-index':
+                        case 'user-profile':
+                            // TODO: Not sure how to get 'id' param and if it is really needed.
+                            $url = $this->page->url;
+                            // Umm! Both /user/profile.php and /user/profilesys.php have the same page type but different parameters!
+                            if ($this->page->user_is_editing()) {
+                                $url->param('adminedit', 0);
+                                $url->param('edit', 0);
+                            } else {
+                                $url->param('adminedit', 1);
+                                $url->param('edit', 1);
+                            }
 
-                        break;
-                    default:
-                        $url = $this->page->url;
-                        if ($this->page->user_is_editing()) {
-                            $url->param('edit', 'off');
-                        } else {
-                            $url->param('edit', 'on');
-                        }
-                        break;
+                            break;
+                        default:
+                            $url = $this->page->url;
+                            if ($this->page->user_is_editing()) {
+                                $url->param('edit', 'off');
+                            } else {
+                                $url->param('edit', 'on');
+                            }
+                            break;
+                    }
                 }
                 if ($buttontoadd) {
                     $url->param('sesskey', sesskey());

@@ -208,7 +208,7 @@ class format_weeks_renderer extends \format_weeks_renderer {
             }
             // Jrm end collapse toggle.
 
-            $o .= '<div class="clearfix">';
+            //$o .= '<div class="clearfix">';
             $o .= $this->section_availability($section) . '</div>';
             $o .= $this->section_summary($section, $course, null);
             // Jrm add div around content to allow section collapsing.
