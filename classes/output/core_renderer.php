@@ -43,14 +43,6 @@ defined('MOODLE_INTERNAL') || die;
 
 class core_renderer extends \theme_boost\output\core_renderer {
 
-    public function __construct(moodle_page $page, $target) {
-        global $PAGE;
-        if (!empty($PAGE->theme->settings->alwaysexpandsiteadmin) || true) {
-            navigation_node::require_admin_tree();
-        }
-        parent::__construct($page, $target);
-    }
-
     // Methods for editmode button in bar.
     public function custom_menu_editing() {
         $html = '';
@@ -72,73 +64,83 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 } else if (strpos($pagetype, 'mod-lesson') !== false) {
                     $pagetype = 'mod-lesson'; // Deal with all mod lesson page types.
                 }
-                switch ($pagetype) {
-                    case 'site-index':
-                    case 'calendar-view':  // Slightly faulty as even the navigation link goes back to the frontpage.  TODO: MDL.
-                        $url = new moodle_url('/course/view.php');
-                        $url->param('id', 1);
-                        if ($this->page->user_is_editing()) {
-                            $url->param('edit', 'off');
-                        } else {
-                            $url->param('edit', 'on');
-                        }
-                        break;
-                    case 'admin-index':
-                    case 'admin-setting':
-                        $url = $this->page->url;
-                        if ($this->page->user_is_editing()) {
-                            $url->param('adminedit', 0);
-                        } else {
-                            $url->param('adminedit', 1);
-                        }
-                        break;
-                    case 'course-index':
-                    case 'course-management':
-                    case 'course-search':
-                    case 'mod-resource-mod':
-                    case 'tag-search':
-                        $buttontoadd = false;
-                        break;
-                    case 'mod-data-field':
-                    case 'mod-edit-view':
-                    case 'mod-forum-discuss':
-                    case 'mod-forum-index':
-                    case 'mod-forum-search':
-                    case 'mod-forum-subscribers':
-                    case 'mod-lesson':
-                    case 'mod-quiz-index':
-                    case 'mod-scorm-player':
-                        $url = new moodle_url('/course/view.php');
-                        $url->param('id', $this->page->course->id);
-                        $url->param('return', $this->page->url->out_as_local_url(false));
-                        if ($this->page->user_is_editing()) {
-                            $url->param('edit', 'off');
-                        } else {
-                            $url->param('edit', 'on');
-                        }
-                        break;
-                    case 'my-index':
-                    case 'user-profile':
-                        // TODO: Not sure how to get 'id' param and if it is really needed.
-                        $url = $this->page->url;
-                        // Umm! Both /user/profile.php and /user/profilesys.php have the same page type but different parameters!
-                        if ($this->page->user_is_editing()) {
-                            $url->param('adminedit', 0);
-                            $url->param('edit', 0);
-                        } else {
-                            $url->param('adminedit', 1);
-                            $url->param('edit', 1);
-                        }
+                if (strpos($this->page->bodyclasses, 'path-user')
+                        || strpos($this->page->bodyclasses, 'path-grade')) {
+                    $buttontoadd = false;
+                }
+                if ($buttontoadd) {
+                    switch ($pagetype) {
+                        case 'site-index':
+                        case 'calendar-view':  // Slightly faulty as even the navigation link goes back to the frontpage.  TODO: MDL.
+                            $url = new moodle_url('/course/view.php');
+                            $url->param('id', 1);
+                            if ($this->page->user_is_editing()) {
+                                $url->param('edit', 'off');
+                            } else {
+                                $url->param('edit', 'on');
+                            }
+                            $buttontoadd = false;
+                            break;
+                        case 'admin-index':
+                        case 'admin-setting':
+                            $url = $this->page->url;
+                            if ($this->page->user_is_editing()) {
+                                $url->param('adminedit', 0);
+                            } else {
+                                $url->param('adminedit', 1);
+                            }
+                            break;
+                        case 'badges-view':
+                        case 'course-admin':
+                        case 'course-index':
+                        case 'course-index-category':
+                        case 'course-management':
+                        case 'course-search':
+                        case 'mod-resource-mod':
+                        case 'tag-search':
+                            $buttontoadd = false;
+                            break;
+                        case 'mod-data-field':
+                        case 'mod-edit-view':
+                        case 'mod-forum-discuss':
+                        case 'mod-forum-index':
+                        case 'mod-forum-search':
+                        case 'mod-forum-subscribers':
+                        case 'mod-lesson':
+                        case 'mod-quiz-index':
+                        case 'mod-scorm-player':
+                            $url = new moodle_url('/course/view.php');
+                            $url->param('id', $this->page->course->id);
+                            $url->param('return', $this->page->url->out_as_local_url(false));
+                            if ($this->page->user_is_editing()) {
+                                $url->param('edit', 'off');
+                            } else {
+                                $url->param('edit', 'on');
+                            }
+                            break;
+                        case 'my-index':
+                        case 'user-profile':
+                            // TODO: Not sure how to get 'id' param and if it is really needed.
+                            $url = $this->page->url;
+                            // Umm! Both /user/profile.php and /user/profilesys.php have the same page type but different parameters!
+                            if ($this->page->user_is_editing()) {
+                                $url->param('adminedit', 0);
+                                $url->param('edit', 0);
+                            } else {
+                                $url->param('adminedit', 1);
+                                $url->param('edit', 1);
+                            }
 
-                        break;
-                    default:
-                        $url = $this->page->url;
-                        if ($this->page->user_is_editing()) {
-                            $url->param('edit', 'off');
-                        } else {
-                            $url->param('edit', 'on');
-                        }
-                        break;
+                            break;
+                        default:
+                            $url = $this->page->url;
+                            if ($this->page->user_is_editing()) {
+                                $url->param('edit', 'off');
+                            } else {
+                                $url->param('edit', 'on');
+                            }
+                            break;
+                    }
                 }
                 if ($buttontoadd) {
                     $url->param('sesskey', sesskey());
@@ -162,343 +164,10 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return $html;
     }
 
-    /*
-     * This renders the bootstrap top menu.
-     *
-     * This renderer is needed to enable the Bootstrap style navigation.
-     */
-    protected function render_custom_menu(custom_menu $menu) {
-        global $CFG, $USER;
-
-        require_once($CFG->libdir . '/externallib.php');
-
-        if (isloggedin() && !isguestuser()) {
-
-            if (!empty($this->page->theme->settings->navbarhomelink)) {
-                $branchtitle = get_string('home');
-                $templatecontext = array(
-                    'key' => 'fa-home',
-                    'extraclasses' => 'fa-smaller',
-                    'aria-label' => $branchtitle,
-                    'title' => $branchtitle,
-                );
-                $branchlabel = $this->fa_icon($templatecontext) . $branchtitle;
-                $branchurl = new moodle_url('/?redirect=0');
-                $menu->add($branchlabel, $branchurl, $branchtitle);
-            }
-            if (!empty($this->page->theme->settings->navbardashboardlink)) {
-                if (!empty($this->page->theme->settings->navabarhomelink)) {
-                    $branchtitle = get_string('myhome');
-                    $templatecontext = array(
-                        'key' => 'fa-dashboard',
-                        'extraclasses' => 'fa-smaller m-l-0',
-                        'aria-label' => $branchtitle,
-                        'title' => $branchtitle,
-                    );
-                    $branchlabel = $this->fa_icon($templatecontext) . $branchtitle;
-                    $branchurl = new moodle_url('/my');
-                    $menu->add($branchlabel, $branchurl, $branchtitle);
-                } else {
-                    $branchtitle = get_string('home');
-                    $templatecontext = array(
-                        'key' => 'fa-home',
-                        'extraclasses' => 'fa-smaller',
-                        'aria-label' => $branchtitle,
-                        'title' => $branchtitle,
-                    );
-                    $branchlabel = $this->fa_icon($templatecontext) . $branchtitle;
-                    $branchurl = new moodle_url('/my');
-                    $menu->add($branchlabel, $branchurl, $branchtitle);
-                }
-            }
-            if (!empty($this->page->theme->settings->navbarcalendarlink)) {
-                $branchtitle = get_string('calendarlink', 'theme_unamurui');
-                $templatecontext = array(
-                    'key' => 'fa-calendar',
-                    'extraclasses' => 'fa-smaller',
-                    'aria-label' => $branchtitle,
-                    'title' => $branchtitle,
-                );
-                $branchlabel = $this->fa_icon($templatecontext) . $branchtitle;
-                $branchurl = new moodle_url('/calendar/view.php?view=month');
-                $menu->add($branchlabel, $branchurl, $branchtitle);
-            }
-
-            if (!empty($this->page->theme->settings->displaymyschoolbagmenu)) {
-                $title = 'myschoolbag';
-                $label = $title;
-                $url = new moodle_url('/');
-                $menu->add($label, $url, $title);
-            }
-
-            if (!empty($this->page->theme->settings->personalcourselistintoolbar)) {
-                $branchtitle = get_string('mycourses', 'theme_receptic');
-                $templatecontext = array(
-                    'key' => 'fa-graduation-cap',
-                    'extraclasses' => 'fa-smaller',
-                    'aria-label' => $branchtitle,
-                    'title' => $branchtitle,
-                );
-                $branchlabel = $this->fa_icon($templatecontext) . $branchtitle;
-                $branchurl = new moodle_url('/my/index.php');
-
-                $branch = $menu->add($branchlabel, $branchurl, $branchtitle);
-                if ($mycourses = enrol_get_my_courses(null, 'fullname ASC')) {
-                    $templatecontext = array(
-                        'key' => 'fa-book',
-                        'extraclasses' => 'fa-smaller'
-                    );
-                    foreach ($mycourses as $mycourse) {
-                        $templatecontext['aria-label'] = $mycourse->shortname . ' - ' . $mycourse->fullname;
-                        $templatecontext['title'] = $mycourse->shortname . ' - ' . $mycourse->fullname;
-                        if ($mycourse->visible) {
-                            $branch->add($this->fa_icon($templatecontext) .
-                                        format_string($mycourse->shortname .
-                                        ' - ' .
-                                        $mycourse->fullname),
-                                    new moodle_url('/course/view.php?id=' . $mycourse->id),
-                                    $mycourse->shortname);
-
-                        } else if (has_capability('moodle/course:viewhiddencourses', context_course::instance($mycourse->id))) {
-                            $templatecontext['key'] = 'fa-eye-slash';
-                            $branch->add('<span class="dimmed_text">' . $this->fa_icon($templatecontext) .
-                                $mycourse->shortname . ' - ' . $mycourse->fullname . '</span>',
-                                new moodle_url('/course/view.php', array('id' => $mycourse->id)),
-                                $mycourse->shortname);
-                        }
-                    }
-
-                } else {
-                    $nocoursesstring = get_string('emptycourselist', 'theme_receptic');
-
-                    $branch->add('<em>' . $nocoursesstring . '</em>', new moodle_url('/'), $nocoursesstring);
-                }
-                $branch->add(
-                    '#######',
-                    new moodle_url('/'),
-                    '#######'
-                );
-                $templatecontext = array(
-                    'key' => 'fa-list',
-                    'extraclasses' => 'fa-smaller',
-                    'aria-label' => get_string('fulllistofcourses'),
-                    'title' => get_string('fulllistofcourses'),
-                );
-                $branch->add(
-                    $this->fa_icon($templatecontext) . get_string('fulllistofcourses'),
-                    new moodle_url($CFG->wwwroot . '/course/index.php'),
-                    get_string('fulllistofcourses')
-                );
-
-                if (substr_count($USER->email, '@student.unamur.be')) {
-                    $branch->add(
-                        '#######',
-                        new moodle_url('/'),
-                        '#######'
-                    );
-                    $templatecontext = array(
-                        'key' => 'fa-plus',
-                        'extraclasses' => 'fa-smaller',
-                        'aria-label' => get_string('enrolme', 'local_unamur'),
-                        'title' => get_string('enrolme', 'local_unamur'),
-                    );
-                    $branch->add(
-                        $this->fa_icon($templatecontext) . get_string('enrolme', 'local_unamur'),
-                        new moodle_url($CFG->wwwroot . '/local/unamur/noe/enrolnoecourses.php'),
-                        get_string('enrolme', 'local_unamur')
-                    );
-                }
-                if (has_capability('local/createcourse:create', context_system::instance())
-                        || has_capability('moodle/course:create', context_system::instance())) {
-                    $branch->add(
-                        '#######',
-                        new moodle_url('/'),
-                        '#######'
-                    );
-                    $templatecontext = array(
-                        'key' => 'fa-plus',
-                        'extraclasses' => 'fa-smaller',
-                        'aria-label' => get_string('createcourse', 'local_createcourse'),
-                        'title' => get_string('createcourse', 'local_createcourse'),
-                    );
-                    $branch->add(
-                        $this->fa_icon($templatecontext) .
-                                get_string('createcourse', 'local_createcourse'),
-                        new moodle_url($CFG->wwwroot . '/local/createcourse/index.php'),
-                        'Créer un cours'
-                    );
-                }
-                if (has_capability('moodle/course:create', context_system::instance())) {
-                    $templatecontext = array(
-                        'key' => 'fa-plus',
-                        'extraclasses' => 'fa-smaller',
-                        'aria-label' => get_string('createcourse', 'theme_receptic'),
-                        'title' => get_string('createcourse', 'theme_receptic'),
-                    );
-                    $branch->add(
-                        $this->fa_icon($templatecontext) .
-                                get_string('createcourse', 'theme_receptic'),
-                        new moodle_url($CFG->wwwroot . '/course/edit.php?category=1&returnto=topcat'),
-                        'Créer un cours'
-                    );
-                }
-            }
-        }
-
-        $langs = get_string_manager()->get_list_of_translations();
-        $haslangmenu = $this->lang_menu() != '';
-
-        if (!$menu->has_children() && !$haslangmenu) {
-            return '';
-        }
-
-        if ($haslangmenu) {
-            $strlang = get_string('language');
-            $currentlang = current_language();
-            if (isset($langs[$currentlang])) {
-                $currentlang = $langs[$currentlang];
-            } else {
-                $currentlang = $strlang;
-            }
-            $this->language = $menu->add($currentlang, new moodle_url('#'), $strlang, 10000);
-            foreach ($langs as $langtype => $langname) {
-                $this->language->add($langname, new moodle_url($this->page->url, array('lang' => $langtype)), $langname);
-            }
-        }
-
-        $content = '';
-        foreach ($menu->get_children() as $item) {
-            $settings = external_settings::get_instance();
-            $settings->set_raw(true);
-            if ($item->get_title() == 'myschoolbag') {
-                $content .= $this->my_schoolbag_menu();
-                continue;
-            }
-            $context = $item->export_for_template($this);
-
-            $content .= $this->render_from_template('theme_receptic/mycustom_menu_item', $context);
-        }
-
-        return $content;
-    }
-
-    public function fa_icon($context) {
-        return $this->render_from_template('theme_receptic/fa_icon', $context);
-    }
-
-    public function admin_link() {
-        global $CFG;
-        $admin = $this->page->settingsnav->find('siteadministration', navigation_node::TYPE_SITE_ADMIN);
-        if (!$admin) {
-            // Try again - crazy nav tree!
-            $admin = $this->page->settingsnav->find('root', navigation_node::TYPE_SITE_ADMIN);
-        }
-
-        if ($admin) {
-            $expanded = count($admin->get_children_key_list());
-            return $this->render_from_template('theme_receptic/custom_admin_menu',
-                    ['node' => $admin, 'url' => $CFG->wwwroot . '/admin/search.php', 'expanded' => $expanded]);
-        }
-    }
-
-    public function mycourse_settings_menu() {
-        $context = $this->page->context;
-        $menu = new action_menu();
-
-        $items = $this->page->navbar->get_items();
-        $currentnode = end($items);
-
-        $showcoursemenu = true;
-        $showfrontpagemenu = false;
-        $showusermenu = false;
-
-        // We are on the course home page.
-        if (($context->contextlevel == CONTEXT_COURSE || $context->contextlevel == CONTEXT_MODULE)) {
-            $showcoursemenu = true;
-        }
-
-        // This is the site front page.
-        if ($context->contextlevel == CONTEXT_COURSE &&
-            !empty($currentnode) &&
-            $currentnode->key === 'home') {
-            $showfrontpagemenu = true;
-        }
-
-        // This is the user profile page.
-        if ($context->contextlevel == CONTEXT_USER &&
-            !empty($currentnode) &&
-            ($currentnode->key === 'myprofile')) {
-            $showusermenu = true;
-        }
-
-        if ($showfrontpagemenu) {
-            $settingsnode = $this->page->settingsnav->find('frontpage', navigation_node::TYPE_SETTING);
-            if ($settingsnode) {
-                // Build an action menu based on the visible nodes from this navigation tree.
-                $skipped = $this->build_action_menu_from_navigation($menu, $settingsnode, false, true);
-
-                // We only add a list to the full settings menu if we didn't include every node in the short menu.
-                if ($skipped) {
-                    $text = get_string('morenavigationlinks');
-                    $url = new moodle_url('/course/admin.php', array('courseid' => $this->page->course->id));
-                    $link = new action_link($url, $text, null, null, new pix_icon('t/edit', $text));
-                    $menu->add_secondary_action($link);
-                }
-            }
-        } else if ($showcoursemenu) {
-            $settingsnode = $this->page->settingsnav->find('courseadmin', navigation_node::TYPE_COURSE);
-
-            if ($settingsnode) {
-                // Build an action menu based on the visible nodes from this navigation tree.
-                $skipped = $this->build_action_menu_from_navigation($menu, $settingsnode, false, true);
-
-                // We only add a list to the full settings menu if we didn't include every node in the short menu.
-                if ($skipped) {
-                    $text = get_string('morenavigationlinks');
-                    $url = new moodle_url('/course/admin.php', array('courseid' => $this->page->course->id));
-                    $link = new action_link($url, $text, null, null, new pix_icon('t/edit', $text));
-                    $menu->add_secondary_action($link);
-                }
-            }
-        } else if ($showusermenu) {
-            // Get the course admin node from the settings navigation.
-            $settingsnode = $this->page->settingsnav->find('useraccount', navigation_node::TYPE_CONTAINER);
-            if ($settingsnode) {
-                // Build an action menu based on the visible nodes from this navigation tree.
-                $this->build_action_menu_from_navigation($menu, $settingsnode);
-            }
-        }
-
-        return $this->render_myaction_menu($menu);
-    }
-
-    public function render_myaction_menu(action_menu $menu, $location = 'navbar') {
-        global $COURSE;
-        // We don't want the class icon there!
-        foreach ($menu->get_secondary_actions() as $action) {
-            if ($action instanceof \action_menu_link && $action->has_class('icon')) {
-                $action->attributes['class'] = preg_replace('/(^|\s+)icon(\s+|$)/i', '', $action->attributes['class']);
-            }
-        }
-
-        if ($menu->is_empty()) {
-            return '';
-        }
-        $context = $menu->export_for_template($this);
-
-        // Rendering slightly different in navbar and course header.
-        if ($location == 'navbar') {
-            $context->primary->actiontext = '<i class="fa fa-cog"></i>' . $this->page->course->shortname;
-            $context->classes .= ' nav-item action-menu-in-navbar';
-            $context->primary->icon = '';
-        }
-        return $this->render_from_template('core/action_menu', $context);
-    }
-
     /**
      * Take a node in the nav tree and make an action menu out of it.
      * The links are injected in the action menu.
-     * Cloned from parent because needed in custom method "mycourse_settings_menu" and has private access in parent class.
+     * Override to remove turneditingonoff button from course settings menu if necessary.
      *
      * @param action_menu $menu
      * @param navigation_node $node
@@ -515,8 +184,10 @@ class core_renderer extends \theme_boost\output\core_renderer {
         foreach ($node->children as $menuitem) {
             // Skip non-useful menu items in course settings menu.
             if ($menuitem->key == 'turneditingonoff') {
-
-                continue;
+                if (!empty($this->page->theme->settings->hidedefaulteditingbutton)
+                    && !empty($this->page->theme->settings->editbutton)) {
+                    continue;
+                }
             };
 
             if ($menuitem->display) {
@@ -555,6 +226,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return $skipped;
     }
 
+    // Override to place "add-a-block" button over button column.
     public function blocks($region, $classes = array(), $tag = 'aside') {
         $displayregion = $this->page->apply_theme_region_manipulations($region);
         $classes = (array)$classes;
@@ -592,6 +264,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     /**
+     * Override to display course settings menu in module context too.
+     *
      * This is an optional menu that can be added to a layout by a theme. It contains the
      * menu for the course administration, only on the course main page.
      *
@@ -686,138 +360,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $this->build_action_menu_from_navigation($menu, $settingsnode);
             }
         }
-        if ($showcoursemenu) {
-            return $this->render_myaction_menu($menu, 'header');
-        } else {
-            return $this->render($menu);
-        }
-    }
-
-    public function my_schoolbag_menu() {
-
-        $context = new stdClass();
-        $context->displaymenu = false;
-        // Display link to my private files for users with required capability.
-        if (!empty($this->page->theme->settings->privatefileslink) &&
-            has_capability('moodle/user:manageownfiles', context_system::instance())) {
-            $context->privatefiles = true;
-            $context->displaymenu = true;
-            $label = get_string('privatefiles', 'block_private_files');
-            $templatecontext = array(
-                'key' => 'fa-folder',
-                'extraclasses' => 'fa-smaller',
-                'aria-label' => $label,
-                'title' => $label
-            );
-            $context->privatefilesitem = $this->fa_icon($templatecontext) . $label;
-            $context->filesurl = new moodle_url('/user/files.php', array('returnurl' => $this->page->url->out()));
-        }
-        $eee = core_plugin_manager::instance()->get_plugin_info('local_eee');
-        if ($eee) {
-            $context->displaymenu = false;
-            $myevaluationscontext = array(
-                'extraclasses' => 'fa-smaller',
-                'aria-label' => get_string('myevaluations', 'local_eee'),
-                'title' => get_string('myevaluations', 'local_eee')
-            );
-            $context->myevaluationsurl = new moodle_url('/local/eee/index.php', array('returnurl' => $this->page->url->out()));
-            // Simple menu item for "my evaluations link".
-            if (student_has_evaluation() || teacher_has_evaluation()
-                    && !is_allowed_to_admin_eval()) {
-                $context->displaymenu = true;
-                $context->myevaluations = true;
-                $label = get_string('myevaluations', 'local_eee');
-                $myevaluationscontext['key'] = 'fa-thumbs-up';
-                $context->myevaluationsitem = $this->fa_icon($myevaluationscontext) . $label;
-
-            } else if (is_allowed_to_admin_eval()) {
-                // Submenu for various evaluations-related links.
-                $context->displaymenu = true;
-                $context->multilevel = true;
-                $label = get_string('evaluations', 'local_eee');
-                $templatecontext = array(
-                    'key' => 'fa-thumbs-up',
-                    'extraclasses' => 'fa-smaller',
-                    'aria-label' => $label,
-                    'title' => $label
-                );
-                $context->evaluationssubmenutitle = $this->fa_icon($templatecontext) . $label;
-                if (teacher_has_evaluation()) {
-                    $context->teachereval = true;
-                    $label = get_string('myevaluations', 'local_eee');
-                    $myevaluationscontext['key'] = 'fa-clipboard';
-                    $context->teacherevaluationsitem = $this->fa_icon($myevaluationscontext) . $label;
-                }
-                $label = get_string('eeeresults', 'local_eee');
-                $templatecontext = array(
-                    'key' => 'fa-folder',
-                    'extraclasses' => 'fa-smaller',
-                    'aria-label' => $label,
-                    'title' => $label
-                );
-                $context->resultsitem = $this->fa_icon($templatecontext) . $label;
-                $context->resultsurl = new moodle_url('/local/eee/result/index.php', array('returnurl' => $this->page->url->out()));
-                $label = get_string('eeeparticipation', 'local_eee');
-                $templatecontext = array(
-                    'key' => 'fa-hand-o-up',
-                    'extraclasses' => 'fa-smaller',
-                    'aria-label' => $label,
-                    'title' => $label
-                );
-                $context->participationitem = $this->fa_icon($templatecontext) . $label;
-                $context->participationurl = new moodle_url('/local/eee/admin/participation.php',
-                        array('returnurl' => $this->page->url->out()));
-                if (has_capability('local/eee:manage', context_system::instance())) {
-                    $context->manage = true;
-                    $label = get_string('admin', 'local_eee');
-                    $templatecontext = array(
-                        'key' => 'fa-folder',
-                        'extraclasses' => 'fa-smaller',
-                        'aria-label' => $label,
-                        'title' => $label
-                    );
-                    $context->manageitem = $this->fa_icon($templatecontext) . $label;
-                    $context->manageurl = new moodle_url('/local/eee/admin/index.php',
-                            array('returnurl' => $this->page->url->out()));
-                }
-            }
-        }
-        if ($context->displaymenu) {
-            $label = get_string('myschoolbag', 'theme_receptic');
-            $templatecontext = array(
-                'key' => 'fa-briefcase',
-                'extraclasses' => 'fa-smaller',
-                'aria-label' => $label,
-                'title' => $label
-            );
-            $context->menutitle = $this->fa_icon($templatecontext) . $label;
-        }
-
-        return $this->render_from_template('theme_receptic/myschoolbag', $context);
-    }
-
-    /**
-     * Renders the login form.
-     *
-     * @param \core_auth\output\login $form The renderable.
-     * @return string
-     */
-    public function render_login(\core_auth\output\login $form) {
-        global $SITE;
-
-        $context = $form->export_for_template($this);
-
-        // Override because rendering is not supported in template yet.
-        $context->cookieshelpiconformatted = $this->help_icon('cookiesenabled');
-        $context->errorformatted = $this->error_text($context->error);
-        $url = $this->get_logo_url();
-        if ($url) {
-            $url = $url->out(false);
-        }
-        $context->logourl = $url;
-        $context->sitename = format_string($SITE->fullname, true, ['context' => context_course::instance(SITEID), "escape" => false]);
-
-        return $this->render_from_template('core/loginform', $context);
+        return $this->render($menu);
     }
 
     public function contact_info() {

@@ -17,8 +17,8 @@
 /**
  * Course renderer.
  *
- * @package    theme_noanme
- * @copyright  2016 Frédéric Massart - FMCorz.net
+ * @package    theme_receptic
+ * @copyright  2017 onwards Jean-Roch Meurisse
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -33,23 +33,15 @@ use html_writer;
 /**
  * Course renderer class.
  *
- * @package    theme_noanme
- * @copyright  2016 Frédéric Massart - FMCorz.net
+ * @package    theme_receptic
+ * @copyright  2017 Jean-Roch Meurisse
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class course_renderer extends \theme_boost\output\core\course_renderer {
 
     /**
-     * Render a modchooser.
+     * Override to user overriding modchooser class (classes/ouptut/core/modchooser.php).
      *
-     * @param renderable $modchooser The chooser.
-     * @return string
-     */
-    public function render_modchooser(\renderable $modchooser) {
-        return $this->render_from_template('core_course/modchooser', $modchooser->export_for_template($this));
-    }
-
-    /**
      * Build the HTML for the module chooser javascript popup
      *
      * @param array $modules A set of modules as returned form @see
@@ -66,6 +58,8 @@ class course_renderer extends \theme_boost\output\core\course_renderer {
     }
 
     /**
+     * Replaces core course_section_cm_list to add "hot items count" to sections.
+     *
      * Renders HTML to display a list of course modules in a course section
      * Also displays "move here" controls in Javascript-disabled mode
      *
@@ -74,10 +68,10 @@ class course_renderer extends \theme_boost\output\core\course_renderer {
      * @param stdClass $course course object
      * @param int|stdClass|section_info $section relative section number or section object
      * @param int $sectionreturn section number to return to
-     * @param int $displayoptions
-     * @return void
+     * @param array $displayoptions
+     * @return string
      */
-    public function mycourse_section_cm_list($course, &$section, $sectionreturn = null, $displayoptions = array()) {
+    public function theme_receptic_course_section_cm_list($course, &$section, $sectionreturn = null, $displayoptions = array()) {
         global $USER;
 
         $output = '';
@@ -145,7 +139,6 @@ class course_renderer extends \theme_boost\output\core\course_renderer {
 
         // Always output the section module list.
         $output .= html_writer::tag('ul', $sectionoutput, array('class' => 'section img-text'));
-        //return array($output, $hotcount);
         return $output;
     }
 }

@@ -59,8 +59,9 @@ class format_weeks_renderer extends \format_weeks_renderer {
                 // 0-section is displayed a little different then the others.
                 if ($thissection->summary or !empty($modinfo->sections[0]) or $PAGE->user_is_editing()) {
                     $this->page->requires->strings_for_js(array('collapseall', 'expandall'), 'moodle');
+                    $modules = $this->courserenderer->theme_receptic_course_section_cm_list($course, $thissection, 0);
                     echo $this->section_header($thissection, $course, false, 0);
-                    echo $this->courserenderer->course_section_cm_list($course, $thissection, 0);
+                    echo $modules;
                     echo $this->courserenderer->course_section_add_cm_control($course, 0, 0);
                     echo '<div class="collapsible-actions" >
     <a href="#" class="expandall" role="button">' . get_string('expandall') . '
@@ -94,12 +95,14 @@ class format_weeks_renderer extends \format_weeks_renderer {
                 // Display section summary only.
                 echo $this->section_summary($thissection, $course, null);
             } else {
-                echo $this->section_header($thissection, $course, false, 0);
                 if ($thissection->uservisible) {
-                    echo $this->courserenderer->course_section_cm_list($course, $thissection, 0);
-                    echo $this->courserenderer->course_section_add_cm_control($course, $section, 0);
+                    $modules = $this->courserenderer->theme_receptic_course_section_cm_list($course, $thissection, 0);
+                    $control = $this->courserenderer->course_section_add_cm_control($course, $section, 0);
+                    echo $this->section_header($thissection, $course, false, 0);
+                    echo $modules;
+                    echo $control;
+                    echo $this->section_footer();
                 }
-                echo $this->section_footer();
             }
         }
 
@@ -197,16 +200,23 @@ class format_weeks_renderer extends \format_weeks_renderer {
                     $section->section .
                     '" aria-expanded="false" aria-controls="collapse-' .
                     $section->section .
-                    '">&nbsp;' . $sectionname . '</a> ';
+                    '">&nbsp;' . $sectionname;
+                if ($section->hotcount) {
+                    $o .= '<span title="' . $section->hotcount . 'éléments ajoutés/modifiés " class="redball-count">' . $section->hotcount . '</span>';
+                }
+                $o .= '</a> ';
             }
             // Jrm end collapse toggle.
 
-            $o .= '<div class="clearfix">';
+            //$o .= '<div class="clearfix">';
             $o .= $this->section_availability($section) . '</div>';
             $o .= $this->section_summary($section, $course, null);
             // Jrm add div around content to allow section collapsing.
         } else {
             $sectionname = html_writer::tag('span', $this->section_title_without_link($section, $course));
+            if ($section->hotcount) {
+                $sectionname .= '<span title="' . $section->hotcount . ' éléments ajoutés/modifiés" class="redball-count">' . $section->hotcount . '</span>';
+            }
             // Jrm add collapse toggle.
             if (course_get_format($course)->is_section_current($section)) {
                 $o .= '<a class="sectiontoggle" data-toggle="collapse" data-parent="accordion" href="#collapse-' .
