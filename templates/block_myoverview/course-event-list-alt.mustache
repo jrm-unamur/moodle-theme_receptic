@@ -35,7 +35,7 @@
      id="event-list-container-{{$courseid}}{{/courseid}}">
 
     <div data-region="event-list-content">
-        {{< block_myoverview/event-list-group }}
+        {{< block_myoverview/event-list-group-alt }}
             {{$title}}{{#str}} recentlyoverdue, block_myoverview {{/str}}{{/title}}
             {{$extratitleclasses}}text-danger{{/extratitleclasses}}
             {{$startday}}-14{{/startday}}
@@ -43,8 +43,8 @@
             {{$eventlistitems}}
                 {{> block_myoverview/course-event-list-items }}
             {{/eventlistitems}}
-        {{/ block_myoverview/event-list-group }}
-        {{< block_myoverview/event-list-group }}
+        {{/ block_myoverview/event-list-group-alt }}
+        {{< block_myoverview/event-list-group-alt }}
             {{$title}}{{#str}} today {{/str}}{{/title}}
             {{$extratitleclasses}}{{/extratitleclasses}}
             {{$startday}}0{{/startday}}
@@ -52,8 +52,8 @@
             {{$eventlistitems}}
                 {{> block_myoverview/course-event-list-items }}
             {{/eventlistitems}}
-        {{/ block_myoverview/event-list-group }}
-        {{< block_myoverview/event-list-group }}
+        {{/ block_myoverview/event-list-group-alt }}
+        {{< block_myoverview/event-list-group-alt }}
             {{$title}}{{#str}} next7days, block_myoverview {{/str}}{{/title}}
             {{$extratitleclasses}}{{/extratitleclasses}}
             {{$startday}}1{{/startday}}
@@ -61,8 +61,8 @@
             {{$eventlistitems}}
                 {{> block_myoverview/course-event-list-items }}
             {{/eventlistitems}}
-        {{/ block_myoverview/event-list-group }}
-        {{< block_myoverview/event-list-group }}
+        {{/ block_myoverview/event-list-group-alt }}
+        {{< block_myoverview/event-list-group-alt }}
             {{$title}}{{#str}} next30days, block_myoverview {{/str}}{{/title}}
             {{$extratitleclasses}}{{/extratitleclasses}}
             {{$startday}}7{{/startday}}
@@ -70,8 +70,8 @@
             {{$eventlistitems}}
                 {{> block_myoverview/course-event-list-items }}
             {{/eventlistitems}}
-        {{/ block_myoverview/event-list-group }}
-        {{< block_myoverview/event-list-group }}
+        {{/ block_myoverview/event-list-group-alt }}
+        {{< block_myoverview/event-list-group-alt }}
             {{$title}}{{#str}} future, block_myoverview {{/str}}{{/title}}
             {{$extratitleclasses}}{{/extratitleclasses}}
             {{$startday}}30{{/startday}}
@@ -79,7 +79,7 @@
             {{$eventlistitems}}
                 {{> block_myoverview/course-event-list-items }}
             {{/eventlistitems}}
-        {{/ block_myoverview/event-list-group }}
+        {{/ block_myoverview/event-list-group-alt }}
 
         <div class="text-xs-center text-center m-y-2">
             <button type="button" class="btn btn-secondary" data-action="view-more">

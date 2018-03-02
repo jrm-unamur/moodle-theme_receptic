@@ -68,3 +68,7 @@ $string['enableredballs'] = 'Activer les boules rouges';
 $string['enableredballs_desc'] = 'Afficher le nombre d\'activités/ressources que l\'utilisateur n\'a pas encore consultées sur son tableau de bord et à côté du nom des sections; afficher une boule rouge en regard des activités/ressources que l\'utilisateur n\'a pas encore consultées sur la page d\'accueil des cours';
 $string['redballslookback'] = 'Période pour les boules rouges';
 $string['redballslookback_desc'] = 'Nombre de jours ou de semaines à prendre en compte pour le calcul initial des boules rouges';
+$string['logoleft'] = 'Logo de gauche pour la bannière';
+$string['logoleft_desc'] = 'Votre image sera placée sur la bannière à gauche (logo de la plateforme)';
+$string['logoright'] = 'Logo de droite pour la bannière';
+$string['logoright_desc'] = 'Votre image sera placée sur la bannière à gauche (logo institutionnel)';

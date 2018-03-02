@@ -70,3 +70,11 @@ $string['enableredballs'] = 'Enable red balls';
 $string['enableredballs_desc'] = 'Display the number of "not already seen" resources and activities in user dashboard and section names; pin "not already seen activities and resources in course home page';
 $string['redballslookback'] = 'Red balls look back period';
 $string['redballslookback_desc'] = 'Number of days or weeks to take into account when computing red balls';
+$string['logoleft'] = 'Left logo for banner';
+$string['logoleft_desc'] = 'Your image will be placed over the banner on the lefthand side';
+$string['logoleft'] = 'Left logo for banner';
+$string['logoleft_desc'] = 'Your image will be placed over the banner on the lefthand side (plaftorm logo)';
+$string['logoright'] = 'Right logo for banner';
+$string['logoright_desc'] = 'Your image will be placed over the banner on the righthand side (institution logo)';
+
+

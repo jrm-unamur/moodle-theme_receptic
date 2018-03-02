@@ -43,6 +43,10 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
     public function render_main(\block_myoverview\output\main $main) {
         global $CFG, $USER, $DB;
 
+        if (empty(get_config('theme_receptic', 'mixedviewindashboard'))) {
+            return parent::render_main($main);
+        } else {
+
         $data = $main->export_for_template($this);
         $createcourseplugin = core_plugin_manager::instance()->get_plugin_info('local_createcourse');
         if ($createcourseplugin && has_capability('local/createcourse:create', context_system::instance())) {
@@ -236,8 +240,8 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
         }
 
 
-        return $this->render_from_template('block_myoverview/main', $data);
-    }
+        return $this->render_from_template('block_myoverview/main-alt', $data);
+    }}
 
     public function get_redballs($course, $starttime) {
         global $DB, $USER;

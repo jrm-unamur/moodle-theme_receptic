@@ -363,6 +363,30 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return $this->render($menu);
     }
 
+    /**
+     * Return the banner left logo URL, if any.
+     *
+     * @param int $maxwidth The maximum width, or null when the maximum width does not matter.
+     * @param int $maxheight The maximum height, or null when the maximum height does not matter.
+     * @return moodle_url|false
+     */
+    public function get_left_logo_url() {
+        global $PAGE;
+        return $PAGE->theme->setting_file_url('logoleft', 'logoleft');
+    }
+
+    /**
+     * Return the site's compact logo URL, if any.
+     *
+     * @param int $maxwidth The maximum width, or null when the maximum width does not matter.
+     * @param int $maxheight The maximum height, or null when the maximum height does not matter.
+     * @return moodle_url|false
+     */
+    public function get_right_logo_url() {
+        global $PAGE;
+        return $PAGE->theme->setting_file_url('logoright', 'logoright');
+    }
+
     public function contact_info() {
         return '<div class="contactinfo text--center">
 <p>Contacter l\'équipe WebCampus:<br/><a href="mailto:webcampus-migration@unamur.be"> <i class="fa fa-envelope"></i> </a> ou <i class="fa fa-phone"></i> 081/72 50 75</p></div>';
