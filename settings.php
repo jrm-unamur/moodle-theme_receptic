@@ -72,26 +72,91 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configstoredfile($name, $title, $description, 'loginbackgroundimage');
     $setting->set_updatedcallback('theme_receptic_update_settings_images');
     $page->add($setting);
-    $settings->add($page);
 
-    // Advanced settings page.
-    $page = new admin_settingpage('theme_receptic_advanced', get_string('advancedsettings', 'theme_receptic'));
-
-    // Raw scss code to include before main content.
-    $name = 'theme_receptic/scsspre';
-    $title = get_string('rawscsspre', 'theme_receptic');
-    $description = get_string('rawscsspre_desc', 'theme_receptic');
-    $setting = new admin_setting_scsscode($name, $title, $description, '', PARAM_RAW);
+    // Left logo file setting.
+    $title = get_string('logoleft', 'theme_receptic');
+    $description = get_string('logoleft_desc', 'theme_receptic');
+    $setting = new admin_setting_configstoredfile('theme_receptic/logoleft', $title, $description, 'logoleft', 0,
+        ['maxfiles' => 1, 'accepted_types' => ['.jpg', '.png']]);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
+    // right logo file setting.
+    $title = get_string('logoright', 'theme_receptic');
+    $description = get_string('logoright_desc', 'theme_receptic');
+    $setting = new admin_setting_configstoredfile('theme_receptic/logoright', $title, $description, 'logoright', 0,
+        ['maxfiles' => 1, 'accepted_types' => ['.jpg', '.png']]);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+    $settings->add($page);
+
+
+    // Dashboard settings page.
+    $page = new admin_settingpage('theme_receptic_dashboard', get_string('myhome'));
+
+    // Raw scss code to include before main content.
+    $name = 'theme_receptic/mixedviewindashboard';
+    $title = 'tableau de bord alternatif';//get_string('rawscsspre', 'theme_receptic');
+    $description = '';//get_string('rawscsspre_desc', 'theme_receptic');
+    $default = true;
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
+    //$setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // flashboxteachers setting.
+    $name = 'theme_receptic/flashboxteachers';
+    $title = get_string('flashboxteachers', 'theme_receptic');
+    $description = get_string('flashboxteachers_desc', 'theme_receptic');
+    $default = '';
+    $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
+    $setting->set_updatedcallback('theme_receptic_reset_flashbox_teachers');
+    $page->add($setting);
+
+    // flashboxteacherstype setting.
+    $name = 'theme_receptic/flashboxteacherstype';
+    $title = get_string('flashboxteacherstype', 'theme_receptic');
+    $description = get_string('flashboxteacherstype_desc', 'theme_receptic');
+    $default = 'warning';
+    $choices = [
+        'warning' => get_string('warning'),
+        'trick' => get_string('trick', 'theme_receptic'),
+        'info' => get_string('info')
+    ];
+
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    //$setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // flashboxteachers setting.
+    $name = 'theme_receptic/flashboxstudents';
+    $title = get_string('flashboxstudents', 'theme_receptic');
+    $description = get_string('flashboxstudents_desc', 'theme_receptic');
+    $default = '';
+    $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
+    $setting->set_updatedcallback('theme_receptic_reset_flashbox_students');
+    $page->add($setting);
+
+    // flashboxteacherstype setting.
+    $name = 'theme_receptic/flashboxstudentstype';
+    $title = get_string('flashboxstudentstype', 'theme_receptic');
+    $description = get_string('flashboxstudentstype_desc', 'theme_receptic');
+    $default = 'warning';
+    $choices = [
+        'warning' => get_string('warning'),
+        'trick' => get_string('trick', 'theme_receptic'),
+        'info' => get_string('info')
+    ];
+
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    //$setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
     // Raw scss code to include after main content.
-    $name = 'theme_receptic/scss';
+    /*$name = 'theme_receptic/scss';
     $title = get_string('rawscss', 'theme_receptic');
     $description = get_string('rawscss_desc', 'theme_receptic');
     $setting = new admin_setting_scsscode($name, $title, $description, '', PARAM_RAW);
     $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
+    $page->add($setting);*/
     $settings->add($page);
 
     $page = new admin_settingpage('theme_receptic_toolselector', get_string('toolselector', 'theme_receptic'));

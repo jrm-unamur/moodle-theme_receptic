@@ -99,5 +99,28 @@ body.editing .section .activity.hot .mod-indent-outer {
     padding: 0 0 .2rem .5rem;
 }
 
+.flashbox {
+    position: relative;
+    display: block;
+    margin-bottom: .75rem;
+    background-color: #fff;
+    border-radius: 0;
+    padding: 1.25rem;
+    &.warning {
+        border: 5px solid $brand-danger;
+        font-weight: normal;
+    }
+    &.trick {
+        border: 5px solid #ffd700;
+    }
+    &.info {
+        border: 5px solid $brand-primary;
+    }
+    div.flashboxicon i {
+        font-family: FontAwesome;
+        font-size: xx-large;
+    }
+}
+
 
 
