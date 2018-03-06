@@ -166,6 +166,20 @@ function theme_receptic_pluginfile($course, $cm, $context, $filearea, $args, $fo
     }
 }
 
+function theme_receptic_reset_flashbox_teachers() {
+    global $DB;
+    $DB->execute("UPDATE {user_preferences}
+                     SET value = :value
+                   WHERE name = :name", array('value' => 'false', 'name' => 'flashbox-teacher-hidden'));
+}
+
+function theme_receptic_reset_flashbox_students() {
+    global $DB;
+    $DB->execute("UPDATE {user_preferences}
+                     SET value = :value
+                   WHERE name = :name", array('value' => 'false', 'name' => 'flashbox-student-hidden'));
+}
+
 /*function theme_receptic_extend_navigation(global_navigation $nav) {
     global $COURSE;
     // Ajouter une condition pour n'afficher que pour les createurs de cours.

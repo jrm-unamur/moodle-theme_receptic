@@ -76,5 +76,14 @@ $string['logoleft'] = 'Left logo for banner';
 $string['logoleft_desc'] = 'Your image will be placed over the banner on the lefthand side (plaftorm logo)';
 $string['logoright'] = 'Right logo for banner';
 $string['logoright_desc'] = 'Your image will be placed over the banner on the righthand side (institution logo)';
+$string['flashboxteachers'] = 'Flashbox for teachers';
+$string['flashboxteachers_desc'] = 'Flash message for teachers that will appear on their dashboard';
+$string['flashboxteacherstype'] = 'Type of flashbox';
+$string['flashboxteacherstype_desc'] = 'Type of message to display in tearchers\' flashbox';
+$string['flashboxstudents'] = 'Flashbox for students';
+$string['flashboxstudents_desc'] = 'Flash message for students that will appear on their dashboard';
+$string['flashboxstudentstype'] = 'Type of flashbox';
+$string['flashboxstudentstype_desc'] = 'Type of message to display in students\' flashbox';
+$string['trick'] = 'Trick';
 
 

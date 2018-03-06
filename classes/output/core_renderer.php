@@ -387,6 +387,61 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return $PAGE->theme->setting_file_url('logoright', 'logoright');
     }
 
+    public function flashbox($targetaudience) {
+        global $PAGE;
+        $flashboxaudience = $PAGE->theme->settings->$targetaudience;
+        $flashboxtype = $PAGE->theme->settings->{$targetaudience . 'type'};
+        switch ($flashboxtype) {
+            case 'info' :
+                $flashboxicon = 'lightbulb-o';
+                break;
+            case 'trick' :
+                $flashboxicon = 'magic';
+                break;
+            case 'warning' :
+                $flashboxicon = 'exclamation-triangle';
+                break;
+        }
+        if (!empty($flashboxaudience)) {
+            $data = [
+                'flashboxcontent' => $flashboxaudience,
+                'flashboxtype' => $flashboxtype,
+                'flashboxicon' => $flashboxicon,
+                'hideclass' => 'hide' . $targetaudience
+            ];
+            return parent::render_from_template('theme_receptic/flashbox', $data);
+        }
+        return '';
+        //return $PAGE->theme->settings->generalalert;
+    }
+
+    public function flashboxteachers() {
+        global $PAGE, $USER;
+        $usercanview = user_has_role_assignment($USER->id, 1)
+                    || user_has_role_assignment($USER->id, 2)
+                    || user_has_role_assignment($USER->id, 3)
+                    || user_has_role_assignment($USER->id, 4)
+                    || is_admin();
+        if ($PAGE->pagetype !== 'my-index'
+                    || get_user_preferences('flashbox-teacher-hidden', false, $USER->id) === 'true'
+                    || !$usercanview) {
+            return '';
+        }
+        return $this->flashbox('flashboxteachers');
+    }
+
+    public function flashboxstudents() {
+        global $PAGE, $USER;
+        $usercanview = user_has_role_assignment($USER->id, 5)
+            || is_admin();
+        if ($PAGE->pagetype !== 'my-index'
+            || get_user_preferences('flashbox-student-hidden', false, $USER->id) === 'true'
+            || !$usercanview) {
+            return '';
+        }
+        return $this->flashbox('flashboxstudents');
+    }
+
     public function contact_info() {
         return '<div class="contactinfo text--center">
 <p>Contacter l\'équipe WebCampus:<br/><a href="mailto:webcampus-migration@unamur.be"> <i class="fa fa-envelope"></i> </a> ou <i class="fa fa-phone"></i> 081/72 50 75</p></div>';

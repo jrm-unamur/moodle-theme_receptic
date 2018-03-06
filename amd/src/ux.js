@@ -101,6 +101,20 @@ define(['jquery', 'core/log'], function($, log) {
                     });
                 });
 
+                $('body').on('click', '.hideflashboxteachers', function(event) {
+                    event.preventDefault();
+                    var target = event.target;
+                    $(target).parent().parent().slideUp(250);
+                    M.util.set_user_preference('flashbox-teacher-hidden', 'true');
+                });
+
+                $('body').on('click', '.hideflashboxstudents', function(event) {
+                    event.preventDefault();
+                    var target = event.target;
+                    $(target).parent().parent().slideUp(250);
+                    M.util.set_user_preference('flashbox-student-hidden', 'true');
+                });
+
                 var offset = 200;
                 var duration = 500;
                 $(window).scroll(function(){
