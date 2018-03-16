@@ -90,6 +90,9 @@ $googlefonts = array(
     'Roboto:400,400italic,700,700italic,900,900italic'
 );
 
+$haslogoleft = !empty(get_config('theme_receptic', 'logoleft'));
+$haslogoright = !empty(get_config('theme_receptic', 'logoright'));
+
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
     'output' => $OUTPUT,
@@ -103,7 +106,9 @@ $templatecontext = [
     'googlefonts' => $googlefonts,
     'shownavdrawer' => $shownavdrawer,
     'iscontextcourse' => $iscontextcourse,
-    'shownavbar' => true
+    'shownavbar' => true,
+    'logoleft' => $haslogoleft,
+    'logoright' => $haslogoright
 ];
 
 $templatecontext['flatnavigation'] = $PAGE->flatnav;
