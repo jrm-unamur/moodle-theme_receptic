@@ -385,6 +385,18 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     /**
+     * Return the banner left logo URL, if any.
+     *
+     * @param int $maxwidth The maximum width, or null when the maximum width does not matter.
+     * @param int $maxheight The maximum height, or null when the maximum height does not matter.
+     * @return moodle_url|false
+     */
+    public function get_center_logo_url() {
+        global $PAGE;
+        return $PAGE->theme->setting_file_url('logocenter', 'logocenter');
+    }
+
+    /**
      * Return the site's compact logo URL, if any.
      *
      * @param int $maxwidth The maximum width, or null when the maximum width does not matter.

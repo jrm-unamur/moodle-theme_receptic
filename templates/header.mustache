@@ -24,7 +24,11 @@
         <img src="{{output.get_left_logo_url}}" alt="{{sitename}}">
     </a>
     {{/logoleft}}
-
+    {{#logocenter}}
+        <a href="{{{ config.wwwroot }}}/?redirect=0" class="center-logo">
+            <img src="{{output.get_center_logo_url}}" alt="{{sitename}}">
+        </a>
+    {{/logocenter}}
     {{#logoright}}
     <a href="http://www.unamur.be" class="right-logo">
         <img src="{{output.get_right_logo_url}}" alt="UNamur">
