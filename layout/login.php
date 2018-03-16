@@ -25,13 +25,17 @@ defined('MOODLE_INTERNAL') || die();
  */
 
 $bodyattributes = $OUTPUT->body_attributes();
+$haslogoleft = !empty(get_config('theme_receptic', 'logoleft'));
+$haslogoright = !empty(get_config('theme_receptic', 'logoright'));
 
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
     'output' => $OUTPUT,
     'bodyattributes' => $bodyattributes,
     'forgetpasslink' => false,
-    'displaybrandbanner' => true
+    'displaybrandbanner' => true,
+    'logoleft' => $haslogoleft,
+    'logoright' => $haslogoright
 ];
 
 echo $OUTPUT->render_from_template('theme_receptic/login', $templatecontext);

@@ -71,6 +71,15 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 if ($buttontoadd) {
                     switch ($pagetype) {
                         case 'site-index':
+                            $url = new moodle_url('/course/view.php');
+                            $url->param('id', 1);
+                            if ($this->page->user_is_editing()) {
+                                $url->param('edit', 'off');
+                            } else {
+                                $url->param('edit', 'on');
+                            }
+                            $buttontoadd = true;
+                            break;
                         case 'calendar-view':  // Slightly faulty as even the navigation link goes back to the frontpage.  TODO: MDL.
                             $url = new moodle_url('/course/view.php');
                             $url->param('id', 1);
@@ -421,7 +430,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                     || user_has_role_assignment($USER->id, 2)
                     || user_has_role_assignment($USER->id, 3)
                     || user_has_role_assignment($USER->id, 4)
-                    || is_admin();
+                    || is_siteadmin();
         if ($PAGE->pagetype !== 'my-index'
                     || get_user_preferences('flashbox-teacher-hidden', false, $USER->id) === 'true'
                     || !$usercanview) {
@@ -433,7 +442,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
     public function flashboxstudents() {
         global $PAGE, $USER;
         $usercanview = user_has_role_assignment($USER->id, 5)
-            || is_admin();
+            || is_siteadmin();
         if ($PAGE->pagetype !== 'my-index'
             || get_user_preferences('flashbox-student-hidden', false, $USER->id) === 'true'
             || !$usercanview) {

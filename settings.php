@@ -81,6 +81,14 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
+    // Center logo file setting.
+    $title = get_string('logocenter', 'theme_receptic');
+    $description = get_string('logocenter_desc', 'theme_receptic');
+    $setting = new admin_setting_configstoredfile('theme_receptic/logocenter', $title, $description, 'logocenter', 0,
+        ['maxfiles' => 1, 'accepted_types' => ['.jpg', '.png']]);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
     // right logo file setting.
     $title = get_string('logoright', 'theme_receptic');
     $description = get_string('logoright_desc', 'theme_receptic');
