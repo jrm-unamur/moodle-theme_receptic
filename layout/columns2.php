@@ -91,6 +91,7 @@ $googlefonts = array(
 );
 
 $haslogoleft = !empty(get_config('theme_receptic', 'logoleft'));
+$haslogocenter = !empty(get_config('theme_receptic', 'logocenter'));
 $haslogoright = !empty(get_config('theme_receptic', 'logoright'));
 
 $templatecontext = [
@@ -108,6 +109,7 @@ $templatecontext = [
     'iscontextcourse' => $iscontextcourse,
     'shownavbar' => true,
     'logoleft' => $haslogoleft,
+    'logocenter' => $haslogocenter,
     'logoright' => $haslogoright
 ];
 
