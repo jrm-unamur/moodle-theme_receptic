@@ -26,6 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $bodyattributes = $OUTPUT->body_attributes();
 $haslogoleft = !empty(get_config('theme_receptic', 'logoleft'));
+$haslogocenter = !empty(get_config('theme_receptic', 'logocenter'));
 $haslogoright = !empty(get_config('theme_receptic', 'logoright'));
 
 $templatecontext = [
@@ -35,6 +36,7 @@ $templatecontext = [
     'forgetpasslink' => false,
     'displaybrandbanner' => true,
     'logoleft' => $haslogoleft,
+    'logocenter' => $haslogocenter,
     'logoright' => $haslogoright
 ];
 
