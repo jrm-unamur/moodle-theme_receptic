@@ -238,11 +238,17 @@ if ($ADMIN->fulltree) {
 
     $settings->add($page);
 
-    // Configure redballs.
+    // Configure redballs and orangeballs.
     $page = new admin_settingpage('theme_receptic_redballs', get_string('redballs', 'theme_receptic'));
     $name = 'theme_receptic/enableredballs';
     $title = get_string('enableredballs', 'theme_receptic');
     $description = get_string('enableredballs_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, true);
+    $page->add($setting);
+
+    $name = 'theme_receptic/enableorangeballs';
+    $title = get_string('enableorangeballs', 'theme_receptic');
+    $description = get_string('enableorangeballs_desc', 'theme_receptic');
     $setting = new admin_setting_configcheckbox($name, $title, $description, true);
     $page->add($setting);
 

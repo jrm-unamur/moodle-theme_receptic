@@ -47,10 +47,10 @@ class theme_receptic_observer {
         global $DB;
         $eventdata = $event->get_data();
 
-        $hotusermodules = explode(',', get_user_preferences('user_hot_items'));
+        $hotusermodules = explode(',', get_user_preferences('user_redballs'));
         if (in_array($eventdata['contextinstanceid'], $hotusermodules)) {
             $hotusermodules = array_diff($hotusermodules, [$eventdata['contextinstanceid']]);
-            set_user_preference('user_hot_items', implode(',', $hotusermodules));
+            set_user_preference('user_redballs', implode(',', $hotusermodules));
         }
     }
 
@@ -59,11 +59,11 @@ class theme_receptic_observer {
         $eventdata = $event->get_data();
         //print_object($eventdata);die();
         $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
-        $hotusermodules = explode(',', get_user_preferences('user_hot_items'));
+        $hotusermodules = explode(',', get_user_preferences('user_redballs'));
         $labels = $DB->get_records('course_modules', array('module' => $modlabelid, 'course' => $eventdata['courseid']));//print_object(array_keys($labels));print_object($hotusermodules);
         //print_object($labels);
         $hotusermodules = array_diff($hotusermodules, array_keys($labels));
-        set_user_preference('user_hot_items', implode(',', $hotusermodules));
+        set_user_preference('user_redballs', implode(',', $hotusermodules));
         /*if (in_array($eventdata['contextinstanceid'], $hotusermodules)) {
             $hotusermodules = array_diff($hotusermodules, [$eventdata['contextinstanceid']]);
 

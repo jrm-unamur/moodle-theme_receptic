@@ -90,7 +90,7 @@ class course_renderer extends \theme_boost\output\core\course_renderer {
             $strmovefull = strip_tags(get_string("movefull", "", "'$USER->activitycopyname'"));
         }
         $hotcount = 0;
-        $userhotmodules = explode(',' , get_user_preferences('user_hot_items'));
+        $userhotmodules = explode(',' , get_user_preferences('user_redballs'));
 
         // Get the list of modules visible to user (excluding the module being moved if there is one)
         $moduleshtml = array();

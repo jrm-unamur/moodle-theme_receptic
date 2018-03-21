@@ -62,8 +62,8 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
         $redballsactivated = get_config('theme_receptic', 'enableredballs');
 
         if ($redballsactivated) {
-            $userhotitems = get_user_preferences('user_hot_items');
-            if (is_null($userhotitems)) {
+            $userredballs = get_user_preferences('user_redballs');
+            if (is_null($userredballs)) {
                 $defaultredballslookback = get_config('theme_receptic', 'redballs_lookback');
                 $starttime = time() - ($defaultredballslookback * 24 * 60 * 60);
             } else {
@@ -71,8 +71,8 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
             }
 
             $newitemsforuser = array();
-            if (!empty($userhotitems)) {
-                $newitemsforuser = explode(',', $userhotitems);
+            if (!empty($userredballs)) {
+                $newitemsforuser = explode(',', $userredballs);
             }
         }
         foreach ($data['coursesview']['inprogress']['pages'] as $page) {
@@ -236,7 +236,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
             $data['displaytabs'] = false;
         }
         if ($redballsactivated) {
-            set_user_preference('user_hot_items', implode(',', array_unique($newitemsforuser)));
+            set_user_preference('user_redballs', implode(',', array_unique($newitemsforuser)));
         }
 
 
@@ -270,7 +270,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
         ));
 
         $alreadytested = array();
-        $hotcmids = array();
+        $redcmids = array();
         foreach ($records as $record) {
             if (in_array($record->contextinstanceid, $alreadytested)) {
                 continue;
@@ -320,9 +320,96 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
 
                 $count++;
 
-                $hotcmids[] = $record->contextinstanceid;
+                $redcmids[] = $record->contextinstanceid;
             }
         }
-        return $hotcmids;
+        return $redcmids;
+    }
+
+    public function get_orangeballs($course, $starttime) {
+
+    }
+
+    public function get_redballs_old($course, $starttime) {
+        global $DB, $USER;
+        $count = 0;
+        $query = "SELECT id, contextinstanceid, timecreated
+                    FROM {logstore_standard_log}
+                   WHERE contextlevel = :contextlevel
+                     AND courseid = :courseid
+                     AND userid != :userid
+                     AND (eventname = '\\\core\\\\event\\\course_module_created'
+                         OR eventname = '\\\core\\\\event\\\course_module_updated'
+                         OR eventname = '\\\mod_wiki\\\\event\\\page_updated'
+                         OR eventname = '\\\mod_quiz\\\\event\\\\edit_page_viewed')
+                     AND timecreated > :starttime
+                     AND contextinstanceid IN (SELECT id
+                                                 FROM {course_modules})
+                ORDER BY timecreated DESC";
+
+        $records = $DB->get_records_sql($query, array(
+            'contextlevel' => CONTEXT_MODULE,
+            'courseid' => $course->id,
+            'userid' => $USER->id,
+            'starttime' => $starttime,
+            'update' => 'u',
+            'create' => 'c'
+        ));
+
+        $alreadytested = array();
+        $redcmids = array();
+        foreach ($records as $record) {
+            if (in_array($record->contextinstanceid, $alreadytested)) {
+                continue;
+            } else {
+                $alreadytested[] = $record->contextinstanceid;
+            }
+            $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
+            if ($DB->record_exists('course_modules', array('module' => $modlabelid, 'id' => $record->contextinstanceid))) {
+                $query = "SELECT *
+                            FROM {logstore_standard_log}
+                           WHERE contextlevel = :contextlevel
+                             AND eventname = :event
+                             AND courseid = :courseid
+                             AND timecreated > :timestamp
+                             AND userid = :userid
+                             AND crud = :crud";
+
+                $conditions = array(
+                    'contextlevel' => CONTEXT_COURSE,
+                    'event' => '\core\event\course_viewed',
+                    'courseid' => $course->id,
+                    'crud' => 'r',
+                    'userid' => $USER->id,
+                    'timestamp' => $record->timecreated
+                );
+            } else {
+                $query = "SELECT *
+                            FROM {logstore_standard_log}
+                           WHERE contextlevel = :contextlevel
+                             AND courseid = :courseid
+                             AND timecreated > :timestamp
+                             AND contextinstanceid = :contextinstanceid
+                             AND userid = :userid
+                             AND crud = :crud";
+
+                $conditions = array(
+                    'contextlevel' => CONTEXT_MODULE,
+                    'courseid' => $course->id,
+                    'crud' => 'r',
+                    'userid' => $USER->id,
+                    'contextinstanceid' => $record->contextinstanceid,
+                    'timestamp' => $record->timecreated
+                );
+            }
+
+            if (!$DB->get_records_sql($query, $conditions)) {
+
+                $count++;
+
+                $redcmids[] = $record->contextinstanceid;
+            }
+        }
+        return $redcmids;
     }
 }
