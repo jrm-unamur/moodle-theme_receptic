@@ -39,8 +39,7 @@ require_login();
 require_capability('moodle/course:update', context_course::instance($courseid));
 require_sesskey();
 
-//$enabled = enrol_get_plugins(true);
-//$all     = enrol_get_plugins(false);
+
 
 $return = new moodle_url('/my');
 
