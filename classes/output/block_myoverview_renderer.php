@@ -60,6 +60,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
         $plugins   = enrol_get_plugins(true);
 
         $redballsactivated = get_config('theme_receptic', 'enableredballs');
+        $orangeballsactivated = get_config('theme_receptic', 'enableorangeballs');
 
         if ($redballsactivated) {
             $userredballs = get_user_preferences('user_redballs');
@@ -75,6 +76,22 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                 $newitemsforuser = explode(',', $userredballs);
             }
         }
+        if ($orangeballsactivated) {
+            $userorangeballs = get_user_preferences('user_orangeballs');
+            if (is_null($userorangeballs)) {
+                $defaultlookback = get_config('theme_receptic', 'redballs_lookback');
+                $starttime = time() - ($defaultlookback * 24 * 60 * 60);
+            } else {
+                $starttime = $DB->get_field('user', 'lastlogin', array('id' => $USER->id));
+            }
+
+            $updateditemsforuser = array();
+            if (!empty($userorangeballs)) {
+                $updateditemsforuser = explode(',', $userorangeballs);
+            }
+        }
+
+            //print_object($userorangeballs);die();
         foreach ($data['coursesview']['inprogress']['pages'] as $page) {
             $courses = $page['courses'];
             foreach ($courses as &$course) {
@@ -85,7 +102,13 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                     $course->sesskey = sesskey();
                 }
                 if ($redballsactivated) {
-                    $visibleitems = array();
+                    $visibleorangeitems = array();
+                    $updateditemsforcourse = $this->get_orangeballs($course, $starttime);
+                    //print_object($updateditemsforcourse);
+                    $updateditemsforuser = array_merge($updateditemsforuser, $updateditemsforcourse);
+                    $updateditemsforuser = array_unique($updateditemsforuser);
+
+                    $visiblereditems = array();
                     $newitemsforcourse = $this->get_redballs($course, $starttime);
 
                     $newitemsforuser = array_merge($newitemsforuser, $newitemsforcourse);
@@ -95,23 +118,46 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                     $modinfo = get_fast_modinfo($course);
 
                     foreach ($modinfo->cms as $cm) {
-                        if ($cm->uservisible and in_array($cm->id, $newitemsforuser)) {
-                            $visibleitems[] = $cm->id;
+                        if ($cm->uservisible && !$cm->is_stealth() && in_array($cm->id, $newitemsforuser)) {
+                            $visiblereditems[] = $cm->id;
+                        }
+                        if ($cm->uservisible && !$cm->is_stealth() && in_array($cm->id, $updateditemsforuser) && !in_array($cm->id, $newitemsforuser)) {
+                            $visibleorangeitems[] = $cm->id;
                         }
                     }
 
+                    $orangecount = 0;
+                    if (!empty($visibleorangeitems)) {
+                        $orangecount = $DB->count_records_sql(
+                            "SELECT COUNT(*)
+                               FROM {course_modules}
+                              WHERE course = :course
+                                AND id IN (" . implode(',', $visibleorangeitems) . ")",
+                            array( 'course' => $course->id )
+                        );
+                    }
+                    $course->updateditemscount = $orangecount;
+                    $course->orangeballscountclass = $orangecount > 9 ? 'high' : '';
+
                     $count = 0;
-                    if (!empty($visibleitems)) {
+                    if (!empty($visiblereditems)) {
                         $count = $DB->count_records_sql(
                             "SELECT COUNT(*)
                                FROM {course_modules}
                               WHERE course = :course
-                                AND id IN (" . implode(',', $visibleitems) . ")",
+                                AND id IN (" . implode(',', $visiblereditems) . ")",
                             array( 'course' => $course->id )
                         );
                     }
+
                     $course->newitemscount = $count;
-                    $course->redballcountclass = $count > 9 ? 'high' : '';
+                    $course->redballscountclass = $count > 9 ? 'high' : '';
+                    if ($orangecount > 9 && $count <= 9) {
+                        $course->redballscountclass = 'lower';
+                    } else if ($orangecount <= 9 && $count > 9) {
+                        $course->orangeballscountclass = 'lower';
+                    }
+
                 }
 
                 $instances = enrol_get_instances($course->id, true);
@@ -126,7 +172,9 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                     }
                     //print_object($course);die();
                 }
+
             }
+
         }
 
         if (empty($data['coursesview']['inprogress']) && !empty($data['coursesview']['future']['pages'])) {
@@ -140,7 +188,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                 foreach ($courses as &$course) {
 
                     if ($redballsactivated) {
-                        $visibleitems = array();
+                        $visiblereditems = array();
                         $newitemsforcourse = $this->get_redballs($course, $starttime);
 
                         $newitemsforuser = array_merge($newitemsforuser, $newitemsforcourse);
@@ -148,17 +196,17 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
 
                         foreach ($modinfo->cms as $cm) {
                             if ($cm->uservisible and in_array($cm->id, $newitemsforuser)) {
-                                $visibleitems[] = $cm->id;
+                                $visiblereditems[] = $cm->id;
                             }
                         }
 
                         $count = 0;
-                        if (!empty($visibleitems)) {
+                        if (!empty($visiblereditems)) {
                             $count = $DB->count_records_sql(
                                 "SELECT COUNT(*)
                                FROM {course_modules}
                               WHERE course = :course
-                                AND id IN (" . implode(',', $visibleitems) . ")",
+                                AND id IN (" . implode(',', $visiblereditems) . ")",
                                 array( 'course' => $course->id )
                             );
                         }
@@ -188,24 +236,24 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                 foreach ($courses as &$course) {
 
                     if ($redballsactivated) {
-                        $visibleitems = array();
+                        $visiblereditems = array();
                         $newitemsforcourse = $this->get_redballs($course, $starttime);
                         $newitemsforuser = array_merge($newitemsforuser, $newitemsforcourse);
                         $newitemsforuser = array_unique($newitemsforuser);
 
                         foreach ($modinfo->cms as $cm) {
                             if ($cm->uservisible and in_array($cm->id, $newitemsforuser)) {
-                                $visibleitems[] = $cm->id;
+                                $visiblereditems[] = $cm->id;
                             }
                         }
 
                         $count = 0;
-                        if (!empty($visibleitems)) {
+                        if (!empty($visiblereditems)) {
                             $count = $DB->count_records_sql(
                                 "SELECT COUNT(*)
                                FROM {course_modules}
                               WHERE course = :course
-                                AND id IN (" . implode(',', $visibleitems) . ")",
+                                AND id IN (" . implode(',', $visiblereditems) . ")",
                                 array( 'course' => $course->id )
                             );
                         }
@@ -237,24 +285,24 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
         }
         if ($redballsactivated) {
             set_user_preference('user_redballs', implode(',', array_unique($newitemsforuser)));
+            if ($orangeballsactivated) {
+                set_user_preference('user_orangeballs', implode(',', array_unique($updateditemsforuser)));
+            }
         }
-
 
         return $this->render_from_template('block_myoverview/main-alt', $data);
     }}
 
     public function get_redballs($course, $starttime) {
         global $DB, $USER;
+
         $count = 0;
         $query = "SELECT id, contextinstanceid, timecreated
                     FROM {logstore_standard_log}
                    WHERE contextlevel = :contextlevel
                      AND courseid = :courseid
                      AND userid != :userid
-                     AND (eventname = '\\\core\\\\event\\\course_module_created'
-                         OR eventname = '\\\core\\\\event\\\course_module_updated'
-                         OR eventname = '\\\mod_wiki\\\\event\\\page_updated'
-                         OR eventname = '\\\mod_quiz\\\\event\\\\edit_page_viewed')
+                     AND eventname = '\\\core\\\\event\\\course_module_created'
                      AND timecreated > :starttime
                      AND contextinstanceid IN (SELECT id
                                                  FROM {course_modules})
@@ -327,7 +375,110 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
     }
 
     public function get_orangeballs($course, $starttime) {
+        global $DB, $USER;
+        $count = 0;
+        $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
+        $query = "SELECT id, eventname, objectid, contextinstanceid, timecreated
+                    FROM {logstore_standard_log}
+                   WHERE contextlevel = :contextlevel
+                     AND courseid = :courseid
+                     AND userid != :userid
+                     AND timecreated > :starttime
+                     AND (
+                            (
+                                (eventname = '\\\mod_folder\\\\event\\\\folder_updated'
+                                OR eventname = '\\\mod_wiki\\\\event\\\page_updated'
+                                OR eventname = '\\\mod_book\\\\event\\\chapter_created'
+                                OR eventname = '\\\mod_book\\\\event\\\chapter_updated'
+                                OR eventname = '\\\mod_glossary\\\\event\\\\entry_created'
+                                OR eventname = '\\\mod_glossary\\\\event\\\\entry_updated'
+                                OR eventname = '\\\mod_data\\\\event\\\\record_created'
+                                OR eventname = '\\\mod_data\\\\event\\\\record_updated'
+                                )
 
+                                AND contextinstanceid IN (SELECT id
+                                                            FROM {course_modules})
+                            )
+                         OR (eventname = '\\\core\\\\event\\\course_module_updated'
+                               AND contextinstanceid IN (SELECT id FROM {course_modules} where module = :modlabelid)
+                            )
+                         )
+                ORDER BY timecreated DESC";
+
+        $records = $DB->get_records_sql($query, array(
+            'contextlevel' => CONTEXT_MODULE,
+            'courseid' => $course->id,
+            'userid' => $USER->id,
+            'starttime' => $starttime,
+            'update' => 'u',
+            'create' => 'c',
+            'modlabelid' => $modlabelid
+        ));
+//print_object($query);
+//        print_object($starttime);
+//print_object($records);
+        $alreadytested = array();
+        $redcmids = array();
+        foreach ($records as $record) {
+            if (in_array($record->contextinstanceid, $alreadytested)) {
+                continue;
+            } else {
+                $alreadytested[] = $record->contextinstanceid;
+            }
+            $modglossaryid = $DB->get_field('modules', 'id', array('name' => 'glossary'));
+            if ($record->eventname == '\mod_glossary\event\entry_updated' || $record->eventname == '\mod_glossary\event\entry_created'){
+                $glossaryentry = $DB->get_record('glossary_entries', array('id' => $record->objectid));
+                if ($glossaryentry->approved == 0) {
+                    continue;
+                }
+            }
+            $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
+            if ($DB->record_exists('course_modules', array('module' => $modlabelid, 'id' => $record->contextinstanceid))) {
+                $query = "SELECT *
+                            FROM {logstore_standard_log}
+                           WHERE contextlevel = :contextlevel
+                             AND eventname = :event
+                             AND courseid = :courseid
+                             AND timecreated > :timestamp
+                             AND userid = :userid
+                             AND crud = :crud";
+
+                $conditions = array(
+                    'contextlevel' => CONTEXT_COURSE,
+                    'event' => '\core\event\course_viewed',
+                    'courseid' => $course->id,
+                    'crud' => 'r',
+                    'userid' => $USER->id,
+                    'timestamp' => $record->timecreated
+                );
+            } else {
+                $query = "SELECT *
+                            FROM {logstore_standard_log}
+                           WHERE contextlevel = :contextlevel
+                             AND courseid = :courseid
+                             AND timecreated > :timestamp
+                             AND contextinstanceid = :contextinstanceid
+                             AND userid = :userid
+                             AND crud = :crud";
+
+                $conditions = array(
+                    'contextlevel' => CONTEXT_MODULE,
+                    'courseid' => $course->id,
+                    'crud' => 'r',
+                    'userid' => $USER->id,
+                    'contextinstanceid' => $record->contextinstanceid,
+                    'timestamp' => $record->timecreated
+                );
+            }
+
+            if (!$DB->get_records_sql($query, $conditions)) {
+
+                $count++;
+
+                $redcmids[] = $record->contextinstanceid;
+            }
+        }
+        return $redcmids;
     }
 
     public function get_redballs_old($course, $starttime) {

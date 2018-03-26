@@ -204,7 +204,20 @@ class format_topics_renderer extends \format_topics_renderer {
                     $section->section .
                     '">&nbsp;' . $sectionname;
                 if ($section->hotcount) {
-                    $o .= '<span title="' . $section->hotcount . ' éléments ajoutés/modifiés" class="redball-count">' . $section->hotcount . '</span>';
+                    if ($section->hotcount > 9) {
+                        $extrahotclass = ' high';
+                    } else {
+                        $extrahotclass = '';
+                    }
+                    $o .= '<span title="' . $section->hotcount . ' éléments ajoutés" class="redball-count' . $extrahotclass . '">' . $section->hotcount . '</span>';
+                }
+                if ($section->warmcount) {
+                    if ($section->warmcount > 9) {
+                        $extrawarmclass = ' high';
+                    } else {
+                        $extrawarmclass = '';
+                    }
+                    $o .= '<span title="' . $section->warmcount . ' contenus modifiés" class="orangeball-count' . $extrawarmclass . '">' . $section->warmcount . '</span>';
                 }
                 $o .= '</a> ';
             }
@@ -217,7 +230,10 @@ class format_topics_renderer extends \format_topics_renderer {
         } else {
             $sectionname = html_writer::tag('span', $this->section_title_without_link($section, $course));
             if ($section->hotcount) {
-                $sectionname .= '<span title="' . $section->hotcount . ' éléments ajoutés/modifiés" class="redball-count">' . $section->hotcount . '</span>';
+                $sectionname .= '<span title="' . $section->hotcount . ' éléments ajoutés" class="redball-count">' . $section->hotcount . '</span>';
+            }
+            if ($section->warmcount) {
+                $sectionname .= '<span title="' . $section->warmcount . ' contenus modifiés" class="orangeball-count">' . $section->warmcount . '</span>';
             }
             // Jrm add collapse toggle.
             if (course_get_format($course)->is_section_current($section)) {

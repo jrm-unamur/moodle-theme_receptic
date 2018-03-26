@@ -90,7 +90,9 @@ class course_renderer extends \theme_boost\output\core\course_renderer {
             $strmovefull = strip_tags(get_string("movefull", "", "'$USER->activitycopyname'"));
         }
         $hotcount = 0;
+        $warmcount = 0;
         $userhotmodules = explode(',' , get_user_preferences('user_redballs'));
+        $userwarmmodules = explode(',', get_user_preferences('user_orangeballs'));
 
         // Get the list of modules visible to user (excluding the module being moved if there is one)
         $moduleshtml = array();
@@ -101,6 +103,9 @@ class course_renderer extends \theme_boost\output\core\course_renderer {
                     $hotcount++;
                     $diplayoptions['hot'] = 'hot';
                     $mod->set_extra_classes($mod->extraclasses . ' hot');
+                } else if (in_array($mod->id, $userwarmmodules) && $mod->uservisible) {
+                    $warmcount++;
+                    $mod->set_extra_classes($mod->extraclasses . ' warm');
                 }
 
                 if ($ismoving and $mod->id == $USER->activitycopy) {
@@ -115,6 +120,7 @@ class course_renderer extends \theme_boost\output\core\course_renderer {
             }
         }
         $section->hotcount = $hotcount;
+        $section->warmcount = $warmcount;
 
         $sectionoutput = '';
         if (!empty($moduleshtml) || $ismoving) {

@@ -39,28 +39,45 @@ select.atto_generico_field {
     margin-left: .5rem;
 }
 
-.redball-count {
+.redball-count, .orangeball-count {
     position: relative;
     bottom: 3px;
     border-radius: 50%;
     width: 10px;
     height: 10px;
-    padding: 2px 5px;
+    /*padding: 2px 5px;*/
+    padding: 4px 7px;
     background-color: crimson;
     color: white;
     font-size: 10px;
     margin-left: 3px;
 }
 
-.redball-count.high {
-    padding: 4px;
+.orangeball-count {
+    background-color: orange;
 }
 
-.section .redball-count {
+.redball-count.lower, .orangeball-count.lower {
+    padding: 4px 7px;
+}
+
+.redball-count.high, .orangeball-count.high {
+    padding: 4px 6px;
+}
+
+/*.redball-count.lower, .orangeball-count.lower {
+    padding: 4px 7px;
+}*/
+
+/*.redball-count.high, .orangeball-count.high {
+    padding: 4px 5px;
+}*/
+
+.section .redball-count, .section .orangeball-count {
     bottom: 4px;
 }
 
-.section.hot .sectionname:before, .hot:before {
+.section.hot .sectionname:before, .hot:before, .section.warm .sectionname:before, .warm:before {
     font-family: FontAwesome;
     content: "\f111";
     color: crimson;
@@ -69,7 +86,11 @@ select.atto_generico_field {
     margin-right: 5px;
 }
 
-.activity.hot:before {
+.section.warm .sectionname:before, .warm:before {
+    color: orange;
+}
+
+.activity.hot:before, .activity.warm:before {
     font-family: FontAwesome;
     content: "\f111";
     color: crimson;
@@ -79,7 +100,11 @@ select.atto_generico_field {
     margin-top: 5px;
 }
 
-body.editing .activity.hot:before {
+.activity.warm:before {
+    color: orange;
+}
+
+body.editing .activity.hot:before, body.editing .activity.warm:before {
     margin-top: 4px;
 }
 
@@ -87,7 +112,7 @@ body.editing .section .activity .editing_move {
     left: .3rem;
 }
 
-body.editing .section .activity.hot .mod-indent-outer {
+body.editing .section .activity.hot .mod-indent-outer, body.editing .section .activity.warm .mod-indent-outer {
     padding-left: 1rem;
 }
 
