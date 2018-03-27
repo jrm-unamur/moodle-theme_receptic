@@ -228,7 +228,6 @@ if ($ADMIN->fulltree) {
 
 
 }
-require_once($CFG->dirroot . '/local/flashbox/lib.php');
 
 $page = new admin_settingpage('theme_receptic_flashbox', get_string('flashboxes', 'theme_receptic'), 'theme/receptic:editflashbox');
 
