@@ -102,11 +102,6 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                     $course->sesskey = sesskey();
                 }
                 if ($redballsactivated) {
-                    $visibleorangeitems = array();
-                    $updateditemsforcourse = $this->get_orangeballs($course, $starttime);
-                    //print_object($updateditemsforcourse);
-                    $updateditemsforuser = array_merge($updateditemsforuser, $updateditemsforcourse);
-                    $updateditemsforuser = array_unique($updateditemsforuser);
 
                     $visiblereditems = array();
                     $newitemsforcourse = $this->get_redballs($course, $starttime);
@@ -115,13 +110,21 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
 
                     $newitemsforuser = array_unique($newitemsforuser);
 
+                    if ($orangeballsactivated) {
+                        $visibleorangeitems = array();
+                        $updateditemsforcourse = $this->get_orangeballs($course, $starttime);
+                        //print_object($updateditemsforcourse);
+                        $updateditemsforuser = array_merge($updateditemsforuser, $updateditemsforcourse);
+                        $updateditemsforuser = array_unique($updateditemsforuser);
+                    }
+
                     $modinfo = get_fast_modinfo($course);
 
                     foreach ($modinfo->cms as $cm) {
                         if ($cm->uservisible && !$cm->is_stealth() && in_array($cm->id, $newitemsforuser)) {
                             $visiblereditems[] = $cm->id;
                         }
-                        if ($cm->uservisible && !$cm->is_stealth() && in_array($cm->id, $updateditemsforuser) && !in_array($cm->id, $newitemsforuser)) {
+                        if ($orangeballsactivated && $cm->uservisible && !$cm->is_stealth() && in_array($cm->id, $updateditemsforuser) && !in_array($cm->id, $newitemsforuser)) {
                             $visibleorangeitems[] = $cm->id;
                         }
                     }
