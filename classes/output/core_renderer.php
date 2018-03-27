@@ -412,8 +412,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
         global $PAGE;
         $flashboxaudience = $PAGE->theme->settings->$targetaudience;
         $flashboxtype = $PAGE->theme->settings->{$targetaudience . 'type'};
-        $flashboxaudience = get_config('local_flashbox', $targetaudience);
-        $flashboxtype = get_config('local_flashbox', $targetaudience . "type");
+        //$flashboxaudience = get_config('local_flashbox', $targetaudience);
+        //$flashboxtype = get_config('local_flashbox', $targetaudience . "type");
         switch ($flashboxtype) {
             case 'info' :
                 $flashboxicon = 'lightbulb-o';
@@ -427,20 +427,20 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
         if (!empty($flashboxaudience)) {
             $data = [
-                'flashboxcontent' => $flashboxaudience,
-                'flashboxtype' => $flashboxtype,
-                'flashboxicon' => $flashboxicon,
+                'message' => $flashboxaudience,
+                'type' => $flashboxtype,
+                'icon' => $flashboxicon,
                 'hideclass' => 'hide' . $targetaudience
             ];
-            return parent::render_from_template('local_flashbox/flashbox', $data);
+            return parent::render_from_template('theme_receptic/flashbox', $data);
         }
         return '';
         //return $PAGE->theme->settings->generalalert;
     }
 
     public function flashboxteachers() {
-        global $CFG, $PAGE, $USER;
-        $flashboxenabled = core_plugin_manager::instance()->get_plugin_info('local_flashbox');
+        global $PAGE, $USER;
+        /*$flashboxenabled = core_plugin_manager::instance()->get_plugin_info('local_flashbox');
         if (is_null($flashboxenabled)) {
             return '';
         } else {
@@ -448,9 +448,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $PAGE->requires->js_call_amd('local_flashbox/flashbox', 'init');
 
             return local_flashbox_render_flashboxteachers();
-        }
+        }*/
 
-        /*$usercanview = user_has_role_assignment($USER->id, 1)
+        $usercanview = user_has_role_assignment($USER->id, 1)
                     || user_has_role_assignment($USER->id, 2)
                     || user_has_role_assignment($USER->id, 3)
                     || user_has_role_assignment($USER->id, 4)
@@ -460,27 +460,28 @@ class core_renderer extends \theme_boost\output\core_renderer {
                     || !$usercanview) {
             return '';
         }
-        return $this->flashbox('flashboxteachers');*/
+        return $this->flashbox('flashboxteachers');
     }
 
     public function flashboxstudents() {
-        global $CFG, $PAGE, $USER;
-        $flashboxenabled = core_plugin_manager::instance()->get_plugin_info('local_flashbox');
+        global $PAGE, $USER;
+        /*$flashboxenabled = core_plugin_manager::instance()->get_plugin_info('local_flashbox');
         if (is_null($flashboxenabled)) {
             return '';
         } else {
             require_once($CFG->dirroot . '/local/flashbox/lib.php');
             $PAGE->requires->js_call_amd('local_flashbox/flashbox', 'init');
             return local_flashbox_render_flashboxstudents();
-        }
-        /*$usercanview = user_has_role_assignment($USER->id, 5)
+        }*/
+        $usercanview = user_has_role_assignment($USER->id, 5)
+            || user_has_role_assignment($USER->id, 1, context_system::instance())
             || is_siteadmin();
         if ($PAGE->pagetype !== 'my-index'
             || get_user_preferences('flashbox-student-hidden', false, $USER->id) === 'true'
             || !$usercanview) {
             return '';
         }
-        return $this->flashbox('flashboxstudents');*/
+        return $this->flashbox('flashboxstudents');
     }
 
     public function contact_info() {

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    theme_receptic
+ * @package    local_pplb
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Unversite de Namur
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -23,9 +23,13 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = '2018020116';
-$plugin->requires = '2016070700';
-$plugin->component = 'theme_receptic';
-$plugin->dependencies = [
-    'theme_boost' => '2016102100'
-];
+$capabilities = array(
+    'theme/receptic:editflashbox' => array(
+        'riskbitmask' => RISK_SPAM | RISK_XSS,
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => array(
+            'manager' => CAP_ALLOW
+        )
+    )
+);
