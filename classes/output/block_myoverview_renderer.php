@@ -24,6 +24,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/blocks/myoverview/classes/output/renderer.php');
+//require_once($CFG->dirroot . '/theme/receptic/lib.php');
 
 /**
  * myoverview block renderer
@@ -104,7 +105,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                 if ($redballsactivated) {
 
                     $visiblereditems = array();
-                    $newitemsforcourse = $this->get_redballs($course, $starttime);
+                    $newitemsforcourse = theme_receptic_get_redballs($course, $starttime);
 
                     $newitemsforuser = array_merge($newitemsforuser, $newitemsforcourse);
 
@@ -112,7 +113,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
 
                     if ($orangeballsactivated) {
                         $visibleorangeitems = array();
-                        $updateditemsforcourse = $this->get_orangeballs($course, $starttime);
+                        $updateditemsforcourse = theme_receptic_get_orangeballs($course, $starttime);
                         //print_object($updateditemsforcourse);
                         $updateditemsforuser = array_merge($updateditemsforuser, $updateditemsforcourse);
                         $updateditemsforuser = array_unique($updateditemsforuser);
@@ -192,7 +193,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
 
                     if ($redballsactivated) {
                         $visiblereditems = array();
-                        $newitemsforcourse = $this->get_redballs($course, $starttime);
+                        $newitemsforcourse = theme_receptic_get_redballs($course, $starttime);
 
                         $newitemsforuser = array_merge($newitemsforuser, $newitemsforcourse);
                         $newitemsforuser = array_unique($newitemsforuser);
@@ -240,7 +241,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
 
                     if ($redballsactivated) {
                         $visiblereditems = array();
-                        $newitemsforcourse = $this->get_redballs($course, $starttime);
+                        $newitemsforcourse = theme_receptic_get_redballs($course, $starttime);
                         $newitemsforuser = array_merge($newitemsforuser, $newitemsforcourse);
                         $newitemsforuser = array_unique($newitemsforuser);
 

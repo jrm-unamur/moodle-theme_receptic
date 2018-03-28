@@ -180,6 +180,194 @@ function theme_receptic_reset_flashbox_students() {
                    WHERE name = :name", array('value' => 'false', 'name' => 'flashbox-student-hidden'));
 }
 
+function theme_receptic_get_redballs($course, $starttime) {
+    global $DB, $USER;
+
+    $count = 0;
+    $query = "SELECT id, contextinstanceid, timecreated
+                    FROM {logstore_standard_log}
+                   WHERE contextlevel = :contextlevel
+                     AND courseid = :courseid
+                     AND userid != :userid
+                     AND eventname = '\\\core\\\\event\\\course_module_created'
+                     AND timecreated > :starttime
+                     AND contextinstanceid IN (SELECT id
+                                                 FROM {course_modules})
+                ORDER BY timecreated DESC";
+
+    $records = $DB->get_records_sql($query, array(
+        'contextlevel' => CONTEXT_MODULE,
+        'courseid' => $course->id,
+        'userid' => $USER->id,
+        'starttime' => $starttime,
+        'update' => 'u',
+        'create' => 'c'
+    ));
+
+    $alreadytested = array();
+    $redcmids = array();
+    foreach ($records as $record) {
+        if (in_array($record->contextinstanceid, $alreadytested)) {
+            continue;
+        } else {
+            $alreadytested[] = $record->contextinstanceid;
+        }
+        $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
+        if ($DB->record_exists('course_modules', array('module' => $modlabelid, 'id' => $record->contextinstanceid))) {
+            $query = "SELECT *
+                            FROM {logstore_standard_log}
+                           WHERE contextlevel = :contextlevel
+                             AND eventname = :event
+                             AND courseid = :courseid
+                             AND timecreated > :timestamp
+                             AND userid = :userid
+                             AND crud = :crud";
+
+            $conditions = array(
+                'contextlevel' => CONTEXT_COURSE,
+                'event' => '\core\event\course_viewed',
+                'courseid' => $course->id,
+                'crud' => 'r',
+                'userid' => $USER->id,
+                'timestamp' => $record->timecreated
+            );
+        } else {
+            $query = "SELECT *
+                            FROM {logstore_standard_log}
+                           WHERE contextlevel = :contextlevel
+                             AND courseid = :courseid
+                             AND timecreated > :timestamp
+                             AND contextinstanceid = :contextinstanceid
+                             AND userid = :userid
+                             AND crud = :crud";
+
+            $conditions = array(
+                'contextlevel' => CONTEXT_MODULE,
+                'courseid' => $course->id,
+                'crud' => 'r',
+                'userid' => $USER->id,
+                'contextinstanceid' => $record->contextinstanceid,
+                'timestamp' => $record->timecreated
+            );
+        }
+
+        if (!$DB->get_records_sql($query, $conditions)) {
+
+            $count++;
+
+            $redcmids[] = $record->contextinstanceid;
+        }
+    }
+    return $redcmids;
+}
+
+function theme_receptic_get_orangeballs($course, $starttime) {
+    global $DB, $USER;
+    $count = 0;
+    $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
+    $query = "SELECT id, eventname, objectid, contextinstanceid, timecreated
+                    FROM {logstore_standard_log}
+                   WHERE contextlevel = :contextlevel
+                     AND courseid = :courseid
+                     AND userid != :userid
+                     AND timecreated > :starttime
+                     AND (
+                            (
+                                (eventname = '\\\mod_folder\\\\event\\\\folder_updated'
+                                OR eventname = '\\\mod_wiki\\\\event\\\page_updated'
+                                OR eventname = '\\\mod_book\\\\event\\\chapter_created'
+                                OR eventname = '\\\mod_book\\\\event\\\chapter_updated'
+                                OR eventname = '\\\mod_glossary\\\\event\\\\entry_created'
+                                OR eventname = '\\\mod_glossary\\\\event\\\\entry_updated'
+                                OR eventname = '\\\mod_data\\\\event\\\\record_created'
+                                OR eventname = '\\\mod_data\\\\event\\\\record_updated'
+                                )
+
+                                AND contextinstanceid IN (SELECT id
+                                                            FROM {course_modules})
+                            )
+                         OR (eventname = '\\\core\\\\event\\\course_module_updated'
+                               AND contextinstanceid IN (SELECT id FROM {course_modules} where module = :modlabelid)
+                            )
+                         )
+                ORDER BY timecreated DESC";
+
+    $records = $DB->get_records_sql($query, array(
+        'contextlevel' => CONTEXT_MODULE,
+        'courseid' => $course->id,
+        'userid' => $USER->id,
+        'starttime' => $starttime,
+        'update' => 'u',
+        'create' => 'c',
+        'modlabelid' => $modlabelid
+    ));
+//print_object($query);
+//        print_object($starttime);
+//print_object($records);
+    $alreadytested = array();
+    $redcmids = array();
+    foreach ($records as $record) {
+        if (in_array($record->contextinstanceid, $alreadytested)) {
+            continue;
+        } else {
+            $alreadytested[] = $record->contextinstanceid;
+        }
+        $modglossaryid = $DB->get_field('modules', 'id', array('name' => 'glossary'));
+        if ($record->eventname == '\mod_glossary\event\entry_updated' || $record->eventname == '\mod_glossary\event\entry_created'){
+            $glossaryentry = $DB->get_record('glossary_entries', array('id' => $record->objectid));
+            if ($glossaryentry->approved == 0) {
+                continue;
+            }
+        }
+        $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
+        if ($DB->record_exists('course_modules', array('module' => $modlabelid, 'id' => $record->contextinstanceid))) {
+            $query = "SELECT *
+                            FROM {logstore_standard_log}
+                           WHERE contextlevel = :contextlevel
+                             AND eventname = :event
+                             AND courseid = :courseid
+                             AND timecreated > :timestamp
+                             AND userid = :userid
+                             AND crud = :crud";
+
+            $conditions = array(
+                'contextlevel' => CONTEXT_COURSE,
+                'event' => '\core\event\course_viewed',
+                'courseid' => $course->id,
+                'crud' => 'r',
+                'userid' => $USER->id,
+                'timestamp' => $record->timecreated
+            );
+        } else {
+            $query = "SELECT *
+                            FROM {logstore_standard_log}
+                           WHERE contextlevel = :contextlevel
+                             AND courseid = :courseid
+                             AND timecreated > :timestamp
+                             AND contextinstanceid = :contextinstanceid
+                             AND userid = :userid
+                             AND crud = :crud";
+
+            $conditions = array(
+                'contextlevel' => CONTEXT_MODULE,
+                'courseid' => $course->id,
+                'crud' => 'r',
+                'userid' => $USER->id,
+                'contextinstanceid' => $record->contextinstanceid,
+                'timestamp' => $record->timecreated
+            );
+        }
+
+        if (!$DB->get_records_sql($query, $conditions)) {
+
+            $count++;
+
+            $redcmids[] = $record->contextinstanceid;
+        }
+    }
+    return $redcmids;
+}
+
 /*function theme_receptic_extend_navigation(global_navigation $nav) {
     global $COURSE;
     // Ajouter une condition pour n'afficher que pour les createurs de cours.
