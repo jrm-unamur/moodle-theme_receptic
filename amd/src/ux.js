@@ -56,6 +56,108 @@ define(['jquery', 'core/log'], function($, log) {
                         $(section).collapse('show');
                     }
                 }, 50);
+
+                /*$('#filter-tabs-titlegroup-1 a').on('click', function (e) {
+                    e.preventDefault()
+                    $(this).tab('show');
+
+                });*/
+
+                // Javascript to enable link to tab
+                $('.linktotab').on('click', function() {
+
+                    var href = ($(this).attr('href'));
+                    $('.nav-tabs a[href="#'+href.split('#')[1]+'"]').tab('show');
+                    console.log($('.nav-tabs a[href="#'+href.split('#')[1]+'"]'));
+                });
+
+               /* $('#filter-tabs-titlegroup-1').load('url', function (result) {
+                    $('#tab-id').tab('show');
+                });*/
+
+               /* var $tabs = $('.nav-tabs'),
+                    $tabsA = $tabs.find('a'),
+                    $tabsC = $('.tab-pane'),
+                    start = window.location.hash || '';
+                console.log(start + 'coucou');
+
+                function deactivate() {
+                    $tabsA.removeClass('active');
+                    $tabsC.hide();
+                }
+                function activate(href) {
+                    $tabsA.filter('[href="' + href + '"]').addClass('active');
+                    console.log('id="' + href.split('#')[1] + '"');
+                   var test = $($tabsC.filter('[id="' + href.split('#')[1] + '"]')).fadeIn();
+                    console.log(test);
+                    //$(href).fadeIn();
+                }
+
+                function clicked(e) {
+                    var href = $(e.target).attr('href');
+                    deactivate();
+                    activate(href);
+                }
+
+                deactivate();
+                activate(start);
+                $tabs.on('click', 'a', clicked);*/
+
+
+
+            /* if (hash.match('#')) {
+                 console.log(url.split('#')[1]);
+                 $('.nav-tabs a[href="#'+url.split('#')[1]+'"]').tab('show') ;
+             }*/
+
+                // With HTML5 history API, we can easily prevent scrolling!
+                $('.nav-tabs a').on('shown.bs.tab', function (e) {
+
+                    if(history.pushState) {
+                        history.pushState(null, null, e.target.hash);
+                    } else {
+                        window.location.hash = e.target.hash; //Polyfill for old browsers
+                    }
+                })
+
+                var isCtrl = false;
+                var isShift = false;
+                // action on key up
+                $(document).keyup(function(e) {
+                    if(e.which == 17) {
+                        isCtrl = false;
+                    }
+                    if(e.which == 16) {
+                        isShift = false;
+                    }
+                });
+                // action on key down
+                $(document).keydown(function(e) {
+                    if(e.which == 17) {
+                        isCtrl = true;
+                    }
+                    if(e.which == 16) {
+                        isShift = true;
+                    }
+                    // Legacy method with 'blocks-collapsed' body class.
+                    /*if(e.which == 120 && isCtrl && isShift) {
+                        if($('body').hasClass('blocks-hidden')) {
+                            M.util.set_user_preference('blocks-collapsed', 'false');
+                        } else {
+                            M.util.set_user_preference('blocks-collapsed', 'true');
+                        }
+                        $('body').toggleClass('blocks-hidden');
+                    }*/
+                    if(e.which == 120 && isCtrl && isShift) {
+                        if($('body').hasClass('drawer-open-right')) {
+                            M.util.set_user_preference('sidepre-open', 'false');
+                        } else {
+                            M.util.set_user_preference('sidepre-open', 'true');
+                        }
+                        $('body').toggleClass('drawer-open-right');
+                    }
+                });
+
                 // ... $('.summarytext').remove().
                 //Disable shortname, fullname and category for course edit form
                 $('#page-course-edit.format-topics #id_fullname').prop('readonly', true);
@@ -70,14 +172,15 @@ define(['jquery', 'core/log'], function($, log) {
                 //$('.block_myoverview [data-action="more-courses"]').removeClass('hidden');
                 $('.block_myoverview [data-action="view-more"]').trigger('click');
 
-                $("body").on( "click", ".toggleblocks", function() {
+                // Legacy method for blocks toggling.
+                /*$("body").on( "click", ".toggleblocks", function() {
                     if($('body').hasClass('blocks-hidden')) {
                         M.util.set_user_preference('blocks-collapsed', 'false');
                     } else {
                         M.util.set_user_preference('blocks-collapsed', 'true');
                     }
                     $('body').toggleClass('blocks-hidden');
-                });
+                });*/
 
                 // Handle toggle all sections.
                 $('body').on('click', '.expandall', function(event) {
