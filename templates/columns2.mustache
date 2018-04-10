@@ -104,11 +104,7 @@
                     {{{ output.course_content_footer }}}
                     </div>
                 </section>
-                {{#hasblocks}}
-                <section data-region="blocks-column" class="hidden-print">
-                    {{{ sidepreblocks }}}
-                </section>
-                {{/hasblocks}}
+
             </div>
         </div>
     </div>
@@ -121,7 +117,9 @@
            data-preference="sidepre-open"
            title="{{#draweropenright}}{{#str}} hideblocks, theme_receptic {{/str}}{{/draweropenright}}{{^draweropenright}}{{#str}} showblocks, theme_receptic {{/str}}{{/draweropenright}}">
         </i>
-
+        <section data-region="blocks-column" class="hidden-print">
+            {{{ sidepreblocks }}}
+        </section>
 
     {{/hasblocks}}
     {{#shownavdrawer}}
