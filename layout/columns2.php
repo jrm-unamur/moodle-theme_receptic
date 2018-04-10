@@ -79,7 +79,7 @@ if ($navdraweropen) {
 }
 
 if ($blockscollapsed) {
-    $extraclasses[] = 'blocks-hidden';
+    //$extraclasses[] = 'blocks-hidden';
 }
 
 $blockshtml = $OUTPUT->blocks('side-pre');
