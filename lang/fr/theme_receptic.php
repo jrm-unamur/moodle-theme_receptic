@@ -87,3 +87,5 @@ $string['flashboxstudents_desc'] = 'Permet d\'afficher un message flash sur le t
 $string['flashboxstudentstype'] = 'Type du message flash';
 $string['flashboxstudentstype_desc'] = 'Type du message à afficher';
 $string['trick'] = 'Astuce';
+$string['showblocks'] = 'Afficher les blocks';
+$string['hideblocks'] = 'Masquer les blocks';

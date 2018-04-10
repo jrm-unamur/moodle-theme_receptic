@@ -89,5 +89,7 @@ $string['flashboxstudents_desc'] = 'Flash message for students that will appear 
 $string['flashboxstudentstype'] = 'Type of flashbox';
 $string['flashboxstudentstype_desc'] = 'Type of message to display in students\' flashbox';
 $string['trick'] = 'Trick';
+$string['showblocks'] = 'Show blocks';
+$string['hideblocks'] = 'Hide blocks';
 
 
