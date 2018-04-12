@@ -306,8 +306,12 @@
     }
 }
 
-body.editing.drawer-open-right #sidepreopen-control {
+body.editing #sidepreopen-control {
     top: 190px;
+}
+
+body.editing.empty-region-side-pre.drawer-open-right #sidepreopen-control {
+    padding-left: 1rem;
 }
 
 [data-region="blocks-column"] {
@@ -316,7 +320,7 @@ body.editing.drawer-open-right #sidepreopen-control {
     position: fixed;
     top: 150px;
     right: -280px;
-    height: calc(100% - 50px);
+    height: calc(100% - 150px);
     overflow-y: scroll;
     z-index: 999;
     padding-right: 2rem;
