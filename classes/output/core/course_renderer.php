@@ -106,11 +106,11 @@ class course_renderer extends \theme_boost\output\core\course_renderer {
         if (!empty($modinfo->sections[$section->section])) {
             foreach ($modinfo->sections[$section->section] as $modnumber) {
                 $mod = $modinfo->cms[$modnumber];
-                if ($redballsactivated && in_array($mod->id, $userhotmodules) && $mod->uservisible) {
+                if ($redballsactivated && in_array($mod->id, $userhotmodules) && $mod->uservisible && !$mod->is_stealth()) {
                     $hotcount++;
                     $diplayoptions['hot'] = 'hot';
                     $mod->set_extra_classes($mod->extraclasses . ' hot');
-                } else if ($orangeballsactivated && in_array($mod->id, $userwarmmodules) && $mod->uservisible) {
+                } else if ($orangeballsactivated && in_array($mod->id, $userwarmmodules) && $mod->uservisible && !$mod->is_stealth()) {
                     $warmcount++;
                     $mod->set_extra_classes($mod->extraclasses . ' warm');
                 }
