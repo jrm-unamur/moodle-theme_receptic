@@ -83,7 +83,7 @@ if ($blockscollapsed) {
 }
 
 $blockshtml = $OUTPUT->blocks('side-pre');
-$hasblocks = (strpos($blockshtml, 'data-block=') !== false) || $PAGE->user_is_editing();
+$hasblocks = (strpos($blockshtml, 'data-block=') !== false) || ($PAGE->user_is_editing() && strpos($this->page->pagetype, 'mod-' !== 0));
 
 if ($draweropenright && $hasblocks) {
     $extraclasses[] = 'drawer-open-right';
