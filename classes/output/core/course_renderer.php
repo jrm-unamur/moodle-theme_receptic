@@ -89,18 +89,30 @@ class course_renderer extends \theme_boost\output\core\course_renderer {
             $movingpix = new pix_icon('movehere', get_string('movehere'), 'moodle', array('class' => 'movetarget'));
             $strmovefull = strip_tags(get_string("movefull", "", "'$USER->activitycopyname'"));
         }
+
+        $redballsactivated = $this->page->theme->settings->enableredballs;
         $hotcount = 0;
-        $userhotmodules = explode(',' , get_user_preferences('user_hot_items'));
+        $orangeballsactivated = $this->page->theme->settings->enableorangeballs;
+        $warmcount = 0;
+        if ($redballsactivated) {
+            $userhotmodules = explode(',' , get_user_preferences('user_redballs'));
+            if ($orangeballsactivated) {
+                $userwarmmodules = explode(',', get_user_preferences('user_orangeballs'));
+            }
+        }
 
         // Get the list of modules visible to user (excluding the module being moved if there is one)
         $moduleshtml = array();
         if (!empty($modinfo->sections[$section->section])) {
             foreach ($modinfo->sections[$section->section] as $modnumber) {
                 $mod = $modinfo->cms[$modnumber];
-                if (in_array($mod->id, $userhotmodules) && $mod->uservisible) {
+                if ($redballsactivated && in_array($mod->id, $userhotmodules) && $mod->uservisible && !$mod->is_stealth()) {
                     $hotcount++;
                     $diplayoptions['hot'] = 'hot';
                     $mod->set_extra_classes($mod->extraclasses . ' hot');
+                } else if ($orangeballsactivated && in_array($mod->id, $userwarmmodules) && $mod->uservisible && !$mod->is_stealth()) {
+                    $warmcount++;
+                    $mod->set_extra_classes($mod->extraclasses . ' warm');
                 }
 
                 if ($ismoving and $mod->id == $USER->activitycopy) {
@@ -115,6 +127,7 @@ class course_renderer extends \theme_boost\output\core\course_renderer {
             }
         }
         $section->hotcount = $hotcount;
+        $section->warmcount = $warmcount;
 
         $sectionoutput = '';
         if (!empty($moduleshtml) || $ismoving) {

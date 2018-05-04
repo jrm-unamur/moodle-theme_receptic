@@ -31,11 +31,80 @@ use moodle_url;
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . "/course/format/topics/renderer.php");
+require_once($CFG->dirroot . "/theme/receptic/lib.php");
 
 class format_topics_renderer extends \format_topics_renderer {
     /** overrides format_section_renderer_base */
     public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
-        global $PAGE;
+        global $PAGE, $DB, $USER;
+
+        //test computing of red and orange balls on course page.
+        $redballsactivated = get_config('theme_receptic', 'enableredballs');
+        $orangeballsactivated = get_config('theme_receptic', 'enableorangeballs');
+
+        if ($redballsactivated) {
+            $userredballs = get_user_preferences('user_redballs');
+            if (is_null($userredballs)) {
+                $defaultredballslookback = get_config('theme_receptic', 'redballs_lookback');
+                $starttime = time() - ($defaultredballslookback * 24 * 60 * 60);
+            } else {
+                $starttime = $DB->get_field('user', 'lastlogin', array('id' => $USER->id));
+            }
+
+            $newitemsforuser = array();
+            if (!empty($userredballs)) {
+                $newitemsforuser = explode(',', $userredballs);
+            }
+        }
+        if ($orangeballsactivated) {
+            $userorangeballs = get_user_preferences('user_orangeballs');
+            if (is_null($userorangeballs)) {
+                $defaultlookback = get_config('theme_receptic', 'redballs_lookback');
+                $starttime = time() - ($defaultlookback * 24 * 60 * 60);
+            } else {
+                $starttime = $DB->get_field('user', 'lastlogin', array('id' => $USER->id));
+            }
+
+            $updateditemsforuser = array();
+            if (!empty($userorangeballs)) {
+                $updateditemsforuser = explode(',', $userorangeballs);
+            }
+        }
+
+        if ($redballsactivated) {
+
+            $visiblereditems = array();
+            $newitemsforcourse = theme_receptic_get_redballs($course, $starttime);
+
+            $newitemsforuser = array_merge($newitemsforuser, $newitemsforcourse);
+
+            $newitemsforuser = array_unique($newitemsforuser);
+            set_user_preference('user_redballs', implode(',', array_unique($newitemsforuser)));
+
+            if ($orangeballsactivated) {
+                $visibleorangeitems = array();
+                $updateditemsforcourse = theme_receptic_get_orangeballs($course, $starttime);
+                //print_object($updateditemsforcourse);
+                $updateditemsforuser = array_merge($updateditemsforuser, $updateditemsforcourse);
+                $updateditemsforuser = array_unique($updateditemsforuser);
+            }
+
+            $modinfo = get_fast_modinfo($course);
+
+            foreach ($modinfo->cms as $cm) {
+                if ($cm->uservisible && !$cm->is_stealth() && in_array($cm->id, $newitemsforuser)) {
+                    $visiblereditems[] = $cm->id;
+                }
+                if ($orangeballsactivated && $cm->uservisible && !$cm->is_stealth() && in_array($cm->id,
+                        $updateditemsforuser) && !in_array($cm->id, $newitemsforuser)
+                ) {
+                    $visibleorangeitems[] = $cm->id;
+                }
+            }
+            if ($orangeballsactivated) set_user_preference('user_orangeballs', implode(',', array_unique($updateditemsforuser)));
+
+        }
+        // end test computing of red and orange balls on cours page.
 
         $modinfo = get_fast_modinfo($course);
         $course = course_get_format($course)->get_course();
@@ -204,7 +273,20 @@ class format_topics_renderer extends \format_topics_renderer {
                     $section->section .
                     '">&nbsp;' . $sectionname;
                 if ($section->hotcount) {
-                    $o .= '<span title="' . $section->hotcount . ' éléments ajoutés/modifiés" class="redball-count">' . $section->hotcount . '</span>';
+                    if ($section->hotcount > 9) {
+                        $extrahotclass = ' high';
+                    } else {
+                        $extrahotclass = '';
+                    }
+                    $o .= '<span title="' . $section->hotcount . ' éléments ajoutés" class="redball-count' . $extrahotclass . '">' . $section->hotcount . '</span>';
+                }
+                if ($section->warmcount) {
+                    if ($section->warmcount > 9) {
+                        $extrawarmclass = ' high';
+                    } else {
+                        $extrawarmclass = '';
+                    }
+                    $o .= '<span title="' . $section->warmcount . ' contenus modifiés" class="orangeball-count' . $extrawarmclass . '">' . $section->warmcount . '</span>';
                 }
                 $o .= '</a> ';
             }
@@ -217,7 +299,10 @@ class format_topics_renderer extends \format_topics_renderer {
         } else {
             $sectionname = html_writer::tag('span', $this->section_title_without_link($section, $course));
             if ($section->hotcount) {
-                $sectionname .= '<span title="' . $section->hotcount . ' éléments ajoutés/modifiés" class="redball-count">' . $section->hotcount . '</span>';
+                $sectionname .= '<span title="' . $section->hotcount . ' éléments ajoutés" class="redball-count">' . $section->hotcount . '</span>';
+            }
+            if ($section->warmcount) {
+                $sectionname .= '<span title="' . $section->warmcount . ' contenus modifiés" class="orangeball-count">' . $section->warmcount . '</span>';
             }
             // Jrm add collapse toggle.
             if (course_get_format($course)->is_section_current($section)) {

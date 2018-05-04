@@ -111,53 +111,7 @@ if ($ADMIN->fulltree) {
     //$setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    // flashboxteachers setting.
-    $name = 'theme_receptic/flashboxteachers';
-    $title = get_string('flashboxteachers', 'theme_receptic');
-    $description = get_string('flashboxteachers_desc', 'theme_receptic');
-    $default = '';
-    $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
-    $setting->set_updatedcallback('theme_receptic_reset_flashbox_teachers');
-    $page->add($setting);
 
-    // flashboxteacherstype setting.
-    $name = 'theme_receptic/flashboxteacherstype';
-    $title = get_string('flashboxteacherstype', 'theme_receptic');
-    $description = get_string('flashboxteacherstype_desc', 'theme_receptic');
-    $default = 'warning';
-    $choices = [
-        'warning' => get_string('warning'),
-        'trick' => get_string('trick', 'theme_receptic'),
-        'info' => get_string('info')
-    ];
-
-    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
-    //$setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    // flashboxteachers setting.
-    $name = 'theme_receptic/flashboxstudents';
-    $title = get_string('flashboxstudents', 'theme_receptic');
-    $description = get_string('flashboxstudents_desc', 'theme_receptic');
-    $default = '';
-    $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
-    $setting->set_updatedcallback('theme_receptic_reset_flashbox_students');
-    $page->add($setting);
-
-    // flashboxteacherstype setting.
-    $name = 'theme_receptic/flashboxstudentstype';
-    $title = get_string('flashboxstudentstype', 'theme_receptic');
-    $description = get_string('flashboxstudentstype_desc', 'theme_receptic');
-    $default = 'warning';
-    $choices = [
-        'warning' => get_string('warning'),
-        'trick' => get_string('trick', 'theme_receptic'),
-        'info' => get_string('info')
-    ];
-
-    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
-    //$setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
     // Raw scss code to include after main content.
     /*$name = 'theme_receptic/scss';
     $title = get_string('rawscss', 'theme_receptic');
@@ -238,11 +192,17 @@ if ($ADMIN->fulltree) {
 
     $settings->add($page);
 
-    // Configure redballs.
+    // Configure redballs and orangeballs.
     $page = new admin_settingpage('theme_receptic_redballs', get_string('redballs', 'theme_receptic'));
     $name = 'theme_receptic/enableredballs';
     $title = get_string('enableredballs', 'theme_receptic');
     $description = get_string('enableredballs_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, true);
+    $page->add($setting);
+
+    $name = 'theme_receptic/enableorangeballs';
+    $title = get_string('enableorangeballs', 'theme_receptic');
+    $description = get_string('enableorangeballs_desc', 'theme_receptic');
     $setting = new admin_setting_configcheckbox($name, $title, $description, true);
     $page->add($setting);
 
@@ -265,4 +225,59 @@ if ($ADMIN->fulltree) {
 
     $settings->add($page);
 
+
+
 }
+
+$page = new admin_settingpage('theme_receptic_flashbox', get_string('flashboxes', 'theme_receptic'), 'theme/receptic:editflashbox');
+
+// flashboxteachers setting.
+$name = 'theme_receptic/flashboxteachers';
+$title = get_string('flashboxteachers', 'theme_receptic');
+$description = get_string('flashboxteachers_desc', 'theme_receptic');
+$default = '';
+$setting = new admin_setting_confightmleditor($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_receptic_reset_flashbox_teachers');
+$page->add($setting);
+
+// flashboxteacherstype setting.
+$name = 'theme_receptic/flashboxteacherstype';
+$title = get_string('flashboxteacherstype', 'theme_receptic');
+$description = get_string('flashboxteacherstype_desc', 'theme_receptic');
+$default = 'warning';
+$choices = [
+    'warning' => get_string('warning'),
+    'trick' => get_string('trick', 'theme_receptic'),
+    'info' => get_string('info')
+];
+
+$setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+//$setting->set_updatedcallback('theme_reset_all_caches');
+$page->add($setting);
+
+// flashboxteachers setting.
+$name = 'theme_receptic/flashboxstudents';
+$title = get_string('flashboxstudents', 'theme_receptic');
+$description = get_string('flashboxstudents_desc', 'theme_receptic');
+$default = '';
+$setting = new admin_setting_confightmleditor($name, $title, $description, $default);
+$setting->set_updatedcallback('theme_receptic_reset_flashbox_students');
+$page->add($setting);
+
+// flashboxteacherstype setting.
+$name = 'theme_receptic/flashboxstudentstype';
+$title = get_string('flashboxstudentstype', 'theme_receptic');
+$description = get_string('flashboxstudentstype_desc', 'theme_receptic');
+$default = 'warning';
+$choices = [
+    'warning' => get_string('warning'),
+    'trick' => get_string('trick', 'theme_receptic'),
+    'info' => get_string('info')
+];
+
+$setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+//$setting->set_updatedcallback('theme_reset_all_caches');
+$page->add($setting);
+
+// Add settings page to the appearance settings category.
+$ADMIN->add('appearance', $page);

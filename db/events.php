@@ -151,4 +151,5 @@ $observers = array(
         'eventname' => '\core\event\course_viewed',
         'callback' => 'theme_receptic_observer::course_viewed'
     )
+
 );

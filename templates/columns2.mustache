@@ -81,8 +81,8 @@
 
         <div id="page-content" class="row">
             {{#hasblocks}}
-            <a href="#" class="toggleblocks hideblocks hidden-lg-down" title="Masquer les blocs"><i class="fa fa-chevron-right fa-lg"></i></a>
-            <a href="#" class="toggleblocks showblocks hidden-lg-down" title="Afficher les blocs"><i class="fa fa-chevron-left fa-lg"></i></a>
+            <!--<a href="#" class="toggleblocks hideblocks hidden-lg-down" title="Masquer les blocs"><i class="fa fa-chevron-right fa-lg"></i></a>
+            <a href="#" class="toggleblocks showblocks hidden-lg-down" title="Afficher les blocs"><i class="fa fa-chevron-left fa-lg"></i></a>-->
             {{/hasblocks}}
             <div id="region-main-box" class="col-xs-12">
                 {{#hasregionmainsettingsmenu}}
@@ -104,14 +104,24 @@
                     {{{ output.course_content_footer }}}
                     </div>
                 </section>
-                {{#hasblocks}}
-                <section data-region="blocks-column" class="hidden-print">
-                    {{{ sidepreblocks }}}
-                </section>
-                {{/hasblocks}}
+
             </div>
         </div>
     </div>
+    {{#hasblocks}}
+        <i id="sidepreopen-control"
+           aria-expanded="{{#draweropenright}}true{{/draweropenright}}{{^draweropenright}}false{{/draweropenright}}"
+           aria-controls="sidepre-blocks"
+           data-action="toggle-drawer"
+           data-side="right"
+           data-preference="sidepre-open"
+           title="{{#draweropenright}}{{#str}} hideblocks, theme_receptic {{/str}}{{/draweropenright}}{{^draweropenright}}{{#str}} showblocks, theme_receptic {{/str}}{{/draweropenright}}">
+        </i>
+        <section data-region="blocks-column" class="hidden-print">
+            {{{ sidepreblocks }}}
+        </section>
+
+    {{/hasblocks}}
     {{#shownavdrawer}}
     {{> theme_receptic/nav-drawer }}
     {{/shownavdrawer}}

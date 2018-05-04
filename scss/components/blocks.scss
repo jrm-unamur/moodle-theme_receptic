@@ -25,6 +25,10 @@
         display: none;
     }
 }
+#region-main-settings-menu.has-blocks,
+#region-main.has-blocks {
+    width: 100%;
+}
 
 // Add block button.
 .add_block_button {
@@ -240,5 +244,105 @@
 .block_settings {
     .block_tree .tree_item {
         margin: ($spacer/2) 0;
+    }
+}
+
+
+#sidepreopen-control,
+[data-region="blocks-column"] {
+    -webkit-transition: right .5s ease, left .5s ease;
+    -moz-transition: right .5s ease, left .5s ease;
+    -o-transition: right .5s ease, left .5s ease;
+    transition: right .5s ease, left .5s ease;
+
+    .dropdown-menu {
+        min-width: 245px;
+
+        .dropdown-item {
+            white-space: initial;
+        }
+    }
+
+    .card-block .content {
+        h3 {
+            font-size: 1.143rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-top: 1px dashed $headings-color;
+            padding-top: 4px;
+            margin-top: 10px;
+        }
+    }
+}
+
+#sidepreopen-control {
+    background-color: $brand-primary;
+    position: fixed;
+    right: -15px;
+    top: 150px;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 20px;
+    padding: .5rem 0 0 .6rem;
+    cursor: pointer;
+
+    &:before {
+        font-family: FontAwesome;
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        content: "\f053";
+    }
+
+    &:hover {
+        box-shadow: 0 0 6px $brand-primary;
+    }
+}
+
+body.editing #sidepreopen-control {
+    top: 190px;
+}
+
+body.editing.empty-region-side-pre.drawer-open-right #sidepreopen-control {
+    padding-left: 1rem;
+}
+
+[data-region="blocks-column"] {
+    width: 280px;
+
+    position: fixed;
+    top: 150px;
+    right: -280px;
+    height: calc(100% - 150px);
+    overflow-y: scroll;
+    z-index: 999;
+    padding-right: 2rem;
+}
+
+body.drawer-open-right {
+    #sidepreopen-control {
+        right: 265px;
+
+        &:before {
+            content: "\f054";
+        }
+    }
+
+    [data-region="blocks-column"] {
+        right: 0;
+
+        /*aside.block {
+            border: none;
+            border-radius: 0;
+            -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, .1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, .1);
+        }*/
     }
 }

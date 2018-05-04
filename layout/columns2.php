@@ -26,6 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 user_preference_allow_ajax_update('drawer-open-nav', PARAM_ALPHA);
 user_preference_allow_ajax_update('blocks-collapsed', PARAM_ALPHA);
+user_preference_allow_ajax_update('sidepre-open', PARAM_ALPHA);
 user_preference_allow_ajax_update('flashbox-teacher-hidden', PARAM_ALPHA);
 user_preference_allow_ajax_update('flashbox-student-hidden', PARAM_ALPHA);
 $context = $this->page->context;
@@ -58,9 +59,11 @@ if (isloggedin()) {
             && $shownavdrawer
             );
     $blockscollapsed = get_user_preferences('blocks-collapsed', 'false') == 'true';
+    $draweropenright = (get_user_preferences('sidepre-open', 'true') == 'true');
 } else {
     $navdraweropen = false;
     $blockscollapsed = true;
+    $draweropenright = false;
 }
 $extraclasses = [];
 
@@ -76,12 +79,18 @@ if ($navdraweropen) {
 }
 
 if ($blockscollapsed) {
-    $extraclasses[] = 'blocks-hidden';
+    //$extraclasses[] = 'blocks-hidden';
+}
+
+$blockshtml = $OUTPUT->blocks('side-pre');
+$hasblocks = (strpos($blockshtml, 'data-block=') !== false) || ($PAGE->user_is_editing() && strpos($this->page->pagetype, 'mod-' !== 0));
+
+if ($draweropenright && $hasblocks) {
+    $extraclasses[] = 'drawer-open-right';
 }
 
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
-$blockshtml = $OUTPUT->blocks('side-pre');
-$hasblocks = (strpos($blockshtml, 'data-block=') !== false) || $PAGE->user_is_editing();
+
 $regionmainsettingsmenu = $OUTPUT->region_main_settings_menu();
 $googlefonts = array(
     'Open+Sans:400,400italic,700,700italic,800,800italic',
@@ -101,6 +110,7 @@ $templatecontext = [
     'hasblocks' => $hasblocks,
     'bodyattributes' => $bodyattributes,
     'navdraweropen' => $navdraweropen,
+    'draweropenright' => $draweropenright,
     'regionmainsettingsmenu' => $regionmainsettingsmenu,
     'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu),
     'displaybrandbanner' => true,
