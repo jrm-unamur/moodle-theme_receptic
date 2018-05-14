@@ -22,7 +22,7 @@ body.editing .course-content {
             text-decoration: none;
         }
         .inplaceeditable .quickeditlink {
-            color: $brand-primary;
+            color: $primary;
         }
         &[aria-expanded="false"] {
             background-image: url([[pix:moodle|t/collapsed]]);
@@ -39,7 +39,7 @@ body.editing .course-content {
     }
     li.section {
         .sectionname {
-            color: $brand-primary;
+            color: $primary;
             &:hover {
                 text-decoration: underline;
             }
@@ -55,7 +55,7 @@ body.editing .course-content {
             .left {
                 padding: 0;
                 &.side {
-                    margin-top: .6rem;
+                    margin-top: .825rem;
                     span.section-handle > .icon {
                         margin-left: .5rem;
                     }
@@ -73,13 +73,13 @@ body.editing .course-content {
             &.hidden .sectionname > span {
                 margin-left: 0;
                 > span > a {
-                    color: $gray-light;
+                    color: $gray-600;
                 }
             }
             &.current {
-                background-color:  $gray-lightest;
+                background-color:  $gray-300;
                 filter: sepia(15%);
-                border-left: 2px solid $brand-primary;
+                border-left: 2px solid $primary;
                 &:before {
                     border: none;
                 }
@@ -91,10 +91,10 @@ body.editing .course-content {
             &:first-of-type:target {
                 margin-top: -30px !important;
             }
-            h3.sectionname {
-                font-size: 1.5rem;
+            .sectionname {
+                font-size: 1.3rem;
                 padding-top: 3px;
-                float: left;
+                /*float: left;*/
             }
             ul.section {
                 padding-left: 1rem;
@@ -128,11 +128,11 @@ body.editing .course-content {
         display:none;
     }
     .section-summary-activities .activity-count {
-        font-size: .875rem;
+        font-size: .750rem;
         margin: 3px;
         white-space: nowrap;
         display: inline-block;
-        color: $gray;
+        color: $gray-700;
     }
     a.sectiontoggle {
         float: left;
@@ -146,19 +146,19 @@ body.editing .course-content {
         font-family: $headings-font-family;
         &[aria-expanded="false"] {
             background-image: url([[pix:moodle|t/collapsed]]);
-            background-position: left 40%;
+            background-position: left 50%;
             padding-left: 1rem;
         }
         &[aria-expanded="true"] {
             background-image: url([[pix:moodle|t/expanded]]);
-            background-position: left 45%;
+            background-position: left 55%;
             padding-left: 1rem;
         }
         &:hover {
             text-decoration: none;
         }
         .sectionname {
-            padding-left: .3rem;
+
             &:hover {
                 text-decoration: underline;
             }
@@ -239,17 +239,17 @@ span.section_availability {
 span.availabilityinfo:before {
     font-family: FontAwesome;
     content: "";
-    color: $brand-danger;
+    color: $danger;
     padding-right: 5px;
     vertical-align: sub;
 }
 
 span.availabilityinfo .tag.tag-info {
     margin-top: .4rem;
-    background-color: $gray-lightest;
+    background-color: $gray-100;
     filter: sepia(15%);
     color: $body-color;
-    border: 2px solid $brand-primary;
+    border: 2px solid $primary;
     border-radius: 0;
     text-align: left;
 }
@@ -270,13 +270,13 @@ span.availabilityinfo .tag.tag-info {
 div.availabilityinfo:before {
     font-family: FontAwesome;
     content: "\f071";
-    color: $brand-danger;
+    color: $danger;
     padding-right: 5px;
 }
 
 .availability-connector .label {
     font-size: 14px;
-    background-color: $brand-primary;
+    background-color: $primary;
     margin: 4px;
     margin-left: 25px;
     padding-bottom: 5px;
@@ -354,7 +354,7 @@ img {
 }*/
 
 .dndupload-progress-inner {
-    background-color: $brand-primary;
+    background-color: $primary;
 }
 
 /*.dndupload-progress-outer {
@@ -381,3 +381,7 @@ img {
     -o-transition: width 0.6s ease;
     transition: width 0.6s ease;
 }*/
+
+.massaction-checkbox {
+    margin-top: .25rem;
+}

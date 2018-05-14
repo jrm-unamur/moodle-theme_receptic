@@ -15,11 +15,23 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    placeholder for template description. Ex: Page header.
+    Page header.
 }}
-<div class="popover-region nav-link editswitch">
-    <a href="{{{url}}}" class="switch" title="{{#str}}editmode, theme_receptic{{/str}}">
-        <span class="d-none d-md-flex">{{#str}}editmode, theme_receptic{{/str}}</span>
-        <i class="fa fa-edit d-flex d-md-none"></i>
+
+<header role="banner" class="fixed-top brand-banner d-none d-md-block">
+    {{#logoleft}}
+    <a href="{{{ config.wwwroot }}}/?redirect=0" class="left-logo">
+        <img src="{{output.get_left_logo_url}}" alt="{{sitename}}">
     </a>
-</div>
+    {{/logoleft}}
+    {{#logocenter}}
+        <a href="{{{ config.wwwroot }}}/?redirect=0" class="center-logo">
+            <img src="{{output.get_center_logo_url}}" alt="{{sitename}}">
+        </a>
+    {{/logocenter}}
+    {{#logoright}}
+    <a href="http://www.unamur.be" class="right-logo">
+        <img src="{{output.get_right_logo_url}}" alt="UNamur">
+    </a>
+    {{/logoright}}
+</header>

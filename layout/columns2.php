@@ -46,18 +46,8 @@ $this->page->requires->js_call_amd('theme_receptic/ux', 'init', array($params));
 $iscontextcourse = $context->contextlevel == CONTEXT_COURSE || $context->contextlevel == CONTEXT_MODULE;
 $params = new stdClass();
 
-if ($context->contextlevel == CONTEXT_SYSTEM) {
-    $shownavdrawer = true;
-} else if ($context->contextlevel == CONTEXT_USER || $this->page->course->id == SITEID) {
-    $shownavdrawer = true;
-} else {
-    $shownavdrawer = true;
-}
-$shownavdrawer = true;
 if (isloggedin()) {
-    $navdraweropen = (get_user_preferences('drawer-open-nav', 'true') == 'true'
-            && $shownavdrawer
-            );
+    $navdraweropen = (get_user_preferences('drawer-open-nav', 'true') == 'true');
     $blockscollapsed = get_user_preferences('blocks-collapsed', 'false') == 'true';
     $draweropenright = (get_user_preferences('sidepre-open', 'true') == 'true');
 } else {
@@ -115,7 +105,6 @@ $templatecontext = [
     'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu),
     'displaybrandbanner' => true,
     'googlefonts' => $googlefonts,
-    'shownavdrawer' => $shownavdrawer,
     'iscontextcourse' => $iscontextcourse,
     'shownavbar' => true,
     'logoleft' => $haslogoleft,

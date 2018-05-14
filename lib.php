@@ -31,7 +31,7 @@ function theme_receptic_get_pre_scss($theme) {
     $scss = '';
     $configurable = [
         // Config key => [scss variableName1, ...].
-        'brandcolor' => ['brand-primary'],
+        'brandcolor' => ['primary'],
     ];
 
     // Prepend variables first.
@@ -67,8 +67,10 @@ function theme_receptic_get_main_scss_content($theme) {
     $filename = !empty($theme->settings->preset) ? $theme->settings->preset : null;
     $fs = get_file_storage();
     $context = context_system::instance();
-
-    if ($filename == 'default.scss') {
+    if ($filename == 'unamur35.scss') {
+        $scss .= file_get_contents($CFG->dirroot . '/theme/receptic/scss/preset/unamur35.scss');
+    }
+    else if ($filename == 'default.scss') {
         $scss .= file_get_contents($CFG->dirroot . '/theme/boost/scss/preset/default.scss');
     } else if ($filename == 'plain.scss') {
         $scss .= file_get_contents($CFG->dirroot . '/theme/boost/scss/preset/plain.scss');
@@ -80,7 +82,7 @@ function theme_receptic_get_main_scss_content($theme) {
 
     // Add 2 scss file to the beginning and end of main.
     $pre = file_get_contents($CFG->dirroot . '/theme/receptic/scss/pre.scss');
-    $fa = file_get_contents($CFG->dirroot . '/theme/receptic/scss/fontawesome/font-awesome.scss');
+   // $fa = file_get_contents($CFG->dirroot . '/theme/receptic/scss/fontawesome/font-awesome.scss');
     $post = file_get_contents($CFG->dirroot . '/theme/receptic/scss/post.scss');
 
     return $pre . "\n" . $scss . "\n" . $post;

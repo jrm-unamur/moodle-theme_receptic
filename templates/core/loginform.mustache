@@ -94,9 +94,9 @@
 <div class="row">
     <div class="col-md-4 push-md-0 m-2-md col-sm-8 push-sm-2">
         <div class="card p-t-2">
-            <div class="card-block">
+            <div class="card-body">
                 <div class="row">
-                <div class="card-title text-xs-center text-md-left col-md-10 push-md-1">
+                <div class="card-title text-center text-md-left col-md-10 push-md-1">
                     <h2>{{#str}} login {{/str}}</h2>
                     <hr>
                 </div>
@@ -120,15 +120,15 @@
                             {{#hasidentityproviders}}
 
                                 <div class="potentialidplist connectbox" class="m-t-1">
-                                    <h4 class="m-t-1 text-xs-center">Etudiant ou membre du personnel de l'UNamur</h4>
+                                    <h4 class="m-t-1 text-center">Etudiant ou membre du personnel de l'UNamur</h4>
                                     {{#identityproviders}}
-                                        <div class="potentialidp text-sm-center">
+                                        <div class="potentialidp text-center">
                                             <a href="{{url}}" title={{#quote}}Me connecter{{/quote}}>
                                                 <i class="fa fa-sign-in" style="font-size:3rem;"></i>
                                             </a>
                                         </div>
                                     {{/identityproviders}}
-                                    <h4 class="m-t-1 text-xs-center">Cliquez sur l'icône ci-dessus</h4>
+                                    <h4 class="m-t-1 text-center">Cliquez sur l'icône ci-dessus</h4>
                                 </div>
                                 <!--<h4 class="m-t-10" style="margin-top:10rem;">Utilisateur extérieur</h4>-->
                                 <div id="accordion" role="tablist" aria-multiselectable="true">
@@ -142,7 +142,7 @@
                                         </div>
 
                                         <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
-                                            <div class="card-block">
+                                            <div class="card-body">
                                                 <label for="username" class="sr-only">
                                                     {{^canloginbyemail}}
                                                         {{#str}} username {{/str}}
@@ -167,7 +167,7 @@
                                                            class="form-control"
                                                             placeholder={{#quote}}{{#str}}password{{/str}}{{/quote}}>
                                                 </div>
-                                                <div class="text-sm-center">
+                                                <div class="text-center">
                                                     <button type="submit" class="btn btn-primary m-t-1" id="loginbtn">{{#str}}login{{/str}}</button>
                                                 </div>
                                             </div></div></div></div>
@@ -203,14 +203,14 @@
                                         <label for="rememberusername">{{#str}} rememberusername, admin {{/str}}</label>
                                     </div>
                                 {{/rememberusername}}
-                                <div class="text-sm-center">
+                                <div class="text-center">
                                     <button type="submit" class="btn btn-primary m-t-1" id="loginbtn">{{#str}}login{{/str}}</button>
                                 </div>
                             {{/hasidentityproviders}}
 
                         </form>
                         {{#cansignup}}
-                            <form class="text-sm-center m-t-1" action="{{signupurl}}" method="get" id="signup">
+                            <form class="text-center m-t-1" action="{{signupurl}}" method="get" id="signup">
                                 <button type="submit" class="btn btn-secondary">{{#str}}startsignup{{/str}}</button>
                             </form>
                         {{/cansignup}}
@@ -229,7 +229,7 @@
                                 <form action="{{loginurl}}" method="post" id="guestlogin">
                                     <input type="hidden" name="username" value="guest" />
                                     <input type="hidden" name="password" value="guest" />
-                                    <div class="text-sm-center">
+                                    <div class="text-center">
                                     <button class="btn btn-secondary" type="submit">{{#str}}loginguest{{/str}}</button>
                                     </div>
                                 </form>
@@ -251,7 +251,7 @@
     {{#hasinstructions}}
         <div class="col-md-8 push-md-0 m-2-md col-sm-8 push-sm-2">
             <div class="card welcome-panel">
-                <div class="card-block">
+                <div class="card-body">
 
                     <div>
                         {{{instructions}}}

@@ -13,11 +13,11 @@
     margin-top: .5rem;
 }
 
-#region-main .card.card-block {
+.path-my #region-main > .card {
     box-shadow: 1px 2px 3px 0 #ccc;
 }
 
-.path-my #region-main .card.card-block {
+.path-my #region-main .card .card-body {
     padding: 1rem;
     min-height: 0;
     .car-block {
@@ -42,14 +42,14 @@
     border-radius: 0;
     box-shadow: 0 3px 9px rgba(0,0,0,0.5);
     border-style: solid;
-    border-color: $gray;
+    border-color: $gray-700;
     border-width: 0 0 0 6px;
 }
 
 .moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd,
 .moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd.yui3-widget-hd,
 .user-enroller-panel .uep-wrap .uep-header {
-    color: $brand-success;
+    color: $success;
     font-family: $headings-font-family;
     text-align: center;
 }
@@ -64,7 +64,7 @@
 .user-enroller-panel .uep-header .close:after {
     font-family: FontAwesome;
     content: "\f00d";
-    color: $brand-primary;
+    color: $primary;
 }
 
 .user-enroller-panel .uep-header .close {
@@ -140,7 +140,7 @@ h2 .help-icon:before {
 .help-icon:focus,
 .help-icon:focus:before {
     text-decoration: none;
-    color: $brand-success;
+    color: $success;
     outline: none;
 }
 
@@ -153,7 +153,7 @@ ul {
 }
 
 div.editor_atto_toolbar button .icon {
-    color: $gray;
+    color: $gray-700;
 }
 
 .media-left {
@@ -187,13 +187,13 @@ div.editor_atto_toolbar button .icon {
     #accordion {
         margin-top:5rem;
         .card {
-            border-color: $gray-light;
+            border-color: $gray-600;
         }
         .card-header {
             background-color:white;
             border:none;
         }
-        .card-block {
+        .card-body {
             padding-top: 0;
             .input-group-username {
                 margin-top: 1rem;
@@ -221,12 +221,12 @@ div.editor_atto_toolbar button .icon {
 
 .connectbox {
     padding: 0.5rem;
-    border: 3px solid $brand-success;
+    border: 3px solid $success;
 }
 
-$footer-link-color: $brand-primary !default;
+$footer-link-color: $primary !default;
 #page-footer a {
-    color: $brand-primary;
+    color: $primary;
     text-decoration: none;
 }
 

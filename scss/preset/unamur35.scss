@@ -7,20 +7,74 @@
 
 // Colors
 $white:                     #fff !default;
-$red:                       #d9534f !default;
 
-$gray-dark:                 #494949 !default;
-$gray:                      #696969 !default;
-$gray-light:                #898989 !default;
-$gray-lighter:              #c9c9c9 !default;
-$gray-lightest:             #f1f1f1 !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #373a3c !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
 
-$brand-primary:             #1a9e9f !default;
-$brand-info:                #ad53b2 !default;
-$brand-success:             #55ab26 !default;
-$brand-warning:             #ff8800 !default;
-$brand-danger:              #ff4136 !default;
-$brand-inverse:             $gray-dark !default;
+$blue:    #1177d1 !default;
+$indigo:  #6610f2 !default;
+$purple:  #613d7c !default;
+$pink:    #e83e8c !default;
+$red:     #d9534f !default;
+$orange:  #f0ad4e !default;
+$yellow:  #ff7518 !default;
+$green:   #5cb85c !default;
+$teal:    #20c997 !default;
+$cyan:    #5bc0de !default;
+
+$primary:       #1a9e9f !default;
+$secondary:     $gray-800 !default;
+$info:          #ad53b2 !default;
+$success:       #55ab26 !default;
+$warning:       #ff8800 !default;
+$danger:        #ff4136 !default;
+$light:         $gray-100 !default;
+$dark:          $gray-800 !default;
+
+// Options
+$enable-rounded: false !default;
+
+// Body
+$body-bg:    #f4f4f4 !default;
+$body-color: $gray-800 !default;
+
+// Fonts
+$font-size-base: 0.875rem !default;
+$headings-font-weight:   300 !default;
+$font-family-sans-serif: "Roboto", "Open Sans", sans-serif !default;
+$headings-font-family: "Roboto Condensed", "Roboto", "Open Sans", sans-serif !default;
+
+// Breadcrumbs
+$breadcrumb-padding-y:              .25rem !default;
+$breadcrumb-padding-x:              0 !default;
+$breadcrumb-item-padding:           .5rem !default;
+$breadcrumb-margin-bottom:          0 !default;
+$breadcrumb-bg:                     transparent !default;
+$breadcrumb-divider: "/" !default;
+$breadcrumb-divider-rtl: "/" !default;
+
+// Alerts
+$alert-border-width:                0 !default;
+
+$theme-colors: (
+    primary: $primary,
+    secondary: $secondary,
+    success: $success,
+    info: $info,
+    warning: $warning,
+    danger: $danger,
+    light: $gray-100,
+    dark: $gray-800
+);
+
 $navbar-height:             50px !default;
 
 // Spacing
@@ -29,27 +83,16 @@ $spacer-x: $spacer !default;
 $spacer-y: $spacer !default;
 $border-width: 1px !default;
 
-// Body
-$body-bg:    #f4f4f4 !default;
-$body-color: #3a3a3a !default;
-
 // Links
-$link-color: $brand-primary !default;
-$link-hover-color: $brand-success !default;
-
-// Typography
-//$font-family-sans-serif: "Open Sans", "Helvetica Neue", Arial, sans-serif !default;
-$font-family-sans-serif: "Roboto", "Open Sans", sans-serif !default;
-$font-size-root: 14px !default;
-
-$headings-font-family: "Roboto Condensed", "Roboto", "Open Sans", sans-serif !default;
+$link-color: $primary !default;
+$link-hover-color: $success !default;
 
 // Tables
 $table-bg:                      transparent !default;
 $table-bg-accent:               #fafafa !default;
-$table-bg-hover:                $gray-lightest;
+$table-bg-hover:                $gray-300;
 $table-bg-active:               $table-bg-hover !default;
-$table-border-color:            $gray-lightest !default;
+$table-border-color:            $gray-300 !default;
 
 // Dropdowns
 $dropdown-border-color:          #e2e2e2 !default;
@@ -57,21 +100,24 @@ $dropdown-link-color:            rgba(0, 0, 0, .535) !default;
 
 // Navbar
 $navbar-light-color:                rgba(0, 0, 0, .535) !default;
-$navbar-light-hover-color:          $brand-primary !default;
-$navbar-light-active-color:         $brand-primary !default;
+$navbar-light-hover-color:          $primary !default;
+$navbar-light-active-color:         $primary !default;
 
 // Cards
 $card-border-radius:       0 !default;
-$card-border-color:        $gray-lightest !default;
-
-// Breadcrumbs
-$breadcrumb-bg:                 transparent !default;
-$breadcrumb-padding-x:          0 !default;
-$breadcrumb-divider: "/" !default;
-$breadcrumb-divider-rtl: "/" !default;
+$card-border-color:        $gray-300 !default;
 
 // Blocks
 $blocks-column-width : 260px !default;
+
+// Import FontAwesome.
+@import "fontawesome";
+
+// Import All of Bootstrap
+@import "bootstrap";
+
+// Import Core moodle CSS
+@import "moodle";
 
 // Import everything.
 @import "main";
@@ -80,8 +126,9 @@ $blocks-column-width : 260px !default;
  * Brand banner and logos.
  */
 
+
 .brand-banner {
-    background: linear-gradient(to bottom, $gray-lightest 0%, $gray-lightest 30%,darken(#DC143C,5%) 31%, lighten(#ff0000,5%) 95%);
+    background: linear-gradient(to bottom, $gray-lightest 0%, $gray-lightest 30%,darken($link-hover-color,5%) 31%, lighten($link-hover-color,5%) 95%);
     height: 80px;
 
     img {
@@ -93,7 +140,7 @@ $blocks-column-width : 260px !default;
         top: 10px;
         left: 15px;
         height: 55px;
-        box-shadow: 4px 4px 15px $gray;
+        box-shadow: 4px 4px 15px $gray-700;
     }
 
     .right-logo {
@@ -101,7 +148,7 @@ $blocks-column-width : 260px !default;
         top: 10px;
         right: 15px;
         height: 55px;
-        box-shadow: 4px 4px 15px $gray;
+        box-shadow: 4px 4px 15px $gray-700;
     }
 }
 
@@ -116,7 +163,7 @@ $blocks-column-width : 260px !default;
 
 @media (min-width: 768px) {
     #page {
-        margin-top: 129px;
+        margin-top: 125px;
     }
     body.path-login #page {
         margin-top: 115px;
@@ -135,7 +182,7 @@ $blocks-column-width : 260px !default;
  */
 .navbar-receptic {
     background-color: $white;
-    background-image: linear-gradient(to bottom, $gray 0%, $gray-dark 100%);
+    background-image: linear-gradient(to bottom, $gray-700 0%, $gray-800 100%);
 
     .container {
         padding-left: 0;
@@ -144,13 +191,13 @@ $blocks-column-width : 260px !default;
 
     a {
         color: $white;
-        @include hover-focus {
-            color: $gray-lighter;
+        &:hover, &:focus {
+            color: $gray-500;
         }
         &.dropdown-item {
-            color: $gray-dark;
+            color: $gray-800;
             @include hover-focus {
-                color: $gray;
+                color: $gray-700;
             }
         }
     }
@@ -159,43 +206,52 @@ $blocks-column-width : 260px !default;
     }
 
     .dropdown-item a {
-        color: $gray-dark;
+        color: $gray-800;
         &:hover, &:focus {
-            color: $gray;
+            color: $gray-700;
         }
         .icon:before {
-            color: $gray-dark;
+            color: $gray-800;
             &:hover, &:focus {
-                color: $gray;
+                color: $gray-700;
             }
         }
     }
 
-    .navbar-nav {
+    //.navbar-nav {
         .nav-item + .nav-item {
-            margin-left: $spacer * 2;
+            margin-left: $spacer;
+            margin-right: $spacer;
+            .userbutton {
+                .avatars {
+                    img {
+                        margin-right: 0;
+                    }
+                }
+                margin-left: .5rem;
+            }
         }
         .nav-link {
-            font-size: $font-size-root;
+            font-size: $font-size-base;
             text-transform: inherit;
             letter-spacing: normal;
             color: $white;
-            @include hover-focus {
-                color: $gray-lighter;
+            &:hover, &:focus {
+                color: $gray-500;
             }
         }
         [data-region="drawer-toggle"] {
             .btn-secondary {
                 color: $white;
-                background-color: $gray-dark;
-                border-color: $gray-light;
+                background-color: $gray-600;
+                border-color: $gray-700;
                 border-radius: .25rem;
-                @include hover-focus {
-                    color: $gray-lighter;
+                &:hover, &:focus {
+                    opacity: .5;
                 }
             }
         }
-    }
+    //}
 
     .navbar-divider {
          background-color: rgba(255,255,255,.075);
@@ -225,7 +281,7 @@ $blocks-column-width : 260px !default;
  */
 a .icon,
 span .icon {
-    color: $gray;
+    color: $gray-700;
 }
 
 /**
@@ -236,15 +292,15 @@ span .icon {
 }
 .btn-secondary, .btn-default {
     color: #fff;
-    background-color: $gray;
-    border-color: $gray;
+    background-color: $gray-700;
+    border-color: $gray-700;
 }
 
 .btn-secondary:hover, .btn-default:hover,
 .btn-secondary:active, .btn-default:active,
 .btn-secondary:focus, .btn-default:focus {
-    background-color: $gray-dark;
-    border-color: $gray-dark;
+    background-color: $gray-800;
+    border-color: $gray-800;
     color:#fff;
 }
 
@@ -270,29 +326,29 @@ input[type=submit] {
 
 input[type=submit].btn-secondary {
     color: #fff;
-    background-color: $gray;
-    border-color: $gray;
+    background-color: $gray-700;
+    border-color: $gray-700;
 }
 
 input[type=submit].btn-secondary:hover {
     color: #fff;
-    background-color: $gray-dark;
-    border-color: $gray-dark;
+    background-color: $gray-800;
+    border-color: $gray-800;
 }
 
 input[type=submit]:disabled {
-    cursor: $cursor-disabled;
+    /*cursor: $cursor-disabled;*/
     opacity: .65;
 }
 
 input[type=submit]:disabled:hover {
-    background-color: $brand-primary;
-    border-color: $brand-primary;
+    background-color: $primary;
+    border-color: $primary;
 }
 
 input[type=submit].btn-secondary:disabled:hover {
-    background-color: $gray;
-    border-color: $gray;
+    background-color: $gray-700;
+    border-color: $gray-700;
 }
 
 .buttons {
@@ -346,7 +402,7 @@ input[type=submit].btn-secondary:disabled:hover {
  * For background in content areas.
  */
 #page.container-fluid {
-    padding: 0 (2 * $spacer);
+    padding: 0 (1.5 * $spacer);
 }
 
 #block-region-side-pre {
@@ -362,7 +418,23 @@ input[type=submit].btn-secondary:disabled:hover {
         border: 0;
         padding: 0;
     }
+    .nav-pills {
+        .nav-item {
+            background-color: $gray-200;
+            .active {
+                background-color: $primary;
+            }
+        }
+
+
+
+    }
+    .block-myoverview .pagination {
+        justify-content: center;
+    }
 }
+
+
 
 /**
  * Form styles.
@@ -382,9 +454,10 @@ input[type=submit].btn-secondary:disabled:hover {
 body {
     // Edition mode toggle.
     .switch {
-        &:after {
+        span:after {
             color: $red;
             content: "OFF";
+            padding-left: .5rem;
         }
         i {
             color: $red;
@@ -400,12 +473,12 @@ body {
     &.editing {
         // Edition mode toggle.
         .switch {
-            &:after {
-                color: $brand-success;
+            span:after {
+                color: $success;
                 content: "ON";
             }
             i {
-                color: $brand-success;
+                color: $success;
             }
         }
         // Toggle blocks
@@ -415,7 +488,7 @@ body {
     }
     .popover-region.nav-link.editswitch,
     .popover-region.nav-link.call911 {
-        margin-right: 1.5rem;
+        /*margin-right: 1.5rem;*/
         .fa {
             font-size: larger;
         }
@@ -481,7 +554,7 @@ body {
 
 .usertour {
     @extend .container;
-    @extend .text-sm-center;
+    @extend .text-center;
 }
 
 .fitem .initialism i {
@@ -499,3 +572,16 @@ abbr[title] {
     height:20px
 }
 
+//restored variables from moodle 34
+$input-bg-disabled:              $gray-500 !default;
+$input-disabled-bg:              $gray-500 !default;
+
+.in-drawer .redball-count {
+    border-radius: 50%;
+    background-color: crimson;
+    color: white;
+    width: 1.1rem;
+    height: 1.1rem;
+    font-size: .625rem;
+    padding: 1px 0 0 5px;
+}

@@ -92,10 +92,25 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
             }
         }
 
-            //print_object($userorangeballs);die();
-        foreach ($data['coursesview']['inprogress']['pages'] as $page) {
-            $courses = $page['courses'];
-            foreach ($courses as &$course) {
+        $courselist = array();
+        if (isset($data['coursesview']['inprogress'])) {
+            foreach ($data['coursesview']['inprogress']['pages'] as $page) {
+                $courselist = array_merge($courselist, $page['courses']);
+            }
+        }
+        if (isset($data['coursesview']['future'])) {
+            foreach ($data['coursesview']['future']['pages'] as $page) {
+                $courselist = array_merge($courselist, $page['courses']);
+            }
+        }
+        if (isset($data['coursesview']['past'])) {
+            foreach ($data['coursesview']['past']['pages'] as $page) {
+                $courselist = array_merge($courselist, $page['courses']);
+            }
+        }
+
+        if (!empty($courselist)) {
+            foreach ($courselist as &$course) {
                 $coursecontext = context_course::instance($course->id);
                 if (has_capability('moodle/course:update', $coursecontext)) {
                     $course->allowtogglevisibility = true;
@@ -125,7 +140,9 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                         if ($cm->uservisible && !$cm->is_stealth() && in_array($cm->id, $newitemsforuser)) {
                             $visiblereditems[] = $cm->id;
                         }
-                        if ($orangeballsactivated && $cm->uservisible && !$cm->is_stealth() && in_array($cm->id, $updateditemsforuser) && !in_array($cm->id, $newitemsforuser)) {
+                        if ($orangeballsactivated && $cm->uservisible && !$cm->is_stealth() && in_array($cm->id,
+                                $updateditemsforuser) && !in_array($cm->id, $newitemsforuser)
+                        ) {
                             $visibleorangeitems[] = $cm->id;
                         }
                     }
@@ -137,7 +154,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                                FROM {course_modules}
                               WHERE course = :course
                                 AND id IN (" . implode(',', $visibleorangeitems) . ")",
-                            array( 'course' => $course->id )
+                            array('course' => $course->id)
                         );
                     }
                     $course->updateditemscount = $orangecount;
@@ -150,7 +167,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                                FROM {course_modules}
                               WHERE course = :course
                                 AND id IN (" . implode(',', $visiblereditems) . ")",
-                            array( 'course' => $course->id )
+                            array('course' => $course->id)
                         );
                     }
 
@@ -178,7 +195,99 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                 }
 
             }
+        }
+            //print_object($userorangeballs);die();
+        /*if (isset($data['coursesview']['inprogress'])) {
+            foreach ($data['coursesview']['inprogress']['pages'] as $page) {
+                $courses = $page['courses'];
 
+                foreach ($courses as &$course) {
+                    $coursecontext = context_course::instance($course->id);
+                    if (has_capability('moodle/course:update', $coursecontext)) {
+                        $course->allowtogglevisibility = true;
+                        $course->togglevisibilityurl = $CFG->wwwroot . '/theme/receptic/utils.php';
+                        $course->sesskey = sesskey();
+                    }
+                    if ($redballsactivated) {
+
+                        $visiblereditems = array();
+                        $newitemsforcourse = theme_receptic_get_redballs($course, $starttime);
+
+                        $newitemsforuser = array_merge($newitemsforuser, $newitemsforcourse);
+
+                        $newitemsforuser = array_unique($newitemsforuser);
+
+                        if ($orangeballsactivated) {
+                            $visibleorangeitems = array();
+                            $updateditemsforcourse = theme_receptic_get_orangeballs($course, $starttime);
+                            //print_object($updateditemsforcourse);
+                            $updateditemsforuser = array_merge($updateditemsforuser, $updateditemsforcourse);
+                            $updateditemsforuser = array_unique($updateditemsforuser);
+                        }
+
+                        $modinfo = get_fast_modinfo($course);
+
+                        foreach ($modinfo->cms as $cm) {
+                            if ($cm->uservisible && !$cm->is_stealth() && in_array($cm->id, $newitemsforuser)) {
+                                $visiblereditems[] = $cm->id;
+                            }
+                            if ($orangeballsactivated && $cm->uservisible && !$cm->is_stealth() && in_array($cm->id,
+                                    $updateditemsforuser) && !in_array($cm->id, $newitemsforuser)
+                            ) {
+                                $visibleorangeitems[] = $cm->id;
+                            }
+                        }
+
+                        $orangecount = 0;
+                        if (!empty($visibleorangeitems)) {
+                            $orangecount = $DB->count_records_sql(
+                                "SELECT COUNT(*)
+                               FROM {course_modules}
+                              WHERE course = :course
+                                AND id IN (" . implode(',', $visibleorangeitems) . ")",
+                                array('course' => $course->id)
+                            );
+                        }
+                        $course->updateditemscount = $orangecount;
+                        $course->orangeballscountclass = $orangecount > 9 ? 'high' : '';
+
+                        $count = 0;
+                        if (!empty($visiblereditems)) {
+                            $count = $DB->count_records_sql(
+                                "SELECT COUNT(*)
+                               FROM {course_modules}
+                              WHERE course = :course
+                                AND id IN (" . implode(',', $visiblereditems) . ")",
+                                array('course' => $course->id)
+                            );
+                        }
+
+                        $course->newitemscount = $count;
+                        $course->redballscountclass = $count > 9 ? 'high' : '';
+                        if ($orangecount > 9 && $count <= 9) {
+                            $course->redballscountclass = 'lower';
+                        } else if ($orangecount <= 9 && $count > 9) {
+                            $course->orangeballscountclass = 'lower';
+                        }
+
+                    }
+
+                    $instances = enrol_get_instances($course->id, true);
+                    foreach ($instances as $instance) { // Need to check enrolment methods for self enrol.
+                        $plugin = $plugins[$instance->enrol];
+                        if (is_enrolled(context_course::instance($course->id))) {
+                            $unenrolurl = $plugin->get_unenrolself_link($instance);
+                            if ($unenrolurl) {
+                                $course->unenrolurl = $unenrolurl->out();
+                                break;
+                            }
+                        }
+                        //print_object($course);die();
+                    }
+
+                }
+
+            }
         }
 
         if (empty($data['coursesview']['inprogress']) && !empty($data['coursesview']['future']['pages'])) {
@@ -198,6 +307,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                         $newitemsforuser = array_merge($newitemsforuser, $newitemsforcourse);
                         $newitemsforuser = array_unique($newitemsforuser);
 
+                        $modinfo = get_fast_modinfo($course);
                         foreach ($modinfo->cms as $cm) {
                             if ($cm->uservisible and in_array($cm->id, $newitemsforuser)) {
                                 $visiblereditems[] = $cm->id;
@@ -245,6 +355,8 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                         $newitemsforuser = array_merge($newitemsforuser, $newitemsforcourse);
                         $newitemsforuser = array_unique($newitemsforuser);
 
+
+                        $modinfo = get_fast_modinfo($course);
                         foreach ($modinfo->cms as $cm) {
                             if ($cm->uservisible and in_array($cm->id, $newitemsforuser)) {
                                 $visiblereditems[] = $cm->id;
@@ -280,7 +392,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                     }
                 }
             }
-        }
+        }*/
 
         if (!empty($data['coursesview']['future']) || !empty($data['coursesview']['past'])) {
             $data['displaytabs'] = true;
@@ -297,7 +409,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
         return $this->render_from_template('block_myoverview/main-alt', $data);
     }}
 
-    public function get_redballs($course, $starttime) {
+    /*public function get_redballs($course, $starttime) {
         global $DB, $USER;
 
         $count = 0;
@@ -418,9 +530,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
             'create' => 'c',
             'modlabelid' => $modlabelid
         ));
-//print_object($query);
-//        print_object($starttime);
-//print_object($records);
+
         $alreadytested = array();
         $redcmids = array();
         foreach ($records as $record) {
@@ -566,5 +676,48 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
             }
         }
         return $redcmids;
-    }
+    }*/
+    /*public function get_extra_data_for_course(&$course, $withredballs, $withorangeballs) {
+
+        if ($redballsactivated) {
+            $visiblereditems = array();
+            $newitemsforcourse = theme_receptic_get_redballs($course, $starttime);
+
+            $newitemsforuser = array_merge($newitemsforuser, $newitemsforcourse);
+            $newitemsforuser = array_unique($newitemsforuser);
+
+            $modinfo = get_fast_modinfo($course);
+            foreach ($modinfo->cms as $cm) {
+                if ($cm->uservisible and in_array($cm->id, $newitemsforuser)) {
+                    $visiblereditems[] = $cm->id;
+                }
+            }
+
+            $count = 0;
+            if (!empty($visiblereditems)) {
+                $count = $DB->count_records_sql(
+                    "SELECT COUNT(*)
+                               FROM {course_modules}
+                              WHERE course = :course
+                                AND id IN (" . implode(',', $visiblereditems) . ")",
+                    array( 'course' => $course->id )
+                );
+            }
+            $course->newitemscount = $count;
+            $course->redballcountclass = $count > 9 ? 'high' : '';
+        }
+        $plugins = enrol_get_plugins(true);
+        $instances = enrol_get_instances($course->id, true);
+        foreach ($instances as $instance) { // Need to check enrolment methods for self enrol.
+            $plugin = $plugins[$instance->enrol];
+            if (is_enrolled(context_course::instance($course->id))) {
+                $unenrolurl = $plugin->get_unenrolself_link($instance);
+                if ($unenrolurl) {
+                    $course->unenrolurl = $unenrolurl->out();
+                    break;
+                }
+
+            }
+        }
+    }*/
 }

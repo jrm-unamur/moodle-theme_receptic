@@ -15,11 +15,15 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    placeholder for template description. Ex: Page header.
+    Page header.
 }}
-<div class="popover-region nav-link editswitch">
-    <a href="{{{url}}}" class="switch" title="{{#str}}editmode, theme_receptic{{/str}}">
-        <span class="d-none d-md-flex">{{#str}}editmode, theme_receptic{{/str}}</span>
-        <i class="fa fa-edit d-flex d-md-none"></i>
-    </a>
-</div>
+{{{ output.doctype }}}
+<html {{{ output.htmlattributes }}}>
+<head>
+    <title>{{{ output.page_title }}}</title>
+    <link rel="shortcut icon" href="{{{ output.favicon }}}" />
+    {{#googlefonts}}<link rel="stylesheet" href="https://fonts.googleapis.com/css?family={{{.}}}" type="text/css">{{/googlefonts}}
+    {{{ output.standard_head_html }}}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>

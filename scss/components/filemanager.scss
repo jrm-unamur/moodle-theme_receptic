@@ -11,17 +11,17 @@
 .fp-toolbar .btn-secondary,
 .fp-viewbar .btn-secondary {
     background-color: $white;
-    border-color: $gray-lighter;
+    border-color: $gray-500;
 }
 
 .fp-viewbar:not(.disabled) a.checked {
-    background-color: $gray-lighter;
-    border-color: $gray-lighter;
+    background-color: $gray-500;
+    border-color: $gray-500;
 }
 
 .fp-toolbar .btn-secondary:hover,
 .fp-viewbar .btn-secondary:hover {
-    background-color: $gray-lighter;
+    background-color: $gray-500;
 }
 
 :focus {

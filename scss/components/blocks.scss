@@ -45,52 +45,54 @@
 .block-region .block {
     border-style: solid;
     border-width: 0 0 0 6px;
-    border-color: $gray;
+    border-color: $gray-700;
 
-    .card-block {
-        box-shadow: 1px 2px 3px 0 $gray-lighter;
+    .card-body {
+        box-shadow: 1px 2px 3px 0 $gray-500;
         padding: 1rem .5rem;
 
         .block-control-actions {
             padding-right: 0.5rem;
         }
         .card-title {
-            border-bottom: 1px solid $gray-lighter;
-            color: $brand-success;
-            font-size: 1.3rem;
+            border-bottom: 1px solid $gray-400;
+            color: $success;
+            font-size: 1.1rem;
             text-transform: none;
             font-weight: 500;
             padding-bottom: ($spacer/2);
-            padding-left: .5rem;
+            margin-left: .5rem;
+            margin-right: .5rem;
+            /*padding-left: .5rem;*/
         }
         .card-title:before {
             font-family: FontAwesome;
             font-size: 1rem;
-            color: $gray;
+            color: $gray-700;
             margin-right: 0.5rem;
             text-align: center;
-            float: left;
+            /*float: left;*/
             padding-top: .2rem;
         }
-        h3:before {
+        h5:before {
             font-family: FontAwesome;
         }
         .content {
             padding: 4px 1rem;
-            h3:before {
+            h5:before {
                 content: "";
             }
         }
     }
     &.block_myoverview {
         border: none;
-        .card-block {
+        .card-body {
             box-shadow: none;
             .course-info-container {
                 padding: .75rem 1rem;
             }
         }
-        h3:before {
+        h5:before {
             content: "\f1e5";
         }
         .list-group-item:first-child {
@@ -115,72 +117,72 @@
             border: 1px solid #ddd;
         }
     }
-    &.block_calendar_month h3:before,
-    &.block_calendar_upcoming h3:before {
+    &.block_calendar_month h5:before,
+    &.block_calendar_upcoming h5:before {
         content: "\f073";
     }
 
-    &.block_recent_activity h3:before {
+    &.block_recent_activity h5:before {
         content: "\f017";
     }
 
-    &.block_settings h3:before {
+    &.block_settings h5:before {
         content: "\f085";
     }
 
-    &.block_glossary_random h3:before {
+    &.block_glossary_random h5:before {
         content: "\f15d";
     }
 
-    &.block_login h3:before {
+    &.block_login h5:before {
         content: "\f090";
     }
 
-    &.block_news_items h3:before {
+    &.block_news_items h5:before {
         content: "\f0a1";
     }
 
-    &.block_private_files h3:before {
+    &.block_private_files h5:before {
         content: "\f07b";
     }
 
-    &.block_admin_bookmarks h3:before {
+    &.block_admin_bookmarks h5:before {
         content: "\f02e";
     }
 
-    &.block_messages h3:before {
+    &.block_messages h5:before {
         content: "\f0e0";
     }
 
-    &.block_navigation h3:before {
+    &.block_navigation h5:before {
         content: "\f0e8";
     }
 
-    &.block_participants h3:before {
+    &.block_participants h5:before {
         content: "\f0c0";
     }
 
-    &.block_search_forums h3:before {
+    &.block_search_forums h5:before {
         content: "\f0e6";
     }
 
-    &.block_activity_results h3:before {
+    &.block_activity_results h5:before {
         content: "\f080";
     }
 
-    &.block_online_users h3:before {
+    &.block_online_users h5:before {
         content: "\f1eb";
     }
 
-    &.block_course_overview h3:before {
+    &.block_course_overview h5:before {
         content: "\f19d";
     }
 
-    &.block_mycobraglossary h3:before {
+    &.block_mycobraglossary h5:before {
         content: "\f15d";
     }
 
-    &.block_theme_selector h3:before {
+    &.block_theme_selector h5:before {
         content: "\f1fc";
     }
     .minicalendarblock {
@@ -192,16 +194,16 @@
 
     .minicalendar, .minicalendarblock .minicalendar.calendartable {
         td {
-            border: 1px solid $gray-lighter;
+            border: 1px solid $gray-500;
         }
         .content {
             padding: 4px 0.5rem;
         }
         th > abbr[title]{
-            border-bottom: 1px solid $gray-lighter;
+            border-bottom: 1px solid $gray-500;
         }
         td:nth-child(even) {
-            background-color: $gray-lightest;
+            background-color: $gray-300;
             &.calendar_event_course {
                 background-color: $calendarEventCourseColor;
             }
@@ -217,20 +219,20 @@
         }
 
         td.today {
-            background-color: $gray-dark;
+            background-color: $gray-800;
             color: $white;
             a {
                 color: $white;
                 font-weight: bold;
             }
             .calendar-event-panel {
-                color: $gray-dark;
+                color: $gray-800;
             }
         }
     }
     .calendar-event-panel {
-        background-color: $gray-lightest;
-        border: 1px solid $gray-lighter;
+        background-color: $gray-300;
+        border: 1px solid $gray-500;
         .yui3-overlay-content {
             margin-bottom: 0;
         }
@@ -263,7 +265,7 @@
         }
     }
 
-    .card-block .content {
+    .card-body .content {
         h3 {
             font-size: 1.143rem;
             font-weight: 600;
@@ -276,7 +278,7 @@
 }
 
 #sidepreopen-control {
-    background-color: $brand-primary;
+    background-color: $primary;
     position: fixed;
     right: -15px;
     top: 150px;
@@ -302,7 +304,7 @@
     }
 
     &:hover {
-        box-shadow: 0 0 6px $brand-primary;
+        box-shadow: 0 0 6px $primary;
     }
 }
 

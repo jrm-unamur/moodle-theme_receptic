@@ -26,7 +26,7 @@
 }
 
 .atto_form button {
-    @extend .btn-primary;
+    /*@extend .btn-primary;*/
     margin-top: .5rem;
 }
 
@@ -35,7 +35,7 @@
 }
 
 select.atto_generico_field {
-    @extend .custom-select;
+    /*@extend .custom-select;*/
     margin-left: .5rem;
 }
 
@@ -43,14 +43,15 @@ select.atto_generico_field {
     position: relative;
     bottom: 3px;
     border-radius: 50%;
-    width: 10px;
-    height: 10px;
-    /*padding: 2px 5px;*/
     padding: 4px 7px;
     background-color: crimson;
-    color: white;
+    color: white !important;
     font-size: 10px;
     margin-left: 3px;
+}
+
+.redball-count.in-drawer {
+    line-height: 12px;
 }
 
 .orangeball-count {
@@ -74,7 +75,7 @@ select.atto_generico_field {
 }*/
 
 .section .redball-count, .section .orangeball-count {
-    bottom: 4px;
+    bottom: 5px;
 }
 
 .section.hot .sectionname:before, .hot:before, .section.warm .sectionname:before, .warm:before {
@@ -97,7 +98,7 @@ select.atto_generico_field {
     font-size: 10px;
     margin-right: 5px;
     float:left;
-    margin-top: 5px;
+    margin-top: 8px;
 }
 
 .activity.warm:before {
@@ -105,11 +106,12 @@ select.atto_generico_field {
 }
 
 body.editing .activity.hot:before, body.editing .activity.warm:before {
-    margin-top: 4px;
+    margin-top: 6px;
 }
 
 body.editing .section .activity .editing_move {
-    left: .3rem;
+    left: .625rem;
+    top: .25rem;
 }
 
 body.editing .section .activity.hot .mod-indent-outer, body.editing .section .activity.warm .mod-indent-outer {
@@ -117,7 +119,7 @@ body.editing .section .activity.hot .mod-indent-outer, body.editing .section .ac
 }
 
 .highlight {
-    color: $brand-success !important;
+    color: $success !important;
 }
 
 .togglevisibility {
@@ -132,14 +134,14 @@ body.editing .section .activity.hot .mod-indent-outer, body.editing .section .ac
     border-radius: 0;
     padding: 1.25rem;
     &.warning {
-        border: 5px solid $brand-danger;
+        border: 5px solid $danger;
         font-weight: normal;
     }
     &.trick {
         border: 5px solid #ffd700;
     }
     &.info {
-        border: 5px solid $brand-primary;
+        border: 5px solid $primary;
     }
     div.flashboxicon i {
         font-family: FontAwesome;

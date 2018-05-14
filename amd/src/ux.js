@@ -233,10 +233,10 @@ define(['jquery', 'core/log'], function($, log) {
                     return false;
                 });
 
-                $('div.media').first().on('click', function() {
+               /* $('div.media').first().on('click', function() {
                     $('html, body').animate({scrollTop: 150}, 50);
                     return false;
-                });
+                });*/
 
                 $('div.media').on('click', function(event) {
                     var href = $(event.target).parent().parent().parent().attr('href');

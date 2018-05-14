@@ -326,9 +326,9 @@ class format_topics_renderer extends \format_topics_renderer {
             // Jrm add div around content to allow section collapsing.
         }
         if ($section->section == 0 || course_get_format($course)->is_section_current($section)) {
-            $classes = "collapse in show";
-        } else {
             $classes = "collapse show";
+        } else {
+            $classes = "collapse";
         }
             $o .= '<div id="collapse-' .
                 $section->section .

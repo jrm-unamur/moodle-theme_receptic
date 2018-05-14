@@ -1,71 +1,76 @@
 #nav-drawer {
+    background-color: $gray-400;
     .list-group {
         .list-group-item {
-            cursor: pointer;
-            > div:before {
-                font-family: FontAwesome;
-                padding-right: .4rem;
-            }
-            > div.m-l-1:before {
-                content: "\f02d";
-            }
-            &[data-key="myhome"] > div:before {
-                content: "\f0e4";
-            }
-            &[data-key="bve"] {
-                .redball-count {
-                    bottom: 2px;
-                }
-                > div:before {
-                    content: "\f05a";
-                }
-            }
-            &[data-key="home"] > div:before {
-                content: "\f015";
-            }
-            &[data-key="privatefiles"] > div:before {
+            .fa-folder-o:before {
                 content: "\f07b";
             }
-            &[data-key="mycourses"] > div:before {
-                content: "\f19d";
-                padding-right: 0;
-            }
-            &[data-key="coursehome"] > div:before {
-                content: "\f19d";
-                padding-right: .2rem;
-            }
-            &[data-key="fulllistofcourses"] > div:before {
-                content: "\f03a";
-            }
-            &[data-key="myevaluations"] > div:before {
-                content: "\f164";
-            }
-            &[data-key="courseadmin"] > div:before {
-                content: "\f013";
-            }
-            &[data-key="noecreatecourse"] > div:before,
-            &[data-key="manualcreatecourse"] > div:before {
-                content: "\f067";
-            }
-            &[data-key="sitesettings"] > div:before {
-                content: "\f085";
-            }
-            &[data-key="calendar"] > div:before {
-                content: "\f073";
-            }
-            &[data-key="participants"] > div:before {
-                content: "\f0c0";
-            }
-            &[data-key="badgesview"] > div:before {
-                content: "\f132";
-            }
-            &[data-key="grades"] > div:before {
-                content: "\f0ce";
-            }
-            &[data-key="downloadcenter"] > div:before {
-                content: "\f019";
-            }
-        }
+            /*  &[data-key="bve"] {
+                 .redball-count {
+                     bottom: 2px;
+                 }
+                 > div:before {
+                     content: "\f05a";
+                 }
+             }
+          /*cursor: pointer;
+             > div:before {
+                 font-family: FontAwesome;
+                 padding-right: .4rem;
+             }
+             > div.m-l-1:before {
+                 content: "\f02d";
+             }
+             &[data-key="myhome"] > div:before {
+                 content: "\f0e4";
+             }
+
+             &[data-key="home"] > div:before {
+                 content: "\f015";
+             }
+             &[data-key="privatefiles"] > div:before {
+                 content: "\f07b";
+             }
+             &[data-key="mycourses"] > div:before {
+                 content: "\f19d";
+                 padding-right: 0;
+             }
+             &[data-key="coursehome"] > div:before {
+                 content: "\f19d";
+                 padding-right: .2rem;
+             }
+             &[data-key="fulllistofcourses"] > div:before {
+                 content: "\f03a";
+             }
+             &[data-key="myevaluations"] > div:before {
+                 content: "\f164";
+             }
+             &[data-key="courseadmin"] > div:before {
+                 content: "\f013";
+             }
+             &[data-key="noecreatecourse"] > div:before,
+             &[data-key="manualcreatecourse"] > div:before {
+                 content: "\f067";
+             }
+             &[data-key="sitesettings"] > div:before {
+                 content: "\f085";
+             }
+             &[data-key="calendar"] > div:before {
+                 content: "\f073";
+             }
+             &[data-key="participants"] > div:before {
+                 content: "\f0c0";
+             }
+             &[data-key="badgesview"] > div:before {
+                 content: "\f132";
+             }
+             &[data-key="grades"] > div:before {
+                 content: "\f0ce";
+             }
+             &[data-key="downloadcenter"] > div:before {
+                 content: "\f019";
+             }
+         */}
 
     }
 }
