@@ -485,13 +485,13 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     public function contact_info() {
-        return '<div class="contactinfo text--center">
+        return '<div class="contactinfo text-center">
 <p>Contacter l\'équipe WebCampus:<br/><a href="mailto:webcampus-migration@unamur.be"> <i class="fa fa-envelope"></i> </a> ou <i class="fa fa-phone"></i> 081/72 50 75</p></div>';
     }
 
     public function moodle_credits() {
 
-        return '<div class="moodlecredits text--center">Utilise ' .
+        return '<div class="moodlecredits text-center">Utilise ' .
         '<a title="Moodle" href="http://moodle.org/" target"_blank">' .
         //'<img src="' . $this->pix_icon('moodlelogo') . '" alt="'.get_string('moodlelogo').'" /></a></div>';
         $this->pix_icon('moodlelogo', 'moodle', 'moodle', array('class' => 'moodlelogofooter')) .

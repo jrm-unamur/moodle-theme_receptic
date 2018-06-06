@@ -27,6 +27,7 @@ use context_course;
 use completion_info;
 use html_writer;
 use moodle_url;
+use moodle_page;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -34,9 +35,98 @@ require_once($CFG->dirroot . '/course/format/weeks/renderer.php');
 
 class format_weeks_renderer extends \format_weeks_renderer {
     /** overrides format_section_renderer_base */
-    public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
-        global $PAGE;
+    protected $collapsedsections;
 
+        /**
+         * Constructor method, calls the parent constructor
+         *
+         * @param moodle_page $page
+         * @param string $target one of rendering target constants
+         */
+    public function __construct(moodle_page $page, $target) {
+        parent::__construct($page, $target);
+        $course = course_get_format($page->course)->get_course();
+        $this->collapsedsections = $course->coursedisplay == COURSE_DISPLAY_SINGLEPAGE
+                && $course->format == 'topics'
+                && get_config('theme_receptic' , 'collapsingtopics'
+                );
+    }
+
+    public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
+        global $PAGE, $DB, $USER;
+
+        /*if(!$this->collapsedsections) {
+            return parent::print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused);
+        }*/
+
+        //test computing of red and orange balls on course page.
+        $redballsactivated = get_config('theme_receptic', 'enableredballs');
+        $orangeballsactivated = get_config('theme_receptic', 'enableorangeballs');
+
+        if ($redballsactivated) {
+            $userredballs = get_user_preferences('user_redballs');
+            if (is_null($userredballs)) {
+                $defaultredballslookback = get_config('theme_receptic', 'redballs_lookback');
+                $starttime = time() - ($defaultredballslookback * 24 * 60 * 60);
+            } else {
+                $starttime = $DB->get_field('user', 'lastlogin', array('id' => $USER->id));
+            }
+
+            $newitemsforuser = array();
+            if (!empty($userredballs)) {
+                $newitemsforuser = explode(',', $userredballs);
+            }
+        }
+        if ($orangeballsactivated) {
+            $userorangeballs = get_user_preferences('user_orangeballs');
+            if (is_null($userorangeballs)) {
+                $defaultlookback = get_config('theme_receptic', 'redballs_lookback');
+                $starttime = time() - ($defaultlookback * 24 * 60 * 60);
+            } else {
+                $starttime = $DB->get_field('user', 'lastlogin', array('id' => $USER->id));
+            }
+
+            $updateditemsforuser = array();
+            if (!empty($userorangeballs)) {
+                $updateditemsforuser = explode(',', $userorangeballs);
+            }
+        }
+
+        if ($redballsactivated) {
+
+            $visiblereditems = array();
+            $newitemsforcourse = theme_receptic_get_redballs($course, $starttime);
+
+            $newitemsforuser = array_merge($newitemsforuser, $newitemsforcourse);
+
+            $newitemsforuser = array_unique($newitemsforuser);
+            set_user_preference('user_redballs', implode(',', array_unique($newitemsforuser)));
+
+            if ($orangeballsactivated) {
+                $visibleorangeitems = array();
+                $updateditemsforcourse = theme_receptic_get_orangeballs($course, $starttime);
+                //print_object($updateditemsforcourse);
+                $updateditemsforuser = array_merge($updateditemsforuser, $updateditemsforcourse);
+                $updateditemsforuser = array_unique($updateditemsforuser);
+            }
+
+            $modinfo = get_fast_modinfo($course);
+
+            foreach ($modinfo->cms as $cm) {
+                if ($cm->uservisible && !$cm->is_stealth() && in_array($cm->id, $newitemsforuser)) {
+                    $visiblereditems[] = $cm->id;
+                }
+                if ($orangeballsactivated && $cm->uservisible && !$cm->is_stealth() && in_array($cm->id,
+                        $updateditemsforuser) && !in_array($cm->id, $newitemsforuser)
+                ) {
+                    $visibleorangeitems[] = $cm->id;
+                }
+            }
+            if ($orangeballsactivated) set_user_preference('user_orangeballs', implode(',', array_unique($updateditemsforuser)));
+
+        }
+        // end test computing of red and orange balls on cours page.
+//print_object($newitemsforuser);
         $modinfo = get_fast_modinfo($course);
         $course = course_get_format($course)->get_course();
 
@@ -51,10 +141,9 @@ class format_weeks_renderer extends \format_weeks_renderer {
 
         // Now the list of sections..
         echo $this->start_section_list();
+        $numsections = course_get_format($course)->get_last_section_number();
 
-        $sections = $modinfo->get_section_info_all();
-        $course->numsections = count($sections);
-        foreach ($sections as $section => $thissection) {
+        foreach ($modinfo->get_section_info_all() as $section => $thissection) {
             if ($section == 0) {
                 // 0-section is displayed a little different then the others.
                 if ($thissection->summary or !empty($modinfo->sections[0]) or $PAGE->user_is_editing()) {
@@ -71,7 +160,8 @@ class format_weeks_renderer extends \format_weeks_renderer {
                 }
                 continue;
             }
-            if ($section > $course->numsections) {
+            //if ($section > $course->numsections) {
+            if ($section > $numsections) {
                 // Activities inside this section are 'orphaned', this section will be printed as 'stealth' below.
                 continue;
             }
@@ -93,8 +183,11 @@ class format_weeks_renderer extends \format_weeks_renderer {
 
             if (!$PAGE->user_is_editing() && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
                 // Display section summary only.
+                $this->courserenderer->theme_receptic_course_section_cm_list($course, $thissection, 0);
+                echo $this->section_header($thissection, $course, null);
                 echo $this->section_summary($thissection, $course, null);
             } else {
+
                 if ($thissection->uservisible) {
                     $modules = $this->courserenderer->theme_receptic_course_section_cm_list($course, $thissection, 0);
                     $control = $this->courserenderer->course_section_add_cm_control($course, $section, 0);
@@ -109,12 +202,12 @@ class format_weeks_renderer extends \format_weeks_renderer {
         if ($PAGE->user_is_editing() and has_capability('moodle/course:update', $context)) {
             // Print stealth sections if present.
             foreach ($modinfo->get_section_info_all() as $section => $thissection) {
-                if ($section <= $course->numsections or empty($modinfo->sections[$section])) {
+                if ($section <= $numsections or empty($modinfo->sections[$section])) {
                     // This is not stealth section or it is empty.
                     continue;
                 }
                 echo $this->stealth_section_header($section);
-                echo $this->courserenderer->course_section_cm_list($course, $thissection, 0);
+                echo $this->courserenderer->theme_receptic_course_section_cm_list($course, $thissection, 0);
                 echo $this->stealth_section_footer();
             }
 
@@ -202,20 +295,36 @@ class format_weeks_renderer extends \format_weeks_renderer {
                     $section->section .
                     '">&nbsp;' . $sectionname;
                 if ($section->hotcount) {
-                    $o .= '<span title="' . $section->hotcount . 'éléments ajoutés/modifiés " class="redball-count">' . $section->hotcount . '</span>';
+                    if ($section->hotcount > 9) {
+                        $extrahotclass = ' high';
+                    } else {
+                        $extrahotclass = '';
+                    }
+                    $o .= '<span title="' . $section->hotcount . ' éléments ajoutés" class="redball-count' . $extrahotclass . '">' . $section->hotcount . '</span>';
+                }
+                if ($section->warmcount) {
+                    if ($section->warmcount > 9) {
+                        $extrawarmclass = ' high';
+                    } else {
+                        $extrawarmclass = '';
+                    }
+                    $o .= '<span title="' . $section->warmcount . ' contenus modifiés" class="orangeball-count' . $extrawarmclass . '">' . $section->warmcount . '</span>';
                 }
                 $o .= '</a> ';
             }
             // Jrm end collapse toggle.
 
-            //$o .= '<div class="clearfix">';
+            $o .= '<div class="clearfix">';
             $o .= $this->section_availability($section) . '</div>';
             $o .= $this->section_summary($section, $course, null);
             // Jrm add div around content to allow section collapsing.
         } else {
             $sectionname = html_writer::tag('span', $this->section_title_without_link($section, $course));
             if ($section->hotcount) {
-                $sectionname .= '<span title="' . $section->hotcount . ' éléments ajoutés/modifiés" class="redball-count">' . $section->hotcount . '</span>';
+                $sectionname .= '<span title="' . $section->hotcount . ' éléments ajoutés" class="redball-count">' . $section->hotcount . '</span>';
+            }
+            if ($section->warmcount) {
+                $sectionname .= '<span title="' . $section->warmcount . ' contenus modifiés" class="orangeball-count">' . $section->warmcount . '</span>';
             }
             // Jrm add collapse toggle.
             if (course_get_format($course)->is_section_current($section)) {
@@ -239,9 +348,9 @@ class format_weeks_renderer extends \format_weeks_renderer {
             // Jrm add div around content to allow section collapsing.
         }
         if ($section->section == 0 || course_get_format($course)->is_section_current($section)) {
-            $classes = "collapse in show";
-        } else {
             $classes = "collapse show";
+        } else {
+            $classes = "collapse";
         }
             $o .= '<div id="collapse-' .
                 $section->section .

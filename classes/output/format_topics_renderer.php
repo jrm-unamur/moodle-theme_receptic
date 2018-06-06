@@ -27,82 +27,32 @@ use context_course;
 use completion_info;
 use html_writer;
 use moodle_url;
+use moodle_page;
 
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . "/course/format/topics/renderer.php");
-require_once($CFG->dirroot . "/theme/receptic/lib.php");
+//require_once($CFG->dirroot . "/theme/receptic/lib.php");
 
 class format_topics_renderer extends \format_topics_renderer {
-    /** overrides format_section_renderer_base */
+
+/* Output the html for a multiple section page
+*
+* @param stdClass $course The course entry from DB
+* @param array $sections (argument not used)
+* @param array $mods (argument not used)
+* @param array $modnames (argument not used)
+* @param array $modnamesused (argument not used)
+*/
     public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
-        global $PAGE, $DB, $USER;
+        global $PAGE;
 
         //test computing of red and orange balls on course page.
-        $redballsactivated = get_config('theme_receptic', 'enableredballs');
-        $orangeballsactivated = get_config('theme_receptic', 'enableorangeballs');
-
-        if ($redballsactivated) {
-            $userredballs = get_user_preferences('user_redballs');
-            if (is_null($userredballs)) {
-                $defaultredballslookback = get_config('theme_receptic', 'redballs_lookback');
-                $starttime = time() - ($defaultredballslookback * 24 * 60 * 60);
-            } else {
-                $starttime = $DB->get_field('user', 'lastlogin', array('id' => $USER->id));
-            }
-
-            $newitemsforuser = array();
-            if (!empty($userredballs)) {
-                $newitemsforuser = explode(',', $userredballs);
-            }
-        }
-        if ($orangeballsactivated) {
-            $userorangeballs = get_user_preferences('user_orangeballs');
-            if (is_null($userorangeballs)) {
-                $defaultlookback = get_config('theme_receptic', 'redballs_lookback');
-                $starttime = time() - ($defaultlookback * 24 * 60 * 60);
-            } else {
-                $starttime = $DB->get_field('user', 'lastlogin', array('id' => $USER->id));
-            }
-
-            $updateditemsforuser = array();
-            if (!empty($userorangeballs)) {
-                $updateditemsforuser = explode(',', $userorangeballs);
-            }
-        }
-
-        if ($redballsactivated) {
-
-            $visiblereditems = array();
-            $newitemsforcourse = theme_receptic_get_redballs($course, $starttime);
-
-            $newitemsforuser = array_merge($newitemsforuser, $newitemsforcourse);
-
-            $newitemsforuser = array_unique($newitemsforuser);
-            set_user_preference('user_redballs', implode(',', array_unique($newitemsforuser)));
-
-            if ($orangeballsactivated) {
-                $visibleorangeitems = array();
-                $updateditemsforcourse = theme_receptic_get_orangeballs($course, $starttime);
-                //print_object($updateditemsforcourse);
-                $updateditemsforuser = array_merge($updateditemsforuser, $updateditemsforcourse);
-                $updateditemsforuser = array_unique($updateditemsforuser);
-            }
-
-            $modinfo = get_fast_modinfo($course);
-
-            foreach ($modinfo->cms as $cm) {
-                if ($cm->uservisible && !$cm->is_stealth() && in_array($cm->id, $newitemsforuser)) {
-                    $visiblereditems[] = $cm->id;
-                }
-                if ($orangeballsactivated && $cm->uservisible && !$cm->is_stealth() && in_array($cm->id,
-                        $updateditemsforuser) && !in_array($cm->id, $newitemsforuser)
-                ) {
-                    $visibleorangeitems[] = $cm->id;
-                }
-            }
-            if ($orangeballsactivated) set_user_preference('user_orangeballs', implode(',', array_unique($updateditemsforuser)));
-
+        $ballsactivated = get_config('theme_receptic', 'enableballs');
+        if ($ballsactivated) {
+            list($newitemsforuser, $updateditemsforuser, $starttime) = theme_receptic_init_vars_for_hot_items_computing();
+            theme_receptic_compute_redballs($course, $starttime, $newitemsforuser);
+            theme_receptic_compute_orangeballs($course, $starttime, $updateditemsforuser);
         }
         // end test computing of red and orange balls on cours page.
 
@@ -120,68 +70,55 @@ class format_topics_renderer extends \format_topics_renderer {
 
         // Now the list of sections..
         echo $this->start_section_list();
+        $numsections = course_get_format($course)->get_last_section_number();
 
-        $sections = $modinfo->get_section_info_all();
-        $course->numsections = count($sections);
-        foreach ($sections as $section => $thissection) {
-            //print_object($thissection);die();
+        foreach ($modinfo->get_section_info_all() as $section => $thissection) {
             if ($section == 0) {
-                // 0-section is displayed a little different then the others.
+                // 0-section is displayed a little different then the others
                 if ($thissection->summary or !empty($modinfo->sections[0]) or $PAGE->user_is_editing()) {
-                    $this->page->requires->strings_for_js(array('collapseall', 'expandall'), 'moodle');
                     $modules = $this->courserenderer->theme_receptic_course_section_cm_list($course, $thissection, 0);
                     echo $this->section_header($thissection, $course, false, 0);
                     echo $modules;
                     echo $this->courserenderer->course_section_add_cm_control($course, 0, 0);
-                    echo '<div class="collapsible-actions" >
-    <a href="#" class="expandall" role="button">' . get_string('expandall') . '
-    </a>
-</div>';
                     echo $this->section_footer();
                 }
                 continue;
             }
-            if ($section > $course->numsections) {
-                // Activities inside this section are 'orphaned', this section will be printed as 'stealth' below.
+            if ($section > $numsections) {
+                // activities inside this section are 'orphaned', this section will be printed as 'stealth' below
                 continue;
             }
             // Show the section if the user is permitted to access it, OR if it's not available
-            // but there is some available info text which explains the reason & should display.
+            // but there is some available info text which explains the reason & should display,
+            // OR it is hidden but the course has a setting to display hidden sections as unavilable.
             $showsection = $thissection->uservisible ||
-                ($thissection->visible && !$thissection->available &&
-                    !empty($thissection->availableinfo));
-            if (!$showsection) {
-                // If the hiddensections option is set to 'show hidden sections in collapsed
-                // form', then display the hidden section message - UNLESS the section is
-                // hidden by the availability system, which is set to hide the reason.
-                if (!$course->hiddensections && $thissection->available) {
-                    echo $this->section_hidden($section, $course->id);
-                }
+                ($thissection->visible && !$thissection->available && !empty($thissection->availableinfo)) ||
+                (!$thissection->visible && !$course->hiddensections);
 
+            if (!$showsection) {
                 continue;
             }
 
+            $modules = $this->courserenderer->theme_receptic_course_section_cm_list($course, $thissection, 0);
             if (!$PAGE->user_is_editing() && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
                 // Display section summary only.
                 echo $this->section_summary($thissection, $course, null);
             } else {
 
+                echo $this->section_header($thissection, $course, false, 0);
                 if ($thissection->uservisible) {
-                    $modules = $this->courserenderer->theme_receptic_course_section_cm_list($course, $thissection, 0);
-                    $control = $this->courserenderer->course_section_add_cm_control($course, $section, 0);
-                    echo $this->section_header($thissection, $course, false, 0);
                     echo $modules;
-                    echo $control;
-                    echo $this->section_footer();
+                    echo $this->courserenderer->course_section_add_cm_control($course, $section, 0);
                 }
+                echo $this->section_footer();
             }
         }
 
         if ($PAGE->user_is_editing() and has_capability('moodle/course:update', $context)) {
             // Print stealth sections if present.
             foreach ($modinfo->get_section_info_all() as $section => $thissection) {
-                if ($section <= $course->numsections or empty($modinfo->sections[$section])) {
-                    // This is not stealth section or it is empty.
+                if ($section <= $numsections or empty($modinfo->sections[$section])) {
+                    // this is not stealth section or it is empty
                     continue;
                 }
                 echo $this->stealth_section_header($section);
@@ -195,14 +132,127 @@ class format_topics_renderer extends \format_topics_renderer {
         } else {
             echo $this->end_section_list();
         }
+
     }
 
     /**
-     * Generate the starting container html for a list of sections overrides format_section_renderer_base
-     * @return string HTML to output.
+     * Output the html for a single section page .
+     *
+     * @param stdClass $course The course entry from DB
+     * @param array $sections (argument not used)
+     * @param array $mods (argument not used)
+     * @param array $modnames (argument not used)
+     * @param array $modnamesused (argument not used)
+     * @param int $displaysection The section number in the course which is being displayed
      */
-    protected function start_section_list() {
-        return html_writer::start_tag('ul', array('class' => 'accordion topics', 'aria-multiselectable' => true));
+    public function print_single_section_page($course, $sections, $mods, $modnames, $modnamesused, $displaysection) {
+        global $PAGE;
+
+        $modinfo = get_fast_modinfo($course);
+        $course = course_get_format($course)->get_course();
+
+        // Can we view the section in question?
+        if (!($sectioninfo = $modinfo->get_section_info($displaysection)) || !$sectioninfo->uservisible) {
+            // This section doesn't exist or is not available for the user.
+            // We actually already check this in course/view.php but just in case exit from this function as well.
+            print_error('unknowncoursesection', 'error', course_get_url($course),
+                format_string($course->fullname));
+        }
+
+        //test computing of red and orange balls on course page.
+        $ballsactivated = get_config('theme_receptic', 'enableballs');
+        if ($ballsactivated) {
+            list($newitemsforuser, $updateditemsforuser, $starttime) = theme_receptic_init_vars_for_hot_items_computing();
+            theme_receptic_compute_redballs($course, $starttime, $newitemsforuser);
+            theme_receptic_compute_orangeballs($course, $starttime, $updateditemsforuser);
+        }
+        // end test computing of red and orange balls on cours page.
+
+        // Copy activity clipboard..
+        echo $this->course_activity_clipboard($course, $displaysection);
+        $thissection = $modinfo->get_section_info(0);
+
+        if ($thissection->summary or !empty($modinfo->sections[0]) or $PAGE->user_is_editing()) {
+            $modules = $this->courserenderer->theme_receptic_course_section_cm_list($course, $thissection, $displaysection);
+            echo parent::start_section_list();
+            echo parent::section_header($thissection, $course, true, $displaysection);
+            echo $modules;//$this->courserenderer->course_section_cm_list($course, $thissection, $displaysection);
+            echo $this->courserenderer->course_section_add_cm_control($course, 0, $displaysection);
+            echo $this->section_footer();
+            echo parent::end_section_list();
+        }
+
+        // Start single-section div
+        echo html_writer::start_tag('div', array('class' => 'single-section'));
+
+        // The requested section page.
+        $thissection = $modinfo->get_section_info($displaysection);
+
+        // Title with section navigation links.
+        $sectionnavlinks = $this->get_nav_links($course, $modinfo->get_section_info_all(), $displaysection);
+        $sectiontitle = '';
+        $sectiontitle .= html_writer::start_tag('div', array('class' => 'section-navigation navigationtitle'));
+        $sectiontitle .= html_writer::tag('span', $sectionnavlinks['previous'], array('class' => 'mdl-left'));
+        $sectiontitle .= html_writer::tag('span', $sectionnavlinks['next'], array('class' => 'mdl-right'));
+
+        $modules = $this->courserenderer->theme_receptic_course_section_cm_list($course, $thissection, $displaysection);
+        $balls = '';
+        if ($ballsactivated) {
+
+            if ($thissection->hotcount) {
+                if ($thissection->hotcount > 9) {
+                    $extrahotclass = ' high';
+                } else {
+                    $extrahotclass = '';
+                }
+                $balls .= '<span title="' . $thissection->hotcount . ' éléments ajoutés" class="redball-count' . $extrahotclass . '">' . $thissection->hotcount . '</span>';
+            }
+            if ($thissection->warmcount) {
+                if ($thissection->warmcount > 9) {
+                    $extrawarmclass = ' high';
+                } else {
+                    $extrawarmclass = '';
+                }
+                $balls .= '<span title="' . $thissection->warmcount . ' contenus modifiés" class="orangeball-count' . $extrawarmclass . '">' . $thissection->warmcount . '</span>';
+            }
+        }
+
+        // Title attributes
+        $classes = 'sectionname';
+        if (!$thissection->visible) {
+            $classes .= ' dimmed_text';
+        }
+        $sectionname = html_writer::tag('span', $this->section_title_without_link($thissection, $course));
+        $sectiontitle .= $this->output->heading($sectionname . $balls, 3, $classes);
+
+        $sectiontitle .= html_writer::end_tag('div');
+        echo $sectiontitle;
+
+        // Now the list of sections..
+        echo parent::start_section_list();
+        echo parent::section_header($thissection, $course, true, $displaysection);
+        // Show completion help icon.
+        $completioninfo = new completion_info($course);
+
+        echo $completioninfo->display_help_icon();
+        echo $modules;
+        //echo $this->courserenderer->course_section_cm_list($course, $thissection, $displaysection);
+        echo $this->courserenderer->course_section_add_cm_control($course, $displaysection, $displaysection);
+        echo $this->section_footer();
+        echo $this->end_section_list();
+
+        // Display section bottom navigation.
+        $sectionbottomnav = '';
+        $sectionbottomnav .= html_writer::start_tag('div', array('class' => 'section-navigation mdl-bottom'));
+        $sectionbottomnav .= html_writer::tag('span', $sectionnavlinks['previous'], array('class' => 'mdl-left'));
+        $sectionbottomnav .= html_writer::tag('span', $sectionnavlinks['next'], array('class' => 'mdl-right'));
+        $sectionbottomnav .= html_writer::tag('div', $this->section_nav_selection($course, $sections, $displaysection),
+            array('class' => 'mdl-align'));
+        $sectionbottomnav .= html_writer::end_tag('div');
+        echo $sectionbottomnav;
+
+        // Close single-section div.
+        echo html_writer::end_tag('div');
     }
 
     /**
@@ -256,90 +306,129 @@ class format_topics_renderer extends \format_topics_renderer {
         if ($hasnamenotsecpg || $hasnamesecpg) {
             $classes = '';
         }
-        if (!$PAGE->user_is_editing()) {
-            $sectionname = html_writer::tag('span', $this->section_title_without_link($section, $course),
-                array('class' => 'sectionname'));
-            // Jrm add collapse toggle.
-            if (course_get_format($course)->is_section_current($section)) {
-                $o .= '<a class="sectiontoggle" data-toggle="collapse" data-parent="accordion" href="#collapse-' .
-                    $section->section .
-                    '" aria-expanded="true" aria-controls="collapse-' .
-                    $section->section .
-                    '">&nbsp;' . $sectionname . '</a> ';
-            } else if ($section->section != 0) {
-                $o .= '<a class="sectiontoggle collapsed" data-toggle="collapse" data-parent="accordion" href="#collapse-' .
-                    $section->section .
-                    '" aria-expanded="false" aria-controls="collapse-' .
-                    $section->section .
-                    '">&nbsp;' . $sectionname;
-                if ($section->hotcount) {
-                    if ($section->hotcount > 9) {
-                        $extrahotclass = ' high';
-                    } else {
-                        $extrahotclass = '';
-                    }
-                    $o .= '<span title="' . $section->hotcount . ' éléments ajoutés" class="redball-count' . $extrahotclass . '">' . $section->hotcount . '</span>';
-                }
-                if ($section->warmcount) {
-                    if ($section->warmcount > 9) {
-                        $extrawarmclass = ' high';
-                    } else {
-                        $extrawarmclass = '';
-                    }
-                    $o .= '<span title="' . $section->warmcount . ' contenus modifiés" class="orangeball-count' . $extrawarmclass . '">' . $section->warmcount . '</span>';
-                }
-                $o .= '</a> ';
-            }
-            // Jrm end collapse toggle.
 
-            $o .= '<div class="clearfix">';
-            $o .= $this->section_availability($section) . '</div>';
-            $o .= $this->section_summary($section, $course, null);
-            // Jrm add div around content to allow section collapsing.
-        } else {
-            $sectionname = html_writer::tag('span', $this->section_title_without_link($section, $course));
+        $sectionname = html_writer::tag('span', $this->section_title_without_link($section, $course));
+
+        $ballsactivated = get_config('theme_receptic', 'enableballs');
+        $balls = '';
+        if ($ballsactivated) {
+
             if ($section->hotcount) {
-                $sectionname .= '<span title="' . $section->hotcount . ' éléments ajoutés" class="redball-count">' . $section->hotcount . '</span>';
+                if ($section->hotcount > 9) {
+                    $extrahotclass = ' high';
+                } else {
+                    $extrahotclass = '';
+                }
+                $balls .= '<span title="' . $section->hotcount . ' éléments ajoutés" class="redball-count' . $extrahotclass . '">' . $section->hotcount . '</span>';
             }
             if ($section->warmcount) {
-                $sectionname .= '<span title="' . $section->warmcount . ' contenus modifiés" class="orangeball-count">' . $section->warmcount . '</span>';
+                if ($section->warmcount > 9) {
+                    $extrawarmclass = ' high';
+                } else {
+                    $extrawarmclass = '';
+                }
+                $balls .= '<span title="' . $section->warmcount . ' contenus modifiés" class="orangeball-count' . $extrawarmclass . '">' . $section->warmcount . '</span>';
             }
-            // Jrm add collapse toggle.
-            if (course_get_format($course)->is_section_current($section)) {
-                $o .= '<a class="sectiontoggle" data-toggle="collapse" data-parent="accordion" href="#collapse-' .
-                    $section->section .
-                    '" aria-expanded="true" aria-controls="collapse-' .
-                    $section->section .
-                    '">&nbsp;</a> ';
-            } else if ($section->section != 0) {
-                $o .= '<a class="sectiontoggle collapsed" data-toggle="collapse" data-parent="accordion" href="#collapse-' .
-                    $section->section .
-                    '" aria-expanded="false" aria-controls="collapse-' .
-                    $section->section .
-                    '">&nbsp;</a> ';
-            }
-            // Jrm end collapse toggle.
-
-            $o .= '<div class="clearfix">' . $this->output->heading($sectionname, 3, 'sectionname' . $classes);
-            $o .= $this->section_availability($section) . '</div>';
-            $o .= $this->section_summary($section, $course, null);
-            // Jrm add div around content to allow section collapsing.
         }
-        if ($section->section == 0 || course_get_format($course)->is_section_current($section)) {
-            $classes = "collapse show";
-        } else {
-            $classes = "collapse";
+        $o .= $this->output->heading($sectionname . $balls, 3, 'sectionname' . $classes);
+        $o .= $this->section_availability($section);
+//if($section->section == 1) print_object($this->section_availability($section));
+        $o .= html_writer::start_tag('div', array('class' => 'summary'));
+        if ($section->uservisible || $section->visible) {
+            // Show summary if section is available or has availability restriction information.
+            // Do not show summary if section is hidden but we still display it because of course setting
+            // "Hidden sections are shown in collapsed form".
+            $o .= $this->format_summary_text($section);
         }
-            $o .= '<div id="collapse-' .
-                $section->section .
-                '" class="' .
-                $classes .
-                '" role="tabpanel" aria-labelledby="heading' .
-                $section->section .
-                '">';
-        // Jrm end div.
+        $o .= html_writer::end_tag('div');
 
         return $o;
+    }
+
+    /**
+     * Generate a summary of a section for display on the 'coruse index page'
+     *
+     * @param stdClass $section The course_section entry from DB
+     * @param stdClass $course The course entry from DB
+     * @param array    $mods (argument not used)
+     * @return string HTML to output.
+     */
+    protected function section_summary($section, $course, $mods) {
+        $classattr = 'section main section-summary clearfix';
+        $linkclasses = '';
+
+        // If section is hidden then display grey section link
+        if (!$section->visible) {
+            $classattr .= ' hidden';
+            $linkclasses .= ' dimmed_text';
+        } else if (course_get_format($course)->is_section_current($section)) {
+            $classattr .= ' current';
+        }
+
+        $ballsactivated = get_config('theme_receptic', 'enableballs');
+        $balls = '';
+        if ($ballsactivated) {
+
+            if ($section->hotcount) {
+                if ($section->hotcount > 9) {
+                    $extrahotclass = ' high';
+                } else {
+                    $extrahotclass = '';
+                }
+                $balls .= '<span title="' . $section->hotcount . ' éléments ajoutés" class="redball-count' . $extrahotclass . '">' . $section->hotcount . '</span>';
+            }
+            if ($section->warmcount) {
+                if ($section->warmcount > 9) {
+                    $extrawarmclass = ' high';
+                } else {
+                    $extrawarmclass = '';
+                }
+                $balls .= '<span title="' . $section->warmcount . ' contenus modifiés" class="orangeball-count' . $extrawarmclass . '">' . $section->warmcount . '</span>';
+            }
+        }
+
+        $title = get_section_name($course, $section);
+        $o = '';
+        $o .= html_writer::start_tag('li', array('id' => 'section-'.$section->section,
+            'class' => $classattr, 'role'=>'region', 'aria-label'=> $title));
+
+        $o .= html_writer::tag('div', '', array('class' => 'left side'));
+        $o .= html_writer::tag('div', '', array('class' => 'right side'));
+        $o .= html_writer::start_tag('div', array('class' => 'content'));
+
+        if ($section->uservisible) {
+            $title = html_writer::tag('a', $title,
+                array('href' => course_get_url($course, $section->section), 'class' => $linkclasses));
+        }
+        $o .= $this->output->heading($title . $balls, 3, 'section-title');
+
+        $o .= $this->section_availability($section);
+        $o.= html_writer::start_tag('div', array('class' => 'summarytext'));
+
+        if ($section->uservisible || $section->visible) {
+            // Show summary if section is available or has availability restriction information.
+            // Do not show summary if section is hidden but we still display it because of course setting
+            // "Hidden sections are shown in collapsed form".
+            $o .= $this->format_summary_text($section);
+        }
+        $o.= html_writer::end_tag('div');
+        $o.= $this->section_activity_summary($section, $course, null);
+
+        $o .= html_writer::end_tag('div');
+        $o .= html_writer::end_tag('li');
+
+        return $o;
+    }
+
+    /**
+     * Generate the starting container html for a list of sections overrides format_section_renderer_base
+     * @return string HTML to output.
+     */
+    protected function start_section_list() {
+        /*if (!$this->collapsedsections) {
+            return parent::start_section_list();
+        }*/
+        return html_writer::start_tag('ul', array('class' => 'accordion topics', 'aria-multiselectable' => true));
     }
 
     /**
@@ -348,6 +437,10 @@ class format_topics_renderer extends \format_topics_renderer {
      * @return string HTML to output.
      */
     protected function section_footer() {
+
+        /*if (!$this->collapsedsections) {
+            return parent::section_footer();
+        }*/
         $o = html_writer::end_tag('div'); // Jrm end div surrounding content to allow section collapsing.
         $o .= html_writer::end_tag('li');
 
@@ -365,6 +458,9 @@ class format_topics_renderer extends \format_topics_renderer {
      * @return string HTML to output.
      */
     protected function section_left_content($section, $course, $onsectionpage) {
+        /*if (!$this->collapsedsections) {
+            return parent::section_left_content($section, $course, $onsectionpage);
+        }*/
         $o = $this->output->spacer();
 
         if ($section->section != 0) {
@@ -374,64 +470,6 @@ class format_topics_renderer extends \format_topics_renderer {
             }
         }
 
-        return $o;
-    }
-
-    protected function section_summary($section, $course, $mods) {
-        $o = '';
-        $o .= html_writer::start_tag('div', array('class' => 'summarytext'));
-        $o .= $this->format_summary_text($section);
-        $o .= html_writer::end_tag('div');
-        $o .= $this->section_activity_summary($section, $course, null);
-
-        return $o;
-    }
-
-    public function section_availability($section) {
-        $context = context_course::instance($section->course);
-        $canviewhidden = has_capability('moodle/course:viewhiddensections', $context);
-        return html_writer::span($this->section_availability_message($section, $canviewhidden), 'section_availability');
-    }
-
-    /**
-     * If section is not visible, display the message about that ('Not available
-     * until...', that sort of thing). Otherwise, returns blank.
-     *
-     * For users with the ability to view hidden sections, it shows the
-     * information even though you can view the section and also may include
-     * slightly fuller information (so that teachers can tell when sections
-     * are going to be unavailable etc). This logic is the same as for
-     * activities.
-     *
-     * @param section_info $section The course_section entry from DB
-     * @param bool $canviewhidden True if user can view hidden sections
-     * @return string HTML to output
-     */
-    protected function section_availability_message($section, $canviewhidden) {
-        global $CFG;
-        $o = '';
-        if (!$section->visible) {
-            if ($canviewhidden) {
-                $o .= $this->courserenderer->availability_info(get_string('hiddenfromstudents'), 'ishidden');
-            }
-        } else if (!$section->uservisible) {
-            if ($section->availableinfo) {
-                // Note: We only get to this function if availableinfo is non-empty,
-                // so there is definitely something to print.
-                $formattedinfo = \core_availability\info::format_info(
-                    $section->availableinfo, $section->course);
-                $o .= $this->courserenderer->availability_info($formattedinfo);
-            }
-        } else if ($canviewhidden && !empty($CFG->enableavailability)) {
-            // Check if there is an availability restriction.
-            $ci = new \core_availability\info_section($section);
-            $fullinfo = $ci->get_full_information();
-            if ($fullinfo) {
-                $formattedinfo = \core_availability\info::format_info(
-                    $fullinfo, $section->course);
-                $o .= $this->courserenderer->availability_info($formattedinfo);
-            }
-        }
         return $o;
     }
 }
