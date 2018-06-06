@@ -37,7 +37,8 @@ $templatecontext = [
     'displaybrandbanner' => true,
     'logoleft' => $haslogoleft,
     'logocenter' => $haslogocenter,
-    'logoright' => $haslogoright
+    'logoright' => $haslogoright,
+    'navbaritems' => false
 ];
 
 echo $OUTPUT->render_from_template('theme_receptic/login', $templatecontext);

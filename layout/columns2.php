@@ -89,6 +89,7 @@ $googlefonts = array(
     'Roboto:400,400italic,700,700italic,900,900italic'
 );
 
+$displaybrandbanner = get_config('theme_receptic', 'brandbanner');
 $haslogoleft = !empty(get_config('theme_receptic', 'logoleft'));
 $haslogocenter = !empty(get_config('theme_receptic', 'logocenter'));
 $haslogoright = !empty(get_config('theme_receptic', 'logoright'));
@@ -109,7 +110,9 @@ $templatecontext = [
     'shownavbar' => true,
     'logoleft' => $haslogoleft,
     'logocenter' => $haslogocenter,
-    'logoright' => $haslogoright
+    'logoright' => $haslogoright,
+    'displaybrandbanner' => $displaybrandbanner,
+    'navbaritems' => true
 ];
 
 $templatecontext['flatnavigation'] = $PAGE->flatnav;
