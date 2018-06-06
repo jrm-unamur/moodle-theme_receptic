@@ -24,14 +24,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $observers = array(
-    array(
-        'eventname' => 'core\event\user_loggedout',
-        'callback' => 'theme_receptic_observer::user_loggedout',
-    ),
-    /*array(
-        'eventname' => 'core\event\user_created',
-        'callback' => 'theme_receptic_observer::user_created',
-    ),*/
+
     array(
         'eventname' => '\mod_resource\event\course_module_viewed',
         'callback' => 'theme_receptic_observer::course_module_viewed'
