@@ -26,12 +26,15 @@ defined('MOODLE_INTERNAL') || die();
 // Function that generates a chunk of SCSS to be prepended to the main scss file.
 function theme_receptic_get_pre_scss($theme) {
     // 1. To define our own configurable scss variables use the code below and comment code under 2.
-    global $CFG;
+    global $CFG, $DB;
 
     $scss = '';
+    //print_object($this->theme->settings->brandbannerheight);die();
+
     $configurable = [
         // Config key => [scss variableName1, ...].
-        'brandcolor' => ['primary'],
+        'brandbannercolor' => ['brand-banner-color'],
+        //'brandbannerheight' => ['brand-banner-height']
     ];
 
     // Prepend variables first.
@@ -44,13 +47,23 @@ function theme_receptic_get_pre_scss($theme) {
         array_map(function($target) use (&$scss, $value) {
             $scss .= '$' . $target . ': ' . $value . ";\n";
         }, (array) $targets);
+        $tmp = new stdClass();
+        $tmp->trace = $scss;
+        $DB->insert_record('webcampus_trace', $tmp);
+    }
+    if ($theme->settings->brandbanner) {
+        $scss .= '$brand-banner-height:80px;';
+    } else {
+        $scss .= '$brand-banner-height: 0px;';
     }
 
     // Then prepend pre-scss code added in theme config.
     if (!empty($theme->settings->scsspre)) {
         $scss .= $theme->settings->scsspre;
     }
-
+    /*$tmp = new stdClass();
+    $tmp->trace = $scss;
+    $DB->insert_record('webcampus_trace', $tmp);*/
     return $scss;
 }
 
@@ -69,6 +82,8 @@ function theme_receptic_get_main_scss_content($theme) {
     $context = context_system::instance();
     if ($filename == 'unamur35.scss') {
         $scss .= file_get_contents($CFG->dirroot . '/theme/receptic/scss/preset/unamur35.scss');
+    } else if ($filename == 'boostlike.scss') {
+        $scss .= file_get_contents($CFG->dirroot . '/theme/receptic/scss/preset/boostlike.scss');
     }
     else if ($filename == 'default.scss') {
         $scss .= file_get_contents($CFG->dirroot . '/theme/boost/scss/preset/default.scss');
@@ -84,7 +99,7 @@ function theme_receptic_get_main_scss_content($theme) {
     $pre = file_get_contents($CFG->dirroot . '/theme/receptic/scss/pre.scss');
    // $fa = file_get_contents($CFG->dirroot . '/theme/receptic/scss/fontawesome/font-awesome.scss');
     $post = file_get_contents($CFG->dirroot . '/theme/receptic/scss/post.scss');
-
+//print_object('coucou');die();
     return $pre . "\n" . $scss . "\n" . $post;
 }
 
@@ -180,6 +195,15 @@ function theme_receptic_reset_flashbox_students() {
     $DB->execute("UPDATE {user_preferences}
                      SET value = :value
                    WHERE name = :name", array('value' => 'false', 'name' => 'flashbox-student-hidden'));
+}
+
+function theme_receptic_set_brandbanner_height() {
+    global $DB;
+    if (get_config('theme_receptic', 'brandbanner')) {
+        set_config('brandbannerheight', '80px', 'theme_receptic');
+    } else {
+        set_config('brandbannerheight', '0px', 'theme_receptic');
+    }
 }
 
 function theme_receptic_get_redballs($course, $starttime) {
@@ -369,6 +393,270 @@ function theme_receptic_get_orangeballs($course, $starttime) {
     }
     return $redcmids;
 }
+
+function theme_receptic_init_vars_for_hot_items_computing() {
+    global $DB, $USER;
+    $redballs = get_user_preferences('user_redballs');
+    $newitems = array();
+    if (!empty($redballs)) {
+        $newitems = explode(',' , $redballs);
+    }
+    $orangeballs = get_user_preferences('user_orangeballs');
+    $updateditems = array();
+    if (!empty($orangeballs)) {
+        $updateditems = explode(',', $orangeballs);
+    }
+    if (is_null($redballs) && is_null($orangeballs)) {
+        $defaultballslookback = get_config('theme_receptic', 'hotitemslookback');
+        $starttime = time() - ($defaultballslookback * 24 * 60 * 60);
+    } else {
+        $starttime = $DB->get_field('user', 'lastlogin', array('id' => $USER->id));
+    }
+    return array($newitems, $updateditems, $starttime);
+}
+
+function theme_receptic_compute_redballs($course, $starttime, $newitemsforuser) {
+    global $DB, $USER;
+
+    $count = 0;
+    $query = "SELECT id, contextinstanceid, timecreated
+                    FROM {logstore_standard_log}
+                   WHERE contextlevel = :contextlevel
+                     AND courseid = :courseid
+                     AND userid != :userid
+                     AND eventname = '\\\core\\\\event\\\course_module_created'
+                     AND timecreated > :starttime
+                     AND contextinstanceid IN (SELECT id
+                                                 FROM {course_modules})
+                ORDER BY timecreated DESC";
+
+    $records = $DB->get_records_sql($query, array(
+        'contextlevel' => CONTEXT_MODULE,
+        'courseid' => $course->id,
+        'userid' => $USER->id,
+        'starttime' => $starttime,
+        'update' => 'u',
+        'create' => 'c'
+    ));
+
+    $alreadytested = array();
+    $redcmids = array();
+    foreach ($records as $record) {
+        if (in_array($record->contextinstanceid, $alreadytested)) {
+            continue;
+        } else {
+            $alreadytested[] = $record->contextinstanceid;
+        }
+        $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
+        if ($DB->record_exists('course_modules', array('module' => $modlabelid, 'id' => $record->contextinstanceid))) {
+            $query = "SELECT *
+                            FROM {logstore_standard_log}
+                           WHERE contextlevel = :contextlevel
+                             AND eventname = :event
+                             AND courseid = :courseid
+                             AND timecreated > :timestamp
+                             AND userid = :userid
+                             AND crud = :crud";
+
+            $conditions = array(
+                'contextlevel' => CONTEXT_COURSE,
+                'event' => '\core\event\course_viewed',
+                'courseid' => $course->id,
+                'crud' => 'r',
+                'userid' => $USER->id,
+                'timestamp' => $record->timecreated
+            );
+        } else {
+            $query = "SELECT *
+                            FROM {logstore_standard_log}
+                           WHERE contextlevel = :contextlevel
+                             AND courseid = :courseid
+                             AND timecreated > :timestamp
+                             AND contextinstanceid = :contextinstanceid
+                             AND userid = :userid
+                             AND crud = :crud";
+
+            $conditions = array(
+                'contextlevel' => CONTEXT_MODULE,
+                'courseid' => $course->id,
+                'crud' => 'r',
+                'userid' => $USER->id,
+                'contextinstanceid' => $record->contextinstanceid,
+                'timestamp' => $record->timecreated
+            );
+        }
+
+        if (!$DB->get_records_sql($query, $conditions)) {
+
+            $count++;
+
+            $redcmids[] = $record->contextinstanceid;
+        }
+    }
+    $newitemsforuser = array_merge($newitemsforuser, $redcmids);
+    $newitemsforuser = array_unique($newitemsforuser);
+    set_user_preference('user_redballs', implode(',', $newitemsforuser));
+
+    return $newitemsforuser;
+}
+
+function theme_receptic_compute_orangeballs($course, $starttime, $updateditemsforuser) {
+    global $DB, $USER;
+    $count = 0;
+    $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
+    $query = "SELECT id, eventname, objectid, contextinstanceid, timecreated
+                    FROM {logstore_standard_log}
+                   WHERE contextlevel = :contextlevel
+                     AND courseid = :courseid
+                     AND userid != :userid
+                     AND timecreated > :starttime
+                     AND (
+                            (
+                                (eventname = '\\\mod_folder\\\\event\\\\folder_updated'
+                                OR eventname = '\\\mod_wiki\\\\event\\\page_updated'
+                                OR eventname = '\\\mod_book\\\\event\\\chapter_created'
+                                OR eventname = '\\\mod_book\\\\event\\\chapter_updated'
+                                OR eventname = '\\\mod_glossary\\\\event\\\\entry_created'
+                                OR eventname = '\\\mod_glossary\\\\event\\\\entry_updated'
+                                OR eventname = '\\\mod_data\\\\event\\\\record_created'
+                                OR eventname = '\\\mod_data\\\\event\\\\record_updated'
+                                )
+
+                                AND contextinstanceid IN (SELECT id
+                                                            FROM {course_modules})
+                            )
+                         OR (eventname = '\\\core\\\\event\\\course_module_updated'
+                               AND contextinstanceid IN (SELECT id FROM {course_modules} where module = :modlabelid)
+                            )
+                         )
+                ORDER BY timecreated DESC";
+
+    $records = $DB->get_records_sql($query, array(
+        'contextlevel' => CONTEXT_MODULE,
+        'courseid' => $course->id,
+        'userid' => $USER->id,
+        'starttime' => $starttime,
+        'update' => 'u',
+        'create' => 'c',
+        'modlabelid' => $modlabelid
+    ));
+//print_object($query);
+//        print_object($starttime);
+//print_object($records);
+    $alreadytested = array();
+    $orangecmids = array();
+    foreach ($records as $record) {
+        if (in_array($record->contextinstanceid, $alreadytested)) {
+            continue;
+        } else {
+            $alreadytested[] = $record->contextinstanceid;
+        }
+        $modglossaryid = $DB->get_field('modules', 'id', array('name' => 'glossary'));
+        if ($record->eventname == '\mod_glossary\event\entry_updated' || $record->eventname == '\mod_glossary\event\entry_created'){
+            $glossaryentry = $DB->get_record('glossary_entries', array('id' => $record->objectid));
+            if ($glossaryentry->approved == 0) {
+                continue;
+            }
+        }
+        $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
+        if ($DB->record_exists('course_modules', array('module' => $modlabelid, 'id' => $record->contextinstanceid))) {
+            $query = "SELECT *
+                            FROM {logstore_standard_log}
+                           WHERE contextlevel = :contextlevel
+                             AND eventname = :event
+                             AND courseid = :courseid
+                             AND timecreated > :timestamp
+                             AND userid = :userid
+                             AND crud = :crud";
+
+            $conditions = array(
+                'contextlevel' => CONTEXT_COURSE,
+                'event' => '\core\event\course_viewed',
+                'courseid' => $course->id,
+                'crud' => 'r',
+                'userid' => $USER->id,
+                'timestamp' => $record->timecreated
+            );
+        } else {
+            $query = "SELECT *
+                            FROM {logstore_standard_log}
+                           WHERE contextlevel = :contextlevel
+                             AND courseid = :courseid
+                             AND timecreated > :timestamp
+                             AND contextinstanceid = :contextinstanceid
+                             AND userid = :userid
+                             AND crud = :crud";
+
+            $conditions = array(
+                'contextlevel' => CONTEXT_MODULE,
+                'courseid' => $course->id,
+                'crud' => 'r',
+                'userid' => $USER->id,
+                'contextinstanceid' => $record->contextinstanceid,
+                'timestamp' => $record->timecreated
+            );
+        }
+
+        if (!$DB->get_records_sql($query, $conditions)) {
+
+            $count++;
+
+            $orangecmids[] = $record->contextinstanceid;
+        }
+    }
+    $updateditemsforuser = array_merge($updateditemsforuser, $orangecmids);
+    $updateditemsforuser = array_unique($updateditemsforuser);
+    set_user_preference('user_orangeballs', implode(',', $updateditemsforuser));
+
+    return $updateditemsforuser;
+}
+
+function theme_receptic_get_visible_balls_count($course, $redballs, $orangeballs) {
+    global $DB;
+    $visiblereditems = array();
+    $visibleorangeitems = array();
+    $modinfo = get_fast_modinfo($course);
+
+    foreach ($modinfo->cms as $cm) {
+        if ($cm->uservisible && !$cm->is_stealth() && in_array($cm->id, $redballs)) {
+            $visiblereditems[] = $cm->id;
+        }
+        if ($cm->uservisible && !$cm->is_stealth() && in_array($cm->id,
+                $orangeballs) && !in_array($cm->id, $redballs)
+        ) {
+            $visibleorangeitems[] = $cm->id;
+        }
+    }
+
+    $orangecount = 0;
+    if (!empty($visibleorangeitems)) {
+        $orangecount = $DB->count_records_sql(
+            "SELECT COUNT(*)
+                     FROM {course_modules}
+                    WHERE course = :course
+                      AND id IN (" . implode(',', $visibleorangeitems) . ")",
+            array('course' => $course->id)
+        );
+    }
+    $course->updateditemscount = $orangecount;
+    $course->orangeballscountclass = $orangecount > 9 ? 'high' : '';
+
+    $redcount = 0;
+    if (!empty($visiblereditems)) {
+        $redcount = $DB->count_records_sql(
+            "SELECT COUNT(*)
+                     FROM {course_modules}
+                    WHERE course = :course
+                      AND id IN (" . implode(',', $visiblereditems) . ")",
+            array('course' => $course->id)
+        );
+    }
+    return array($redcount, $orangecount);
+
+    /*$course->newitemscount = $redcount;
+    $course->redballscountclass = $redcount > 9 ? 'high' : '';*/
+}
+
 
 /*function theme_receptic_extend_navigation(global_navigation $nav) {
     global $COURSE;

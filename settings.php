@@ -29,7 +29,7 @@ if ($ADMIN->fulltree) {
     $page = new admin_settingpage('theme_receptic_general', get_string('generalsettings', 'theme_receptic'));
 
     // Scss variable overriding $brand-primary.
-    $name = 'theme_receptic/brandcolor';
+    $name = 'theme_receptic/brandprimary';
     $title = get_string('brandcolor_desc', 'theme_receptic');
     $setting = new admin_setting_configcolourpicker($name, $title, $description, '');
     $setting->set_updatedcallback('theme_reset_all_caches');
@@ -98,11 +98,36 @@ if ($ADMIN->fulltree) {
     $page->add($setting);
     $settings->add($page);
 
+    //TODO: translate
+    $page = new admin_settingpage('theme_receptic_colours', 'coloursanddisplay');//get_string('coloursanddisplay', 'theme_receptic'));
+    $page->add(new admin_setting_heading('theme_receptic_colours', 'colours_headingsub'/*get_string('colours_headingsub', 'theme_fordson')*/, 'coulours_desc'));//format_text(get_string('colours_desc' , 'theme_fordson'), FORMAT_MARKDOWN)));
+
+    // Variable $brandprimary.
+    $name = 'theme_receptic/brandbanner';
+    $title = 'brandbanner';//get_string('brandbanner', 'theme_receptic');
+    $description = 'brandbannerdesc';//get_string('brandbanner_desc', 'theme_receptic');
+    $default = true;
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    //$settings->add($page);
+
+    // Variable $brandcolor.
+    $name = 'theme_receptic/brandbannercolor';
+    $title = 'brandcolor'; //get_string('brandcolor', 'theme_fordson');
+    $description = 'brandcolor_desc'; //get_string('brandprimary_desc', 'theme_fordson');
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '');
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    $settings->add($page);
+
 
     // Dashboard settings page.
     $page = new admin_settingpage('theme_receptic_dashboard', get_string('myhome'));
 
-    // Raw scss code to include before main content.
+    // Activate mixed view dashboard.
     $name = 'theme_receptic/mixedviewindashboard';
     $title = 'tableau de bord alternatif';//get_string('rawscsspre', 'theme_receptic');
     $description = '';//get_string('rawscsspre_desc', 'theme_receptic');
@@ -194,17 +219,17 @@ if ($ADMIN->fulltree) {
 
     // Configure redballs and orangeballs.
     $page = new admin_settingpage('theme_receptic_redballs', get_string('redballs', 'theme_receptic'));
-    $name = 'theme_receptic/enableredballs';
-    $title = get_string('enableredballs', 'theme_receptic');
-    $description = get_string('enableredballs_desc', 'theme_receptic');
+    $name = 'theme_receptic/enableballs';
+    $title = get_string('enableballs', 'theme_receptic');
+    $description = get_string('enableballs_desc', 'theme_receptic');
     $setting = new admin_setting_configcheckbox($name, $title, $description, true);
     $page->add($setting);
 
-    $name = 'theme_receptic/enableorangeballs';
+    /*$name = 'theme_receptic/enableorangeballs';
     $title = get_string('enableorangeballs', 'theme_receptic');
     $description = get_string('enableorangeballs_desc', 'theme_receptic');
     $setting = new admin_setting_configcheckbox($name, $title, $description, true);
-    $page->add($setting);
+    $page->add($setting);*/
 
     $options = array(
         30  => new lang_string('nummonth', '', 1),
@@ -217,16 +242,13 @@ if ($ADMIN->fulltree) {
         3  => new lang_string('numdays', '', 3),
         2  => new lang_string('numdays', '', 2),
         1  => new lang_string('numday', '', 1));
-    $name = 'theme_receptic/redballs_lookback';
-    $title = get_string('redballslookback', 'theme_receptic');
-    $description = get_string('redballslookback_desc', 'theme_receptic');
+    $name = 'theme_receptic/hotitemslookback';
+    $title = get_string('hotitemslookback', 'theme_receptic');
+    $description = get_string('hotitemslookback_desc', 'theme_receptic');
     $setting = new admin_setting_configselect($name, $title, $description, 30, $options);
     $page->add($setting);
 
     $settings->add($page);
-
-
-
 }
 
 $page = new admin_settingpage('theme_receptic_flashbox', get_string('flashboxes', 'theme_receptic'), 'theme/receptic:editflashbox');
