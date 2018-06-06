@@ -18,9 +18,9 @@
     placeholder for template description. Ex: Page header.
 }}
 
-<nav role="banner" class="fixed-top {{#displaybrandbanner}}pos-f-t-lower{{/displaybrandbanner}} navbar bg-white navbar-receptic navbar-expand moodle-has-zindex">
+<nav role="banner" class="fixed-top {{#displaybrandbanner}}pos-f-t-lower{{/displaybrandbanner}} navbar bg-white navbar-light navbar-receptic navbar-expand moodle-has-zindex">
 
-
+{{#navbaritems}}
     <div class="d-inline-block mr-3 ml-1" data-region="drawer-toggle">
         <button aria-expanded="{{#navdraweropen}}true{{/navdraweropen}}{{^navdraweropen}}false{{/navdraweropen}}" aria-controls="nav-drawer" type="button" class="btn nav-link float-sm-left mr-1 btn-secondary" data-action="toggle-drawer" data-side="left" data-preference="drawer-open-nav">{{#pix}}i/menubars{{/pix}}<span class="sr-only">{{#str}}sidepanel, core{{/str}}</span>
         </button>
@@ -49,4 +49,5 @@
             {{{ output.user_menu }}}
         </li>
     </ul>
+{{/navbaritems}}
 </nav>

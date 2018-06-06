@@ -90,31 +90,32 @@
         "sitename": "Beer & Chips"
     }
 }}
-<div class="m-y-3 hidden-sm-down"></div>
+<div class="container">
+    <div class="my-5"></div>
 <div class="row">
-    <div class="col-md-4 push-md-0 m-2-md col-sm-8 push-sm-2">
-        <div class="card p-t-2">
+    <div class="col-md-4 col-10">
+        <div class="card pt-3">
             <div class="card-body">
-                <div class="row">
-                <div class="card-title text-center text-md-left col-md-10 push-md-1">
-                    <h2>{{#str}} login {{/str}}</h2>
-                    <hr>
-                </div>
-                {{#cansignup}}
+                <div class="row justify-content-center">
+                    <div class="card-title text-center text-md-left col-md-10">
+                        <h2>{{#str}} login {{/str}}</h2>
+                        <hr>
+                    </div>
+                    {{#cansignup}}
                     <div class="sr-only">
                         <a href="{{signupurl}}">{{#str}} tocreatenewaccount {{/str}}</a>
                     </div>
-                {{/cansignup}}
+                    {{/cansignup}}
                 </div>
                 {{#error}}
-                    <div class="loginerrors m-t-1">
+                    <div class="loginerrors mt-1">
                         <a href="#" id="loginerrormessage" class="accesshide">{{error}}</a>
                         <div class="alert alert-danger" role="alert">{{error}}</div>
                     </div>
                 {{/error}}
-                <div class="row">
-                    <div class="col-md-10 push-md-1 form">
-                        <form class="m-t-1" action="{{loginurl}}" method="post" id="login">
+                <div class="row justify-content-center">
+                    <div class="col-md-10 form">
+                        <form class="mt-1" action="{{loginurl}}" method="post" id="login">
                             <input id="anchor" type="hidden" name="anchor" value="">
                             <script>document.getElementById('anchor').value = location.hash;</script>
                             {{#hasidentityproviders}}
@@ -130,18 +131,18 @@
                                     {{/identityproviders}}
                                     <h4 class="m-t-1 text-center">Cliquez sur l'icône ci-dessus</h4>
                                 </div>
-                                <!--<h4 class="m-t-10" style="margin-top:10rem;">Utilisateur extérieur</h4>-->
+
                                 <div id="accordion" role="tablist" aria-multiselectable="true">
                                     <div class="card">
                                         <div class="card-header" role="tab" id="headingOne">
                                             <h5 class="mb-0">
-                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="sectiontoggle collapsed">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseone" aria-expanded="false" aria-controls="collapseOne" class="sectiontoggle collapsed">
                                                     <span>Utilisateur extérieur</span>
                                                 </a>
                                             </h5>
                                         </div>
 
-                                        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                                        <div id="collapseone" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
                                             <div class="card-body">
                                                 <label for="username" class="sr-only">
                                                     {{^canloginbyemail}}
@@ -151,9 +152,9 @@
                                                         {{#str}} usernameemail {{/str}}
                                                     {{/canloginbyemail}}
                                                 </label>
-                                                <div class="form-group input-group input-group-username">
+                                                <div class="input-group mb-3">
                                                     <input type="text" style="display:none" name="nothing" autofocus>
-                                                    <span class="input-group-addon"><i class="fa fa-user-circle"></i></span>
+                                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-user-circle"></i></span></div>
                                                     <input type="text" name="username" id="username"
                                                            class="form-control"
                                                            value="{{username}}"
@@ -161,8 +162,8 @@
                                                 </div>
 
                                                 <label for="password" class="sr-only">{{#str}} password {{/str}}</label>
-                                                <div class="form-group input-group input-group-password">
-                                                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                                <div class="input-group input-group-password">
+                                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-lock"></i></span></div>
                                                     <input type="password" name="password" id="password" value=""
                                                            class="form-control"
                                                             placeholder={{#quote}}{{#str}}password{{/str}}{{/quote}}>
@@ -181,9 +182,10 @@
                                         {{#str}} usernameemail {{/str}}
                                     {{/canloginbyemail}}
                                 </label>
-                                <div class="form-group input-group input-group-username">
+
+                                <div class="input-group mb-3">
                                     <input type="text" style="display:none" name="nothing" autofocus>
-                                    <span class="input-group-addon"><i class="fa fa-user-circle"></i></span>
+                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-user-circle"></i></span></div>
                                     <input type="text" name="username" id="username"
                                            class="form-control"
                                            value="{{username}}"
@@ -191,15 +193,16 @@
                                 </div>
 
                                 <label for="password" class="sr-only">{{#str}} password {{/str}}</label>
-                                <div class="form-group input-group input-group-password">
-                                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                <div class="input-group input-group-password">
+                                    <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-lock"></i></span></div>
                                     <input type="password" name="password" id="password" value=""
                                            class="form-control"
                                             placeholder={{#quote}}{{#str}}password{{/str}}{{/quote}}>
                                 </div>
                                 {{#rememberusername}}
                                     <div class="rememberpass m-t-1">
-                                        <input type="checkbox" name="rememberusername" id="rememberusername" value="1" {$
+                                        <input type="checkbox" name="rememberusername" id="rememberusername" value="1">
                                         <label for="rememberusername">{{#str}} rememberusername, admin {{/str}}</label>
                                     </div>
                                 {{/rememberusername}}
@@ -237,8 +240,8 @@
                         {{/canloginasguest}}
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-11 push-md-1">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
                         <div class="m-t-1">
                             {{#str}} cookiesenabled {{/str}}
                             {{{cookieshelpiconformatted}}}
@@ -249,7 +252,7 @@
         </div>
     </div>
     {{#hasinstructions}}
-        <div class="col-md-8 push-md-0 m-2-md col-sm-8 push-sm-2">
+        <div class="col-md-8 col-10">
             <div class="card welcome-panel">
                 <div class="card-body">
 
@@ -261,6 +264,7 @@
         </div>
     {{/hasinstructions}}
 </div>
+    </div>
 
 {{#js}}
     {{#error}}
