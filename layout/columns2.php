@@ -40,8 +40,8 @@ $sectionstogglestate = get_user_preferences('sections-toggle-' . $this->page->co
 if (empty($sectionstogglestate)) {
     $sectionstogglestate = '{}';
 }
-$params = array('course' => $this->page->course->id, 'sectionstoggle' => $sectionstogglestate);
-$this->page->requires->js_call_amd('theme_receptic/ux', 'init', array($params));
+//$params = array('course' => $this->page->course->id, 'sectionstoggle' => $sectionstogglestate);
+$this->page->requires->js_call_amd('theme_receptic/ux', 'init'/*, array($params)*/);
 
 $iscontextcourse = $context->contextlevel == CONTEXT_COURSE || $context->contextlevel == CONTEXT_MODULE;
 $params = new stdClass();

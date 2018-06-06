@@ -7,19 +7,17 @@ define(['jquery', 'core/log'], function($, log) {
     "use strict";
 
     return {
-        init: function($args) {
+        init: function() {
             log.debug('Theme Receptic AMD module initialized');
 
             $(document).ready(function($) {
 
-                var sectiontoggles = JSON.parse($args.sectionstoggle);
-
-                setTimeout(function () {
-                    for (var section in sectiontoggles) {
-                        section = '#collapse-' + parseInt(section);
-                        $(section).collapse('show');
-                    }
-                }, 50);
+                // Javascript to enable link to tab
+                $('.linktotab').on('click', function(event) {
+//console.log(event);
+                    var href = ($(event.currentTarget).attr('href'));
+                    $('.nav-tabs a[href="#'+href.split('#')[1]+'"]').tab('show');
+                });
 
                 // With HTML5 history API, we can easily prevent scrolling!
                 $('.nav-tabs a').on('shown.bs.tab', function (e) {
