@@ -1,0 +1,201 @@
+/**
+  * Theme widgets.
+  */
+
+body {
+    // Edition mode toggle.
+    .switch {
+        span:after {
+            color: $red;
+            content: "OFF";
+            padding-left: .5rem;
+        }
+        i {
+            color: $red;
+            padding-top: .3rem;
+        }
+    }
+    &.editing {
+        // Edition mode toggle.
+        .switch {
+            span:after {
+                color: $success;
+                content: "ON";
+            }
+            i {
+                color: $success;
+            }
+        }
+    }
+    .popover-region.nav-link.addon {
+        .fa {
+            font-size: larger;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+    }
+}
+
+.brand-banner {
+    background: linear-gradient(to bottom, $gray-lightest 0%, $gray-lightest 30%,darken($brand-banner-color,5%) 31%, lighten($brand-banner-color,5%) 95%);
+    height: $brand-banner-height;
+
+    img {
+        height: 55px;
+    }
+
+    .left-logo {
+        position: absolute;
+        top: 10px;
+        left: 15px;
+        height: 55px;
+        box-shadow: 4px 4px 15px $gray-700;
+    }
+
+    .right-logo {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        height: 55px;
+        box-shadow: 4px 4px 15px $gray-700;
+    }
+}
+
+/**
+ * Position banners, page and drawer according to screen size (brand banner for large displays).
+ */
+@media (min-width: 768px) {
+    .pos-f-t-lower {
+        top: $brand-banner-height;
+    }
+}
+
+@media (min-width: 768px) {
+    #page {
+        margin-top: $brand-banner-height + 45px;
+    }
+    body.path-login #page {
+        margin-top: 115px;
+    }
+}
+
+@media (min-width: 768px) {
+    [data-region="drawer"] {
+        top: $drawer-position-top;
+        height: calc(100% - #{$drawer-position-top});
+    }
+}
+
+// Back to top button.
+#back-to-top {
+    position: fixed;
+    bottom: 32px;
+    right: 40px;
+    text-align: center;
+    cursor: pointer;
+    opacity: .5;
+    filter:alpha(opacity=50);
+    display:none;
+    z-index:1000;
+    a {
+        text-decoration: none;
+        border: 0;
+        outline: none;
+        &.arrow {
+            padding: 5px 10px;
+            font-size: 36px;
+            color: #333;
+            background: #EEE;
+            border: 1px solid #CCC;
+            border-bottom: 1px solid #AAA;
+            border-radius: 5px;
+        }
+        &.text {
+            display: block;
+            background: white;
+            visibility: hidden;
+            position: relative;
+            top: 10px;
+        }
+    }
+}
+
+// Red and orange balls.
+
+.redball-count, .orangeball-count {
+    position: relative;
+    bottom: 3px;
+    border-radius: 50%;
+    padding: 4px 8px;
+    background-color: crimson;
+    color: white !important;
+    font-size: 10px;
+    margin-left: 3px;
+}
+
+.redball-count.in-drawer {
+    line-height: 12px;
+}
+
+.orangeball-count {
+    background-color: orange;
+}
+
+.redball-count.lower, .orangeball-count.lower {
+    padding: 4px 7px;
+}
+
+.redball-count.high, .orangeball-count.high {
+    padding: 4px 5px;
+}
+
+.section .redball-count, .section .orangeball-count,
+.single-section .redball-count, .single-section .orangeball-count {
+    bottom: 5px;
+    margin-left: .5rem;
+}
+
+body.editing .section .redball-count, body.editing .section .orangeball-count {
+    margin-left: 0;
+}
+
+.section.hot .sectionname:before, .hot:before, .section.warm .sectionname:before, .warm:before {
+    font-family: FontAwesome;
+    content: "\f111";
+    color: crimson;
+    font-size: 10px;
+    vertical-align: text-bottom;
+    margin-right: 5px;
+}
+
+.section.warm .sectionname:before, .warm:before {
+    color: orange;
+}
+
+.activity.hot:before, .activity.warm:before {
+    font-family: FontAwesome;
+    content: "\f111";
+    color: crimson;
+    font-size: 10px;
+    margin-right: 5px;
+    float:left;
+    margin-top: 8px;
+}
+
+.activity.warm:before {
+    color: orange;
+}
+
+body.editing .activity.hot:before, body.editing .activity.warm:before {
+    margin-top: 6px;
+}
+
+body.editing .section .activity .editing_move {
+    left: .625rem;
+    top: .25rem;
+}
+
+body.editing .section .activity.hot .mod-indent-outer, body.editing .section .activity.warm .mod-indent-outer {
+    padding-left: 1rem;
+}

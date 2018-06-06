@@ -1,47 +1,13 @@
 // Styling depending on edit mode
-body:not(.editing) .course-content ul.topics li.section .left.side,
-body:not(.editing) .course-content ul.weeks li.section .left.side {
-    display: none;
-}
-
-body.editing .course-content ul.topics li.section .left .icon.spacer,
-body.editing .course-content ul.weeks li.section .left .icon.spacer {
-    width: 0;
-}
-
-body.editing .collapsible-actions {
-    margin-top: 1rem;
-}
-
-body.editing .course-content {
-    .summarytext {
-        margin-left: 4rem;
-    }
-    a.sectiontoggle {
-        &:hover {
-            text-decoration: none;
-        }
-        .inplaceeditable .quickeditlink {
-            color: $primary;
-        }
-        &[aria-expanded="false"] {
-            background-image: url([[pix:moodle|t/collapsed]]);
-            background-position: left 25%;
-            padding-right: 1rem;
-            padding-left:0;
-        }
-        &[aria-expanded="true"] {
-            background-image: url([[pix:moodle|t/expanded]]);
-            background-position: left 30%;
-            padding-right: 1rem;
-            padding-left:0;
-        }
-    }
-    li.section {
-        .sectionname {
-            color: $primary;
-            &:hover {
-                text-decoration: underline;
+.course-content {
+    > ul {
+        li.section {
+            &:target {
+                padding-top: 160px !important; /* stylelint-disable declaration-no-important */
+                margin-top: -130px !important; /* negative fixed header height */
+            }
+            &:first-of-type:target {
+                margin-top: -30px !important;
             }
         }
     }
@@ -49,6 +15,7 @@ body.editing .course-content {
 
 .course-content {
     ul.topics,
+
     ul.weeks {
         li.section {
             padding: 0;
@@ -70,11 +37,12 @@ body.editing .course-content {
                 border-style: solid;
                 border-color: #ddd;
             }
-            &.hidden .sectionname > span {
+            &.hidden a span.sectionname {
                 margin-left: 0;
-                > span > a {
-                    color: $gray-600;
-                }
+                color: $gray-600;
+            }
+            &.hidden .section-title {
+                color: $gray-600;
             }
             &.current {
                 background-color:  $gray-300;
@@ -91,8 +59,8 @@ body.editing .course-content {
             &:first-of-type:target {
                 margin-top: -30px !important;
             }
-            .sectionname {
-                font-size: 1.3rem;
+            .sectionname, .section-title {
+                //font-size: 1.3rem;
                 padding-top: 3px;
                 /*float: left;*/
             }
@@ -107,35 +75,14 @@ body.editing .course-content {
             }
         }
     }
-    // Expand all, collapse all.
-    .collapsible-actions {
-        a {
-            padding-left: 20px;
-            &.expandall {
-                background: url([[pix:moodle|t/collapsed]]) 2px center no-repeat;
-            }
-            &.collapseall {
-                background: url([[pix:moodle|t/expanded]]) 2px center no-repeat;
-            }
-        }
 
-    }
     #changenumsections {
         padding: 1rem 0;
     }
 
-    #section-0 .section-summary-activities {
-        display:none;
-    }
-    .section-summary-activities .activity-count {
-        font-size: .750rem;
-        margin: 3px;
-        white-space: nowrap;
-        display: inline-block;
-        color: $gray-700;
-    }
+
     a.sectiontoggle {
-        float: left;
+        /*float: left;*/
         margin: 1px 3px 3px;
         padding: 2px 18px 2px 0;
         background-repeat: no-repeat;
@@ -167,18 +114,35 @@ body.editing .course-content {
     .section-modchooser {
          padding: 0 6px;
     }
-    .summarytext {
-        margin-left: 2rem;
+    div.section_availability {
+        margin-left: .5rem;
     }
-    .sectiontoggle ~ .section-summary-activities {
-        display: none;
+
+
+    // Use theme color.
+    ul.collapsibletopics {
+        li.section {
+            .sectionname {
+                color: $primary;
+            }
+            &.hidden {
+                .sectionname {
+                    color: $gray-600;
+                }
+            }
+        }
+        div.section_availability {
+            margin-left: .5rem;
+        }
     }
-    .sectiontoggle.collapsed ~ .section-summary-activities {
-        display: block;
-    }
-    .collapsing {
-        -webkit-transition: none;
-        transition: none;
+}
+
+body.editing .course-content {
+    ul.topics,
+    ul.weeks {
+        div.section_availability {
+            margin-left: 3rem;
+        }
     }
 }
 
@@ -232,13 +196,17 @@ body.editing .course-content {
 }
 
 // Availability infos.
-span.section_availability {
-    margin-left: 1rem;
+/*.course-content ul.topics div.section_availability {
+    margin-left: .75rem;
 }
+
+body.editing .course-content ul.topics div.section_availability {
+    margin-left: 2.25rem;
+}*/
 
 span.availabilityinfo:before {
     font-family: FontAwesome;
-    content: "";
+    content: "\f071";
     color: $danger;
     padding-right: 5px;
     vertical-align: sub;
@@ -261,17 +229,6 @@ span.availabilityinfo .tag.tag-info {
 
 .tag-info {
     background-color: $link-hover-color;
-}
-
-.path-course-view .content > div.availabilityinfo {
-    margin-left: 2rem;
-}
-
-div.availabilityinfo:before {
-    font-family: FontAwesome;
-    content: "\f071";
-    color: $danger;
-    padding-right: 5px;
 }
 
 .availability-connector .label {
@@ -335,17 +292,17 @@ img {
 }
 
 //Disable shortname fullname and category select from course edit form
-#page-course-edit.format-topics #id_fullname,
-#page-course-edit.format-topics #id_shortname,
-#page-course-edit.format-topics #id_category,
-#page-course-edit.format-weeks #id_fullname,
-#page-course-edit.format-weeks #id_shortname,
-#page-course-edit.format-weeks #id_category {
+#page-course-edit:not(.format-site) #id_fullname,
+#page-course-edit:not(.format-site) #id_shortname,
+#page-course-edit:not(.format-site) #id_category {
     pointer-events: none;
-    tabindex: -1;
-    border: none;
     box-shadow: none;
     max-width: 75%;
+    select {
+
+    }
+    background: $gray-200;
+    background-image: none;
 }
 /*.dndupload-progress-inner {
     {
@@ -384,4 +341,8 @@ img {
 
 .massaction-checkbox {
     margin-top: .25rem;
+}
+
+#region-main > .card {
+    box-shadow: 1px 2px 3px rgba(0,0,0,.25);
 }

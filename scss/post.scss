@@ -8,17 +8,21 @@
 
 #page-login-index {
     .form {
-        .input-group-addon {
-            width: 36px;
+        .input-group-password .input-group-text {
+            padding: .375rem .875rem;
         }
     }
     .navbar-receptic {
         height: 50px;
     }
+    .rememberpass label {
+        font-weight: normal;
+    }
 }
 
 .card.welcome-panel {
     background-color: $body-bg;
+    border-color: $gray-200;
 }
 
 .atto_generico_buttons button {
@@ -26,7 +30,6 @@
 }
 
 .atto_form button {
-    /*@extend .btn-primary;*/
     margin-top: .5rem;
 }
 
@@ -39,84 +42,6 @@ select.atto_generico_field {
     margin-left: .5rem;
 }
 
-.redball-count, .orangeball-count {
-    position: relative;
-    bottom: 3px;
-    border-radius: 50%;
-    padding: 4px 7px;
-    background-color: crimson;
-    color: white !important;
-    font-size: 10px;
-    margin-left: 3px;
-}
-
-.redball-count.in-drawer {
-    line-height: 12px;
-}
-
-.orangeball-count {
-    background-color: orange;
-}
-
-.redball-count.lower, .orangeball-count.lower {
-    padding: 4px 7px;
-}
-
-.redball-count.high, .orangeball-count.high {
-    padding: 4px 6px;
-}
-
-/*.redball-count.lower, .orangeball-count.lower {
-    padding: 4px 7px;
-}*/
-
-/*.redball-count.high, .orangeball-count.high {
-    padding: 4px 5px;
-}*/
-
-.section .redball-count, .section .orangeball-count {
-    bottom: 5px;
-}
-
-.section.hot .sectionname:before, .hot:before, .section.warm .sectionname:before, .warm:before {
-    font-family: FontAwesome;
-    content: "\f111";
-    color: crimson;
-    font-size: 10px;
-    vertical-align: text-bottom;
-    margin-right: 5px;
-}
-
-.section.warm .sectionname:before, .warm:before {
-    color: orange;
-}
-
-.activity.hot:before, .activity.warm:before {
-    font-family: FontAwesome;
-    content: "\f111";
-    color: crimson;
-    font-size: 10px;
-    margin-right: 5px;
-    float:left;
-    margin-top: 8px;
-}
-
-.activity.warm:before {
-    color: orange;
-}
-
-body.editing .activity.hot:before, body.editing .activity.warm:before {
-    margin-top: 6px;
-}
-
-body.editing .section .activity .editing_move {
-    left: .625rem;
-    top: .25rem;
-}
-
-body.editing .section .activity.hot .mod-indent-outer, body.editing .section .activity.warm .mod-indent-outer {
-    padding-left: 1rem;
-}
 
 .highlight {
     color: $success !important;
@@ -148,6 +73,7 @@ body.editing .section .activity.hot .mod-indent-outer, body.editing .section .ac
         font-size: xx-large;
     }
 }
+
 
 
 

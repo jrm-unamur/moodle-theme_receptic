@@ -3,10 +3,7 @@
     margin-top: 150px;
 }
 
-// Style shared elements
-#page.container-fluid {
-    padding-top: 6px;
-}
+
 
 #page-header .card {
     box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.25);
@@ -124,7 +121,7 @@
     &:before {
         font-family: FontAwesome;
         content: "\f059";
-        color: #1a9e9f;
+        color: $primary;
         padding-left: .5rem;
         font-size: 1.2rem;
     }

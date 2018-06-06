@@ -52,17 +52,21 @@
         padding: 1rem .5rem;
 
         .block-control-actions {
-            padding-right: 0.5rem;
+            /*padding-right: 0.5rem;*/
+        }
+        .block_header {
+            border-bottom: 1px solid #ced4da;
+            padding-botto: .5rem;
         }
         .card-title {
-            border-bottom: 1px solid $gray-400;
-            color: $success;
+            /*border-bottom: 1px solid $gray-400;*/
+            color: $headings-color;
             font-size: 1.1rem;
             text-transform: none;
-            font-weight: 500;
-            padding-bottom: ($spacer/2);
+
+            /*padding-bottom: ($spacer/2);
             margin-left: .5rem;
-            margin-right: .5rem;
+            margin-right: .5rem;*/
             /*padding-left: .5rem;*/
         }
         .card-title:before {
@@ -81,6 +85,15 @@
             padding: 4px 1rem;
             h5:before {
                 content: "";
+            }
+        }
+        .action-menu .menubar {
+            > .action-menu-item .icon.fa-arrows {
+                margin: 0;
+            }
+            .action-menu-trigger .dropdown-toggle .icon {
+                margin: 0;
+                margin-left: .225rem;
             }
         }
     }
@@ -185,6 +198,9 @@
     &.block_theme_selector h5:before {
         content: "\f1fc";
     }
+    &.block_badges h5:before {
+        content: "\f132";
+    }
     .minicalendarblock {
         caption {
             padding-bottom: 0;
@@ -281,18 +297,17 @@
     background-color: $primary;
     position: fixed;
     right: -15px;
-    top: 150px;
+    top: $drawer-position-top +20px;
     color: #fff;
     width: 40px;
     height: 40px;
     border-radius: 20px;
     font-size: 20px;
-    padding: .5rem 0 0 .6rem;
+    padding: .4rem 0 0 .6rem;
     cursor: pointer;
 
     &:before {
         font-family: FontAwesome;
-        speak: none;
         font-style: normal;
         font-weight: normal;
         font-variant: normal;
@@ -309,7 +324,7 @@
 }
 
 body.editing #sidepreopen-control {
-    top: 190px;
+    top: 193px;
 }
 
 body.editing.empty-region-side-pre.drawer-open-right #sidepreopen-control {
@@ -320,12 +335,21 @@ body.editing.empty-region-side-pre.drawer-open-right #sidepreopen-control {
     width: 280px;
 
     position: fixed;
-    top: 150px;
+    top: $drawer-position-top;
     right: -280px;
-    height: calc(100% - 150px);
+    height: calc(100% - #{$drawer-position-top});
     overflow-y: scroll;
     z-index: 999;
     padding-right: 2rem;
+    padding-top: 20px;
+
+    &.blocksbelow {
+        position: relative;
+        width: 100%;
+        top: 0;
+        right: 0;
+        padding: 0;
+    }
 }
 
 body.drawer-open-right {

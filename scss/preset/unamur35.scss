@@ -1,12 +1,9 @@
-/* stylelint-disable color-hex-length */
 /**
- * Default preset file.
- *
- * Use this space to customise variables, create mixins and override SCSS.
+ * University of Namur preset file.
  */
 
 // Colors
-$white:                     #fff !default;
+$white: #fff !default;
 
 $gray-100: #f8f9fa !default;
 $gray-200: #e9ecef !default;
@@ -17,7 +14,7 @@ $gray-600: #868e96 !default;
 $gray-700: #495057 !default;
 $gray-800: #373a3c !default;
 $gray-900: #212529 !default;
-$black:    #000 !default;
+$black: #000 !default;
 
 $blue:    #1177d1 !default;
 $indigo:  #6610f2 !default;
@@ -32,8 +29,8 @@ $cyan:    #5bc0de !default;
 
 $primary:       #1a9e9f !default;
 $secondary:     $gray-800 !default;
-$info:          #ad53b2 !default;
 $success:       #55ab26 !default;
+$info:          #ad53b2 !default;
 $warning:       #ff8800 !default;
 $danger:        #ff4136 !default;
 $light:         $gray-100 !default;
@@ -43,14 +40,16 @@ $dark:          $gray-800 !default;
 $enable-rounded: false !default;
 
 // Body
-$body-bg:    #f4f4f4 !default;
+$body-bg : $gray-200;
 $body-color: $gray-800 !default;
 
 // Fonts
 $font-size-base: 0.875rem !default;
+//$font-size-base: 0.9375rem !default;
 $headings-font-weight:   300 !default;
-$font-family-sans-serif: "Roboto", "Open Sans", sans-serif !default;
-$headings-font-family: "Roboto Condensed", "Roboto", "Open Sans", sans-serif !default;
+//$font-family-sans-serif: "Roboto", "Open Sans", sans-serif !default;
+//$headings-font-family: "Roboto Condensed", "Roboto", "Open Sans", sans-serif !default;
+
 
 // Breadcrumbs
 $breadcrumb-padding-y:              .25rem !default;
@@ -75,6 +74,11 @@ $theme-colors: (
     dark: $gray-800
 );
 
+// Theme addons.
+$brand-banner-color: $success !default;
+$brand-banner-height: 80px !default;
+$drawer-position-top: $brand-banner-height + 50px;
+
 $navbar-height:             50px !default;
 
 // Spacing
@@ -83,9 +87,10 @@ $spacer-x: $spacer !default;
 $spacer-y: $spacer !default;
 $border-width: 1px !default;
 
-// Links
+// Misc colors.
 $link-color: $primary !default;
 $link-hover-color: $success !default;
+$headings-color: $success !default;
 
 // Tables
 $table-bg:                      transparent !default;
@@ -155,27 +160,27 @@ $blocks-column-width : 260px !default;
 /**
  * Position banners, page and drawer according to screen size (brand banner for large displays).
  */
-@media (min-width: 768px) {
+/*@media (min-width: 768px) {
     .pos-f-t-lower {
         top: 80px;
     }
-}
+}*/
 
 @media (min-width: 768px) {
-    #page {
+    /*#page {
         margin-top: 125px;
-    }
+    }*/
     body.path-login #page {
         margin-top: 115px;
     }
 }
 
-@media (min-width: 768px) {
+/*@media (min-width: 768px) {
     [data-region="drawer"] {
         top: 129px;
         height: calc(100% - 129px);
     }
-}
+}*/
 
 /**
  * Navigation bar identity.
@@ -306,8 +311,8 @@ span .icon {
 
 input[type=submit] {
     color: #fff;
-    background-color: #1a9e9f;
-    border-color: #1a9e9f;
+    background-color: $primary;
+    border-color: $primary;
     display: inline-block;
     font-weight: normal;
     line-height: 1.25;
@@ -402,7 +407,11 @@ input[type=submit].btn-secondary:disabled:hover {
  * For background in content areas.
  */
 #page.container-fluid {
-    padding: 0 (1.5 * $spacer);
+    padding: 0 (2 * $spacer) 0 (1.5 * $spacer);
+}
+
+body.drawer-open-right #page.container-fluid {
+    padding-right: (1.5 * $spacer);
 }
 
 #block-region-side-pre {
@@ -584,4 +593,12 @@ $input-disabled-bg:              $gray-500 !default;
     height: 1.1rem;
     font-size: .625rem;
     padding: 1px 0 0 5px;
+}
+
+legend {
+    font-size: 1.3rem;
+}
+
+input[type=submit] {
+    font-size: .875rem;
 }
