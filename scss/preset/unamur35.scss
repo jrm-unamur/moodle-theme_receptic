@@ -92,6 +92,8 @@ $link-color: $primary !default;
 $link-hover-color: $success !default;
 $headings-color: $success !default;
 
+$footer-link-color: $primary !default;
+
 // Tables
 $table-bg:                      transparent !default;
 $table-bg-accent:               #fafafa !default;
@@ -223,7 +225,19 @@ $blocks-column-width : 260px !default;
         }
     }
 
-    //.navbar-nav {
+    [data-region="drawer-toggle"] {
+        .btn-secondary {
+            color: $white;
+            background-color: $gray-600;
+            border-color: $gray-700;
+            border-radius: .25rem;
+            &:hover, &:focus {
+                opacity: .5;
+            }
+        }
+    }
+
+    .navbar-nav {
         .nav-item + .nav-item {
             margin-left: $spacer;
             margin-right: $spacer;
@@ -245,18 +259,8 @@ $blocks-column-width : 260px !default;
                 color: $gray-500;
             }
         }
-        [data-region="drawer-toggle"] {
-            .btn-secondary {
-                color: $white;
-                background-color: $gray-600;
-                border-color: $gray-700;
-                border-radius: .25rem;
-                &:hover, &:focus {
-                    opacity: .5;
-                }
-            }
-        }
-    //}
+
+    }
 
     .navbar-divider {
          background-color: rgba(255,255,255,.075);

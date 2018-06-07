@@ -45,7 +45,7 @@
                 color: $gray-600;
             }
             &.current {
-                background-color:  $gray-300;
+                background-color:  $gray-100;
                 filter: sepia(15%);
                 border-left: 2px solid $primary;
                 &:before {
@@ -130,10 +130,22 @@
                     color: $gray-600;
                 }
             }
+            &#section-0 h3.sectionname {
+                padding-left: 3rem;
+            }
+            &.current {
+                background-color:  $gray-300;
+                filter: sepia(15%);
+                border-left: 2px solid $primary;
+                &:before {
+                    border: none;
+                }
+            }
         }
         div.section_availability {
             margin-left: .5rem;
         }
+
     }
 }
 

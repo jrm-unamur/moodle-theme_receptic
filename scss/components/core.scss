@@ -221,9 +221,9 @@ div.editor_atto_toolbar button .icon {
     border: 3px solid $success;
 }
 
-$footer-link-color: $primary !default;
+
 #page-footer a {
-    color: $primary;
+    color: $footer-link-color;
     text-decoration: none;
 }
 
