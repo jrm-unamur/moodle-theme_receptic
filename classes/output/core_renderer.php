@@ -474,7 +474,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
             return local_flashbox_render_flashboxstudents();
         }*/
         $usercanview = user_has_role_assignment($USER->id, 5)
-            || user_has_role_assignment($USER->id, 1, context_system::instance())
+            || user_has_role_assignment($USER->id, 1, context_system::instance()->id)
             || is_siteadmin();
         if ($PAGE->pagetype !== 'my-index'
             || get_user_preferences('flashbox-student-hidden', false, $USER->id) === 'true'
