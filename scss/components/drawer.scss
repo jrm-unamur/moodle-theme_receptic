@@ -5,6 +5,9 @@
             .fa-folder-o:before {
                 content: "\f07b";
             }
+            &[data-key="courseadmin"] > div:before {
+                content: "\f013";
+            }
             /*  &[data-key="bve"] {
                  .redball-count {
                      bottom: 2px;
@@ -45,9 +48,7 @@
              &[data-key="myevaluations"] > div:before {
                  content: "\f164";
              }
-             &[data-key="courseadmin"] > div:before {
-                 content: "\f013";
-             }
+
              &[data-key="noecreatecourse"] > div:before,
              &[data-key="manualcreatecourse"] > div:before {
                  content: "\f067";
