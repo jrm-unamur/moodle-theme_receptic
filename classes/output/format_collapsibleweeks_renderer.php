@@ -21,11 +21,30 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+namespace theme_receptic\output;
+
+use html_writer;
+
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = '2018020132';
-$plugin->requires = '2016070700';
-$plugin->component = 'theme_receptic';
-$plugin->dependencies = [
-    'theme_boost' => '2016102100'
-];
+if (file_exists("$CFG->dirroot/course/format/collapsibleweeks/renderer.php")) {
+
+
+    include_once($CFG->dirroot . '/course/format/collapsibleweeks/renderer.php');
+
+    class format_collapsibleweeks_renderer extends \format_collapsibleweeks_renderer {
+        /** overrides format_section_renderer_base */
+        use \theme_receptic\output\format_commons;
+
+        public function __construct(\moodle_page $page, $target) {
+            parent::__construct($page, $target);
+
+            $this->init();
+            $this->iscollapsible = true;
+        }
+
+        public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
+            $this->print_multiple_sections($course, $sections, $mods, $modnames, $modnamesused, true);
+        }
+    }
+}
