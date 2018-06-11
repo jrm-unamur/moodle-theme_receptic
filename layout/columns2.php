@@ -53,7 +53,7 @@ if (isloggedin()) {
 } else {
     $navdraweropen = false;
     $blockscollapsed = true;
-    $draweropenright = false;
+    $draweropenright = true;
 }
 $extraclasses = [];
 
