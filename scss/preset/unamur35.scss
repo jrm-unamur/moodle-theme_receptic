@@ -305,6 +305,9 @@ span .icon {
     color: #fff;
     background-color: $gray-700;
     border-color: $gray-700;
+    i.icon {
+        color: $white;
+    }
 }
 
 .btn-secondary:hover, .btn-default:hover,
