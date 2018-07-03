@@ -73,7 +73,7 @@ define(['jquery', 'core/log'], function($, log) {
                 $('body').on('click', '.hideflashboxstudents', function(event) {
                     event.preventDefault();
                     var target = event.target;
-                    $(target).parent().parent().slideUp(250);
+                    $(target).parent().parent().parent().slideUp(250);
                     M.util.set_user_preference('flashbox-student-hidden', 'true');
                 });
 
