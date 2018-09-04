@@ -12,11 +12,10 @@ define(['jquery', 'core/log'], function($, log) {
 
             $(document).ready(function($) {
 
-                // Javascript to enable link to tab
+                // Javascript to enable link to tab.
                 $('.linktotab').on('click', function(event) {
-//console.log(event);
                     var href = ($(event.currentTarget).attr('href'));
-                    $('.nav-tabs a[href="#'+href.split('#')[1]+'"]').tab('show');
+                    $('.nav-tabs a[href="#' + href.split('#')[1] + '"]').tab('show');
                 });
 
                 // With HTML5 history API, we can easily prevent scrolling!
@@ -25,13 +24,14 @@ define(['jquery', 'core/log'], function($, log) {
                     if(history.pushState) {
                         history.pushState(null, null, e.target.hash);
                     } else {
-                        window.location.hash = e.target.hash; //Polyfill for old browsers
+                        // Polyfill for old browsers.
+                        window.location.hash = e.target.hash;
                     }
                 });
 
                 var isCtrl = false;
                 var isShift = false;
-                // action on key up
+                // Action on key up.
                 $(document).keyup(function(e) {
                     if(e.which == 17) {
                         isCtrl = false;
@@ -40,7 +40,7 @@ define(['jquery', 'core/log'], function($, log) {
                         isShift = false;
                     }
                 });
-                // action on key down
+                // Action on key down.
                 $(document).keydown(function(e) {
                     if(e.which == 17) {
                         isCtrl = true;
@@ -58,7 +58,7 @@ define(['jquery', 'core/log'], function($, log) {
                     }
                 });
 
-                //Disable shortname, fullname and category for course edit form
+                // Disable shortname, fullname and category in course edit form.
                 $('#page-course-edit:not(.format-site) #id_fullname').prop('readonly', true);
                 $('#page-course-edit:not(.format-site) #id_shortname').prop('readonly', true);
                 $('#page-course-edit:not(.format-site) #id_category').prop('readonly', true);
