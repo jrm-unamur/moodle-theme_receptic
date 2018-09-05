@@ -23,8 +23,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-//define('NO_OUTPUT_BUFFERING', true);
-
 require_once('../../config.php');
 
 global $DB, $USER, $COURSE;
@@ -39,18 +37,11 @@ require_login();
 require_capability('moodle/course:update', context_course::instance($courseid));
 require_sesskey();
 
-
-
 $return = new moodle_url('/my');
-
-//$syscontext = context_system::instance();
 
 switch ($action) {
     case 'show':
         $course = $DB->get_record('course', array('id' => $courseid));
-        $trace = new stdClass();
-        $trace->trace = 'Cours ' . $course->shortname . ' (' . $course->id . ') rendu visible par ' . $USER->firstname . ' ' . $USER->lastname;
-        $DB->insert_record('webcampus_trace', $trace);
         $record = new stdClass();
         $record->id = $courseid;
         $record->visible = 1;
@@ -59,9 +50,6 @@ switch ($action) {
 
     case 'hide':
         $course = $DB->get_record('course', array('id' => $courseid));
-        $trace = new stdClass();
-        $trace->trace = 'Cours ' . $course->shortname . ' (' . $course->id . ') masqué par ' . $USER->firstname . ' ' . $USER->lastname;
-        $DB->insert_record('webcampus_trace', $trace);
         $record = new stdClass();
         $record->id = $courseid;
         $record->visible = 0;

@@ -80,7 +80,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                             }
                             $buttontoadd = true;
                             break;
-                        case 'calendar-view':  // Slightly faulty as even the navigation link goes back to the frontpage.  TODO: MDL.
+                        case 'calendar-view':// Slightly faulty as even the navigation link goes back to the frontpage.  TODO: MDL.
                             $url = new moodle_url('/course/view.php');
                             $url->param('id', 1);
                             if ($this->page->user_is_editing()) {
@@ -131,7 +131,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
                         case 'user-profile':
                             // TODO: Not sure how to get 'id' param and if it is really needed.
                             $url = $this->page->url;
-                            // Umm! Both /user/profile.php and /user/profilesys.php have the same page type but different parameters!
+                            // Umm! Both /user/profile.php and /user/profilesys.php
+                            // have the same page type but different parameters!
                             if ($this->page->user_is_editing()) {
                                 $url->param('adminedit', 0);
                                 $url->param('edit', 0);
@@ -412,8 +413,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         global $PAGE;
         $flashboxaudience = $PAGE->theme->settings->$targetaudience;
         $flashboxtype = $PAGE->theme->settings->{$targetaudience . 'type'};
-        //$flashboxaudience = get_config('local_flashbox', $targetaudience);
-        //$flashboxtype = get_config('local_flashbox', $targetaudience . "type");
+
         switch ($flashboxtype) {
             case 'info' :
                 $flashboxicon = 'lightbulb-o';
@@ -435,20 +435,10 @@ class core_renderer extends \theme_boost\output\core_renderer {
             return parent::render_from_template('theme_receptic/flashbox', $data);
         }
         return '';
-        //return $PAGE->theme->settings->generalalert;
     }
 
     public function flashboxteachers() {
         global $PAGE, $USER;
-        /*$flashboxenabled = core_plugin_manager::instance()->get_plugin_info('local_flashbox');
-        if (is_null($flashboxenabled)) {
-            return '';
-        } else {
-            require_once($CFG->dirroot . '/local/flashbox/lib.php');
-            $PAGE->requires->js_call_amd('local_flashbox/flashbox', 'init');
-
-            return local_flashbox_render_flashboxteachers();
-        }*/
 
         $usercanview = user_has_role_assignment($USER->id, 1)
                     || user_has_role_assignment($USER->id, 2)
@@ -465,14 +455,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
     public function flashboxstudents() {
         global $PAGE, $USER;
-        /*$flashboxenabled = core_plugin_manager::instance()->get_plugin_info('local_flashbox');
-        if (is_null($flashboxenabled)) {
-            return '';
-        } else {
-            require_once($CFG->dirroot . '/local/flashbox/lib.php');
-            $PAGE->requires->js_call_amd('local_flashbox/flashbox', 'init');
-            return local_flashbox_render_flashboxstudents();
-        }*/
+
         $usercanview = user_has_role_assignment($USER->id, 5)
             || user_has_role_assignment($USER->id, 1, context_system::instance()->id)
             || is_siteadmin();
@@ -485,16 +468,17 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     public function contact_info() {
-        return '<div class="contactinfo text-center">
-<p>Contacter l\'équipe WebCampus:<br/><a href="mailto:webcampus-migration@unamur.be"> <i class="fa fa-envelope"></i> </a> ou <i class="fa fa-phone"></i> 081/72 50 75</p></div>';
+        return '<div class="contactinfo text-center">' .
+        '<p>Contacter l\'équipe WebCampus:<br/>' .
+        '<a href="mailto:webcampus-migration@unamur.be"> <i class="fa fa-envelope"></i> </a>' .
+        ' ou <i class="fa fa-phone"></i> 081/72 50 75</p></div>';
     }
 
     public function moodle_credits() {
 
         return '<div class="moodlecredits text-center">Utilise ' .
         '<a title="Moodle" href="http://moodle.org/" target"_blank">' .
-        //'<img src="' . $this->pix_icon('moodlelogo') . '" alt="'.get_string('moodlelogo').'" /></a></div>';
         $this->pix_icon('moodlelogo', 'moodle', 'moodle', array('class' => 'moodlelogofooter')) .
         '</a></div>';
-    }//$pix, $alt, $component='moodle', array $attributes = null
+    }
 }

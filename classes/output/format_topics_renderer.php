@@ -30,7 +30,6 @@ use html_writer;
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . "/course/format/topics/renderer.php");
-//require_once($CFG->dirroot . "/theme/receptic/lib.php");
 
 class format_topics_renderer extends \format_topics_renderer {
 

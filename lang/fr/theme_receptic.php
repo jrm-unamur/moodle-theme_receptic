@@ -24,8 +24,13 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['advancedsettings'] = 'Réglages avancés';
+$string['brandbanner'] = 'Bannière';
+$string['brandbanner_desc'] = 'Afficher une bannière avec les logos définis dans les réglages généraux du thème';
+$string['brandbannercolor'] = 'Couleur de la bannière';
+$string['brandbannercolor_desc'] = 'Couleur de base pour générer le dégradé de la bannière';
 $string['brandcolor'] = 'Couleur principale';
 $string['brandcolor_desc'] = 'La couleur majeure du thème';
+$string['branding'] = 'Branding';
 $string['choosereadme'] = 'Le thème MWar est le thème en construction pour le futur WebCampus de l\'Université de Namur';
 $string['configtitle'] = 'Receptic';
 $string['generalsettings'] = 'Réglages généraux';
@@ -87,3 +92,5 @@ $string['flashboxstudentstype_desc'] = 'Type du message à afficher';
 $string['trick'] = 'Astuce';
 $string['showblocks'] = 'Afficher les blocks';
 $string['hideblocks'] = 'Masquer les blocks';
+$string['mixedviewindashboard'] = 'Tableau de bord alternatif';
+$string['mixedviewindashboard_desc'] = 'Rassembler les deux vues "Chrolonogie" et "Cours" en une seule vue pour le tableau de bord';

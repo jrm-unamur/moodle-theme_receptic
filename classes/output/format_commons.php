@@ -1,12 +1,22 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jmeuriss
- * Date: 6/06/18
- * Time: 13:40
- */
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace theme_receptic\output;
+
+defined('MOODLE_INTERNAL') || die();
 
 trait format_commons {
 
@@ -33,7 +43,7 @@ trait format_commons {
         if ($this->ballsenabled) {
             $this->compute_balls($course);
         }
-        // end test computing of red and orange balls on cours page.
+        // End test computing of red and orange balls on course page.
 
         $modinfo = get_fast_modinfo($course);
         $course = course_get_format($course)->get_course();
@@ -44,10 +54,10 @@ trait format_commons {
         echo $completioninfo->display_help_icon();
         echo $this->output->heading($this->page_title(), 2, 'accesshide');
 
-        // Copy activity clipboard..
+        // Copy activity clipboard.
         echo $this->course_activity_clipboard($course, 0);
 
-        // Now the list of sections..
+        // Now the list of sections.
 
         echo $this->start_section_list();
         $numsections = course_get_format($course)->get_last_section_number();
@@ -73,7 +83,7 @@ trait format_commons {
                 }
                 continue;
             }
-            //if ($section > $course->numsections) {
+
             if ($section > $numsections) {
                 // Activities inside this section are 'orphaned', this section will be printed as 'stealth' below.
                 continue;
@@ -158,7 +168,7 @@ trait format_commons {
         if ($this->ballsenabled) {
             $this->compute_balls($course);
         }
-        // end test computing of red and orange balls on cours page.
+        // End test computing of red and orange balls on course page.
 
         // Copy activity clipboard..
         echo $this->course_activity_clipboard($course, $displaysection);
@@ -168,13 +178,13 @@ trait format_commons {
             $modules = $this->courserenderer->theme_receptic_course_section_cm_list($course, $thissection, $displaysection);
             echo parent::start_section_list();
             echo parent::section_header($thissection, $course, true, $displaysection);
-            echo $modules;//$this->courserenderer->course_section_cm_list($course, $thissection, $displaysection);
+            echo $modules;
             echo $this->courserenderer->course_section_add_cm_control($course, 0, $displaysection);
             echo $this->section_footer();
             echo parent::end_section_list();
         }
 
-        // Start single-section div
+        // Start single-section div.
         echo \html_writer::start_tag('div', array('class' => 'single-section'));
 
         // The requested section page.
@@ -193,7 +203,7 @@ trait format_commons {
             $balls = $this->balls_display($thissection);
         }
 
-        // Title attributes
+        // Title attributes.
         $classes = 'sectionname';
         if (!$thissection->visible) {
             $classes .= ' dimmed_text';
@@ -204,7 +214,7 @@ trait format_commons {
         $sectiontitle .= \html_writer::end_tag('div');
         echo $sectiontitle;
 
-        // Now the list of sections..
+        // Now the list of sections.
         echo parent::start_section_list();
         echo parent::section_header($thissection, $course, true, $displaysection);
         // Show completion help icon.
@@ -212,7 +222,6 @@ trait format_commons {
 
         echo $completioninfo->display_help_icon();
         echo $modules;
-        //echo $this->courserenderer->course_section_cm_list($course, $thissection, $displaysection);
         echo $this->courserenderer->course_section_add_cm_control($course, $displaysection, $displaysection);
         echo $this->section_footer();
         echo $this->end_section_list();
@@ -307,10 +316,9 @@ trait format_commons {
 
             $o .= '<div class="clearfix">';
             $o .= $headingoutsidelink;
-            //$o .= $this->output->heading($sectionname . $balls, 3, 'sectionname' . $classes);
 
             $o .= $this->section_availability($section) . '</div>';
-            //$o .= $this->section_summary($section, $course, null);
+
             if ($section->uservisible || $section->visible) {
                 // Show summary if section is available or has availability restriction information.
                 // Do not show summary if section is hidden but we still display it because of course setting
@@ -333,7 +341,6 @@ trait format_commons {
         } else {
             $o .= $this->output->heading($sectionname . $balls, 3, 'sectionname' . $classes);
             $o .= $this->section_availability($section);
-//if($section->section == 1) print_object($this->section_availability($section));
             $o .= \html_writer::start_tag('div', array('class' => 'summarytext'));
             if ($section->uservisible || $section->visible) {
                 // Show summary if section is available or has availability restriction information.
@@ -400,15 +407,13 @@ trait format_commons {
             $classattr = 'section main section-summary clearfix';
             $linkclasses = '';
 
-            // If section is hidden then display grey section link
+            // If section is hidden then display grey section link.
             if (!$section->visible) {
                 $classattr .= ' hidden';
                 $linkclasses .= ' dimmed_text';
             } else if (course_get_format($course)->is_section_current($section)) {
                 $classattr .= ' current';
             }
-
-            //$ballsactivated = get_config('theme_receptic', 'enableballs');
             $balls = '';
             if ($this->ballsenabled) {
                 $balls = $this->balls_display($section);

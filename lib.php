@@ -29,12 +29,10 @@ function theme_receptic_get_pre_scss($theme) {
     global $CFG, $DB;
 
     $scss = '';
-    //print_object($this->theme->settings->brandbannerheight);die();
 
     $configurable = [
         // Config key => [scss variableName1, ...].
         'brandbannercolor' => ['brand-banner-color'],
-        //'brandbannerheight' => ['brand-banner-height']
     ];
 
     // Prepend variables first.
@@ -61,9 +59,7 @@ function theme_receptic_get_pre_scss($theme) {
     if (!empty($theme->settings->scsspre)) {
         $scss .= $theme->settings->scsspre;
     }
-    /*$tmp = new stdClass();
-    $tmp->trace = $scss;
-    $DB->insert_record('webcampus_trace', $tmp);*/
+
     return $scss;
 }
 
@@ -84,8 +80,7 @@ function theme_receptic_get_main_scss_content($theme) {
         $scss .= file_get_contents($CFG->dirroot . '/theme/receptic/scss/preset/unamur35.scss');
     } else if ($filename == 'boostlike.scss') {
         $scss .= file_get_contents($CFG->dirroot . '/theme/receptic/scss/preset/boostlike.scss');
-    }
-    else if ($filename == 'default.scss') {
+    } else if ($filename == 'default.scss') {
         $scss .= file_get_contents($CFG->dirroot . '/theme/boost/scss/preset/default.scss');
     } else if ($filename == 'plain.scss') {
         $scss .= file_get_contents($CFG->dirroot . '/theme/boost/scss/preset/plain.scss');
@@ -97,9 +92,8 @@ function theme_receptic_get_main_scss_content($theme) {
 
     // Add 2 scss file to the beginning and end of main.
     $pre = file_get_contents($CFG->dirroot . '/theme/receptic/scss/pre.scss');
-   // $fa = file_get_contents($CFG->dirroot . '/theme/receptic/scss/fontawesome/font-awesome.scss');
     $post = file_get_contents($CFG->dirroot . '/theme/receptic/scss/post.scss');
-//print_object('coucou');die();
+
     return $pre . "\n" . $scss . "\n" . $post;
 }
 
@@ -171,7 +165,8 @@ function theme_receptic_get_fontawesome_icon_map() {
  */
 function theme_receptic_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
 
-    if ($context->contextlevel == CONTEXT_SYSTEM && ($filearea === 'logoleft' || $filearea === 'logoright' || $filearea === 'logocenter')) {
+    if ($context->contextlevel == CONTEXT_SYSTEM
+            && ($filearea === 'logoleft' || $filearea === 'logoright' || $filearea === 'logocenter')) {
         $theme = theme_config::load('receptic');
         // By default, theme files must be cache-able by both browsers and proxies.
         if (!array_key_exists('cacheability', $options)) {
@@ -327,9 +322,7 @@ function theme_receptic_get_orangeballs($course, $starttime) {
         'create' => 'c',
         'modlabelid' => $modlabelid
     ));
-//print_object($query);
-//        print_object($starttime);
-//print_object($records);
+
     $alreadytested = array();
     $redcmids = array();
     foreach ($records as $record) {
@@ -339,7 +332,8 @@ function theme_receptic_get_orangeballs($course, $starttime) {
             $alreadytested[] = $record->contextinstanceid;
         }
         $modglossaryid = $DB->get_field('modules', 'id', array('name' => 'glossary'));
-        if ($record->eventname == '\mod_glossary\event\entry_updated' || $record->eventname == '\mod_glossary\event\entry_created'){
+        if ($record->eventname == '\mod_glossary\event\entry_updated'
+                || $record->eventname == '\mod_glossary\event\entry_created') {
             $glossaryentry = $DB->get_record('glossary_entries', array('id' => $record->objectid));
             if ($glossaryentry->approved == 0) {
                 continue;
@@ -540,9 +534,7 @@ function theme_receptic_compute_orangeballs($course, $starttime, $updateditemsfo
         'create' => 'c',
         'modlabelid' => $modlabelid
     ));
-//print_object($query);
-//        print_object($starttime);
-//print_object($records);
+
     $alreadytested = array();
     $orangecmids = array();
     foreach ($records as $record) {
@@ -552,7 +544,8 @@ function theme_receptic_compute_orangeballs($course, $starttime, $updateditemsfo
             $alreadytested[] = $record->contextinstanceid;
         }
         $modglossaryid = $DB->get_field('modules', 'id', array('name' => 'glossary'));
-        if ($record->eventname == '\mod_glossary\event\entry_updated' || $record->eventname == '\mod_glossary\event\entry_created'){
+        if ($record->eventname == '\mod_glossary\event\entry_updated'
+                || $record->eventname == '\mod_glossary\event\entry_created') {
             $glossaryentry = $DB->get_record('glossary_entries', array('id' => $record->objectid));
             if ($glossaryentry->approved == 0) {
                 continue;
@@ -652,30 +645,4 @@ function theme_receptic_get_visible_balls_count($course, $redballs, $orangeballs
         );
     }
     return array($redcount, $orangecount);
-
-    /*$course->newitemscount = $redcount;
-    $course->redballscountclass = $redcount > 9 ? 'high' : '';*/
 }
-
-
-/*function theme_receptic_extend_navigation(global_navigation $nav) {
-    global $COURSE;
-    // Ajouter une condition pour n'afficher que pour les createurs de cours.
-    if (has_capability('local/createcourse:create', context_system::instance())) {
-        $syscontext = context_system::instance();
-        //if ($COURSE->id == SITEID) {
-        $noeitem = $nav->add(get_string('createcourse', 'local_createcourse'), '/local/createcourse/index.php',
-            navigation_node::TYPE_SETTING, null , 'noecreatecourse2', new pix_icon('i/course' , ''));
-        $noeitem->showinflatnavigation = true;
-        $noeitem->myshowdivider = true;
-        if (has_capability('moodle/course:create', context_system::instance())) {
-            $manualitem = $nav->add(get_string('createcourse', 'local_createcourse') . ' ... (manuel2)',
-                    '/course/edit.php?category=1&returnto=topcat',
-                    navigation_node::TYPE_SETTING, null , 'manualcreatecourse2', new pix_icon('i/course' , ''));
-            $manualitem->showinflatnavigation = false;
-            if (empty($noeitem)) {
-                $manualitem->myshowdivider = true;
-            }
-        }
-    }
-}*/

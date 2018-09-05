@@ -28,18 +28,10 @@ if ($ADMIN->fulltree) {
     // General settings page.
     $page = new admin_settingpage('theme_receptic_general', get_string('generalsettings', 'theme_receptic'));
 
-    // Scss variable overriding $brand-primary.
-    $name = 'theme_receptic/brandprimary';
-    $title = get_string('brandcolor_desc', 'theme_receptic');
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, '');
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
     $name = 'theme_receptic/preset';
     $title = get_string('preset', 'theme_receptic');
     $description = get_string('preset_desc', 'theme_receptic');
     $default = 'default.scss';
-
     // List preset files in our theme file area to add them to the dropdown choice list. We then add presets from boost.
     $context = context_system::instance();
     $fs = get_file_storage();
@@ -72,6 +64,34 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configstoredfile($name, $title, $description, 'loginbackgroundimage');
     $setting->set_updatedcallback('theme_receptic_update_settings_images');
     $page->add($setting);
+    $settings->add($page);
+
+    $page = new admin_settingpage('theme_receptic_colours', get_string('branding', 'theme_receptic'));
+
+    // Scss variable to override $brand-primary.
+    $name = 'theme_receptic/brandprimary';
+    $title = get_string('brandcolor', 'theme_receptic');
+    $desription = get_string('brandcolor_desc', 'theme_receptic');
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '');
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Variable $brandprimary.
+    $name = 'theme_receptic/brandbanner';
+    $title = get_string('brandbanner', 'theme_receptic');
+    $description = get_string('brandbanner_desc', 'theme_receptic');
+    $default = true;
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Scss variable to override $brand-banner-color.
+    $name = 'theme_receptic/brandbannercolor';
+    $title = get_string('brandbannercolor', 'theme_receptic');
+    $description = get_string('brandbannercolor_desc', 'theme_receptic');
+    $setting = new admin_setting_configcolourpicker($name, $title, $description, '');
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
 
     // Left logo file setting.
     $title = get_string('logoleft', 'theme_receptic');
@@ -89,61 +109,27 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    // right logo file setting.
+    // Right logo file setting.
     $title = get_string('logoright', 'theme_receptic');
     $description = get_string('logoright_desc', 'theme_receptic');
     $setting = new admin_setting_configstoredfile('theme_receptic/logoright', $title, $description, 'logoright', 0,
         ['maxfiles' => 1, 'accepted_types' => ['.jpg', '.png']]);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
-    $settings->add($page);
-
-    //TODO: translate
-    $page = new admin_settingpage('theme_receptic_colours', 'coloursanddisplay');//get_string('coloursanddisplay', 'theme_receptic'));
-    $page->add(new admin_setting_heading('theme_receptic_colours', 'colours_headingsub'/*get_string('colours_headingsub', 'theme_fordson')*/, 'coulours_desc'));//format_text(get_string('colours_desc' , 'theme_fordson'), FORMAT_MARKDOWN)));
-
-    // Variable $brandprimary.
-    $name = 'theme_receptic/brandbanner';
-    $title = 'brandbanner';//get_string('brandbanner', 'theme_receptic');
-    $description = 'brandbannerdesc';//get_string('brandbanner_desc', 'theme_receptic');
-    $default = true;
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
-
-    //$settings->add($page);
-
-    // Variable $brandcolor.
-    $name = 'theme_receptic/brandbannercolor';
-    $title = 'brandcolor'; //get_string('brandcolor', 'theme_fordson');
-    $description = 'brandcolor_desc'; //get_string('brandprimary_desc', 'theme_fordson');
-    $setting = new admin_setting_configcolourpicker($name, $title, $description, '');
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);
 
     $settings->add($page);
-
 
     // Dashboard settings page.
     $page = new admin_settingpage('theme_receptic_dashboard', get_string('myhome'));
 
     // Activate mixed view dashboard.
     $name = 'theme_receptic/mixedviewindashboard';
-    $title = 'tableau de bord alternatif';//get_string('rawscsspre', 'theme_receptic');
-    $description = '';//get_string('rawscsspre_desc', 'theme_receptic');
+    $title = get_string('mixedviewindashboard', 'theme_receptic');
+    $description = get_string('mixedviewindashboard_desc', 'theme_receptic');
     $default = true;
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
-    //$setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-
-    // Raw scss code to include after main content.
-    /*$name = 'theme_receptic/scss';
-    $title = get_string('rawscss', 'theme_receptic');
-    $description = get_string('rawscss_desc', 'theme_receptic');
-    $setting = new admin_setting_scsscode($name, $title, $description, '', PARAM_RAW);
-    $setting->set_updatedcallback('theme_reset_all_caches');
-    $page->add($setting);*/
     $settings->add($page);
 
     $page = new admin_settingpage('theme_receptic_toolselector', get_string('toolselector', 'theme_receptic'));
@@ -225,12 +211,6 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcheckbox($name, $title, $description, true);
     $page->add($setting);
 
-    /*$name = 'theme_receptic/enableorangeballs';
-    $title = get_string('enableorangeballs', 'theme_receptic');
-    $description = get_string('enableorangeballs_desc', 'theme_receptic');
-    $setting = new admin_setting_configcheckbox($name, $title, $description, true);
-    $page->add($setting);*/
-
     $options = array(
         30  => new lang_string('nummonth', '', 1),
         21  => new lang_string('numweeks', '', 3),
@@ -253,7 +233,7 @@ if ($ADMIN->fulltree) {
 
 $page = new admin_settingpage('theme_receptic_flashbox', get_string('flashboxes', 'theme_receptic'), 'theme/receptic:editflashbox');
 
-// flashboxteachers setting.
+// Flashboxteachers setting.
 $name = 'theme_receptic/flashboxteachers';
 $title = get_string('flashboxteachers', 'theme_receptic');
 $description = get_string('flashboxteachers_desc', 'theme_receptic');
@@ -262,7 +242,7 @@ $setting = new admin_setting_confightmleditor($name, $title, $description, $defa
 $setting->set_updatedcallback('theme_receptic_reset_flashbox_teachers');
 $page->add($setting);
 
-// flashboxteacherstype setting.
+// Flashboxteacherstype setting.
 $name = 'theme_receptic/flashboxteacherstype';
 $title = get_string('flashboxteacherstype', 'theme_receptic');
 $description = get_string('flashboxteacherstype_desc', 'theme_receptic');
@@ -274,10 +254,9 @@ $choices = [
 ];
 
 $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
-//$setting->set_updatedcallback('theme_reset_all_caches');
 $page->add($setting);
 
-// flashboxteachers setting.
+// Flashboxstudents setting.
 $name = 'theme_receptic/flashboxstudents';
 $title = get_string('flashboxstudents', 'theme_receptic');
 $description = get_string('flashboxstudents_desc', 'theme_receptic');
@@ -286,7 +265,7 @@ $setting = new admin_setting_confightmleditor($name, $title, $description, $defa
 $setting->set_updatedcallback('theme_receptic_reset_flashbox_students');
 $page->add($setting);
 
-// flashboxteacherstype setting.
+// Flashboxstudentstype setting.
 $name = 'theme_receptic/flashboxstudentstype';
 $title = get_string('flashboxstudentstype', 'theme_receptic');
 $description = get_string('flashboxstudentstype_desc', 'theme_receptic');
@@ -298,7 +277,6 @@ $choices = [
 ];
 
 $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
-//$setting->set_updatedcallback('theme_reset_all_caches');
 $page->add($setting);
 
 // Add settings page to the appearance settings category.

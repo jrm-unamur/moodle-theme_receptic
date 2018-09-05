@@ -137,7 +137,7 @@ $blocks-column-width : 260px !default;
 
 
 .brand-banner {
-    background: linear-gradient(to bottom, $gray-lightest 0%, $gray-lightest 30%,darken($link-hover-color,5%) 31%, lighten($link-hover-color,5%) 95%);
+    background: linear-gradient(to bottom, $gray-lightest 0%, $gray-lightest 30%,darken($brand-banner-color,5%) 31%, lighten($brand-banner-color,5%) 95%);
     height: 80px;
 
     img {

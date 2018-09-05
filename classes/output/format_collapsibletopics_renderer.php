@@ -33,7 +33,7 @@ if (file_exists("$CFG->dirroot/course/format/collapsibletopics/renderer.php")) {
     require_once($CFG->dirroot . '/course/format/collapsibletopics/renderer.php');
 
     class format_collapsibletopics_renderer extends \format_collapsibletopics_renderer {
-        /** overrides format_section_renderer_base */
+        // Overrides format_section_renderer_base.
         use \theme_receptic\output\format_commons;
 
         public function __construct(\moodle_page $page, $target) {
@@ -44,7 +44,7 @@ if (file_exists("$CFG->dirroot/course/format/collapsibletopics/renderer.php")) {
         }
 
         public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
-           $this->print_multiple_sections($course, $sections, $mods, $modnames, $modnamesused, true);
+            $this->print_multiple_sections($course, $sections, $mods, $modnames, $modnamesused, true);
         }
     }
 }

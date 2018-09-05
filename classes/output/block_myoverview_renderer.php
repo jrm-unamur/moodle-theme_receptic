@@ -24,7 +24,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/blocks/myoverview/classes/output/renderer.php');
-//require_once($CFG->dirroot . '/theme/receptic/lib.php');
 
 /**
  * myoverview block renderer
@@ -47,84 +46,85 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
         if (empty(get_config('theme_receptic', 'mixedviewindashboard'))) {
             return parent::render_main($main);
         } else {
-
-        $data = $main->export_for_template($this);
-        $createcourseplugin = core_plugin_manager::instance()->get_plugin_info('local_createcourse');
-        if ($createcourseplugin && has_capability('local/createcourse:create', context_system::instance())) {
-            $data['urls']['addcourse'] = new moodle_url('/local/createcourse/index.php');
-            $data['cancreatecourse'] = true;
-        }
-        if (substr_count($USER->email, '@student.unamur.be')) {
-            $data['urls']['enrolme'] = new moodle_url('/local/unamur/noe/enrolnoecourses.php');
-            $data['noestudent'] = true;
-        }
-
-        $courselist = array();
-        if (isset($data['coursesview']['inprogress'])) {
-            foreach ($data['coursesview']['inprogress']['pages'] as $page) {
-                $courselist = array_merge($courselist, $page['courses']);
+            $data = $main->export_for_template($this);
+            $createcourseplugin = core_plugin_manager::instance()->get_plugin_info('local_createcourse');
+            if ($createcourseplugin && has_capability('local/createcourse:create', context_system::instance())) {
+                $data['urls']['addcourse'] = new moodle_url('/local/createcourse/index.php');
+                $data['cancreatecourse'] = true;
             }
-        }
-        if (isset($data['coursesview']['future'])) {
-            foreach ($data['coursesview']['future']['pages'] as $page) {
-                $courselist = array_merge($courselist, $page['courses']);
-            }
-        }
-        if (isset($data['coursesview']['past'])) {
-            foreach ($data['coursesview']['past']['pages'] as $page) {
-                $courselist = array_merge($courselist, $page['courses']);
-            }
-        }
-
-        if (!empty($courselist)) {
-            $plugins = enrol_get_plugins(true);
-
-            $ballsactivated = get_config('theme_receptic', 'enableballs');
-
-            if ($ballsactivated) {
-                list($newitemsforuser, $updateditemsforuser, $starttime) = theme_receptic_init_vars_for_hot_items_computing();
+            if (substr_count($USER->email, '@student.unamur.be')) {
+                $data['urls']['enrolme'] = new moodle_url('/local/unamur/noe/enrolnoecourses.php');
+                $data['noestudent'] = true;
             }
 
-            foreach ($courselist as &$course) {
-                $coursecontext = context_course::instance($course->id);
-                if (has_capability('moodle/course:update', $coursecontext)) {
-                    $course->allowtogglevisibility = true;
-                    $course->togglevisibilityurl = $CFG->wwwroot . '/theme/receptic/utils.php';
-                    $course->sesskey = sesskey();
+            $courselist = array();
+            if (isset($data['coursesview']['inprogress'])) {
+                foreach ($data['coursesview']['inprogress']['pages'] as $page) {
+                    $courselist = array_merge($courselist, $page['courses']);
                 }
+            }
+            if (isset($data['coursesview']['future'])) {
+                foreach ($data['coursesview']['future']['pages'] as $page) {
+                    $courselist = array_merge($courselist, $page['courses']);
+                }
+            }
+            if (isset($data['coursesview']['past'])) {
+                foreach ($data['coursesview']['past']['pages'] as $page) {
+                    $courselist = array_merge($courselist, $page['courses']);
+                }
+            }
+
+            if (!empty($courselist)) {
+                $plugins = enrol_get_plugins(true);
+
+                $ballsactivated = get_config('theme_receptic', 'enableballs');
+
                 if ($ballsactivated) {
-
-                    $newitemsforuser = theme_receptic_compute_redballs($course, $starttime, $newitemsforuser);
-                    $updateditemsforuser = theme_receptic_compute_orangeballs($course, $starttime, $updateditemsforuser);
-
-                    list($redcount, $orangecount) = theme_receptic_get_visible_balls_count($course, $newitemsforuser, $updateditemsforuser);
-
-                    $course->newitemscount = $redcount;
-                    $course->redballscountclass = $redcount > 9 ? 'high' : '';
-                    $course->updateditemscount = $orangecount;
-                    $course->orangeballscountclass = $orangecount > 9 ? 'high' : '';
+                    list($newitemsforuser, $updateditemsforuser, $starttime) = theme_receptic_init_vars_for_hot_items_computing();
                 }
 
-                $instances = enrol_get_instances($course->id, true);
-                foreach ($instances as $instance) { // Need to check enrolment methods for self enrol.
-                    $plugin = $plugins[$instance->enrol];
-                    if (is_enrolled(context_course::instance($course->id))) {
-                        $unenrolurl = $plugin->get_unenrolself_link($instance);
-                        if ($unenrolurl) {
-                            $course->unenrolurl = $unenrolurl->out();
-                            break;
+                foreach ($courselist as &$course) {
+                    $coursecontext = context_course::instance($course->id);
+                    if (has_capability('moodle/course:update', $coursecontext)) {
+                        $course->allowtogglevisibility = true;
+                        $course->togglevisibilityurl = $CFG->wwwroot . '/theme/receptic/utils.php';
+                        $course->sesskey = sesskey();
+                    }
+                    if ($ballsactivated) {
+
+                        $newitemsforuser = theme_receptic_compute_redballs($course, $starttime, $newitemsforuser);
+                        $updateditemsforuser = theme_receptic_compute_orangeballs($course, $starttime, $updateditemsforuser);
+
+                        list($redcount, $orangecount) =
+                                theme_receptic_get_visible_balls_count($course, $newitemsforuser, $updateditemsforuser);
+
+                        $course->newitemscount = $redcount;
+                        $course->redballscountclass = $redcount > 9 ? 'high' : '';
+                        $course->updateditemscount = $orangecount;
+                        $course->orangeballscountclass = $orangecount > 9 ? 'high' : '';
+                    }
+
+                    $instances = enrol_get_instances($course->id, true);
+                    foreach ($instances as $instance) { // Need to check enrolment methods for self enrol.
+                        $plugin = $plugins[$instance->enrol];
+                        if (is_enrolled(context_course::instance($course->id))) {
+                            $unenrolurl = $plugin->get_unenrolself_link($instance);
+                            if ($unenrolurl) {
+                                $course->unenrolurl = $unenrolurl->out();
+                                break;
+                            }
                         }
                     }
                 }
             }
-        }
 
-        if (!empty($data['coursesview']['future']) || !empty($data['coursesview']['past'])) {
-            $data['displaytabs'] = true;
-        } else {
-            $data['displaytabs'] = false;
-        }
+            if (!empty($data['coursesview']['future']) || !empty($data['coursesview']['past'])) {
+                $data['displaytabs'] = true;
+            } else {
+                $data['displaytabs'] = false;
+            }
 
-        return $this->render_from_template('block_myoverview/main-alt', $data);
-    }}
+            return $this->render_from_template('block_myoverview/main-alt', $data);
+        }
+    }
 }

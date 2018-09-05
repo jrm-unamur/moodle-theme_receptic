@@ -24,8 +24,13 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['advancedsettings'] = 'Advanced settings';
+$string['brandbanner'] = 'Brand banner';
+$string['brandbanner_desc'] = 'Display brand banner with logo(s) defined in theme general settings';
+$string['brandbannercolor'] = 'Brand banner color';
+$string['brandbannercolor_desc'] = 'Base color for brand banner gradient';
 $string['brandcolor'] = 'Brand color';
 $string['brandcolor_desc'] = 'The accent colour';
+$string['branding'] = 'Branding';
 $string['choosereadme'] = 'Receptic theme is the theme to be for University of Namur WebCampus';
 $string['configtitle'] = 'Receptic';
 $string['generalsettings'] = 'General settings';
@@ -96,5 +101,6 @@ $string['collapsingtopics'] = 'Topics format';
 $string['collapsingtopicsdesc'] = 'Activate section collapsing in topics format';
 $string['collapsingweeks'] = 'Weeks format';
 $string['collapsingweeksdesc'] = 'Activate section collapsing in weeks format';
-
+$string['mixedviewindashboard'] = 'Alternative dashboard';
+$string['mixedviewindashboard_desc'] = 'Integrate timeline and courses views into one single view in dashboard';
 

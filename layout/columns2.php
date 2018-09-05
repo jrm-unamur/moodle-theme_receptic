@@ -40,8 +40,8 @@ $sectionstogglestate = get_user_preferences('sections-toggle-' . $this->page->co
 if (empty($sectionstogglestate)) {
     $sectionstogglestate = '{}';
 }
-//$params = array('course' => $this->page->course->id, 'sectionstoggle' => $sectionstogglestate);
-$this->page->requires->js_call_amd('theme_receptic/ux', 'init'/*, array($params)*/);
+
+$this->page->requires->js_call_amd('theme_receptic/ux', 'init');
 
 $iscontextcourse = $context->contextlevel == CONTEXT_COURSE || $context->contextlevel == CONTEXT_MODULE;
 $params = new stdClass();
@@ -53,7 +53,7 @@ if (isloggedin()) {
 } else {
     $navdraweropen = false;
     $blockscollapsed = true;
-    $draweropenright = false;
+    $draweropenright = true;
 }
 $extraclasses = [];
 
@@ -68,12 +68,9 @@ if ($navdraweropen) {
     $extraclasses[] = 'drawer-open-left';
 }
 
-if ($blockscollapsed) {
-    //$extraclasses[] = 'blocks-hidden';
-}
-
 $blockshtml = $OUTPUT->blocks('side-pre');
-$hasblocks = (strpos($blockshtml, 'data-block=') !== false) || ($PAGE->user_is_editing() && strpos($this->page->pagetype, 'mod-' !== 0));
+$hasblocks = (strpos($blockshtml, 'data-block=') !== false)
+        || ($PAGE->user_is_editing() && strpos($this->page->pagetype, 'mod-' !== 0));
 
 if ($draweropenright && $hasblocks) {
     $extraclasses[] = 'drawer-open-right';

@@ -31,7 +31,8 @@ class theme_receptic_observer {
 
         $hotusermodules = explode(',', get_user_preferences('user_redballs'));
         $warmusermodules = explode(',', get_user_preferences('user_orangeballs'));
-        if (in_array($eventdata['contextinstanceid'], $hotusermodules) || in_array($eventdata['contextinstanceid'], $warmusermodules)) {
+        if (in_array($eventdata['contextinstanceid'], $hotusermodules)
+                || in_array($eventdata['contextinstanceid'], $warmusermodules)) {
             $hotusermodules = array_diff($hotusermodules, [$eventdata['contextinstanceid']]);
             $warmusermodules = array_diff($warmusermodules, [$eventdata['contextinstanceid']]);
             set_user_preference('user_redballs', implode(',', $hotusermodules));
@@ -42,20 +43,13 @@ class theme_receptic_observer {
     public static function course_viewed(core\event\base $event) {
         global $DB;
         $eventdata = $event->get_data();
-        //print_object($eventdata);die();
         $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
         $hotusermodules = explode(',', get_user_preferences('user_redballs'));
         $warmusermodules = explode(',', get_user_preferences('user_orangeballs'));
-        $labels = $DB->get_records('course_modules', array('module' => $modlabelid, 'course' => $eventdata['courseid']));//print_object(array_keys($labels));print_object($hotusermodules);
-        //print_object($labels);
+        $labels = $DB->get_records('course_modules', array('module' => $modlabelid, 'course' => $eventdata['courseid']));
         $hotusermodules = array_diff($hotusermodules, array_keys($labels));
         $warmusermodules = array_diff($warmusermodules, array_keys($labels));
         set_user_preference('user_redballs', implode(',', $hotusermodules));
         set_user_preference('user_orangeballs', implode(',', $warmusermodules));
-        /*if (in_array($eventdata['contextinstanceid'], $hotusermodules)) {
-            $hotusermodules = array_diff($hotusermodules, [$eventdata['contextinstanceid']]);
-
-        }*/
-
     }
 }

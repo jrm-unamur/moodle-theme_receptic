@@ -83,7 +83,7 @@ class course_renderer extends \theme_boost\output\core\course_renderer {
         }
         $completioninfo = new completion_info($course);
 
-        // check if we are currently in the process of moving a module with JavaScript disabled
+        // Check if we are currently in the process of moving a module with JavaScript disabled.
         $ismoving = $this->page->user_is_editing() && ismoving($course->id);
         if ($ismoving) {
             $movingpix = new pix_icon('movehere', get_string('movehere'), 'moodle', array('class' => 'movetarget'));
@@ -92,14 +92,14 @@ class course_renderer extends \theme_boost\output\core\course_renderer {
 
         $ballsactivated = $this->page->theme->settings->enableballs;
         $hotcount = 0;
-        //$orangeballsactivated = $this->page->theme->settings->enableorangeballs;
+
         $warmcount = 0;
         if ($ballsactivated) {
             $userhotmodules = explode(',' , get_user_preferences('user_redballs'));
             $userwarmmodules = explode(',', get_user_preferences('user_orangeballs'));
         }
 
-        // Get the list of modules visible to user (excluding the module being moved if there is one)
+        // Get the list of modules visible to user (excluding the module being moved if there is one).
         $moduleshtml = array();
         if (!empty($modinfo->sections[$section->section])) {
             foreach ($modinfo->sections[$section->section] as $modnumber) {
@@ -114,7 +114,7 @@ class course_renderer extends \theme_boost\output\core\course_renderer {
                 }
 
                 if ($ismoving and $mod->id == $USER->activitycopy) {
-                    // do not display moving mod
+                    // Do not display moving mod.
                     continue;
                 }
 
