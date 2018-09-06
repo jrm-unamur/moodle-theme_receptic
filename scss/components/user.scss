@@ -13,7 +13,9 @@
     margin-bottom: .5rem;
 }
 
-select[size], select[multiple], select[size][multiple] {
+select[size],
+select[multiple],
+select[size][multiple] {
     border-color: $gray-500;
 }
 

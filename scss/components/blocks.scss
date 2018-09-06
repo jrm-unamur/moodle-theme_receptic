@@ -56,7 +56,7 @@
         }
         .block_header {
             border-bottom: 1px solid #ced4da;
-            padding-botto: .5rem;
+            padding-bottom: .5rem;
         }
         .card-title {
             /*border-bottom: 1px solid $gray-400;*/
@@ -208,14 +208,15 @@
         }
     }
 
-    .minicalendar, .minicalendarblock .minicalendar.calendartable {
+    .minicalendar,
+    .minicalendarblock .minicalendar.calendartable {
         td {
             border: 1px solid $gray-500;
         }
         .content {
             padding: 4px 0.5rem;
         }
-        th > abbr[title]{
+        th > abbr[title] {
             border-bottom: 1px solid $gray-500;
         }
         td:nth-child(even) {

@@ -31,7 +31,7 @@ $primary:       #1a9e9f !default;
 $secondary:     $gray-800 !default;
 $success:       #55ab26 !default;
 $info:          #ad53b2 !default;
-$warning:       #ff8800 !default;
+$warning:       #f80 !default;
 $danger:        #ff4136 !default;
 $light:         $gray-100 !default;
 $dark:          $gray-800 !default;
@@ -135,9 +135,17 @@ $blocks-column-width : 260px !default;
  * Brand banner and logos.
  */
 
-
 .brand-banner {
-    background: linear-gradient(to bottom, $gray-lightest 0%, $gray-lightest 30%,darken($brand-banner-color,5%) 31%, lighten($brand-banner-color,5%) 95%);
+    background:
+        linear-gradient(
+            to bottom,
+            $gray-lightest 0%,
+            $gray-lightest 30%
+            darken($brand-banner-color, 5%)
+            31%,
+            lighten($brand-banner-color, 5%)
+            95%
+        );
     height: 80px;
 
     img {
@@ -200,7 +208,8 @@ $blocks-column-width : 260px !default;
 
     a {
         color: $white;
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
             color: $gray-500;
         }
         &.dropdown-item {
@@ -216,12 +225,14 @@ $blocks-column-width : 260px !default;
 
     .dropdown-item a {
         color: $gray-800;
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
             color: $gray-700;
         }
         .icon:before {
             color: $gray-800;
-            &:hover, &:focus {
+            &:hover,
+            &:focus {
                 color: $gray-700;
             }
         }
@@ -233,7 +244,8 @@ $blocks-column-width : 260px !default;
             background-color: $gray-600;
             border-color: $gray-700;
             border-radius: .25rem;
-            &:hover, &:focus {
+            &:hover,
+            &:focus {
                 opacity: .5;
             }
         }
@@ -257,15 +269,15 @@ $blocks-column-width : 260px !default;
             text-transform: inherit;
             letter-spacing: normal;
             color: $white;
-            &:hover, &:focus {
+            &:hover,
+            &:focus {
                 color: $gray-500;
             }
         }
-
     }
 
     .navbar-divider {
-         background-color: rgba(255,255,255,.075);
+        background-color: rgba(255, 255, 255, .075);
     }
 
     .extra-buttons {
@@ -301,7 +313,8 @@ span .icon {
 .btn {
     border-radius: 0;
 }
-.btn-secondary, .btn-default {
+.btn-secondary,
+.btn-default {
     color: #fff;
     background-color: $gray-700;
     border-color: $gray-700;
@@ -311,12 +324,15 @@ span .icon {
     }
 }
 
-.btn-secondary:hover, .btn-default:hover,
-.btn-secondary:active, .btn-default:active,
-.btn-secondary:focus, .btn-default:focus {
+.btn-secondary:hover,
+.btn-default:hover,
+.btn-secondary:active,
+.btn-default:active,
+.btn-secondary:focus,
+.btn-default:focus {
     background-color: $gray-800;
     border-color: $gray-800;
-    color:#fff;
+    color: #fff;
 }
 
 input[type=submit] {
@@ -382,7 +398,6 @@ input[type=submit].btn-secondary:disabled:hover {
     text-align: center;
 }
 
-
 /**
  * Styling the dropdown menus.
  */
@@ -444,16 +459,11 @@ body.drawer-open-right #page.container-fluid {
                 background-color: $primary;
             }
         }
-
-
-
     }
     .block-myoverview .pagination {
         justify-content: center;
     }
 }
-
-
 
 /**
  * Form styles.
@@ -525,9 +535,9 @@ body {
     text-align: center;
     cursor: pointer;
     opacity: .5;
-    filter:alpha(opacity=50);
-    display:none;
-    z-index:1000;
+    filter: alpha(opacity=50);
+    display: none;
+    z-index: 1000;
     a {
         text-decoration: none;
         border: 0;
@@ -536,9 +546,9 @@ body {
             padding: 5px 10px;
             font-size: 36px;
             color: #333;
-            background: #EEE;
-            border: 1px solid #CCC;
-            border-bottom: 1px solid #AAA;
+            background: #eee;
+            border: 1px solid #ccc;
+            border-bottom: 1px solid #aaa;
             border-radius: 5px;
         }
         &.text {
@@ -551,7 +561,7 @@ body {
     }
 }
 
-@media only screen  and (min-width : 768px) {
+@media only screen  and (min-width: 768px) {
     .navbar-nav .nav-link.editswitch {
         padding-top: .525rem;
     }
@@ -559,13 +569,14 @@ body {
         padding-top: .6rem;
     }
 }
-@media only screen  and (max-width : 767px) {
+
+@media only screen  and (max-width: 767px) {
     .navbar-nav .nav-link.call911 {
         padding-top: .6rem;
     }
 }
 
-@media only screen  and (max-width : 767px) {
+@media only screen  and (max-width: 767px) {
     .switch:after {
         display: none;
     }
@@ -586,9 +597,9 @@ abbr[title] {
 }
 
 .moodlelogofooter {
-    margin-bottom:.625rem;
-    width:75px;
-    height:20px
+    margin-bottom: .625rem;
+    width: 75px;
+    height: 20px;
 }
 
 //restored variables from moodle 34

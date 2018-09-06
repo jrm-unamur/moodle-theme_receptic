@@ -67,10 +67,10 @@ label {
 #page-mod-quiz-attempt .que,
 #page-mod-quiz-review .que,
 #page-question-preview .que {
-    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.4);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.4);
     padding: 15px;
     background-color: #fcf8e3;
-    margin-botto: 0;
+    margin-bottom: 0;
 }
 
 .que .formulation {
@@ -175,7 +175,7 @@ label {
 
     .qnbutton .thispageholder {
         border: 1px solid $gray-600;
-        border-radius: 0px;
+        border-radius: 0;
         z-index: 1;
     }
 
@@ -265,7 +265,7 @@ label {
 }
 
 // Mod forum.
-.path-mod-forum :target~.forumpost:before {
+.path-mod-forum :target ~ .forumpost:before {
     background: $link-color;
 }
 
@@ -291,7 +291,10 @@ label {
 
 // Mod choicegroup.
 #page-mod-choicegroup-mod {
-    #expandButton, #collapseButton, #addGroupButton, #removeGroupButton {
+    #expandButton,
+    #collapseButton,
+    #addGroupButton,
+    #removeGroupButton {
         color: #fff;
         background-color: #696969;
         border-color: #696969;
@@ -313,14 +316,15 @@ label {
 .path-mod-choicegroup {
     table.choicegroups {
         margin: 0;
-        th, td {
+        th,
+        td {
             vertical-align: top;
         }
 
     }
     table.results {
         .attemptaction input[type=checkbox] {
-            margin-right: .5rem
+            margin-right: .5rem;
         }
         .image img {
             margin-top: -.5rem;
@@ -353,7 +357,7 @@ label {
 #page-mod-feedback-edit {
     .mform.full-width-labels .fitem.row.feedback_itemlist {
         padding: 0 1rem	2rem;
-        border:	1px ridge;
+        border: 1px ridge;
         margin-top: 2rem;
     }
 }
@@ -427,7 +431,7 @@ label {
 /* wiki */
 .wikisearch form {
     input {
-        float:left;
+        float: left;
         @extend .btn-secondary;
     }
     #searchwiki {

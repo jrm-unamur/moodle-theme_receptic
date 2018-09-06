@@ -38,7 +38,16 @@ body {
 }
 
 .brand-banner {
-    background: linear-gradient(to bottom, $gray-lightest 0%, $gray-lightest 30%,darken($brand-banner-color,5%) 31%, lighten($brand-banner-color,5%) 95%);
+    background:
+        linear-gradient(
+            to bottom,
+            $gray-lightest 0%,
+            $gray-lightest 30%,
+            darken($brand-banner-color, 5%)
+            31%,
+            lighten($brand-banner-color, 5%)
+            95%
+        );
     height: $brand-banner-height;
 
     img {
@@ -95,9 +104,9 @@ body {
     text-align: center;
     cursor: pointer;
     opacity: .5;
-    filter:alpha(opacity=50);
-    display:none;
-    z-index:1000;
+    filter: alpha(opacity=50);
+    display: none;
+    z-index: 1000;
     a {
         text-decoration: none;
         border: 0;
@@ -106,9 +115,9 @@ body {
             padding: 5px 10px;
             font-size: 36px;
             color: #333;
-            background: #EEE;
-            border: 1px solid #CCC;
-            border-bottom: 1px solid #AAA;
+            background: #eee;
+            border: 1px solid #ccc;
+            border-bottom: 1px solid #aaa;
             border-radius: 5px;
         }
         &.text {
@@ -123,7 +132,8 @@ body {
 
 // Red and orange balls.
 
-.redball-count, .orangeball-count {
+.redball-count,
+.orangeball-count {
     position: relative;
     bottom: 3px;
     border-radius: 50%;
@@ -142,25 +152,33 @@ body {
     background-color: orange;
 }
 
-.redball-count.lower, .orangeball-count.lower {
+.redball-count.lower,
+.orangeball-count.lower {
     padding: 4px 7px;
 }
 
-.redball-count.high, .orangeball-count.high {
+.redball-count.high,
+.orangeball-count.high {
     padding: 4px 5px;
 }
 
-.section .redball-count, .section .orangeball-count,
-.single-section .redball-count, .single-section .orangeball-count {
+.section .redball-count,
+.section .orangeball-count,
+.single-section .redball-count,
+.single-section .orangeball-count {
     bottom: 5px;
     margin-left: .5rem;
 }
 
-body.editing .section .redball-count, body.editing .section .orangeball-count {
+body.editing .section .redball-count,
+body.editing .section .orangeball-count {
     margin-left: 0;
 }
 
-.section.hot .sectionname:before, .hot:before, .section.warm .sectionname:before, .warm:before {
+.section.hot .sectionname:before,
+.hot:before,
+.section.warm .sectionname:before,
+.warm:before {
     font-family: FontAwesome;
     content: "\f111";
     color: crimson;
@@ -169,17 +187,19 @@ body.editing .section .redball-count, body.editing .section .orangeball-count {
     margin-right: 5px;
 }
 
-.section.warm .sectionname:before, .warm:before {
+.section.warm .sectionname:before,
+.warm:before {
     color: orange;
 }
 
-.activity.hot:before, .activity.warm:before {
+.activity.hot:before,
+.activity.warm:before {
     font-family: FontAwesome;
     content: "\f111";
     color: crimson;
     font-size: 10px;
     margin-right: 5px;
-    float:left;
+    float: left;
     margin-top: 8px;
 }
 
@@ -187,7 +207,8 @@ body.editing .section .redball-count, body.editing .section .orangeball-count {
     color: orange;
 }
 
-body.editing .activity.hot:before, body.editing .activity.warm:before {
+body.editing .activity.hot:before,
+body.editing .activity.warm:before {
     margin-top: 6px;
 }
 
@@ -196,6 +217,7 @@ body.editing .section .activity .editing_move {
     top: .25rem;
 }
 
-body.editing .section .activity.hot .mod-indent-outer, body.editing .section .activity.warm .mod-indent-outer {
+body.editing .section .activity.hot .mod-indent-outer,
+body.editing .section .activity.warm .mod-indent-outer {
     padding-left: 1rem;
 }
