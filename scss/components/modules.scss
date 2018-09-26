@@ -362,6 +362,35 @@ label {
     }
 }
 
+/* hack pour Mireille */
+.path-mod-feedback.cmid-48696.context-137838 {
+    .feedback_form.mform {
+        .feedback-item-multichoice,
+        .feedback-item-multichoicerated {
+            .col-md-3,
+            .col-md-9 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+            .col-md-9 {
+                margin: 1rem 0 1rem 2rem;
+                label {
+                    font-weight: 400;
+                }
+            }
+        }
+        .feedback-item-label.femptylabel {
+            background-color: $gray-100;
+            filter: sepia(15%);
+            border: 2px solid $primary;
+            padding: .25rem .4rem;
+            .col-md-9 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+    }
+}
 
 #showentrytable {
     .cell {
