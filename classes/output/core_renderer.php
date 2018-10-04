@@ -412,6 +412,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
     public function flashbox($targetaudience) {
         global $PAGE;
         $flashboxaudience = $PAGE->theme->settings->$targetaudience;
+        
+        if (empty(trim(strip_tags(str_replace('&nbsp;', '', $flashboxaudience))))) {
+            return '';
+        }
+        
         $flashboxtype = $PAGE->theme->settings->{$targetaudience . 'type'};
 
         switch ($flashboxtype) {
@@ -425,16 +430,13 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $flashboxicon = 'exclamation-triangle';
                 break;
         }
-        if (!empty($flashboxaudience)) {
-            $data = [
-                'message' => $flashboxaudience,
-                'type' => $flashboxtype,
-                'icon' => $flashboxicon,
-                'hideclass' => 'hide' . $targetaudience
-            ];
-            return parent::render_from_template('theme_receptic/flashbox', $data);
-        }
-        return '';
+        $data = [
+            'message' => $flashboxaudience,
+            'type' => $flashboxtype,
+            'icon' => $flashboxicon,
+            'hideclass' => 'hide' . $targetaudience
+        ];
+        return parent::render_from_template('theme_receptic/flashbox', $data);
     }
 
     public function flashboxteachers() {
