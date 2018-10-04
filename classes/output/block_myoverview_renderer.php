@@ -43,7 +43,8 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
     public function render_main(\block_myoverview\output\main $main) {
         global $CFG, $USER, $DB;
 
-        if (empty(get_config('theme_receptic', 'mixedviewindashboard'))) {
+        if (false && empty(get_config('theme_receptic', 'mixedviewindashboard'))
+                && empty(get_config('theme_receptic', 'enableballs'))) {
             return parent::render_main($main);
         } else {
             $data = $main->export_for_template($this);
@@ -124,6 +125,9 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                 $data['displaytabs'] = false;
             }
 
+            if (empty(get_config('theme_receptic', 'mixedviewindashboard'))) {
+                return $this->render_from_template('block_myoverview/main', $data);
+            }
             return $this->render_from_template('block_myoverview/main-alt', $data);
         }
     }
