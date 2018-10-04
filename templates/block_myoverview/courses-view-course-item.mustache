@@ -49,6 +49,24 @@
             </div>
 
         </div>
+        <div class="course-tile-widgets" style="margin-bottom: 1rem; text-align:right;">
+            {{#allowtogglevisibility}}
+                {{#visible}}
+                    <a href="{{togglevisibilityurl}}?action=hide&courseid={{id}}&sesskey={{sesskey}}"><i class="icon fa fa-eye fa-fw togglevisibility" aria-hidden="true" title="{{#str}}hide{{/str}}" aria-label="{{#str}}hide{{/str}}"></i></a>
+                {{/visible}}
+                {{^visible}}
+                    <a href="{{togglevisibilityurl}}?action=show&courseid={{id}}&sesskey={{sesskey}}"><i class="icon fa fa-eye-slash fa-fw togglevisibility" aria-hidden="true" title="{{#str}}show{{/str}}" aria-label="{{#str}}show{{/str}}"></i></a>
+                {{/visible}}
+            {{/allowtogglevisibility}}
+
+            {{#unenrolurl}}
+
+                <a href="{{unenrolurl}}">
+                    <i title="{{#str}}unenrolme, theme_receptic{{/str}}" style="font-size:large;" class="fa fa-user-times"></i>
+                </a>
+
+            {{/unenrolurl}}
+        </div>
 
         <p class="text-muted">
             {{#shortentext}} 140, {{summary}}{{/shortentext}}
