@@ -53,7 +53,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                 $data['cancreatecourse'] = true;
             }
             if (substr_count($USER->email, '@student.unamur.be')) {
-                $data['urls']['enrolme'] = new moodle_url('/local/unamur/noe/enrolnoecourses.php');
+                $data['urls']['enrolme'] = new moodle_url('/enrol/noe/enrolnoecourses.php');
                 $data['noestudent'] = true;
             }
 
