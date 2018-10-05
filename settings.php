@@ -130,6 +130,43 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
     $page->add($setting);
 
+    // Add a button to create a course in course creators' dashboard.
+    $name = 'theme_receptic/addcoursebutton';
+    $title = get_string('addcoursebutton', 'theme_receptic');
+    $description = get_string('addcoursebutton_desc', 'theme_receptic');
+    $default = true;
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
+    $page->add($setting);
+
+    // Url to a local specific method to create a course.
+    $name = 'theme_receptic/localcreatecoursepath';
+    $title = get_string('localcreatecoursepath', 'theme_receptic');
+    $description = get_string('localcreatecoursepath_desc', 'theme_receptic');
+    $setting = new admin_setting_configtext($name, $title, $description);
+    $page->add($setting);
+
+    // Add a button to allow students to enrol to their official list of courses.
+    // Requires a local plugin able to give a list of courses to which the current student must be enrolled to.
+    $name = 'theme_receptic/bulkenrolme';
+    $title = get_string('bulkenrolme', 'theme_receptic');
+    $description = get_string('bulkenrolme_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
+    $page->add($setting);
+
+    // Url to a local specific method to create a course.
+    $name = 'theme_receptic/bulkenrolmepath';
+    $title = get_string('bulkenrolmepath', 'theme_receptic');
+    $description = get_string('bulkenrolmepath_desc', 'theme_receptic');
+    $setting = new admin_setting_configtext($name, $title, $description);
+    $page->add($setting);
+
+    // Email pattern for bulk enrolme button.
+    $name = 'theme_receptic/bulkenrolemailpattern';
+    $title = get_string('bulkenrolemailpattern', 'theme_receptic');
+    $description = get_string('bulkenrolemailpattern_desc', 'theme_receptic');
+    $setting = new admin_setting_configtext($name, $title, $description);
+    $page->add($setting);
+
     $settings->add($page);
 
     $page = new admin_settingpage('theme_receptic_toolselector', get_string('toolselector', 'theme_receptic'));

@@ -103,4 +103,14 @@ $string['collapsingweeks'] = 'Weeks format';
 $string['collapsingweeksdesc'] = 'Activate section collapsing in weeks format';
 $string['mixedviewindashboard'] = 'Alternative dashboard';
 $string['mixedviewindashboard_desc'] = 'Integrate timeline and courses views into one single view in dashboard';
+$string['addcoursebutton'] = 'Add course button';
+$string['addcoursebutton_desc'] = 'Add a button to create a course on course creators\' dashboard';
+$string['localcreatecoursepath'] = 'Local create course file';
+$string['localcreatecoursepath_desc'] = 'Path to a local plugin file implementing an alternative method to create a course (for instance if teachers are only allowed to create courses that exist in an official course list).';
+$string['bulkenrolme'] = 'Bulk enrol me button';
+$string['bulkenrolme_desc'] = 'Add a button to allow students to enrol to an official course list (requires a local plugin specific to your insitution).';
+$string['bulkenrolmepath'] = 'Local bulk enrolment file';
+$string['bulkenrolmepath_desc'] = 'Path to a local plugin file implementing a bulk enrolment for students';
+$string['bulkenrolemailpattern'] = 'Email pattern';
+$string['bulkenrolemailpattern_desc'] = 'To restrict the local bulk enrolment method to students with an email pattern';
 
