@@ -139,9 +139,9 @@ if ($ADMIN->fulltree) {
     $page->add($setting);
 
     // Url to a local specific method to create a course.
-    $name = 'theme_receptic/localcreatecoursepath';
-    $title = get_string('localcreatecoursepath', 'theme_receptic');
-    $description = get_string('localcreatecoursepath_desc', 'theme_receptic');
+    $name = 'theme_receptic/localcreatecourseplugin';
+    $title = get_string('localcreatecourseplugin', 'theme_receptic');
+    $description = get_string('localcreatecourseplugin_desc', 'theme_receptic');
     $setting = new admin_setting_configtext($name, $title, $description);
     $page->add($setting);
 
@@ -150,14 +150,22 @@ if ($ADMIN->fulltree) {
     $name = 'theme_receptic/bulkenrolme';
     $title = get_string('bulkenrolme', 'theme_receptic');
     $description = get_string('bulkenrolme_desc', 'theme_receptic');
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
+    $setting = new admin_setting_configcheckbox($name, $title, $description, false);
     $page->add($setting);
 
-    // Url to a local specific method to create a course.
-    $name = 'theme_receptic/bulkenrolmepath';
-    $title = get_string('bulkenrolmepath', 'theme_receptic');
-    $description = get_string('bulkenrolmepath_desc', 'theme_receptic');
+    // Name of bulk enrolme plugin.
+    $name = 'theme_receptic/bulkenrolmeplugin';
+    $title = get_string('bulkenrolmeplugin', 'theme_receptic');
+    $description = get_string('bulkenrolmeplugin_desc', 'theme_receptic');
     $setting = new admin_setting_configtext($name, $title, $description);
+    $page->add($setting);
+
+    // Name of bulk enrolme plugin.
+    $name = 'theme_receptic/bulkenrolmefile';
+    $title = get_string('bulkenrolmefile', 'theme_receptic');
+    $description = get_string('bulkenrolmefile_desc', 'theme_receptic');
+    $default = 'bulkenrolme.php';
+    $setting = new admin_setting_configtext($name, $title, $description, $default);
     $page->add($setting);
 
     // Email pattern for bulk enrolme button.

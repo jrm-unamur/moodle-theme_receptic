@@ -44,17 +44,36 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
         global $CFG, $USER, $DB;
 
         $data = $main->export_for_template($this);
-        $createcourseplugin = core_plugin_manager::instance()->get_plugin_info('local_createcourse');
-        if ($createcourseplugin && has_capability('local/createcourse:create', context_system::instance())) {
-            $data['urls']['addcourse'] = new moodle_url('/local/createcourse/index.php');
-            $data['cancreatecourse'] = true;
-        } else if (has_capability('moodle/course:create', context_system::instance())) {
-            $data['urls']['addcourse'] = new moodle_url('/course/edit.php?category=1&returnto=topcat');
-            $data['cancreatecourse'] = true;
+
+        // Add course button on dashboard.
+        $addcoursebutton = get_config('theme_receptic', 'addcoursebutton');
+        if ($addcoursebutton) {
+            $createcourseplugin = core_plugin_manager::instance()->get_plugin_info(get_config('theme_receptic', 'localcreatecourseplugin'));
+            if ($createcourseplugin && has_capability('local/' . $createcourseplugin->name . ':create', context_system::instance())) {
+                $data['urls']['addcourse'] = new moodle_url('/local/' . $createcourseplugin->name . '/index.php');
+                $data['cancreatecourse'] = true;
+            } else if (has_capability('moodle/course:create', context_system::instance())) {
+                $data['urls']['addcourse'] = new moodle_url('/course/edit.php?category=1&returnto=topcat');
+                $data['cancreatecourse'] = true;
+            }
         }
-        if (substr_count($USER->email, '@student.unamur.be')) {
-            $data['urls']['enrolme'] = new moodle_url('/enrol/noe/enrolnoecourses.php');
-            $data['noestudent'] = true;
+
+        // Bulk enrolme button on dashboard.
+        $bulkenrolmebutton = get_config('theme_receptic', 'bulkenrolme');
+        if ($bulkenrolmebutton) {
+            $bulkenrolmeplugin = core_plugin_manager::instance()->get_plugin_info(get_config('theme_receptic', 'bulkenrolmeplugin'));
+            if ($bulkenrolmeplugin) {
+                $emailpattern = get_config('theme_receptic', 'bulkenrolemailpattern');
+                $filepath = $CFG->dirroot . '/' .
+                        $bulkenrolmeplugin->type . '/' .
+                        $bulkenrolmeplugin->name . '/' .
+                        get_config('theme_receptic', 'bulkenrolmefile');
+                if (file_exists($filepath)
+                        && (empty($emailpattern) || substr_count($USER->email, $emailpattern) )) {
+                    $data['urls']['enrolme'] = new moodle_url('/enrol/noe/enrolnoecourses.php');
+                    $data['noestudent'] = true;
+                }
+            }
         }
 
         $courselist = array();
