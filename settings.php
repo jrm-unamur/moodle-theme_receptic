@@ -122,6 +122,9 @@ if ($ADMIN->fulltree) {
     // Dashboard settings page.
     $page = new admin_settingpage('theme_receptic_dashboard', get_string('myhome'));
 
+    $page->add(new admin_setting_heading('dashboarddisplaymode',
+        get_string('dashboarddisplaymode', 'theme_receptic')));
+
     // Activate mixed view dashboard.
     $name = 'theme_receptic/mixedviewindashboard';
     $title = get_string('mixedviewindashboard', 'theme_receptic');
@@ -129,6 +132,9 @@ if ($ADMIN->fulltree) {
     $default = true;
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
     $page->add($setting);
+
+    $page->add(new admin_setting_heading('createcourse',
+        get_string('createcourse', 'theme_receptic')));
 
     // Add a button to create a course in course creators' dashboard.
     $name = 'theme_receptic/addcoursebutton';
@@ -144,6 +150,9 @@ if ($ADMIN->fulltree) {
     $description = get_string('localcreatecourseplugin_desc', 'theme_receptic');
     $setting = new admin_setting_configtext($name, $title, $description);
     $page->add($setting);
+
+    $page->add(new admin_setting_heading('bulkenrol',
+        get_string('bulkenrol', 'theme_receptic')));
 
     // Add a button to allow students to enrol to their official list of courses.
     // Requires a local plugin able to give a list of courses to which the current student must be enrolled to.
@@ -173,6 +182,21 @@ if ($ADMIN->fulltree) {
     $title = get_string('bulkenrolemailpattern', 'theme_receptic');
     $description = get_string('bulkenrolemailpattern_desc', 'theme_receptic');
     $setting = new admin_setting_configtext($name, $title, $description);
+    $page->add($setting);
+
+    $page->add(new admin_setting_heading('otherdashboardshortcuts',
+        get_string('otherdashboardshortcuts', 'theme_receptic')));
+
+    $name = 'theme_receptic/togglecoursevisibility';
+    $title = get_string('togglecoursevisibility', 'theme_receptic');
+    $description = get_string('togglecoursevisibility_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, false);
+    $page->add($setting);
+
+    $name = 'theme_receptic/unenrolme';
+    $title = get_string('unenrolme', 'theme_receptic');
+    $description = get_string('unenrolme_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, false);
     $page->add($setting);
 
     $settings->add($page);

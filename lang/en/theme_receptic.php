@@ -115,4 +115,12 @@ $string['bulkenrolmefile'] = 'Plugin file name';
 $string['bulkenrolmefile_desc'] = 'Name of the plugin file to use to trigger bulk enrolment of a student to their courses';
 $string['bulkenrolemailpattern'] = 'Email pattern';
 $string['bulkenrolemailpattern_desc'] = 'To restrict the local bulk enrolment method to students with an email pattern';
+$string['dashboarddisplaymode'] = 'Display mode';
+$string['coursecreation'] = 'Adding course';
+$string['bulkenrol'] = 'Bulk enrolment';
+$string['otherdashboardshortcuts'] = 'Other shortcuts on dashboard';
+$string['togglecoursevisibility'] = 'Toggle course visibility';
+$string['togglecoursevisibility_desc'] = 'Allow teachers to toggle course visibility from their dashboard.';
+$string['unenrolme'] = 'Unenrol me';
+$string['unenrolme_desc'] = 'Allow users to unenrol from courses on their dashboard.';
 
