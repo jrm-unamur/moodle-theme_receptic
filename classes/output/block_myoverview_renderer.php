@@ -104,7 +104,9 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
 
             foreach ($courselist as &$course) {
                 $coursecontext = context_course::instance($course->id);
-                if (has_capability('moodle/course:update', $coursecontext)) {
+
+                // Add toggle course visibility shortcut if enabled in theme config.
+                if (has_capability('moodle/course:update', $coursecontext) && get_config('theme_receptic', 'togglecoursevisibility')) {
                     $course->allowtogglevisibility = true;
                     $course->togglevisibilityurl = $CFG->wwwroot . '/theme/receptic/utils.php';
                     $course->sesskey = sesskey();
@@ -123,14 +125,17 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                     $course->orangeballscountclass = $orangecount > 9 ? 'high' : '';
                 }
 
-                $instances = enrol_get_instances($course->id, true);
-                foreach ($instances as $instance) { // Need to check enrolment methods for self enrol.
-                    $plugin = $plugins[$instance->enrol];
-                    if (is_enrolled(context_course::instance($course->id))) {
-                        $unenrolurl = $plugin->get_unenrolself_link($instance);
-                        if ($unenrolurl) {
-                            $course->unenrolurl = $unenrolurl->out();
-                            break;
+                // Add unenrol me shortcut if enabled in theme config.
+                if (get_config('theme_receptic', 'unenrolme')) {
+                    $instances = enrol_get_instances($course->id, true);
+                    foreach ($instances as $instance) { // Need to check enrolment methods for self enrol.
+                        $plugin = $plugins[$instance->enrol];
+                        if (is_enrolled(context_course::instance($course->id))) {
+                            $unenrolurl = $plugin->get_unenrolself_link($instance);
+                            if ($unenrolurl) {
+                                $course->unenrolurl = $unenrolurl->out();
+                                break;
+                            }
                         }
                     }
                 }
