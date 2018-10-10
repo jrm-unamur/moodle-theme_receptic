@@ -1,9 +1,14 @@
 #nav-drawer {
     background-color: $gray-400;
     .list-group {
-        .list-group-item {
+        a.list-group-item {
             .fa-folder-o:before {
                 content: "\f07b";
+            }
+            &.active {
+                .icon {
+                    color: $white;
+                }
             }
             /*  &[data-key="bve"] {
                  .redball-count {
