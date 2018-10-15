@@ -472,7 +472,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
     public function contact_info() {
         return '<div class="contactinfo text-center">' .
         '<p>Contacter l\'équipe WebCampus:<br/>' .
-        '<a href="mailto:webcampus-migration@unamur.be"> <i class="fa fa-envelope"></i> </a>' .
+        '<a href="mailto:webcampus@unamur.be"> <i class="fa fa-envelope"></i> </a>' .
         ' ou <i class="fa fa-phone"></i> 081/72 50 75</p></div>';
     }
 
