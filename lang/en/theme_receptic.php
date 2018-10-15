@@ -123,4 +123,16 @@ $string['togglecoursevisibility'] = 'Toggle course visibility';
 $string['togglecoursevisibility_desc'] = 'Allow teachers to toggle course visibility from their dashboard.';
 $string['unenrolme'] = 'Unenrol me';
 $string['unenrolme_desc'] = 'Allow users to unenrol from courses on their dashboard.';
-
+$string['footer'] = 'Footer';
+$string['contactheader'] = 'Contact header';
+$string['contactheader_desc'] = 'Add a header above contact information';
+$string['contactemail'] = 'Contact email';
+$string['contactemail_desc'] = 'Add an email link in page footer to contact help service (no email link if left empty).';
+$string['contactphone'] = 'Contact phone number';
+$string['contactphone_desc'] = 'Add a contact phone number in page footer (nothing if left empty).';
+$string['moodlecredits'] = 'Moodle credits';
+$string['moodlecredits_desc'] = 'Add Moodle logo and "Powered by Moodle" in page footer';
+$string['or'] = 'or';
+$string['poweredby'] = 'Powered by';
+$string['logininfo'] = 'Connected user';
+$string['logininfo_desc'] = 'Display a link to the connected user\' profile and a logout link in the page footer';

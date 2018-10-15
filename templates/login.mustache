@@ -61,7 +61,10 @@
             <p class="helplink">{{{ output.page_doc_link }}}</p>
         {{/ output.page_doc_link }}
 
-        {{! output.login_info }}
+        {{#logininfo}}
+            {{{ output.login_info }}}
+        {{/logininfo}}
+
         {{{ output.contact_info }}}
         {{{ output.moodle_credits }}}
         {{{ output.standard_footer_html }}}

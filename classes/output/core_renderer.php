@@ -470,17 +470,34 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     public function contact_info() {
-        return '<div class="contactinfo text-center">' .
+        global $CFG;
+        $contactemail = get_config('theme_receptic', 'contactemail');
+        $contactphone = get_config('theme_receptic', 'contactphone');
+        if (empty($contactemail) && empty($contactphone)) {
+            return '';
+        }
+        $contactboth = !empty($contactemail) && !empty($contactphone);
+        $data = [
+            'contact_header' => get_config('theme_receptic', 'contactheader'),
+            'contact_email' => get_config('theme_receptic', 'contactemail'),
+            'contact_phone' => get_config('theme_receptic', 'contactphone'),
+            'contact_both' => $contactboth
+        ];
+        /*return '<div class="contactinfo text-center">' .
         '<p>Contacter l\'équipe WebCampus:<br/>' .
         '<a href="mailto:webcampus@unamur.be"> <i class="fa fa-envelope"></i> </a>' .
-        ' ou <i class="fa fa-phone"></i> 081/72 50 75</p></div>';
+        ' ou <i class="fa fa-phone"></i> 081/72 50 75</p></div>';*/
+        return parent::render_from_template('theme_receptic/contact_info', $data);
     }
 
     public function moodle_credits() {
-
-        return '<div class="moodlecredits text-center">Utilise ' .
+        if (get_config('theme_receptic', 'moodlecredits')) {
+            return parent::render_from_template('theme_receptic/moodle_credits', array());
+        }
+        return '';
+        /*return '<div class="moodlecredits text-center">Utilise ' .
         '<a title="Moodle" href="http://moodle.org/" target"_blank">' .
         $this->pix_icon('moodlelogo', 'moodle', 'moodle', array('class' => 'moodlelogofooter')) .
-        '</a></div>';
+        '</a></div>';*/
     }
 }

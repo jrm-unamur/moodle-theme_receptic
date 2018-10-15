@@ -300,6 +300,44 @@ if ($ADMIN->fulltree) {
     $settings->add($page);
 }
 
+// Configure information in page footer.
+$page = new admin_settingpage('theme_receptic_footer', get_string('footer', 'theme_receptic'));
+
+// Contact information.
+$name = 'theme_receptic/contactheader';
+$title = get_string('contactheader', 'theme_receptic');
+$description = get_string('contactheader_desc', 'theme_receptic');
+$setting = new admin_setting_configtext($name, $title, $description);
+$page->add($setting);
+$name = 'theme_receptic/contactemail';
+$title = get_string('contactemail', 'theme_receptic');
+$description = get_string('contactemail_desc', 'theme_receptic');
+$default = $CFG->supportemail;
+$setting = new admin_setting_configtext($name, $title, $description, $default);
+$page->add($setting);
+
+$name = 'theme_receptic/contactphone';
+$title = get_string('contactphone', 'theme_receptic');
+$description = get_string('contactphone_desc', 'theme_receptic');
+$setting = new admin_setting_configtext($name, $title, $description);
+$page->add($setting);
+
+// Moodle credits.
+$name = 'theme_receptic/moodlecredits';
+$title = get_string('moodlecredits', 'theme_receptic');
+$description = get_string('moodlecredits_desc', 'theme_receptic');
+$setting = new admin_setting_configcheckbox($name, $title, $description, true);
+$page->add($setting);
+
+// Login info.
+$name = 'theme_receptic/logininfo';
+$title = get_string('logininfo', 'theme_receptic');
+$description = get_string('logininfo_desc', 'theme_receptic');
+$setting = new admin_setting_configcheckbox($name, $title, $description, false);
+$page->add($setting);
+
+$settings->add($page);
+
 $page = new admin_settingpage('theme_receptic_flashbox', get_string('flashboxes', 'theme_receptic'), 'theme/receptic:editflashbox');
 
 // Flashboxteachers setting.

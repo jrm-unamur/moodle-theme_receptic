@@ -38,7 +38,8 @@ $templatecontext = [
     'logoleft' => $haslogoleft,
     'logocenter' => $haslogocenter,
     'logoright' => $haslogoright,
-    'navbaritems' => false
+    'navbaritems' => false,
+    'logininfo' => get_config('theme_receptic', 'logininfo')
 ];
 
 echo $OUTPUT->render_from_template('theme_receptic/login', $templatecontext);
