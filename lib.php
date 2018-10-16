@@ -495,9 +495,13 @@ function theme_receptic_compute_redballs($course, $starttime, $newitemsforuser) 
     }
     $newitemsforuser = array_merge($newitemsforuser, $redcmids);
     $newitemsforuser = array_unique($newitemsforuser);
-    set_user_preference('user_redballs', implode(',', $newitemsforuser));
+    rsort($newitemsforuser);
+    $chunks = array_chunk($newitemsforuser, 100);
+    set_user_preference('user_redballs', implode(',', $chunks[0]));
+    return $chunks[0];
+//    set_user_preference('user_redballs', implode(',', $newitemsforuser));
 
-    return $newitemsforuser;
+  //  return $newitemsforuser;
 }
 
 function theme_receptic_compute_orangeballs($course, $starttime, $updateditemsforuser) {
@@ -605,9 +609,14 @@ function theme_receptic_compute_orangeballs($course, $starttime, $updateditemsfo
     }
     $updateditemsforuser = array_merge($updateditemsforuser, $orangecmids);
     $updateditemsforuser = array_unique($updateditemsforuser);
-    set_user_preference('user_orangeballs', implode(',', $updateditemsforuser));
+    
+    rsort($updateditemsforuser);
+    $chunks = array_chunk($updateditemsforuser, 100);
+    set_user_preference('user_orangeballs', implode(',', $chunks[0]));
+    return $chunks[0];
+    //set_user_preference('user_orangeballs', implode(',', $updateditemsforuser));
 
-    return $updateditemsforuser;
+    //return $updateditemsforuser;
 }
 
 function theme_receptic_get_visible_balls_count($course, $redballs, $orangeballs) {
