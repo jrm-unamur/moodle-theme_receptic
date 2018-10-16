@@ -48,8 +48,10 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
         // Add course button on dashboard.
         $addcoursebutton = get_config('theme_receptic', 'addcoursebutton');
         if ($addcoursebutton) {
-            $createcourseplugin = core_plugin_manager::instance()->get_plugin_info(get_config('theme_receptic', 'localcreatecourseplugin'));
-            if ($createcourseplugin && has_capability('local/' . $createcourseplugin->name . ':create', context_system::instance())) {
+            $createcourseplugin = core_plugin_manager::instance()
+                    ->get_plugin_info(get_config('theme_receptic', 'localcreatecourseplugin'));
+            if ($createcourseplugin
+                    && has_capability('local/' . $createcourseplugin->name . ':create', context_system::instance())) {
                 $data['urls']['addcourse'] = new moodle_url('/local/' . $createcourseplugin->name . '/index.php');
                 $data['cancreatecourse'] = true;
             } else if (has_capability('moodle/course:create', context_system::instance())) {
@@ -61,7 +63,8 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
         // Bulk enrolme button on dashboard.
         $bulkenrolmebutton = get_config('theme_receptic', 'bulkenrolme');
         if ($bulkenrolmebutton) {
-            $bulkenrolmeplugin = core_plugin_manager::instance()->get_plugin_info(get_config('theme_receptic', 'bulkenrolmeplugin'));
+            $bulkenrolmeplugin = core_plugin_manager::instance()
+                    ->get_plugin_info(get_config('theme_receptic', 'bulkenrolmeplugin'));
             if ($bulkenrolmeplugin) {
                 $emailpattern = get_config('theme_receptic', 'bulkenrolemailpattern');
                 $filepath = $CFG->dirroot . '/' .
@@ -106,7 +109,8 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                 $coursecontext = context_course::instance($course->id);
 
                 // Add toggle course visibility shortcut if enabled in theme config.
-                if (has_capability('moodle/course:update', $coursecontext) && get_config('theme_receptic', 'togglecoursevisibility')) {
+                if (has_capability('moodle/course:update', $coursecontext)
+                        && get_config('theme_receptic', 'togglecoursevisibility')) {
                     $course->allowtogglevisibility = true;
                     $course->togglevisibilityurl = $CFG->wwwroot . '/theme/receptic/utils.php';
                     $course->sesskey = sesskey();

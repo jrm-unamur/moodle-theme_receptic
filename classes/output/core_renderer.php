@@ -412,11 +412,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
     public function flashbox($targetaudience) {
         global $PAGE;
         $flashboxaudience = $PAGE->theme->settings->$targetaudience;
-        
         if (empty(trim(strip_tags(str_replace('&nbsp;', '', $flashboxaudience))))) {
             return '';
         }
-        
         $flashboxtype = $PAGE->theme->settings->{$targetaudience . 'type'};
 
         switch ($flashboxtype) {
@@ -483,10 +481,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
             'contact_phone' => get_config('theme_receptic', 'contactphone'),
             'contact_both' => $contactboth
         ];
-        /*return '<div class="contactinfo text-center">' .
-        '<p>Contacter l\'équipe WebCampus:<br/>' .
-        '<a href="mailto:webcampus@unamur.be"> <i class="fa fa-envelope"></i> </a>' .
-        ' ou <i class="fa fa-phone"></i> 081/72 50 75</p></div>';*/
         return parent::render_from_template('theme_receptic/contact_info', $data);
     }
 
@@ -495,9 +489,5 @@ class core_renderer extends \theme_boost\output\core_renderer {
             return parent::render_from_template('theme_receptic/moodle_credits', array());
         }
         return '';
-        /*return '<div class="moodlecredits text-center">Utilise ' .
-        '<a title="Moodle" href="http://moodle.org/" target"_blank">' .
-        $this->pix_icon('moodlelogo', 'moodle', 'moodle', array('class' => 'moodlelogofooter')) .
-        '</a></div>';*/
     }
 }
