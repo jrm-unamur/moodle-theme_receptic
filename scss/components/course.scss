@@ -48,7 +48,7 @@
             }
             &.current {
                 background-color: $forsepia;
-                filter: sepia(15%);
+                filter: sepia($sepiaratio);
                 border-left: 2px solid $primary;
                 &:before {
                     border: none;
@@ -139,7 +139,7 @@
             }
             &.current {
                 background-color: $forsepia;
-                filter: sepia(15%);
+                filter: sepia($sepiaratio);
                 border-left: 2px solid $primary;
                 &:before {
                     border: none;
@@ -235,7 +235,7 @@ span.availabilityinfo:before {
 span.availabilityinfo .tag.tag-info {
     margin-top: .4rem;
     background-color: $forsepia;
-    filter: sepia(15%);
+    filter: sepia($sepiaratio);
     color: $body-color;
     border: 2px solid $primary;
     border-radius: 0;

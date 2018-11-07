@@ -109,7 +109,9 @@ $templatecontext = [
     'logocenter' => $haslogocenter,
     'logoright' => $haslogoright,
     'displaybrandbanner' => $displaybrandbanner,
-    'navbaritems' => true
+    'navbaritems' => true,
+    'logininfo' => get_config('theme_receptic', 'logininfo'),
+    'homelink' => get_config('theme_receptic', 'homelink')
 ];
 
 $templatecontext['flatnavigation'] = $PAGE->flatnav;

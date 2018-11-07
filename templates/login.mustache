@@ -39,7 +39,7 @@
 
     {{>theme_receptic/banner}}
 
-    <nav role="banner" class="fixed-top {{#displaybrandbanner}}pos-f-t-lower{{/displaybrandbanner}} navbar bg-white navbar-receptic navbar-expand moodle-has-zindex"></nav>
+    <nav role="banner" class="fixed-top {{#displaybrandbanner}}pos-f-t-lower{{/displaybrandbanner}} navbar navbar-receptic navbar-expand moodle-has-zindex"></nav>
 
     <div id="page" class="container-fluid">
         <div id="page-content" class="row justify-content-around">
@@ -61,7 +61,10 @@
             <p class="helplink">{{{ output.page_doc_link }}}</p>
         {{/ output.page_doc_link }}
 
-        {{! output.login_info }}
+        {{#logininfo}}
+            {{{ output.login_info }}}
+        {{/logininfo}}
+
         {{{ output.contact_info }}}
         {{{ output.moodle_credits }}}
         {{{ output.standard_footer_html }}}

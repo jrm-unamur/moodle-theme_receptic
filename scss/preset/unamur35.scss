@@ -49,7 +49,6 @@ $font-size-base: 0.875rem !default;
 $headings-font-weight:   300 !default;
 //$font-family-sans-serif: "Roboto", "Open Sans", sans-serif !default;
 //$headings-font-family: "Roboto Condensed", "Roboto", "Open Sans", sans-serif !default;
-$headings-font-color: $gray-700 !default;
 
 
 // Breadcrumbs
@@ -78,6 +77,16 @@ $theme-colors: (
 // Theme addons.
 $brand-banner-color: $success !default;
 $brand-banner-height: 80px !default;
+
+$brand-banner-gradient: linear-gradient(
+        to bottom,
+        $gray-100 0%,
+        $gray-100 30%,
+        darken($brand-banner-color, 5%)
+        31%,
+        lighten($brand-banner-color, 5%)
+        95%
+);
 $drawer-position-top: $brand-banner-height + 50px;
 
 $navbar-height:             50px !default;
@@ -91,11 +100,13 @@ $border-width: 1px !default;
 // Misc colors.
 $link-color: $primary !default;
 $link-hover-color: $success !default;
-$headings-color: $success !default;
-$tooltip-bg: $primary !default;
+$headings-color: $gray-700 !default;
+$blocks-headings-color: $success;
+$tooltip-bg: $gray-700 !default;
 
 $footer-link-color: $primary !default;
 $forsepia: #f1f1f1;
+$sepiaratio: 15%;
 
 // Tables
 $table-bg:                      transparent !default;
@@ -131,174 +142,6 @@ $blocks-column-width : 260px !default;
 
 // Import everything.
 @import "main";
-
-/**
- * Brand banner and logos.
- */
-
-.brand-banner {
-    background:
-        linear-gradient(
-            to bottom,
-            $gray-lightest 0%,
-            $gray-lightest 30%
-            darken($brand-banner-color, 5%)
-            31%,
-            lighten($brand-banner-color, 5%)
-            95%
-        );
-    height: 80px;
-
-    img {
-        height: 55px;
-    }
-
-    .left-logo {
-        position: absolute;
-        top: 10px;
-        left: 15px;
-        height: 55px;
-        box-shadow: 4px 4px 15px $gray-700;
-    }
-
-    .right-logo {
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        height: 55px;
-        box-shadow: 4px 4px 15px $gray-700;
-    }
-}
-
-/**
- * Position banners, page and drawer according to screen size (brand banner for large displays).
- */
-/*@media (min-width: 768px) {
-    .pos-f-t-lower {
-        top: 80px;
-    }
-}*/
-
-@media (min-width: 768px) {
-    /*#page {
-        margin-top: 125px;
-    }*/
-    body.path-login #page {
-        margin-top: 115px;
-    }
-}
-
-/*@media (min-width: 768px) {
-    [data-region="drawer"] {
-        top: 129px;
-        height: calc(100% - 129px);
-    }
-}*/
-
-/**
- * Navigation bar identity.
- */
-.navbar-receptic {
-    background-color: $white;
-    background-image: linear-gradient(to bottom, $gray-700 0%, $gray-800 100%);
-
-    .container {
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    a {
-        color: $white;
-        &:hover,
-        &:focus {
-            color: $gray-500;
-        }
-        &.dropdown-item {
-            color: $gray-800;
-            @include hover-focus {
-                color: $gray-700;
-            }
-        }
-    }
-    .dropdown a:first-of-type > .icon {
-        margin-left: 0;
-    }
-
-    .dropdown-item a {
-        color: $gray-800;
-        &:hover,
-        &:focus {
-            color: $gray-700;
-        }
-        .icon:before {
-            color: $gray-800;
-            &:hover,
-            &:focus {
-                color: $gray-700;
-            }
-        }
-    }
-
-    [data-region="drawer-toggle"] {
-        .btn-secondary {
-            color: $white;
-            background-color: $gray-600;
-            border-color: $gray-700;
-            border-radius: .25rem;
-            &:hover,
-            &:focus {
-                opacity: .5;
-            }
-        }
-    }
-
-    .navbar-nav {
-        .nav-item + .nav-item {
-            margin-left: $spacer;
-            margin-right: $spacer;
-            .userbutton {
-                .avatars {
-                    img {
-                        margin-right: 0;
-                    }
-                }
-                margin-left: .5rem;
-            }
-        }
-        .nav-link {
-            font-size: $font-size-base;
-            text-transform: inherit;
-            letter-spacing: normal;
-            color: $white;
-            &:hover,
-            &:focus {
-                color: $gray-500;
-            }
-        }
-    }
-
-    .navbar-divider {
-        background-color: rgba(255, 255, 255, .075);
-    }
-
-    .extra-buttons {
-        margin-top: .5rem;
-        margin-left: 2rem;
-        margin-right: 1rem;
-        a {
-            margin-right: 1rem;
-        }
-    }
-    .popover-region {
-        &.navlink a:hover,
-        &.navlink a:focus {
-            text-decoration: none;
-        }
-    }
-    .usermenu .login {
-        display: none;
-    }
-}
 
 /**
  * Default color for link icons and action icons.
@@ -445,28 +288,6 @@ body.drawer-open-right #page.container-fluid {
 }
 
 /**
- * Dashboard styling.
- */
-#page-my-index {
-    #region-main {
-        background-color: transparent;
-        border: 0;
-        padding: 0;
-    }
-    .nav-pills {
-        .nav-item {
-            background-color: $gray-200;
-            .active {
-                background-color: $primary;
-            }
-        }
-    }
-    .block-myoverview .pagination {
-        justify-content: center;
-    }
-}
-
-/**
  * Form styles.
  */
 
@@ -481,107 +302,6 @@ body.drawer-open-right #page.container-fluid {
 /**
   * Theme widgets.
   */
-body {
-    // Edition mode toggle.
-    .switch {
-        span:after {
-            color: $red;
-            content: "OFF";
-            padding-left: .5rem;
-        }
-        i {
-            color: $red;
-            padding-top: .3rem;
-        }
-    }
-    // Toggle blocks
-    #page-content > a {
-        position: fixed;
-        right: 10px;
-        padding-top: 1rem;
-    }
-    &.editing {
-        // Edition mode toggle.
-        .switch {
-            span:after {
-                color: $success;
-                content: "ON";
-            }
-            i {
-                color: $success;
-            }
-        }
-        // Toggle blocks
-        #page-content > a {
-            padding-top: 3rem;
-        }
-    }
-    .popover-region.nav-link.editswitch,
-    .popover-region.nav-link.call911 {
-        /*margin-right: 1.5rem;*/
-        .fa {
-            font-size: larger;
-        }
-        a:hover {
-            text-decoration: none;
-        }
-    }
-}
-
-// Back to top button.
-#back-to-top {
-    position: fixed;
-    bottom: 32px;
-    right: 40px;
-    text-align: center;
-    cursor: pointer;
-    opacity: .5;
-    filter: alpha(opacity=50);
-    display: none;
-    z-index: 1000;
-    a {
-        text-decoration: none;
-        border: 0;
-        outline: none;
-        &.arrow {
-            padding: 5px 10px;
-            font-size: 36px;
-            color: #333;
-            background: #eee;
-            border: 1px solid #ccc;
-            border-bottom: 1px solid #aaa;
-            border-radius: 5px;
-        }
-        &.text {
-            display: block;
-            background: white;
-            visibility: hidden;
-            position: relative;
-            top: 10px;
-        }
-    }
-}
-
-@media only screen  and (min-width: 768px) {
-    .navbar-nav .nav-link.editswitch {
-        padding-top: .525rem;
-    }
-    .navbar-nav .nav-link.call911 {
-        padding-top: .6rem;
-    }
-}
-
-@media only screen  and (max-width: 767px) {
-    .navbar-nav .nav-link.call911 {
-        padding-top: .6rem;
-    }
-}
-
-@media only screen  and (max-width: 767px) {
-    .switch:after {
-        display: none;
-    }
-}
 
 .usertour {
     @extend .container;
@@ -597,25 +317,9 @@ abbr[title] {
     text-decoration: none;
 }
 
-.moodlelogofooter {
-    margin-bottom: .625rem;
-    width: 75px;
-    height: 20px;
-}
-
 //restored variables from moodle 34
 $input-bg-disabled:              $gray-500 !default;
 $input-disabled-bg:              $gray-500 !default;
-
-.in-drawer .redball-count {
-    border-radius: 50%;
-    background-color: crimson;
-    color: white;
-    width: 1.1rem;
-    height: 1.1rem;
-    font-size: .625rem;
-    padding: 1px 0 0 5px;
-}
 
 legend {
     font-size: 1.3rem;

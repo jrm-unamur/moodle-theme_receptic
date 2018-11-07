@@ -38,16 +38,7 @@ body {
 }
 
 .brand-banner {
-    background:
-        linear-gradient(
-            to bottom,
-            $gray-lightest 0%,
-            $gray-lightest 30%,
-            darken($brand-banner-color, 5%)
-            31%,
-            lighten($brand-banner-color, 5%)
-            95%
-        );
+    background: $brand-banner-gradient;
     height: $brand-banner-height;
 
     img {
@@ -69,6 +60,142 @@ body {
         height: 55px;
         box-shadow: 4px 4px 15px $gray-700;
     }
+
+    .center-logo {
+        height: 55px;
+        box-shadow: 4px 4px 15px $gray-700;
+        img {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 10px;
+            display: block;
+        }
+    }
+}
+
+/**
+ * Navigation bar identity.
+ */
+.navbar-receptic {
+    background-image: linear-gradient(to bottom, $gray-700 0%, $gray-800 100%);
+
+    .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    a {
+        color: $white;
+        &:hover,
+        &:focus {
+            color: $gray-500;
+        }
+        &.dropdown-item {
+            color: $gray-800;
+            @include hover-focus {
+                color: $gray-700;
+            }
+        }
+    }
+    .dropdown a:first-of-type > .icon {
+        margin-left: 0;
+    }
+
+    .dropdown-item a {
+        color: $gray-800;
+        &:hover,
+        &:focus {
+            color: $gray-700;
+        }
+        .icon:before {
+            color: $gray-800;
+            &:hover,
+            &:focus {
+                color: $gray-700;
+            }
+        }
+    }
+
+    [data-region="drawer-toggle"] {
+        .btn-secondary {
+            color: $white;
+            background-color: $gray-600;
+            border-color: $gray-700;
+            border-radius: .25rem;
+            &:hover,
+            &:focus {
+                opacity: .5;
+            }
+        }
+    }
+
+    .navbar-nav {
+        .nav-item + .nav-item {
+            margin-left: $spacer;
+            margin-right: $spacer;
+            .userbutton {
+                .avatars {
+                    img {
+                        margin-right: 0;
+                    }
+                }
+                margin-left: .5rem;
+            }
+        }
+        .nav-link {
+            font-size: $font-size-base;
+            text-transform: inherit;
+            letter-spacing: normal;
+            color: $white;
+            &:hover,
+            &:focus {
+                color: $gray-500;
+            }
+        }
+    }
+
+    .navbar-divider {
+        background-color: rgba(255, 255, 255, .075);
+    }
+
+    .extra-buttons {
+        margin-top: .5rem;
+        margin-left: 2rem;
+        margin-right: 1rem;
+        a {
+            margin-right: 1rem;
+        }
+    }
+    .popover-region {
+        &.navlink a:hover,
+        &.navlink a:focus {
+            text-decoration: none;
+        }
+    }
+    .usermenu .login {
+        display: none;
+    }
+}
+
+@media only screen  and (min-width: 768px) {
+    .navbar-nav .nav-link.addon {
+        padding-top:  .6rem;
+    }
+    .navbar-nav .nav-link.editswitch {
+        padding-top: .525rem;
+    }
+}
+
+@media only screen  and (max-width: 767px) {
+    .navbar-nav .nav-link.addon {
+        padding-top: .6rem;
+    }
+}
+
+@media only screen  and (max-width: 767px) {
+    .switch:after {
+        display: none;
+    }
 }
 
 /**
@@ -85,7 +212,7 @@ body {
         margin-top: $brand-banner-height + 45px;
     }
     body.path-login #page {
-        margin-top: 115px;
+        margin-top: $brand-banner-height + 35px;
     }
 }
 
@@ -103,8 +230,7 @@ body {
     right: 40px;
     text-align: center;
     cursor: pointer;
-    opacity: .5;
-    filter: alpha(opacity=50);
+    opacity: .75;
     display: none;
     z-index: 1000;
     a {
@@ -220,4 +346,32 @@ body.editing .section .activity .editing_move {
 body.editing .section .activity.hot .mod-indent-outer,
 body.editing .section .activity.warm .mod-indent-outer {
     padding-left: 1rem;
+}
+
+/**
+ * Dashboard styling.
+ */
+#page-my-index {
+    #region-main {
+        background-color: transparent;
+        border: 0;
+        padding: 0;
+    }
+    .nav-pills {
+        .nav-item {
+            background-color: $gray-200;
+            .active {
+                background-color: $primary;
+            }
+        }
+    }
+    .block-myoverview .pagination {
+        justify-content: center;
+    }
+}
+
+.moodlelogofooter {
+    margin-bottom: .625rem;
+    width: 75px;
+    height: 20px;
 }

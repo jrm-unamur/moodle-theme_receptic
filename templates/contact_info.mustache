@@ -17,9 +17,13 @@
 {{!
     placeholder for template description. Ex: Page header.
 }}
-<div class="popover-region nav-link addon editswitch">
-    <a href="{{{url}}}" class="switch" title="{{#str}}editmode, theme_receptic{{/str}}">
-        <span class="d-none d-md-flex">{{#str}}editmode, theme_receptic{{/str}}</span>
-        <i class="fa fa-edit d-flex d-md-none"></i>
-    </a>
+
+<div class="contactinfo text-center">
+    <p>{{contact_header}}<br/>
+        {{#contact_email}}
+            <a href="mailto:{{contact_email}}"> <i class="fa fa-envelope"></i> </a>
+        {{/contact_email}}
+        {{#contact_both}} {{#str}}or, theme_receptic{{/str}} {{/contact_both}}
+        {{#contact_phone}}<i class="fa fa-phone"></i> {{contact_phone}}{{/contact_phone}}
+    </p>
 </div>

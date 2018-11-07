@@ -1,3 +1,4 @@
+// Copy variables required by boost.
 // Bootstrap variables
 
 $white:    #fff !default;
@@ -37,7 +38,6 @@ $enable-rounded: false !default;
 
 // Body
 $body-color:    $gray-800 !default;
-$body-bg: $gray-200 !default;
 
 // Fonts
 $font-size-base: 0.9375rem !default;
@@ -71,14 +71,39 @@ $theme-colors: (
         headings: $primary
 );
 
-$headings-color: $primary !default;
+// Preset CSS
 
-$footer-link-color: $primary !default;
-$forsepia: #f1f1f1;
+body {
+    -webkit-font-smoothing: antialiased;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .08);
+}
+
+// Variables defined by receptic theme.
 // Theme addons.
-$brand-banner-color: $gray-700 !default;
+$brand-banner-color: #f98012 !default;
 $brand-banner-height: 80px !default;
+$brand-banner-gradient: linear-gradient(
+                to bottom,
+                $gray-100 0%,
+                $gray-100 30%,
+                darken($brand-banner-color, 5%)
+                31%,
+                lighten($brand-banner-color, 5%)
+                95%
+);
 $drawer-position-top: $brand-banner-height + 50px;
+
+$navbar-height: 50px !default;
+
+// Misc colors.
+$blocks-headings-color: inherit;
+
+$footer-link-color: lighten($primary, 15%) !default;
+$forsepia: $white;
+$sepiaratio: 0%;
 
 // Import FontAwesome.
 @import "fontawesome";
@@ -98,10 +123,6 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-.navbar {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .08);
-}
-
 .filemanager-container,
 .filepicker-filelist {
     @extend .border;
@@ -110,6 +131,49 @@ body {
 // Rounded user pictures
 .userpicture {
     border-radius: 50%;
+}
+
+/**
+ * Buttons.
+ */
+
+.buttons {
+    text-align: center;
+}
+
+.backlink {
+    text-align: center;
+}
+
+.availability-button {
+    text-align: center;
+}
+
+#gradetreesubmit {
+    text-align: center;
+}
+
+/**
+ * Styling the dropdown menus.
+ */
+.dropdown-menu {
+    font-size: 14px;
+    border-radius: 0;
+    .dropdown-item:first-of-type {
+        padding-top: 8px;
+        &:last-child {
+            border-bottom: 0;
+        }
+    }
+    .dropdown-item {
+        color: #494949;
+        &:hover {
+            color: #696969;
+        }
+    }
+    a.icon {
+        vertical-align: baseline;
+    }
 }
 
 /**
@@ -129,5 +193,39 @@ body.drawer-open-right #page.container-fluid {
 
 
 
+/**
+ * Form styles.
+ */
 
+.form-group {
+    margin-top: ($spacer/2);
+}
 
+.form-inline .form-group {
+    margin-top: 0;
+}
+.usertour {
+    @extend .container;
+    @extend .text-center;
+}
+
+.fitem .initialism i {
+    vertical-align: text-bottom;
+}
+
+abbr[title] {
+    border: none;
+    text-decoration: none;
+}
+
+//restored variables from moodle 34
+$input-bg-disabled:              $gray-500 !default;
+$input-disabled-bg:              $gray-500 !default;
+
+legend {
+    font-size: 1.3625rem;
+}
+
+input[type=submit] {
+    font-size: .9375rem;
+}
