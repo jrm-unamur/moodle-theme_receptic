@@ -415,7 +415,7 @@ function theme_receptic_init_vars_for_hot_items_computing() {
     return array($newitems, $updateditems, $starttime);
 }
 
-function theme_receptic_compute_redballs($course, $starttime, $newitemsforuser) {
+function theme_receptic_compute_redballs($course, $starttime, $newitemsforuser = array()) {
     global $DB, $USER;
 
     $count = 0;
@@ -496,15 +496,19 @@ function theme_receptic_compute_redballs($course, $starttime, $newitemsforuser) 
     $newitemsforuser = array_merge($newitemsforuser, $redcmids);
     $newitemsforuser = array_unique($newitemsforuser);
     rsort($newitemsforuser);
-    $chunks = array_chunk($newitemsforuser, 100);
-    set_user_preference('user_redballs', implode(',', $chunks[0]));
-    return $chunks[0];
+    if (!empty($newitemsforuser)) {
+        $chunks = array_chunk($newitemsforuser, 100);
+        set_user_preference('user_redballs', implode(',', $chunks[0]));
+        return $chunks[0];
+    }
+    return $newitemsforuser;
+
 //    set_user_preference('user_redballs', implode(',', $newitemsforuser));
 
   //  return $newitemsforuser;
 }
 
-function theme_receptic_compute_orangeballs($course, $starttime, $updateditemsforuser) {
+function theme_receptic_compute_orangeballs($course, $starttime, $updateditemsforuser = array()) {
     global $DB, $USER;
     $count = 0;
     $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
@@ -611,9 +615,12 @@ function theme_receptic_compute_orangeballs($course, $starttime, $updateditemsfo
     $updateditemsforuser = array_unique($updateditemsforuser);
     
     rsort($updateditemsforuser);
-    $chunks = array_chunk($updateditemsforuser, 100);
-    set_user_preference('user_orangeballs', implode(',', $chunks[0]));
-    return $chunks[0];
+    if (!empty($updateditemsforuser)) {
+        $chunks = array_chunk($updateditemsforuser, 100);
+        set_user_preference('user_orangeballs', implode(',', $chunks[0]));
+        return $chunks[0];
+    }
+    return $updateditemsforuser;
     //set_user_preference('user_orangeballs', implode(',', $updateditemsforuser));
 
     //return $updateditemsforuser;
