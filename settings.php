@@ -123,7 +123,7 @@ if ($ADMIN->fulltree) {
     $page = new admin_settingpage('theme_receptic_dashboard', get_string('myhome'));
 
     $page->add(new admin_setting_heading('dashboarddisplaymode',
-        get_string('dashboarddisplaymode', 'theme_receptic')));
+        get_string('dashboarddisplaymode', 'theme_receptic'), ''));
 
     // Activate mixed view dashboard.
     $name = 'theme_receptic/mixedviewindashboard';
@@ -134,7 +134,7 @@ if ($ADMIN->fulltree) {
     $page->add($setting);
 
     $page->add(new admin_setting_heading('createcourse',
-        get_string('createcourse', 'theme_receptic')));
+        get_string('createcourse', 'theme_receptic'), ''));
 
     // Add a button to create a course in course creators' dashboard.
     $name = 'theme_receptic/addcoursebutton';
@@ -148,11 +148,11 @@ if ($ADMIN->fulltree) {
     $name = 'theme_receptic/localcreatecourseplugin';
     $title = get_string('localcreatecourseplugin', 'theme_receptic');
     $description = get_string('localcreatecourseplugin_desc', 'theme_receptic');
-    $setting = new admin_setting_configtext($name, $title, $description);
+    $setting = new admin_setting_configtext($name, $title, $description, '');
     $page->add($setting);
 
     $page->add(new admin_setting_heading('bulkenrol',
-        get_string('bulkenrol', 'theme_receptic')));
+        get_string('bulkenrol', 'theme_receptic'), ''));
 
     // Add a button to allow students to enrol to their official list of courses.
     // Requires a local plugin able to give a list of courses to which the current student must be enrolled to.
@@ -166,7 +166,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_receptic/bulkenrolmeplugin';
     $title = get_string('bulkenrolmeplugin', 'theme_receptic');
     $description = get_string('bulkenrolmeplugin_desc', 'theme_receptic');
-    $setting = new admin_setting_configtext($name, $title, $description);
+    $setting = new admin_setting_configtext($name, $title, $description, '');
     $page->add($setting);
 
     // Name of bulk enrolme plugin.
@@ -181,11 +181,11 @@ if ($ADMIN->fulltree) {
     $name = 'theme_receptic/bulkenrolemailpattern';
     $title = get_string('bulkenrolemailpattern', 'theme_receptic');
     $description = get_string('bulkenrolemailpattern_desc', 'theme_receptic');
-    $setting = new admin_setting_configtext($name, $title, $description);
+    $setting = new admin_setting_configtext($name, $title, $description, '');
     $page->add($setting);
 
     $page->add(new admin_setting_heading('otherdashboardshortcuts',
-        get_string('otherdashboardshortcuts', 'theme_receptic')));
+        get_string('otherdashboardshortcuts', 'theme_receptic'), ''));
 
     $name = 'theme_receptic/togglecoursevisibility';
     $title = get_string('togglecoursevisibility', 'theme_receptic');
@@ -298,45 +298,47 @@ if ($ADMIN->fulltree) {
     $page->add($setting);
 
     $settings->add($page);
-}
 
-// Configure information in page footer.
-$page = new admin_settingpage('theme_receptic_footer', get_string('footer', 'theme_receptic'));
+    // Configure information in page footer.
+    $page = new admin_settingpage('theme_receptic_footer', get_string('footer', 'theme_receptic'));
 
 // Contact information.
-$name = 'theme_receptic/contactheader';
-$title = get_string('contactheader', 'theme_receptic');
-$description = get_string('contactheader_desc', 'theme_receptic');
-$setting = new admin_setting_configtext($name, $title, $description);
-$page->add($setting);
-$name = 'theme_receptic/contactemail';
-$title = get_string('contactemail', 'theme_receptic');
-$description = get_string('contactemail_desc', 'theme_receptic');
-$default = $CFG->supportemail;
-$setting = new admin_setting_configtext($name, $title, $description, $default);
-$page->add($setting);
+    $name = 'theme_receptic/contactheader';
+    $title = get_string('contactheader', 'theme_receptic');
+    $description = get_string('contactheader_desc', 'theme_receptic');
+    $setting = new admin_setting_configtext($name, $title, $description, '');
+    $page->add($setting);
+    $name = 'theme_receptic/contactemail';
+    $title = get_string('contactemail', 'theme_receptic');
+    $description = get_string('contactemail_desc', 'theme_receptic');
+    $default = $CFG->supportemail;
+    $setting = new admin_setting_configtext($name, $title, $description, $default);
+    $page->add($setting);
 
-$name = 'theme_receptic/contactphone';
-$title = get_string('contactphone', 'theme_receptic');
-$description = get_string('contactphone_desc', 'theme_receptic');
-$setting = new admin_setting_configtext($name, $title, $description);
-$page->add($setting);
+    $name = 'theme_receptic/contactphone';
+    $title = get_string('contactphone', 'theme_receptic');
+    $description = get_string('contactphone_desc', 'theme_receptic');
+    $setting = new admin_setting_configtext($name, $title, $description, '');
+    $page->add($setting);
 
 // Moodle credits.
-$name = 'theme_receptic/moodlecredits';
-$title = get_string('moodlecredits', 'theme_receptic');
-$description = get_string('moodlecredits_desc', 'theme_receptic');
-$setting = new admin_setting_configcheckbox($name, $title, $description, true);
-$page->add($setting);
+    $name = 'theme_receptic/moodlecredits';
+    $title = get_string('moodlecredits', 'theme_receptic');
+    $description = get_string('moodlecredits_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, true);
+    $page->add($setting);
 
 // Login info.
-$name = 'theme_receptic/logininfo';
-$title = get_string('logininfo', 'theme_receptic');
-$description = get_string('logininfo_desc', 'theme_receptic');
-$setting = new admin_setting_configcheckbox($name, $title, $description, false);
-$page->add($setting);
+    $name = 'theme_receptic/logininfo';
+    $title = get_string('logininfo', 'theme_receptic');
+    $description = get_string('logininfo_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, false);
+    $page->add($setting);
 
-$settings->add($page);
+    $settings->add($page);
+}
+
+
 
 $page = new admin_settingpage('theme_receptic_flashbox', get_string('flashboxes', 'theme_receptic'), 'theme/receptic:editflashbox');
 
