@@ -130,6 +130,23 @@
             border: 1px solid #ddd;
         }
     }
+    &.block_recentlyaccessedcourses {
+        border: none;
+        .card-body {
+            box-shadow: none;
+            .course-info-container {
+                padding: .75rem 1rem;
+            }
+        }
+        h5:before {
+            content: "\f00c";
+        }
+    }
+    &.block_timeline {
+        h5:before {
+            content: "\f017"
+        }
+    }
     &.block_calendar_month h5:before,
     &.block_calendar_upcoming h5:before {
         content: "\f073";
@@ -336,11 +353,11 @@ body.editing.empty-region-side-pre.drawer-open-right #sidepreopen-control {
 }
 
 [data-region="blocks-column"] {
-    width: 280px;
+    width: 350px;
 
     position: fixed;
     top: $drawer-position-top;
-    right: -280px;
+    right: -350px;
     height: calc(100% - #{$drawer-position-top});
     overflow-y: scroll;
     z-index: 999;
@@ -358,7 +375,7 @@ body.editing.empty-region-side-pre.drawer-open-right #sidepreopen-control {
 
 body.drawer-open-right {
     #sidepreopen-control {
-        right: 265px;
+        right: 335px;
 
         &:before {
             content: "\f054";

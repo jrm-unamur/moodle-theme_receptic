@@ -65,7 +65,7 @@
     <div id="page" class="container-fluid">
         {{{ output.full_header }}}
 
-        <div id="page-content" class="row">
+        <div id="page-content" class="row pb-1">
             <div id="region-main-box" class="col-12">
                 {{#hasregionmainsettingsmenu}}
                 <div id="region-main-settings-menu" class="d-print-none {{#hasblocks}}has-blocks{{/hasblocks}}">
@@ -77,8 +77,8 @@
                     {{{ output.flashboxstudents }}}
 
                     <!--<div class="card card-block">-->
-                    <div class="card">
-                        <div class="card-body">
+                    <!--<div class="card">
+                        <div class="card-body">-->
                             {{#hasregionmainsettingsmenu}}
                                 <div class="region_main_settings_menu_proxy"></div>
                             {{/hasregionmainsettingsmenu}}
@@ -86,8 +86,8 @@
                             {{{ output.main_content }}}
                             {{! output.activity_navigation }}
                             {{{ output.course_content_footer }}}
-                        </div>
-                    </div>
+                        <!--</div>
+                    </div>-->
                 </section>
                 <!--<section data-region="blocks-column" class="blocksbelow d-print-none d-block d-md-none">
                    {{! {{{ sidepreblocks }}} }}
@@ -110,12 +110,12 @@
         </section>
 
     {{/hasblocks}}
-
+    {{{ output.standard_after_main_region_html }}}
     {{> theme_receptic/nav-drawer }}
-
+    {{> theme_receptic/footer }}
 </div>
 
-{{> theme_receptic/footer }}
+
 
 </body>
 </html>

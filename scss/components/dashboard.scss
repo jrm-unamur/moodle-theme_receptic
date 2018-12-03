@@ -1,0 +1,10 @@
+body {
+    &.path-my {
+        #page-header {
+            display: none;
+        }
+        #page-content {
+            margin-top: 1.6rem;
+        }
+    }
+}
