@@ -37,7 +37,9 @@
 
     {{{ output.standard_top_of_body_html }}}
 
-    {{>theme_receptic/banner}}
+    {{#displaybrandbanner}}
+        {{>theme_receptic/banner}}
+    {{/displaybrandbanner}}
 
     <nav role="banner" class="fixed-top {{#displaybrandbanner}}pos-f-t-lower{{/displaybrandbanner}} navbar navbar-receptic navbar-expand moodle-has-zindex"></nav>
 
