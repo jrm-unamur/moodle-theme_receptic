@@ -28,13 +28,14 @@ $bodyattributes = $OUTPUT->body_attributes();
 $haslogoleft = !empty(get_config('theme_receptic', 'logoleft'));
 $haslogocenter = !empty(get_config('theme_receptic', 'logocenter'));
 $haslogoright = !empty(get_config('theme_receptic', 'logoright'));
+$displaybrandbanner = get_config('theme_receptic', 'brandbanner');
 
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
     'output' => $OUTPUT,
     'bodyattributes' => $bodyattributes,
     'forgetpasslink' => false,
-    'displaybrandbanner' => true,
+    'displaybrandbanner' => $displaybrandbanner,
     'logoleft' => $haslogoleft,
     'logocenter' => $haslogocenter,
     'logoright' => $haslogoright,
