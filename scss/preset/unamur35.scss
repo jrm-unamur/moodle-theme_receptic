@@ -60,6 +60,8 @@ $breadcrumb-bg:                     transparent !default;
 $breadcrumb-divider: "/" !default;
 $breadcrumb-divider-rtl: "/" !default;
 
+$card-group-margin: .25rem;
+
 // Alerts
 $alert-border-width:                0 !default;
 
@@ -89,6 +91,7 @@ $brand-banner-gradient: linear-gradient(
 );
 $drawer-position-top: $brand-banner-height + 50px;
 $drawer-right-width: 355px;
+
 
 $navbar-height:             50px !default;
 
@@ -328,4 +331,12 @@ legend {
 
 input[type=submit] {
     font-size: .875rem;
+}
+
+// Reset the default styling back to the bootstrap defaults for
+// the secondary outline button because gray-200 is much too light
+// for an outline button.
+.btn-outline-secondary {
+    @include button-outline-variant($gray-600);
+    border-color: $border-color;
 }

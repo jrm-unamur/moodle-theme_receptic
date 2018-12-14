@@ -1,4 +1,3 @@
-<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,17 +14,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    theme_receptic
- * @author     Jean-Roch Meurisse
- * @copyright  2016 - Cellule TICE - Unversite de Namur
+ * Javascript to initialise the selectors for the myoverview block.
+ *
+ * @package    block_myoverview
+ * @copyright  2018 Peter Dias <peter@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->version = 2018120212;
-$plugin->requires = 2018120300;
-$plugin->component = 'theme_receptic';
-$plugin->dependencies = [
-    'theme_boost' => '2018120300'
-];
+define([], function() {
+    return {
+        courseView: {
+            region: '[data-region="courses-view"]',
+            regionContent: '[data-region="course-view-content"]'
+        }
+    };
+});

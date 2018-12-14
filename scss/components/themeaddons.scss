@@ -77,6 +77,7 @@ body {
  * Navigation bar identity.
  */
 .navbar-receptic {
+    top: $brand-banner-height;
     background-image: linear-gradient(to bottom, $gray-700 0%, $gray-800 100%);
 
     .container {
@@ -195,6 +196,9 @@ body {
 @media only screen  and (max-width: 767px) {
     .switch:after {
         display: none;
+    }
+    .navbar-receptic {
+        top: 0;
     }
 }
 

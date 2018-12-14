@@ -29,6 +29,7 @@ user_preference_allow_ajax_update('blocks-collapsed', PARAM_ALPHA);
 user_preference_allow_ajax_update('sidepre-open', PARAM_ALPHA);
 user_preference_allow_ajax_update('flashbox-teacher-hidden', PARAM_ALPHA);
 user_preference_allow_ajax_update('flashbox-student-hidden', PARAM_ALPHA);
+
 $context = $this->page->context;
 if ($context->contextlevel == CONTEXT_COURSE) {
     user_preference_allow_ajax_update('sections-toggle-' . $this->page->course->id, PARAM_RAW);
@@ -41,7 +42,16 @@ if (empty($sectionstogglestate)) {
     $sectionstogglestate = '{}';
 }
 
-$this->page->requires->js_call_amd('theme_receptic/ux', 'init');
+$jsargs = new stdClass();
+
+if (!get_config('theme_receptic', 'allowdisplaymode')) {
+    if (get_user_preferences('block_myoverview_user_view_preference') === null) {
+        set_user_preference('block_myoverview_user_view_preference', 'list');
+    }
+    $jsargs->displaymode = 'list';
+}
+
+$this->page->requires->js_call_amd('theme_receptic/ux', 'init', array(json_encode($jsargs)));
 
 $iscontextcourse = $context->contextlevel == CONTEXT_COURSE || $context->contextlevel == CONTEXT_MODULE;
 $params = new stdClass();
@@ -101,7 +111,6 @@ $templatecontext = [
     'draweropenright' => $draweropenright,
     'regionmainsettingsmenu' => $regionmainsettingsmenu,
     'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu),
-    'displaybrandbanner' => true,
     'googlefonts' => $googlefonts,
     'iscontextcourse' => $iscontextcourse,
     'shownavbar' => true,

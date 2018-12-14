@@ -15,6 +15,15 @@
     .content-item-body p {
         color: $body-color;
     }
+    &.pull-right {
+        a .icon {
+            color: #fff;
+            &:hover,
+            &:focus {
+                color: $gray-500;
+            }
+        }
+    }
 }
 
 .content-item-container {
@@ -95,6 +104,10 @@
             color: $link-hover-color;
         }
     }
+}
+
+.message-drawer {
+    top: $drawer-position-top;
 }
 
 /*.content-item-container:hover,

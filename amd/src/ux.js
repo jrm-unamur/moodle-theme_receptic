@@ -5,12 +5,19 @@
 define(['jquery', 'core/log'], function($, log) {
 
     "use strict";
-
+    var params;
     return {
-        init: function() {
+        init: function(args) {
             log.debug('Theme Receptic AMD module initialized');
 
             $(document).ready(function($) {
+                console.log(args);
+                params = JSON.parse(args);
+                if (params.displaymode) {
+                    $('.block-myoverview [data-region="courses-view"]').attr('data-display', 'list');
+                } else {
+                    console.log(params.displaymode);
+                }
 
                 // Javascript to enable link to tab.
                 $('.linktotab').on('click', function(event) {
@@ -107,7 +114,6 @@ define(['jquery', 'core/log'], function($, log) {
                 });
 
                 $('#chooserform #item_lesson').parent().parent().remove();
-                $('.block-myoverview').show();
             });
         }
     };

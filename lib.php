@@ -80,22 +80,9 @@ function theme_receptic_get_main_scss_content($theme) {
         $scss .= file_get_contents($CFG->dirroot . '/theme/receptic/scss/preset/boostlike.scss');
     } else if ($filename == 'unamur35.scss') {
         $scss .= file_get_contents($CFG->dirroot . '/theme/receptic/scss/preset/unamur35.scss');
-    } /*else if ($filename == 'default.scss') {
-        $scss .= file_get_contents($CFG->dirroot . '/theme/boost/scss/preset/default.scss');
-    } else if ($filename == 'plain.scss') {
-        $scss .= file_get_contents($CFG->dirroot . '/theme/boost/scss/preset/plain.scss');
-    } */ else if ($filename && ($presetfile = $fs->get_file($context->id, 'theme_receptic', 'preset', 0, '/', $filename))) {
+    } else if ($filename && ($presetfile = $fs->get_file($context->id, 'theme_receptic', 'preset', 0, '/', $filename))) {
         $scss .= $presetfile->get_content();
-        /*$test = file_get_contents($CFG->dirroot . '/theme/receptic/scss/preset/boostlike.scss');
-        global $DB;
-        $record = new stdClass();
-        $record->trace = $scss;
-        $DB->insert_record('webcampus_trace', $record);*/
-    } /*else {
-        $scss .= file_get_contents($CFG->dirroot . '/theme/receptic/scss/preset/boostlike.scss');
-
-    }*/
-
+    }
     // Add 2 scss file to the beginning and end of main.
     $pre = file_get_contents($CFG->dirroot . '/theme/receptic/scss/pre.scss');
     $post = file_get_contents($CFG->dirroot . '/theme/receptic/scss/post.scss');
@@ -502,10 +489,6 @@ function theme_receptic_compute_redballs($course, $starttime, $newitemsforuser =
         return $chunks[0];
     }
     return $newitemsforuser;
-
-//    set_user_preference('user_redballs', implode(',', $newitemsforuser));
-
-  //  return $newitemsforuser;
 }
 
 function theme_receptic_compute_orangeballs($course, $starttime, $updateditemsforuser = array()) {
@@ -613,7 +596,7 @@ function theme_receptic_compute_orangeballs($course, $starttime, $updateditemsfo
     }
     $updateditemsforuser = array_merge($updateditemsforuser, $orangecmids);
     $updateditemsforuser = array_unique($updateditemsforuser);
-    
+
     rsort($updateditemsforuser);
     if (!empty($updateditemsforuser)) {
         $chunks = array_chunk($updateditemsforuser, 100);
@@ -621,9 +604,6 @@ function theme_receptic_compute_orangeballs($course, $starttime, $updateditemsfo
         return $chunks[0];
     }
     return $updateditemsforuser;
-    //set_user_preference('user_orangeballs', implode(',', $updateditemsforuser));
-
-    //return $updateditemsforuser;
 }
 
 function theme_receptic_get_visible_balls_count($course, $redballs, $orangeballs) {
@@ -653,8 +633,6 @@ function theme_receptic_get_visible_balls_count($course, $redballs, $orangeballs
             array('course' => $course->id)
         );
     }
-    $course->updateditemscount = $orangecount;
-    $course->orangeballscountclass = $orangecount > 9 ? 'high' : '';
 
     $redcount = 0;
     if (!empty($visiblereditems)) {

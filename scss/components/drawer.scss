@@ -1,3 +1,5 @@
+$drawer-right-width: 355px;
+
 #nav-drawer {
     background-color: $gray-400;
     .list-group {
@@ -86,7 +88,8 @@ body.drawer-open-left {
     }
 }
 body.drawer-open-right {
-    @include media-breakpoint-up(md) {
-        margin-right: $drawer-right-width;
+    margin-right: $drawer-right-width;
+    @include media-breakpoint-down(lg) {
+        margin-right: 0;
     }
 }

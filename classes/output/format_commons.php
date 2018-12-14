@@ -97,13 +97,6 @@ trait format_commons {
                 || (!$thissection->visible && !$course->hiddensections);
 
             if (!$showsection) {
-                // If the hiddensections option is set to 'show hidden sections in collapsed
-                // form', then display the hidden section message - UNLESS the section is
-                // hidden by the availability system, which is set to hide the reason.
-                /*if (!$course->hiddensections && $thissection->available) {
-                    echo $this->section_hidden($section, $course->id);
-                }*/
-
                 continue;
             }
 

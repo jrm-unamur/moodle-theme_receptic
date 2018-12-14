@@ -139,7 +139,7 @@ $observers = array(
         'eventname' => '\core\event\course_viewed',
         'callback' => 'theme_receptic_observer::course_viewed'
     ),
-    
+
     array(
         'eventname' => '\mod_animals\event\course_module_viewed',
         'callback' => 'theme_receptic_observer::course_module_viewed'

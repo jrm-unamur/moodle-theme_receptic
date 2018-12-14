@@ -127,3 +127,9 @@ $string['or'] = 'ou';
 $string['poweredby'] = 'Utilise';
 $string['logininfo'] = 'Utilisateur connecté';
 $string['logininfo_desc'] = 'Afficher un lien vers le profil de l\'utilisateur connecté et un lien de connexion dans le pied de page';
+
+$string['makevisible'] = 'Rendre disponible';
+$string['confirmmakevisible'] = 'Confirmez pour permettre aux étudiants de consulter votre cours';
+$string['makeinvisible'] = 'Rendre indisponible';
+$string['confirmmakeinvisible'] = 'Confirmez pour empêcher l\'accès à votre cours';
+$string['confirmunenrolme'] = 'Voules-vous vraiment vous désinscrire de ce cours?';
