@@ -83,8 +83,6 @@ function(
 
     var lastLimit = 0;
 
-    var trigger = $('ACTION_ADD_FAVOURITE');
-
     /**
      * Prepares the action for the summary modal's delete action.
      *
@@ -367,7 +365,7 @@ function(
 
     var getCourseNameItem = function(root, courseId) {
         return root.find('[data-region="courses-view"] .coursename[data-course-id="' + courseId + '"]');
-    }
+    };
 
     /**
      * Make course visible for students.
@@ -424,8 +422,6 @@ function(
      */
     var setCourseVisibility = function(courseId, visible) {
 
-        console.log(courseId);
-        console.log(visible);
         return Repository.changeCourseVisibility({
 
             'id': courseId,
@@ -436,7 +432,6 @@ function(
                 loadedPages.forEach(function(courseList) {
                     courseList.courses.forEach(function(course, index) {
                         if (course.id == courseId) {
-                            console.log(courseId);
                             courseList.courses[index].visible = visible;
                         }
                     });
@@ -637,7 +632,6 @@ function(
                         limit
                     ).then(function(coursesData) {
                         var courses = coursesData.courses;
-                        console.log(coursesData);
                         var nextPageStart = 0;
                         var pageCourses = [];
                         // If current page's data is loaded make sure we max it to page limit.
@@ -738,7 +732,7 @@ function(
             var extraargs = {
                 'instanceId': instanceId,
                 'target': target
-            }
+            };
             confirmAction(root, courseId, 'unenrolMe', extraargs);
             data.originalEvent.preventDefault();
         });

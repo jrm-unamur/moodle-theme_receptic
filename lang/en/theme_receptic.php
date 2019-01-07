@@ -161,3 +161,5 @@ $string['confirmmakevisible'] = 'Confirm to allow students to view your course';
 $string['makeinvisible'] = 'Make invisible';
 $string['confirmmakeinvisible'] = 'Confirm to prevent access to your course';
 $string['confirmunenrolme'] = 'Do you really want to unenrol from this course?';
+$string['activitynavigation'] = 'Activity navigation';
+$string['activitynavigation_desc'] = 'Display a select box under activities allowing to jump to another activity without going back to course home page';

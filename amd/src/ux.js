@@ -11,12 +11,9 @@ define(['jquery', 'core/log'], function($, log) {
             log.debug('Theme Receptic AMD module initialized');
 
             $(document).ready(function($) {
-                console.log(args);
                 params = JSON.parse(args);
                 if (params.displaymode) {
                     $('.block-myoverview [data-region="courses-view"]').attr('data-display', 'list');
-                } else {
-                    console.log(params.displaymode);
                 }
 
                 // Javascript to enable link to tab.
@@ -57,9 +54,9 @@ define(['jquery', 'core/log'], function($, log) {
                     }
                     if(e.which == 120 && isCtrl && isShift) {
                         if($('body').hasClass('drawer-open-right')) {
-                            M.util.set_user_preference('sidepre-open', 'false');
+                            M.util.set_user_preference('blocks-column-open', 'false');
                         } else {
-                            M.util.set_user_preference('sidepre-open', 'true');
+                            M.util.set_user_preference('blocks-column-open', 'true');
                         }
                         $('body').toggleClass('drawer-open-right');
                     }

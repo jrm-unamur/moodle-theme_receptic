@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 user_preference_allow_ajax_update('drawer-open-nav', PARAM_ALPHA);
 user_preference_allow_ajax_update('blocks-collapsed', PARAM_ALPHA);
-user_preference_allow_ajax_update('sidepre-open', PARAM_ALPHA);
+user_preference_allow_ajax_update('blocks-column-open', PARAM_ALPHA);
 user_preference_allow_ajax_update('flashbox-teacher-hidden', PARAM_ALPHA);
 user_preference_allow_ajax_update('flashbox-student-hidden', PARAM_ALPHA);
 
@@ -59,7 +59,7 @@ $params = new stdClass();
 if (isloggedin()) {
     $navdraweropen = (get_user_preferences('drawer-open-nav', 'true') == 'true');
     $blockscollapsed = get_user_preferences('blocks-collapsed', 'false') == 'true';
-    $draweropenright = (get_user_preferences('sidepre-open', 'true') == 'true');
+    $draweropenright = (get_user_preferences('blocks-column-open', 'true') == 'true');
 } else {
     $navdraweropen = false;
     $blockscollapsed = true;
@@ -80,7 +80,7 @@ if ($navdraweropen) {
 
 $blockshtml = $OUTPUT->blocks('side-pre');
 $hasblocks = (strpos($blockshtml, 'data-block=') !== false)
-        || ($PAGE->user_is_editing() && strpos($this->page->pagetype, 'mod-' !== 0));
+        || ($PAGE->user_is_editing() /*&& strpos($this->page->pagetype, 'mod-' !== 0)*/);
 
 if ($draweropenright && $hasblocks) {
     $extraclasses[] = 'drawer-open-right';
@@ -120,7 +120,8 @@ $templatecontext = [
     'displaybrandbanner' => $displaybrandbanner,
     'navbaritems' => true,
     'logininfo' => get_config('theme_receptic', 'logininfo'),
-    'homelink' => get_config('theme_receptic', 'homelink')
+    'homelink' => get_config('theme_receptic', 'homelink'),
+    'activitynavigation' => get_config('theme_receptic', 'activitynavigation')
 ];
 
 $templatecontext['flatnavigation'] = $PAGE->flatnav;

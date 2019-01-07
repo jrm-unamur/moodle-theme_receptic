@@ -133,3 +133,5 @@ $string['confirmmakevisible'] = 'Confirmez pour permettre aux étudiants de cons
 $string['makeinvisible'] = 'Rendre indisponible';
 $string['confirmmakeinvisible'] = 'Confirmez pour empêcher l\'accès à votre cours';
 $string['confirmunenrolme'] = 'Voules-vous vraiment vous désinscrire de ce cours?';
+$string['activitynavigation'] = 'Navigateur d\'activités';
+$string['activitynavigation_desc'] = 'Afficher une boîte de sélection en-dessous des activités permettant de passer à une autre activité sans devoir repasser par la page d\'accueil du cours';

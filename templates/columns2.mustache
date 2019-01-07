@@ -84,7 +84,10 @@
                             {{/hasregionmainsettingsmenu}}
                             {{{ output.course_content_header }}}
                             {{{ output.main_content }}}
-                            {{! output.activity_navigation }}
+                    {{#activitynavigation}}
+                        {{{ output.activity_navigation }}}
+                    {{/activitynavigation}}
+
                             {{{ output.course_content_footer }}}
                         <!--</div>
                     </div>-->
@@ -98,13 +101,13 @@
         </div>
     </div>
     {{#hasblocks}}
-        <i id="sidepreopen-control"
+        <i id="blocks-column-toggle"
            class="d-none d-xl-block"
            aria-expanded="{{#draweropenright}}true{{/draweropenright}}{{^draweropenright}}false{{/draweropenright}}"
-           aria-controls="sidepre-blocks"
+           aria-controls="blocks-column"
            data-action="toggle-drawer"
            data-side="right"
-           data-preference="sidepre-open"
+           data-preference="blocks-column-open"
            title="{{#draweropenright}}{{#str}} hideblocks, theme_receptic {{/str}}{{/draweropenright}}{{^draweropenright}}{{#str}} showblocks, theme_receptic {{/str}}{{/draweropenright}}">
         </i>
 

@@ -367,6 +367,19 @@ if ($ADMIN->fulltree) {
 
     $settings->add($page);
 
+    // Configure course elements.
+    $page = new admin_settingpage('theme_receptic_footer', get_string('course'));
+
+    // Contact information.
+    $name = 'theme_receptic/activitynavigation';
+    $title = get_string('activitynavigation', 'theme_receptic');
+    $description = get_string('activitynavigation_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
+    $page->add($setting);
+
+    $settings->add($page);
+
+
     // Configure information in page footer.
     $page = new admin_settingpage('theme_receptic_footer', get_string('footer', 'theme_receptic'));
 

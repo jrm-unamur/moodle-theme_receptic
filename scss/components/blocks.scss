@@ -7,24 +7,8 @@
     display: none;
 }
 
-.blocks-hidden {
-    [data-region="blocks-column"] {
-        display: none;
-    }
-    // Main content must take full room when blocks are hidden.
-    #region-main-settings-menu.has-blocks,
-    #region-main.has-blocks {
-        width: 100%;
-    }
-    // Show blocks icon must be displayed when blocks are hidden.
-    .showblocks {
-        display: block;
-    }
-    // Hide blocks icon must be hidden when blocks are hidden.
-    .hideblocks {
-        display: none;
-    }
-}
+$blocks-column-width: 350px !default;
+
 #region-main-settings-menu.has-blocks,
 #region-main.has-blocks {
     width: 100%;
@@ -51,49 +35,23 @@
         box-shadow: 1px 2px 3px 0 $gray-500;
         padding: 1rem .5rem;
 
-        .block-control-actions {
-            /*padding-right: 0.5rem;*/
-        }
         .block_header {
             border-bottom: 1px solid #ced4da;
             padding-bottom: .5rem;
         }
         .card-title {
-            /*border-bottom: 1px solid $gray-400;*/
             color: $blocks-headings-color;
-            font-size: 1.1rem;
-            text-transform: none;
-
-            /*padding-bottom: ($spacer/2);
-            margin-left: .5rem;
-            margin-right: .5rem;*/
-            /*padding-left: .5rem;*/
         }
         .card-title:before {
             font-family: FontAwesome;
             font-size: 1rem;
             color: $gray-700;
             margin-right: 0.5rem;
-            text-align: center;
-            /*float: left;*/
-            padding-top: .2rem;
-        }
-        h5:before {
-            font-family: FontAwesome;
         }
         .content {
-            padding: 4px 1rem;
+            padding: 0 .5rem;
             h5:before {
                 content: "";
-            }
-        }
-        .action-menu .menubar {
-            > .action-menu-item .icon.fa-arrows {
-                margin: 0;
-            }
-            .action-menu-trigger .dropdown-toggle .icon {
-                margin: 0;
-                margin-left: .225rem;
             }
         }
     }
@@ -101,37 +59,27 @@
         border: none;
         .card-body {
             box-shadow: none;
-            .course-info-container {
-                padding: .75rem 1rem;
-            }
         }
         h5:before {
             content: "\f1e5";
         }
-        .list-group-item {
+        [data-region="course-content"] {
             margin-bottom: .5rem;
-            a.coursename {
+            a.coursename,
+            a.coursename .h5 {
                 color: $primary;
-                font-size: 1rem;
+                font-weight: 300;
+                font-size: 1.1rem;
+                .muted {
+                    font-size: $font-size-base;
+                }
             }
-        }
-        .list-group-item:first-child {
-            border-radius: 0;
-        }
-        .list-group-item:last-child {
-            border-radius: 0;
-        }
-        [data-action="view-more"]:disabled,
-        [data-action="more-courses"]:disabled {
-            display: none;
         }
         .add_course_button,
         .enrolme_button {
             text-align: right;
         }
-        .event-icon img {
-            filter: grayscale(100%);
-        }
+
         .courses-view-course-item {
             height: auto;
             border: 1px solid #ddd;
@@ -152,6 +100,11 @@
     &.block_timeline {
         h5:before {
             content: "\f017"
+        }
+        [data-region="event-list-content"] {
+            img.icon {
+                filter: grayscale(100%);
+            }
         }
     }
     &.block_calendar_month h5:before,
@@ -225,15 +178,9 @@
     &.block_badges h5:before {
         content: "\f132";
     }
-    .minicalendarblock {
-        caption {
-            padding-bottom: 0;
-            padding-top: 1.5rem;
-        }
-    }
 
     .minicalendar,
-    .minicalendarblock .minicalendar.calendartable {
+    .minicalendar.calendartable {
         td {
             border: 1px solid $gray-500;
         }
@@ -278,9 +225,6 @@
             margin-bottom: 0;
         }
     }
-    h5 {
-        color: $success;
-    }
 }
 
 /**
@@ -294,7 +238,7 @@
 }
 
 
-#sidepreopen-control,
+#blocks-column-toggle,
 [data-region="blocks-column"] {
     -webkit-transition: right .5s ease, left .5s ease;
     -moz-transition: right .5s ease, left .5s ease;
@@ -308,20 +252,9 @@
             white-space: initial;
         }
     }
-
-    .card-body .content {
-        h3 {
-            font-size: 1.143rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            border-top: 1px dashed $headings-color;
-            padding-top: 4px;
-            margin-top: 10px;
-        }
-    }
 }
 
-#sidepreopen-control {
+#blocks-column-toggle {
     background-color: $primary;
     position: fixed;
     right: -15px;
@@ -351,12 +284,12 @@
     }
 }
 
-body.editing #sidepreopen-control {
+body.editing #blocks-column-toggle {
     top: $drawer-position-top +63px;
 }
 
-body.editing.empty-region-side-pre.drawer-open-right #sidepreopen-control {
-    padding-left: 1rem;
+body.editing.empty-region-side-pre.drawer-open-right #blocks-column-toggle {
+    padding-left: .875rem;
 }
 
 [data-region="blocks-column"] {
@@ -391,14 +324,14 @@ body.editing.empty-region-side-pre.drawer-open-right #sidepreopen-control {
     }
 }
 
-#sidepreopen-control {
+#blocks-column-toggle {
     @include media-breakpoint-down(lg) {
         display:none;
     }
 }
 
 body.drawer-open-right {
-    #sidepreopen-control {
+    #blocks-column-toggle {
         right: 335px;
 
         &:before {
@@ -408,13 +341,6 @@ body.drawer-open-right {
 
     [data-region="blocks-column"] {
         right: 0;
-
-        /*aside.block {
-            border: none;
-            border-radius: 0;
-            -webkit-box-shadow: 0 5px 20px rgba(0, 0, 0, .1);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, .1);
-        }*/
     }
 }
 
