@@ -135,3 +135,5 @@ $string['confirmmakeinvisible'] = 'Confirmez pour empêcher l\'accès à votre c
 $string['confirmunenrolme'] = 'Voules-vous vraiment vous désinscrire de ce cours?';
 $string['activitynavigation'] = 'Navigateur d\'activités';
 $string['activitynavigation_desc'] = 'Afficher une boîte de sélection en-dessous des activités permettant de passer à une autre activité sans devoir repasser par la page d\'accueil du cours';
+$string['helptextinmodal'] = 'Bulles d\'aide dans un popup' ;
+$string['helptextinmodal_desc'] = 'Afficher les bulles d\'aide dans une popup plutôt que dans les bulles par défaut';

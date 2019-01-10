@@ -38,6 +38,7 @@ use navigation_node;
 use pix_icon;
 use core_plugin_manager;
 use moodle_page;
+use help_icon;
 
 defined('MOODLE_INTERNAL') || die;
 
@@ -488,6 +489,22 @@ class core_renderer extends \theme_boost\output\core_renderer {
         if (get_config('theme_receptic', 'moodlecredits')) {
             return parent::render_from_template('theme_receptic/moodle_credits', array());
         }
-        return '';
+        return '';   
+    }
+
+    /**
+     * Help icon and help message rendering.
+     *
+     * @param help_icon $helpicon A help icon instance
+     * @return string HTML fragment
+     */
+    protected function render_help_icon(help_icon $helpicon) {
+        $context = $helpicon->export_for_template($this);
+        // ID needed for modal dialog.
+        $context->linkid = $helpicon->identifier;
+        // Fill body variable needed for modal mustache with text value.
+        $context->body = $context->text;
+        $context->helpmodal = get_config('theme_receptic', 'helptextinmodal');
+        return $this->render_from_template('core/help_icon', $context);
     }
 }

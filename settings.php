@@ -367,7 +367,7 @@ if ($ADMIN->fulltree) {
 
     $settings->add($page);
 
-    // Configure course elements.
+    // Configure footer elements.
     $page = new admin_settingpage('theme_receptic_footer', get_string('course'));
 
     // Contact information.
@@ -417,8 +417,20 @@ if ($ADMIN->fulltree) {
     $page->add($setting);
 
     $settings->add($page);
-}
 
+    // Add miscellaneous settings.
+    $page = new admin_settingpage('theme_receptic_misc', get_string('miscellaneous'));
+
+    $name = 'theme_receptic/helptextinmodal';
+    $title = get_string('helptextinmodal', 'theme_receptic', null, true);
+    $description = get_string('helptextinmodal_desc', 'theme_receptic', null, true);
+    $setting = new admin_setting_configcheckbox($name, $title, $description, false); 
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Add tab to settings page.
+    $settings->add($page);
+}
 $page = new admin_settingpage('theme_receptic_flashbox', get_string('flashboxes', 'theme_receptic'), 'theme/receptic:editflashbox');
 
 // Flashboxteachers setting.

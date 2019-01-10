@@ -163,3 +163,5 @@ $string['confirmmakeinvisible'] = 'Confirm to prevent access to your course';
 $string['confirmunenrolme'] = 'Do you really want to unenrol from this course?';
 $string['activitynavigation'] = 'Activity navigation';
 $string['activitynavigation_desc'] = 'Display a select box under activities allowing to jump to another activity without going back to course home page';
+$string['helptextinmodal'] = 'Help texts in modal';
+$string['helptextinmodal_desc'] = 'Display help text in a modal window rather than default popover';
