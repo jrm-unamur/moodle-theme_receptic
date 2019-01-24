@@ -368,12 +368,36 @@ if ($ADMIN->fulltree) {
     $settings->add($page);
 
     // Configure footer elements.
-    $page = new admin_settingpage('theme_receptic_footer', get_string('course'));
+    $page = new admin_settingpage('theme_receptic_course', get_string('course'));
 
+    // Setting to display the course settings page as a panel within the course.
+    $name = 'theme_receptic/settingsincoursepage';
+    $title = get_string('settingsincoursepage', 'theme_receptic', null, true);
+    $description = get_string('settingsincoursepage_desc', 'theme_receptic', null, true);
+    $setting = new admin_setting_configcheckbox($name, $title, $description, 'no', 'yes', 'no'); // Overriding default values
+    // yes = 1 and no = 0 because of the use of empty() in theme_boost_campus_get_pre_scss() (lib.php).
+    // Default 0 value would not write the variable to scss that could cause the scss to crash if used in that file.
+    // See MDL-58376.
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
     // Contact information.
     $name = 'theme_receptic/activitynavigation';
     $title = get_string('activitynavigation', 'theme_receptic');
     $description = get_string('activitynavigation_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
+    $page->add($setting);
+
+    // Contact information.
+    $name = 'theme_receptic/hiddencoursewarning';
+    $title = get_string('showhiddencoursewarning', 'theme_receptic');
+    $description = get_string('showhiddencoursewarning_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
+    $page->add($setting);
+
+    // Contact information.
+    $name = 'theme_receptic/switchrolewarning';
+    $title = get_string('showswitchrolewarning', 'theme_receptic');
+    $description = get_string('showswitchrolewarning_desc', 'theme_receptic');
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
     $page->add($setting);
 
@@ -424,7 +448,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_receptic/helptextinmodal';
     $title = get_string('helptextinmodal', 'theme_receptic', null, true);
     $description = get_string('helptextinmodal_desc', 'theme_receptic', null, true);
-    $setting = new admin_setting_configcheckbox($name, $title, $description, false); 
+    $setting = new admin_setting_configcheckbox($name, $title, $description, false);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 

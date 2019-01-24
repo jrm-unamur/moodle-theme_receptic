@@ -165,3 +165,11 @@ $string['activitynavigation'] = 'Activity navigation';
 $string['activitynavigation_desc'] = 'Display a select box under activities allowing to jump to another activity without going back to course home page';
 $string['helptextinmodal'] = 'Help texts in modal';
 $string['helptextinmodal_desc'] = 'Display help text in a modal window rather than default popover';
+$string['settingsincoursepage'] = 'Settings menu in course page';
+$string['settingsincoursepage_desc'] = 'This setting replaces dropdown menus for course and activity administration with the full administration menu directly beneath the course header when clicking the cog icon. This setting also hides the settings icon on the participants page as the entries on this page are duplicated with the in-course course menu and therefore not necessary.
+Please note that this change does not affect users who have switched off javascript in their browsers - they will still get the behaviour from Moodle core with a popup course context menu.';
+$string['showhiddencoursewarning'] = 'Display warning in hidden courses';
+$string['showhiddencoursewarning_desc'] = 'If set a warning will be displayed in the course header as long as the visibility of the course is hidden. A shorcut to make the course visible directly without going to course paramteres page is also proposed.';
+$string['showswitchrolewarning'] = 'Switch role information in warning box';
+$string['showswitchrolewarning_desc'] = 'If set the information to which role a user has switched is being displayed in a warning box rather than in the user menu (like in theme Boost). A link to switch back will be proposed.';
+$string['switchedroleto'] = 'You are viewing this course currently with the role:';

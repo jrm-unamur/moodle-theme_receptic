@@ -64,14 +64,21 @@
 
     <div id="page" class="container-fluid">
         {{{ output.full_header }}}
-
+        {{{output.coursewarnings}}}
+        {{> theme_receptic/coursewarnings }}
         <div id="page-content" class="row pb-1">
             <div id="region-main-box" class="col-12">
+                {{#node}}
+                    {{> theme_receptic/settings_link_page }}
+                {{/node}}
                 {{#hasregionmainsettingsmenu}}
                 <div id="region-main-settings-menu" class="d-print-none {{#hasblocks}}has-blocks{{/hasblocks}}">
                     <div> {{{ output.region_main_settings_menu }}} </div>
                 </div>
                 {{/hasregionmainsettingsmenu}}
+                {{#activitynode}}
+                    {{> theme_receptic/activity_settings_incourse }}
+                {{/activitynode}}
                 <section id="region-main" {{#hasblocks}}class="has-blocks mb-3"{{/hasblocks}}>
                     {{{ output.flashboxteachers }}}
                     {{{ output.flashboxstudents }}}
@@ -83,6 +90,7 @@
                                 <div class="region_main_settings_menu_proxy"></div>
                             {{/hasregionmainsettingsmenu}}
                             {{{ output.course_content_header }}}
+
                             {{{ output.main_content }}}
                     {{#activitynavigation}}
                         {{{ output.activity_navigation }}}
@@ -128,4 +136,9 @@ require(['jquery','theme_boost/tooltip'], function($){$('[data-tooltip="tooltip"
 require(['theme_boost/drawer'], function(mod) {
     mod.init();
 });
+{{#settingsincourse}}
+    require(['theme_receptic/incoursesettings'], function(mod) {
+    mod.init();
+    });
+{{/settingsincourse}}
 {{/js}}

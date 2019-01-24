@@ -80,11 +80,15 @@ if ($navdraweropen) {
 
 $blockshtml = $OUTPUT->blocks('side-pre');
 $hasblocks = (strpos($blockshtml, 'data-block=') !== false)
-        || ($PAGE->user_is_editing() /*&& strpos($this->page->pagetype, 'mod-' !== 0)*/);
+        || ($PAGE->user_is_editing());
 
 if ($draweropenright && $hasblocks) {
     $extraclasses[] = 'drawer-open-right';
 }
+
+// ATTENTION essai.
+$extraclasses[] = 'settingsincourse';
+// End Attention.
 
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 
@@ -121,8 +125,17 @@ $templatecontext = [
     'navbaritems' => true,
     'logininfo' => get_config('theme_receptic', 'logininfo'),
     'homelink' => get_config('theme_receptic', 'homelink'),
-    'activitynavigation' => get_config('theme_receptic', 'activitynavigation')
+    'activitynavigation' => get_config('theme_receptic', 'activitynavigation'),
 ];
+
+if (get_config('theme_receptic', 'settingsincoursepage') == 'yes') {
+    // Context value for requiring incoursesettings.js.
+    $templatecontext['settingsincourse'] = true;
+    // Add the returned value from theme_boost_campus_get_incourse_settings to the template context.
+    $templatecontext['node'] = theme_receptic_get_incourse_settings();
+    // Add the returned value from theme_boost_campus_get_incourse_activity_settings to the template context.
+    $templatecontext['activitynode'] = theme_receptic_get_incourse_activity_settings();
+}
 
 $templatecontext['flatnavigation'] = $PAGE->flatnav;
 echo $OUTPUT->render_from_template('theme_receptic/columns2', $templatecontext);

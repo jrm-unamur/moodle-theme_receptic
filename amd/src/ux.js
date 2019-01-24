@@ -2,7 +2,7 @@
  * Created by jmeuriss on 3/02/16.
  */
 /* jshint ignore:start */
-define(['jquery', 'core/log'], function($, log) {
+define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'core/templates'], function($, log, ajax, notification, templates) {
 
     "use strict";
     var params;
@@ -80,6 +80,43 @@ define(['jquery', 'core/log'], function($, log) {
                     $(target).parent().parent().parent().slideUp(250);
                     M.util.set_user_preference('flashbox-student-hidden', 'true');
                 });
+
+                $('body').on('click', '[data-action="makevisible"]', function(event) {
+
+                    event.preventDefault();
+                    var target = event.target;
+                    var courseId = $(target).attr('data-course-id');
+                    var promises = ajax.call([{
+                        methodname: 'theme_receptic_change_course_visibility',
+                        args: {
+                            'id': courseId,
+                            'visible': true
+                        }
+                    }]);
+                    promises[0]
+                        .done(function(response) {
+                            console.log('on me voit maintenant');
+                            $(target).parent().fadeOut(400);
+                            var datafortpl = new Array();
+                            datafortpl.makevisiblesuccess = true;
+                            datafortpl.coursehidden = false;
+
+                            templates.render('theme_receptic/coursewarnings', datafortpl).done(function(html) {
+                                console.log($(target).parent().html());
+                                $(target).parent().replaceWith(html);
+                                //$(target).parent().remove();
+                            }).fail(notification.exception);
+                        }).fail(notification.exception);
+
+                    /*var request = {
+                        methodname: 'theme_receptic_change_course_visibility',
+                        args: args
+                    };
+
+                    var promise = Ajax.call([request])[0];
+
+                    return promise;*/
+                    });
 
                 var offset = 200;
                 var duration = 700;

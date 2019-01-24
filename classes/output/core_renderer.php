@@ -468,6 +468,39 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return $this->flashbox('flashboxstudents');
     }
 
+    public function coursewarnings() {
+        global $PAGE, $COURSE, $USER;
+        $hiddencoursewarning = get_config('theme_receptic', 'hiddencoursewarning');
+        $switchedrolewarning = get_config('theme_receptic', 'switchrolewarning');
+        $coursewarnings = ($hiddencoursewarning || $switchedrolewarning)
+            && $PAGE->context->contextlevel == CONTEXT_COURSE
+            && $COURSE->id != 1
+            && has_capability('moodle/course:manageactivities', $PAGE->context);
+
+        if ($coursewarnings) {
+            $data = [
+                'coursehidden' => $hiddencoursewarning && !$COURSE->visible,
+                'courseid' => $COURSE->id,
+            ];
+            if (isloggedin() && $switchedrolewarning) {
+                $opts = \user_get_user_navigation_info($USER, $this->page);
+                // Role is switched.
+                if (!empty($opts->metadata['asotherrole'])) {
+                    // Get the role name switched to.
+                    $role = $opts->metadata['rolename'];
+                    // Get the URL to switch back (normal role).
+                    $url = new moodle_url('/course/switchrole.php',
+                        array('id'        => $COURSE->id, 'sesskey' => sesskey(), 'switchrole' => 0,
+                            'returnurl' => $this->page->url->out_as_local_url(false)));
+                    $data = array_merge($data, ['role' => $role, 'switchbackurl' => $url]);
+
+                }
+            }
+            return parent::render_from_template('theme_receptic/coursewarnings', $data);
+        }
+        return '';
+    }
+
     public function contact_info() {
         global $CFG;
         $contactemail = get_config('theme_receptic', 'contactemail');
@@ -489,7 +522,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         if (get_config('theme_receptic', 'moodlecredits')) {
             return parent::render_from_template('theme_receptic/moodle_credits', array());
         }
-        return '';   
+        return '';
     }
 
     /**
