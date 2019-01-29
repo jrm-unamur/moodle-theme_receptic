@@ -309,7 +309,7 @@ if ($ADMIN->fulltree) {
     // Resources.
     $page->add(new admin_setting_heading('resourceslist',
             get_string('resourceslist', 'theme_receptic'),
-            get_string('activitieslistdesc', 'theme_receptic')));
+            get_string('resourceslist_desc', 'theme_receptic')));
     foreach ($resources as $resource) {
         $name = 'theme_receptic/' . $resource->name . 'inshortlist';
         $title = $resource->localname;

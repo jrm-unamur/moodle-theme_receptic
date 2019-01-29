@@ -94,17 +94,14 @@ define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'core/templates'
                         }
                     }]);
                     promises[0]
-                        .done(function(response) {
-                            console.log('on me voit maintenant');
+                        .done(function() {
                             $(target).parent().fadeOut(400);
                             var datafortpl = new Array();
                             datafortpl.makevisiblesuccess = true;
                             datafortpl.coursehidden = false;
 
                             templates.render('theme_receptic/coursewarnings', datafortpl).done(function(html) {
-                                console.log($(target).parent().html());
                                 $(target).parent().replaceWith(html);
-                                //$(target).parent().remove();
                             }).fail(notification.exception);
                         }).fail(notification.exception);
 

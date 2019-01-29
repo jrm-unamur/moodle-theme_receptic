@@ -35,19 +35,15 @@ define(['jquery'], function($) {
         // Only change the behaviour if the setting is enabled and we are not on the frontpage,
         // because we did not change the settings menu there. So we need the default propagation here.
         if (!frontpage) {
-            console.log('coucou');
             $('#page-header .context-header-settings-menu .action-menu-trigger .dropdown .dropdown-menu').remove();
             $('#page-header .context-header-settings-menu').on('click', function (event) {
                 event.stopPropagation();
                 if (courseSettings.is(":visible")) {
-                    console.log('fadeout 1');
                     courseSettings.fadeOut(400);
                 } else {
                     courseSettings.fadeIn(600);
-                    console.log('fadein');
                     // Additionally close activity settings if they are currently open.
                     if (activitySettings.is(":visible")) {
-                        console.log('fadeout 2');
                         activitySettings.fadeOut(400);
                     }
                 }
