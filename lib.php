@@ -657,7 +657,7 @@ function theme_receptic_get_incourse_settings() {
     // Initialize the node with false to prevent problems on pages that do not have a courseadmin node.
     $node = false;
     // If setting showsettingsincourse is enabled.
-    if (get_config('theme_boost_campus', 'showsettingsincourse') == 'yes') {
+    if (get_config('theme_receptic', 'settingsincoursepage') == 'yes') {
         // Only search for the courseadmin node if we are within a course or a module context.
         if ($PAGE->context->contextlevel == CONTEXT_COURSE || $PAGE->context->contextlevel == CONTEXT_MODULE) {
             // Get the courseadmin node for the current page.
