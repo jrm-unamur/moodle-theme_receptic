@@ -298,7 +298,7 @@ if ($ADMIN->fulltree) {
     // Activities.
     $page->add(new admin_setting_heading('activitieslist',
             get_string('activitieslist', 'theme_receptic'),
-            get_string('activitieslistdesc', 'theme_receptic')));
+            get_string('activitieslist_desc', 'theme_receptic')));
     foreach ($activities as $activity) {
         $name = 'theme_receptic/' . $activity->name . 'inshortlist';
         $title = $activity->localname;

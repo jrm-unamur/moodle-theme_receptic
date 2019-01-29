@@ -474,8 +474,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $switchedrolewarning = get_config('theme_receptic', 'switchrolewarning');
         $coursewarnings = ($hiddencoursewarning || $switchedrolewarning)
             && $PAGE->context->contextlevel == CONTEXT_COURSE
-            && $COURSE->id != 1
-            && has_capability('moodle/course:manageactivities', $PAGE->context);
+            && $COURSE->id != 1;
 
         if ($coursewarnings) {
             $data = [
