@@ -171,18 +171,19 @@ function theme_receptic_pluginfile($course, $cm, $context, $filearea, $args, $fo
     }
 }
 
-function theme_receptic_reset_flashbox_teachers() {
-    global $DB;
-    $DB->execute("UPDATE {user_preferences}
-                     SET value = :value
-                   WHERE name = :name", array('value' => 'false', 'name' => 'flashbox-teacher-hidden'));
+function theme_receptic_reset_flashbox1() {
+    theme_receptic_resetflashbox('flashbox1');
 }
 
-function theme_receptic_reset_flashbox_students() {
+function theme_receptic_reset_flashbox2() {
+    theme_receptic_resetflashbox('flashbox2');
+}
+
+function theme_receptic_resetflashbox($flashbox) {
     global $DB;
     $DB->execute("UPDATE {user_preferences}
                      SET value = :value
-                   WHERE name = :name", array('value' => 'false', 'name' => 'flashbox-student-hidden'));
+                   WHERE name = :name", array('value' => 'false', 'name' => $flashbox . '-hidden'));
 }
 
 function theme_receptic_set_brandbanner_height() {

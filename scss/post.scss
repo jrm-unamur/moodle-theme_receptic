@@ -57,7 +57,7 @@ select.atto_generico_field {
     margin-bottom: .75rem;
     background-color: #fff;
     border-radius: 0;
-    padding: 1.25rem;
+    padding: .75rem 1rem;
     &.warning {
         border: 5px solid $danger;
         font-weight: normal;
@@ -71,6 +71,10 @@ select.atto_generico_field {
     div.flashboxicon i {
         font-family: FontAwesome;
         font-size: xx-large;
+    }
+    div.flashboxhide a {
+        float: right;
+        font-weight: bold;
     }
 }
 

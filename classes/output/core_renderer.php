@@ -42,6 +42,8 @@ use help_icon;
 
 defined('MOODLE_INTERNAL') || die;
 
+require_once($CFG->dirroot . '/cohort/lib.php');
+
 class core_renderer extends \theme_boost\output\core_renderer {
 
     // Methods for editmode button in bar.
@@ -410,6 +412,54 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return $PAGE->theme->setting_file_url('logoright', 'logoright');
     }
 
+    public function newflashbox($flashbox) {
+        global $PAGE, $USER;
+        if ($PAGE->pagetype !== 'my-index'
+            || get_user_preferences($flashbox . '-hidden', false, $USER->id) === 'true') {
+            return '';
+        }
+        $usercanview = false;
+        if (get_config('theme_receptic', $flashbox . 'forall')) {
+            $usercanview = true;
+        } else {
+            $targetcohorts = explode(',', get_config('theme_receptic', $flashbox . 'cohorts'));
+            
+            foreach ($targetcohorts as $cohort) {
+                if (cohort_is_member($cohort, $USER->id)) {
+                    $usercanview = true;
+                }
+            }
+        }
+        
+        if (!$usercanview) {
+            return '';
+        }
+        $message = $PAGE->theme->settings->$flashbox;
+        if (empty(trim(strip_tags(str_replace('&nbsp;', '', $message))))) {
+            return '';
+        }
+        $flashboxtype = $PAGE->theme->settings->{$flashbox . 'type'};
+
+        switch ($flashboxtype) {
+            case 'info' :
+                $flashboxicon = 'lightbulb-o';
+                break;
+            case 'trick' :
+                $flashboxicon = 'magic';
+                break;
+            case 'warning' :
+                $flashboxicon = 'exclamation-triangle';
+                break;
+        }
+        $data = [
+            'message' => $message,
+            'type' => $flashboxtype,
+            'icon' => $flashboxicon,
+            'hideclass' => 'hide' . $flashbox
+        ];
+        return parent::render_from_template('theme_receptic/flashbox', $data);
+    }
+
     public function flashbox($targetaudience) {
         global $PAGE;
         $flashboxaudience = $PAGE->theme->settings->$targetaudience;
@@ -436,6 +486,14 @@ class core_renderer extends \theme_boost\output\core_renderer {
             'hideclass' => 'hide' . $targetaudience
         ];
         return parent::render_from_template('theme_receptic/flashbox', $data);
+    }
+
+    public function flashbox1() {
+        return $this->newflashbox('flashbox1');
+    }
+
+    public function flashbox2() {
+        return $this->newflashbox('flashbox2');
     }
 
     public function flashboxteachers() {

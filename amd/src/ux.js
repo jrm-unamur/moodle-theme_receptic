@@ -67,18 +67,18 @@ define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'core/templates'
                 $('#page-course-edit:not(.format-site) #id_shortname').prop('readonly', true);
                 $('#page-course-edit:not(.format-site) #id_category').prop('readonly', true);
 
-                $('body').on('click', '.hideflashboxteachers', function(event) {
+                $('body').on('click', '.hideflashbox1', function(event) {
                     event.preventDefault();
                     var target = event.target;
                     $(target).parent().parent().parent().slideUp(250);
-                    M.util.set_user_preference('flashbox-teacher-hidden', 'true');
+                    M.util.set_user_preference('flashbox1-hidden', 'true');
                 });
 
-                $('body').on('click', '.hideflashboxstudents', function(event) {
+                $('body').on('click', '.hideflashbox2', function(event) {
                     event.preventDefault();
                     var target = event.target;
                     $(target).parent().parent().parent().slideUp(250);
-                    M.util.set_user_preference('flashbox-student-hidden', 'true');
+                    M.util.set_user_preference('flashbox2-hidden', 'true');
                 });
 
                 $('body').on('click', '[data-action="makevisible"]', function(event) {

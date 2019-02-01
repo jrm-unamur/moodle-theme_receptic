@@ -27,8 +27,8 @@ defined('MOODLE_INTERNAL') || die();
 user_preference_allow_ajax_update('drawer-open-nav', PARAM_ALPHA);
 user_preference_allow_ajax_update('blocks-collapsed', PARAM_ALPHA);
 user_preference_allow_ajax_update('blocks-column-open', PARAM_ALPHA);
-user_preference_allow_ajax_update('flashbox-teacher-hidden', PARAM_ALPHA);
-user_preference_allow_ajax_update('flashbox-student-hidden', PARAM_ALPHA);
+user_preference_allow_ajax_update('flashbox1-hidden', PARAM_ALPHA);
+user_preference_allow_ajax_update('flashbox2-hidden', PARAM_ALPHA);
 
 $context = $this->page->context;
 if ($context->contextlevel == CONTEXT_COURSE) {

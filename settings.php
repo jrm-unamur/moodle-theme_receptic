@@ -23,6 +23,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once($CFG->dirroot.'/cohort/lib.php');
+
 if ($ADMIN->fulltree) {
     $settings = new theme_boost_admin_settingspage_tabs('themesettingreceptic', get_string('configtitle', 'theme_receptic'));
     // General settings page.
@@ -457,19 +459,27 @@ if ($ADMIN->fulltree) {
 }
 $page = new admin_settingpage('theme_receptic_flashbox', get_string('flashboxes', 'theme_receptic'), 'theme/receptic:editflashbox');
 
-// Flashboxteachers setting.
-$name = 'theme_receptic/flashboxteachers';
-$title = get_string('flashboxteachers', 'theme_receptic');
-$description = get_string('flashboxteachers_desc', 'theme_receptic');
+// Flashbox1 setting.
+$name = 'theme_receptic/flashbox1';
+$title = get_string('flashbox1', 'theme_receptic');
+$description = get_string('flashbox1_desc', 'theme_receptic');
 $default = '';
 $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
-$setting->set_updatedcallback('theme_receptic_reset_flashbox_teachers');
+$setting->set_updatedcallback('theme_receptic_reset_flashbox1');
 $page->add($setting);
 
 // Flashboxteacherstype setting.
-$name = 'theme_receptic/flashboxteacherstype';
-$title = get_string('flashboxteacherstype', 'theme_receptic');
-$description = get_string('flashboxteacherstype_desc', 'theme_receptic');
+$name = 'theme_receptic/flashbox1forall';
+$title = get_string('flashboxforall', 'theme_receptic');
+$description = get_string('flashboxforall_desc', 'theme_receptic');
+
+$setting = new admin_setting_configcheckbox($name, $title, $description, false);
+$page->add($setting);
+
+// Flashboxteacherstype setting.
+$name = 'theme_receptic/flashbox1type';
+$title = get_string('flashboxtype', 'theme_receptic');
+$description = get_string('flashboxtype_desc', 'theme_receptic');
 $default = 'warning';
 $choices = [
     'warning' => get_string('warning'),
@@ -480,19 +490,45 @@ $choices = [
 $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
 $page->add($setting);
 
+$name = 'theme_receptic/flashbox1cohorts';
+$title = get_string('flashboxcohorts', 'theme_receptic');
+$description = get_string('flashboxcohorts_desc', 'theme_receptic');
+
+$cohorts = cohort_get_all_cohorts(0, 0);
+
+$choices = array();
+foreach ($cohorts['cohorts'] as $cohort) {
+    $choices[$cohort->id] = $cohort->name;
+}
+
+$setting = new admin_setting_configmultiselect($name, $title, $description, array(), $choices);
+$page->add($setting);
+
 // Flashboxstudents setting.
-$name = 'theme_receptic/flashboxstudents';
-$title = get_string('flashboxstudents', 'theme_receptic');
-$description = get_string('flashboxstudents_desc', 'theme_receptic');
+$name = 'theme_receptic/flashbox2';
+$title = get_string('flashbox2', 'theme_receptic');
+$description = get_string('flashbox2_desc', 'theme_receptic');
 $default = '';
 $setting = new admin_setting_confightmleditor($name, $title, $description, $default);
-$setting->set_updatedcallback('theme_receptic_reset_flashbox_students');
+$setting->set_updatedcallback('theme_receptic_reset_flashbox2');
+$page->add($setting);
+
+$name = 'theme_receptic/flashbox2cohorts';
+$title = get_string('flashboxcohorts', 'theme_receptic');
+$description = get_string('flashboxcohorts_desc', 'theme_receptic');
+$cohorts = cohort_get_all_cohorts(0, 0);
+
+$choices = array();
+foreach ($cohorts['cohorts'] as $cohort) {
+    $choices[$cohort->id] = $cohort->name;
+}
+$setting = new admin_setting_configmultiselect($name, $title, $description, array(), $choices);
 $page->add($setting);
 
 // Flashboxstudentstype setting.
-$name = 'theme_receptic/flashboxstudentstype';
-$title = get_string('flashboxstudentstype', 'theme_receptic');
-$description = get_string('flashboxstudentstype_desc', 'theme_receptic');
+$name = 'theme_receptic/flashbox2type';
+$title = get_string('flashboxtype', 'theme_receptic');
+$description = get_string('flashboxtype_desc', 'theme_receptic');
 $default = 'warning';
 $choices = [
     'warning' => get_string('warning'),
