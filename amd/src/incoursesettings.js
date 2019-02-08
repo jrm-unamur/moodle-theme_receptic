@@ -16,7 +16,7 @@
 /**
  * Theme Boost Campus - JS code for displaying course setting within the course.
  *
- * @package    theme_boost_campus
+ * @package    theme_receptic
  * @copyright  2017 Kathrin Osswald, Ulm University <kathrin.osswald@uni-ulm.de>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -28,8 +28,8 @@ define(['jquery'], function($) {
      * Initialising.
      */
     function initInCourseSettings() {
-        var courseSettings = $('#boost-campus-course-settings');
-        var activitySettings = $('#boost-campus-activity-settings');
+        var courseSettings = $('#theme-receptic-course-settings-card');
+        var activitySettings = $('#theme-receptic-activity-settings-card');
         var frontpage = $('body').hasClass('pagelayout-frontpage') || $('body').hasClass('page-layout-mypublic');
 
         // Only change the behaviour if the setting is enabled and we are not on the frontpage,

@@ -68,7 +68,7 @@ if (isloggedin()) {
 $extraclasses = [];
 
 global $USER;
-if ($USER->auth == 'lti') {
+if (!empty($USER) && $USER->auth == 'lti') {
     $extraclasses[] = 'ltibridge';
     $navdraweropen = false;
     $blockscollapsed = true;

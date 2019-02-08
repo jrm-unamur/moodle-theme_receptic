@@ -296,8 +296,8 @@ body.ltibridge {
     }
 }
 
-#boost-campus-course-settings,
-#boost-campus-activity-settings {
+#theme-receptic-course-settings-card,
+#theme-receptic-activity-settings-card {
     /* Initially do not display the settings. Visibility will be changed on click with incoursesettings.js. */
     display: none;
     padding-top: 0;
@@ -306,6 +306,9 @@ body.ltibridge {
     border: none;
     > div {
         border: 1px solid $gray-300;
+        .nav-link {
+            padding: 1rem;
+        }
     }
     /*.nav-tabs {
         border: none;

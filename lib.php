@@ -709,13 +709,13 @@ function theme_receptic_get_incourse_activity_settings() {
     $context = $PAGE->context;
     $node = false;
     // If setting showsettingsincourse is enabled.
-    if (get_config('theme_boost_campus', 'showsettingsincourse') == 'yes') {
+    if (get_config('theme_receptic', 'settingsincoursepage') == 'yes') {
         // Settings belonging to activity or resources.
         if ($context->contextlevel == CONTEXT_MODULE) {
             $node = $PAGE->settingsnav->find('modulesettings', navigation_node::TYPE_SETTING);
         } else if ($context->contextlevel == CONTEXT_COURSECAT) {
             // For course category context, show category settings menu, if we're on the course category page.
-            if ($PAGE->pagetype === 'course-index-category') {
+            if ($PAGE->pagetype === 'course-index-category' || $PAGE->pagetype === 'course-management') {
                 $node = $PAGE->settingsnav->find('categorysettings', navigation_node::TYPE_CONTAINER);
             }
         } else {
