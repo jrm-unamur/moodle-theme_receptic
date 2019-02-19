@@ -354,3 +354,8 @@ body.themetest h1{
 .btn-primary:hover {
     background-color: darken($primary, 7.5%);
 }
+
+body.editing.path-grade-report-grader [data-region="blocks-column"],
+body.editing.path-grade-report-grader #blocks-column-toggle {
+    display: none !important;
+}
