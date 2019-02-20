@@ -44,7 +44,7 @@ if (file_exists("$CFG->dirroot/course/format/collapsibletopics/renderer.php")) {
         }
 
         public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
-            $this->print_multiple_sections($course, $sections, $mods, $modnames, $modnamesused, true);
+            $this->print_multiple_sections($course, true);
         }
     }
 }

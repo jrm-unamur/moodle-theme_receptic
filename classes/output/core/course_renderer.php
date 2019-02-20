@@ -106,7 +106,6 @@ class course_renderer extends \theme_boost\output\core\course_renderer {
                 $mod = $modinfo->cms[$modnumber];
                 if ($ballsactivated && in_array($mod->id, $userhotmodules) && $mod->uservisible && !$mod->is_stealth()) {
                     $hotcount++;
-                    $diplayoptions['hot'] = 'hot';
                     $mod->set_extra_classes($mod->extraclasses . ' hot');
                 } else if (in_array($mod->id, $userwarmmodules) && $mod->uservisible && !$mod->is_stealth()) {
                     $warmcount++;

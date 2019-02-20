@@ -73,7 +73,7 @@ class format_weeks_renderer extends \format_weeks_renderer {
      * @param int $displaysection The section number in the course which is being displayed
      */
     public function print_single_section_page($course, $sections, $mods, $modnames, $modnamesused, $displaysection) {
-        $this->print_single_section($course, $sections, $mods, $modnames, $modnamesused, $displaysection);
+        $this->print_single_section($course, $sections, $displaysection);
     }
 
 }

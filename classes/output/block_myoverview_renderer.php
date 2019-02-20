@@ -43,7 +43,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
      * @return string HTML string
      */
     public function render_main(\block_myoverview\output\main $main) {
-        global $CFG, $USER, $DB;
+        global $CFG, $USER;
 
         $data = $main->export_for_template($this);
 

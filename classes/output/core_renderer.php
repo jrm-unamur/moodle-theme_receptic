@@ -559,7 +559,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     public function contact_info() {
-        global $CFG;
         $contactemail = get_config('theme_receptic', 'contactemail');
         $contactphone = get_config('theme_receptic', 'contactphone');
         if (empty($contactemail) && empty($contactphone)) {

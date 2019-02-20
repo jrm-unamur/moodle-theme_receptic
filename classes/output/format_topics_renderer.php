@@ -51,7 +51,6 @@ class format_topics_renderer extends \format_topics_renderer {
     * @param array $modnamesused (argument not used)
     */
     public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
-        global $PAGE;
         $this->print_multiple_sections($course, $sections, $mods, $modnames, $modnamesused);
     }
 
@@ -66,6 +65,6 @@ class format_topics_renderer extends \format_topics_renderer {
      * @param int $displaysection The section number in the course which is being displayed
      */
     public function print_single_section_page($course, $sections, $mods, $modnames, $modnamesused, $displaysection) {
-        $this->print_single_section($course, $sections, $mods, $modnames, $modnamesused, $displaysection);
+        $this->print_single_section($course, $sections, $displaysection);
     }
 }
