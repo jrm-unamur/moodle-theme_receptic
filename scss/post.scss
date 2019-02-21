@@ -44,7 +44,7 @@ select.atto_generico_field {
 
 
 .highlight {
-    color: $success !important; /* stylelint-disable declaration-no-important */
+    color: $success !important; /* stylelint-disable-line declaration-no-important */
 }
 
 .togglevisibility {
@@ -229,7 +229,7 @@ body.ltibridge {
             }
 
             .m-l-1 {
-                margin-left: 4px !important; /* stylelint-disable declaration-no-important */
+                margin-left: 4px !important; /* stylelint-disable-line declaration-no-important */
             }
 
             a .text,
@@ -255,7 +255,7 @@ body.ltibridge {
 
                 > ul {
                     display: block;
-                    height: auto !important; /* stylelint-disable declaration-no-important */
+                    height: auto !important; /* stylelint-disable-line declaration-no-important */
                     overflow: auto;
                     background-color: $primary;
                     position: absolute;
@@ -357,5 +357,5 @@ body.themetest h1 {
 
 body.editing.path-grade-report-grader [data-region="blocks-column"],
 body.editing.path-grade-report-grader #blocks-column-toggle {
-    display: none !important; /* stylelint-disable declaration-no-important */
+    display: none !important; /* stylelint-disable-line declaration-no-important */
 }

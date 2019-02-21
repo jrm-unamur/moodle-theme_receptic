@@ -104,16 +104,7 @@ define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'core/templates'
                                 $(target).parent().replaceWith(html);
                             }).fail(notification.exception);
                         }).fail(notification.exception);
-
-                    /*var request = {
-                        methodname: 'theme_receptic_change_course_visibility',
-                        args: args
-                    };
-
-                    var promise = Ajax.call([request])[0];
-
-                    return promise;*/
-                    });
+                });
 
                 var offset = 200;
                 var duration = 700;

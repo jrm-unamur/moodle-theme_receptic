@@ -93,7 +93,7 @@ label {
 }
 
 .que .answer .ml-3 {
-    margin-left: .5rem !important;
+    margin-left: .5rem !important; /* stylelint-disable declaration-no-important */
 }
 
 .que h3.no {
