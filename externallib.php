@@ -163,8 +163,6 @@ class theme_receptic_external extends external_api {
         }
         $formattedcourses = array_map(function($course) use ($renderer, $favouritecourseids, $newitemsforuser,
                 $updateditemsforuser, $starttime, $ballsactivated) {
-            global $DB;
-            $tmp = new stdClass();
             context_helper::preload_from_record($course);
             $context = context_course::instance($course->id);
             $isfavourite = false;
@@ -179,17 +177,17 @@ class theme_receptic_external extends external_api {
                 list($redcount, $orangecount) =
                     theme_receptic_get_visible_balls_count($course, $newitemsforuser, $updateditemsforuser);
 
-                $redballscountclass = $redcount > 9 ? 'high' : '';
-                $orangeballscountclass = $orangecount > 9 ? 'high' : '';
+                $redballsclass = $redcount > 9 ? 'high' : '';
+                $orangeballsclass = $orangecount > 9 ? 'high' : '';
             }
 
             $themeexporter = new theme_receptic_course_summary_exporter($course, [
                 'context' => $context,
                 'isfavourite' => $isfavourite,
                 'newitemscount' => $redcount,
-                'redballscountclass' => $redballscountclass,
+                'redballscountclass' => $redballsclass,
                 'updateditemscount' => $orangecount,
-                'orangeballscountclass' => $orangeballscountclass
+                'orangeballscountclass' => $orangeballsclass
             ]);
             return $themeexporter->export($renderer);
         }, $filteredcourses);
@@ -276,9 +274,8 @@ class theme_receptic_external extends external_api {
 
         $warnings = [];
 
-        $instance = $DB->get_record('enrol', array('id' => $instanceid), '*', MUST_EXIST);
-        $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
-        $context = context_course::instance($course->id, MUST_EXIST);
+        $instance = $DB->get_record('enrol', array('id' => $params['instanceid']), '*', MUST_EXIST);
+        $course = $DB->get_record('course', array('id' => $params['id']), '*', MUST_EXIST);
 
         $plugin = enrol_get_plugin($instance->enrol);
 

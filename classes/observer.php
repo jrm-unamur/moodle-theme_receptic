@@ -26,7 +26,6 @@ defined('MOODLE_INTERNAL') || die();
 class theme_receptic_observer {
 
     public static function course_module_viewed(core\event\base $event) {
-        global $DB;
         $eventdata = $event->get_data();
 
         $hotusermodules = explode(',', get_user_preferences('user_redballs'));

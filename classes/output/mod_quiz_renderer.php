@@ -55,7 +55,6 @@ class mod_quiz_renderer extends \mod_quiz_renderer  {
      * @return string HTML to output.
      */
     public function view_page_buttons(mod_quiz_view_object $viewobj) {
-        global $CFG;
         $output = '';
 
         if (!$viewobj->quizhasquestions) {

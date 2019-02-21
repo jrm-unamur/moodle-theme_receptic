@@ -44,7 +44,7 @@ select.atto_generico_field {
 
 
 .highlight {
-    color: $success !important;
+    color: $success !important; /* stylelint-disable-line declaration-no-important */
 }
 
 .togglevisibility {
@@ -207,7 +207,7 @@ body.ltibridge {
     }
 }*/
 [data-region="drawer"].collapsible {
-    padding:0;
+    padding: 0;
 }
 #nav-drawer.closed.collapsible {
     overflow: visible;
@@ -229,7 +229,7 @@ body.ltibridge {
             }
 
             .m-l-1 {
-                margin-left: 4px !important;
+                margin-left: 4px !important; /* stylelint-disable-line declaration-no-important */
             }
 
             a .text,
@@ -255,7 +255,7 @@ body.ltibridge {
 
                 > ul {
                     display: block;
-                    height: auto !important;
+                    height: auto !important; /* stylelint-disable-line declaration-no-important */
                     overflow: auto;
                     background-color: $primary;
                     position: absolute;
@@ -347,7 +347,7 @@ body.settingsincourse {
     }
 }
 
-body.themetest h1{
+body.themetest h1 {
     color: red;
 }
 
@@ -357,5 +357,5 @@ body.themetest h1{
 
 body.editing.path-grade-report-grader [data-region="blocks-column"],
 body.editing.path-grade-report-grader #blocks-column-toggle {
-    display: none !important;
+    display: none !important; /* stylelint-disable-line declaration-no-important */
 }

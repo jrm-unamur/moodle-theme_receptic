@@ -412,7 +412,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return $PAGE->theme->setting_file_url('logoright', 'logoright');
     }
 
-    public function newflashbox($flashbox) {
+    public function flashbox($flashbox) {
         global $PAGE, $USER;
         if ($PAGE->pagetype !== 'my-index'
             || get_user_preferences($flashbox . '-hidden', false, $USER->id) === 'true') {
@@ -423,14 +423,13 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $usercanview = true;
         } else {
             $targetcohorts = explode(',', get_config('theme_receptic', $flashbox . 'cohorts'));
-            
             foreach ($targetcohorts as $cohort) {
                 if (cohort_is_member($cohort, $USER->id)) {
                     $usercanview = true;
                 }
             }
         }
-        
+
         if (!$usercanview) {
             return '';
         }
@@ -460,70 +459,12 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return parent::render_from_template('theme_receptic/flashbox', $data);
     }
 
-    public function flashbox($targetaudience) {
-        global $PAGE;
-        $flashboxaudience = $PAGE->theme->settings->$targetaudience;
-        if (empty(trim(strip_tags(str_replace('&nbsp;', '', $flashboxaudience))))) {
-            return '';
-        }
-        $flashboxtype = $PAGE->theme->settings->{$targetaudience . 'type'};
-
-        switch ($flashboxtype) {
-            case 'info' :
-                $flashboxicon = 'lightbulb-o';
-                break;
-            case 'trick' :
-                $flashboxicon = 'magic';
-                break;
-            case 'warning' :
-                $flashboxicon = 'exclamation-triangle';
-                break;
-        }
-        $data = [
-            'message' => $flashboxaudience,
-            'type' => $flashboxtype,
-            'icon' => $flashboxicon,
-            'hideclass' => 'hide' . $targetaudience
-        ];
-        return parent::render_from_template('theme_receptic/flashbox', $data);
-    }
-
     public function flashbox1() {
-        return $this->newflashbox('flashbox1');
+        return $this->flashbox('flashbox1');
     }
 
     public function flashbox2() {
-        return $this->newflashbox('flashbox2');
-    }
-
-    public function flashboxteachers() {
-        global $PAGE, $USER;
-
-        $usercanview = user_has_role_assignment($USER->id, 1)
-                    || user_has_role_assignment($USER->id, 2)
-                    || user_has_role_assignment($USER->id, 3)
-                    || user_has_role_assignment($USER->id, 4)
-                    || is_siteadmin();
-        if ($PAGE->pagetype !== 'my-index'
-                    || get_user_preferences('flashbox-teacher-hidden', false, $USER->id) === 'true'
-                    || !$usercanview) {
-            return '';
-        }
-        return $this->flashbox('flashboxteachers');
-    }
-
-    public function flashboxstudents() {
-        global $PAGE, $USER;
-
-        $usercanview = user_has_role_assignment($USER->id, 5)
-            || user_has_role_assignment($USER->id, 1, context_system::instance()->id)
-            || is_siteadmin();
-        if ($PAGE->pagetype !== 'my-index'
-            || get_user_preferences('flashbox-student-hidden', false, $USER->id) === 'true'
-            || !$usercanview) {
-            return '';
-        }
-        return $this->flashbox('flashboxstudents');
+        return $this->flashbox('flashbox2');
     }
 
     public function coursewarnings() {
@@ -559,7 +500,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     public function contact_info() {
-        global $CFG;
         $contactemail = get_config('theme_receptic', 'contactemail');
         $contactphone = get_config('theme_receptic', 'contactphone');
         if (empty($contactemail) && empty($contactphone)) {

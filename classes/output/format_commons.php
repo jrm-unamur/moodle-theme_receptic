@@ -33,7 +33,7 @@ trait format_commons {
         theme_receptic_compute_orangeballs($course, $starttime, $updateditemsforuser);
     }
 
-    public function print_multiple_sections($course, $sections, $mods, $modnames, $modnamesused, $collapsible = false) {
+    public function print_multiple_sections($course, $collapsible = false) {
         global $PAGE;
 
         if (!isset($course->coursedisplay)) {
@@ -144,7 +144,7 @@ trait format_commons {
      * @param array $modnamesused (argument not used)
      * @param int $displaysection The section number in the course which is being displayed
      */
-    public function print_single_section($course, $sections, $mods, $modnames, $modnamesused, $displaysection) {
+    public function print_single_section($course, $sections, $displaysection) {
         global $PAGE;
 
         $modinfo = get_fast_modinfo($course);

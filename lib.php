@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 // Function that generates a chunk of SCSS to be prepended to the main scss file.
 function theme_receptic_get_pre_scss($theme) {
     // 1. To define our own configurable scss variables use the code below and comment code under 2.
-    global $CFG, $DB;
+    global $DB;
 
     $scss = '';
 
@@ -187,199 +187,11 @@ function theme_receptic_resetflashbox($flashbox) {
 }
 
 function theme_receptic_set_brandbanner_height() {
-    global $DB;
     if (get_config('theme_receptic', 'brandbanner')) {
         set_config('brandbannerheight', '80px', 'theme_receptic');
     } else {
         set_config('brandbannerheight', '0px', 'theme_receptic');
     }
-}
-
-function theme_receptic_get_redballs($course, $starttime) {
-    global $DB, $USER;
-
-    $count = 0;
-    $query = "SELECT id, contextinstanceid, timecreated
-                    FROM {logstore_standard_log}
-                   WHERE contextlevel = :contextlevel
-                     AND courseid = :courseid
-                     AND userid != :userid
-                     AND eventname = '\\\core\\\\event\\\course_module_created'
-                     AND timecreated > :starttime
-                     AND contextinstanceid IN (SELECT id
-                                                 FROM {course_modules})
-                ORDER BY timecreated DESC";
-
-    $records = $DB->get_records_sql($query, array(
-        'contextlevel' => CONTEXT_MODULE,
-        'courseid' => $course->id,
-        'userid' => $USER->id,
-        'starttime' => $starttime,
-        'update' => 'u',
-        'create' => 'c'
-    ));
-
-    $alreadytested = array();
-    $redcmids = array();
-    foreach ($records as $record) {
-        if (in_array($record->contextinstanceid, $alreadytested)) {
-            continue;
-        } else {
-            $alreadytested[] = $record->contextinstanceid;
-        }
-        $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
-        if ($DB->record_exists('course_modules', array('module' => $modlabelid, 'id' => $record->contextinstanceid))) {
-            $query = "SELECT *
-                            FROM {logstore_standard_log}
-                           WHERE contextlevel = :contextlevel
-                             AND eventname = :event
-                             AND courseid = :courseid
-                             AND timecreated > :timestamp
-                             AND userid = :userid
-                             AND crud = :crud";
-
-            $conditions = array(
-                'contextlevel' => CONTEXT_COURSE,
-                'event' => '\core\event\course_viewed',
-                'courseid' => $course->id,
-                'crud' => 'r',
-                'userid' => $USER->id,
-                'timestamp' => $record->timecreated
-            );
-        } else {
-            $query = "SELECT *
-                            FROM {logstore_standard_log}
-                           WHERE contextlevel = :contextlevel
-                             AND courseid = :courseid
-                             AND timecreated > :timestamp
-                             AND contextinstanceid = :contextinstanceid
-                             AND userid = :userid
-                             AND crud = :crud";
-
-            $conditions = array(
-                'contextlevel' => CONTEXT_MODULE,
-                'courseid' => $course->id,
-                'crud' => 'r',
-                'userid' => $USER->id,
-                'contextinstanceid' => $record->contextinstanceid,
-                'timestamp' => $record->timecreated
-            );
-        }
-
-        if (!$DB->get_records_sql($query, $conditions)) {
-
-            $count++;
-
-            $redcmids[] = $record->contextinstanceid;
-        }
-    }
-    return $redcmids;
-}
-
-function theme_receptic_get_orangeballs($course, $starttime) {
-    global $DB, $USER;
-    $count = 0;
-    $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
-    $query = "SELECT id, eventname, objectid, contextinstanceid, timecreated
-                    FROM {logstore_standard_log}
-                   WHERE contextlevel = :contextlevel
-                     AND courseid = :courseid
-                     AND userid != :userid
-                     AND timecreated > :starttime
-                     AND (
-                            (
-                                (eventname = '\\\mod_folder\\\\event\\\\folder_updated'
-                                OR eventname = '\\\mod_wiki\\\\event\\\page_updated'
-                                OR eventname = '\\\mod_book\\\\event\\\chapter_created'
-                                OR eventname = '\\\mod_book\\\\event\\\chapter_updated'
-                                OR eventname = '\\\mod_glossary\\\\event\\\\entry_created'
-                                OR eventname = '\\\mod_glossary\\\\event\\\\entry_updated'
-                                OR eventname = '\\\mod_data\\\\event\\\\record_created'
-                                OR eventname = '\\\mod_data\\\\event\\\\record_updated'
-                                )
-
-                                AND contextinstanceid IN (SELECT id
-                                                            FROM {course_modules})
-                            )
-                         OR (eventname = '\\\core\\\\event\\\course_module_updated'
-                               AND contextinstanceid IN (SELECT id FROM {course_modules} where module = :modlabelid)
-                            )
-                         )
-                ORDER BY timecreated DESC";
-
-    $records = $DB->get_records_sql($query, array(
-        'contextlevel' => CONTEXT_MODULE,
-        'courseid' => $course->id,
-        'userid' => $USER->id,
-        'starttime' => $starttime,
-        'update' => 'u',
-        'create' => 'c',
-        'modlabelid' => $modlabelid
-    ));
-
-    $alreadytested = array();
-    $redcmids = array();
-    foreach ($records as $record) {
-        if (in_array($record->contextinstanceid, $alreadytested)) {
-            continue;
-        } else {
-            $alreadytested[] = $record->contextinstanceid;
-        }
-        $modglossaryid = $DB->get_field('modules', 'id', array('name' => 'glossary'));
-        if ($record->eventname == '\mod_glossary\event\entry_updated'
-                || $record->eventname == '\mod_glossary\event\entry_created') {
-            $glossaryentry = $DB->get_record('glossary_entries', array('id' => $record->objectid));
-            if ($glossaryentry->approved == 0) {
-                continue;
-            }
-        }
-        $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
-        if ($DB->record_exists('course_modules', array('module' => $modlabelid, 'id' => $record->contextinstanceid))) {
-            $query = "SELECT *
-                            FROM {logstore_standard_log}
-                           WHERE contextlevel = :contextlevel
-                             AND eventname = :event
-                             AND courseid = :courseid
-                             AND timecreated > :timestamp
-                             AND userid = :userid
-                             AND crud = :crud";
-
-            $conditions = array(
-                'contextlevel' => CONTEXT_COURSE,
-                'event' => '\core\event\course_viewed',
-                'courseid' => $course->id,
-                'crud' => 'r',
-                'userid' => $USER->id,
-                'timestamp' => $record->timecreated
-            );
-        } else {
-            $query = "SELECT *
-                            FROM {logstore_standard_log}
-                           WHERE contextlevel = :contextlevel
-                             AND courseid = :courseid
-                             AND timecreated > :timestamp
-                             AND contextinstanceid = :contextinstanceid
-                             AND userid = :userid
-                             AND crud = :crud";
-
-            $conditions = array(
-                'contextlevel' => CONTEXT_MODULE,
-                'courseid' => $course->id,
-                'crud' => 'r',
-                'userid' => $USER->id,
-                'contextinstanceid' => $record->contextinstanceid,
-                'timestamp' => $record->timecreated
-            );
-        }
-
-        if (!$DB->get_records_sql($query, $conditions)) {
-
-            $count++;
-
-            $redcmids[] = $record->contextinstanceid;
-        }
-    }
-    return $redcmids;
 }
 
 function theme_receptic_init_vars_for_hot_items_computing() {
@@ -406,8 +218,7 @@ function theme_receptic_init_vars_for_hot_items_computing() {
 function theme_receptic_compute_redballs($course, $starttime, $newitemsforuser = array()) {
     global $DB, $USER;
 
-    $count = 0;
-    $query = "SELECT id, contextinstanceid, timecreated
+    $query = "SELECT id, contextinstanceid, timecreated, courseid, eventname
                     FROM {logstore_standard_log}
                    WHERE contextlevel = :contextlevel
                      AND courseid = :courseid
@@ -427,60 +238,7 @@ function theme_receptic_compute_redballs($course, $starttime, $newitemsforuser =
         'create' => 'c'
     ));
 
-    $alreadytested = array();
-    $redcmids = array();
-    foreach ($records as $record) {
-        if (in_array($record->contextinstanceid, $alreadytested)) {
-            continue;
-        } else {
-            $alreadytested[] = $record->contextinstanceid;
-        }
-        $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
-        if ($DB->record_exists('course_modules', array('module' => $modlabelid, 'id' => $record->contextinstanceid))) {
-            $query = "SELECT *
-                            FROM {logstore_standard_log}
-                           WHERE contextlevel = :contextlevel
-                             AND eventname = :event
-                             AND courseid = :courseid
-                             AND timecreated > :timestamp
-                             AND userid = :userid
-                             AND crud = :crud";
-
-            $conditions = array(
-                'contextlevel' => CONTEXT_COURSE,
-                'event' => '\core\event\course_viewed',
-                'courseid' => $course->id,
-                'crud' => 'r',
-                'userid' => $USER->id,
-                'timestamp' => $record->timecreated
-            );
-        } else {
-            $query = "SELECT *
-                            FROM {logstore_standard_log}
-                           WHERE contextlevel = :contextlevel
-                             AND courseid = :courseid
-                             AND timecreated > :timestamp
-                             AND contextinstanceid = :contextinstanceid
-                             AND userid = :userid
-                             AND crud = :crud";
-
-            $conditions = array(
-                'contextlevel' => CONTEXT_MODULE,
-                'courseid' => $course->id,
-                'crud' => 'r',
-                'userid' => $USER->id,
-                'contextinstanceid' => $record->contextinstanceid,
-                'timestamp' => $record->timecreated
-            );
-        }
-
-        if (!$DB->get_records_sql($query, $conditions)) {
-
-            $count++;
-
-            $redcmids[] = $record->contextinstanceid;
-        }
-    }
+    $redcmids = theme_receptic_compute_balls($records);
     $newitemsforuser = array_merge($newitemsforuser, $redcmids);
     $newitemsforuser = array_unique($newitemsforuser);
     rsort($newitemsforuser);
@@ -494,9 +252,9 @@ function theme_receptic_compute_redballs($course, $starttime, $newitemsforuser =
 
 function theme_receptic_compute_orangeballs($course, $starttime, $updateditemsforuser = array()) {
     global $DB, $USER;
-    $count = 0;
+
     $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
-    $query = "SELECT id, eventname, objectid, contextinstanceid, timecreated
+    $query = "SELECT id, eventname, objectid, contextinstanceid, courseid, timecreated
                     FROM {logstore_standard_log}
                    WHERE contextlevel = :contextlevel
                      AND courseid = :courseid
@@ -533,24 +291,40 @@ function theme_receptic_compute_orangeballs($course, $starttime, $updateditemsfo
         'modlabelid' => $modlabelid
     ));
 
+    $orangecmids = theme_receptic_compute_balls($records);
+    $updateditemsforuser = array_merge($updateditemsforuser, $orangecmids);
+    $updateditemsforuser = array_unique($updateditemsforuser);
+
+    rsort($updateditemsforuser);
+    if (!empty($updateditemsforuser)) {
+        $chunks = array_chunk($updateditemsforuser, 100);
+        set_user_preference('user_orangeballs', implode(',', $chunks[0]));
+        return $chunks[0];
+    }
+    return $updateditemsforuser;
+}
+
+function theme_receptic_compute_balls($candidates) {
+    global $DB, $USER;
+
     $alreadytested = array();
-    $orangecmids = array();
-    foreach ($records as $record) {
-        if (in_array($record->contextinstanceid, $alreadytested)) {
+    $hotcmids = array();
+    foreach ($candidates as $candidate) {
+        if (in_array($candidate->contextinstanceid, $alreadytested)) {
             continue;
         } else {
-            $alreadytested[] = $record->contextinstanceid;
+            $alreadytested[] = $candidate->contextinstanceid;
         }
-        $modglossaryid = $DB->get_field('modules', 'id', array('name' => 'glossary'));
-        if ($record->eventname == '\mod_glossary\event\entry_updated'
-                || $record->eventname == '\mod_glossary\event\entry_created') {
-            $glossaryentry = $DB->get_record('glossary_entries', array('id' => $record->objectid));
+
+        if ($candidate->eventname == '\mod_glossary\event\entry_updated'
+            || $candidate->eventname == '\mod_glossary\event\entry_created') {
+            $glossaryentry = $DB->get_record('glossary_entries', array('id' => $candidate->objectid));
             if ($glossaryentry->approved == 0) {
                 continue;
             }
         }
         $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
-        if ($DB->record_exists('course_modules', array('module' => $modlabelid, 'id' => $record->contextinstanceid))) {
+        if ($DB->record_exists('course_modules', array('module' => $modlabelid, 'id' => $candidate->contextinstanceid))) {
             $query = "SELECT *
                             FROM {logstore_standard_log}
                            WHERE contextlevel = :contextlevel
@@ -563,10 +337,10 @@ function theme_receptic_compute_orangeballs($course, $starttime, $updateditemsfo
             $conditions = array(
                 'contextlevel' => CONTEXT_COURSE,
                 'event' => '\core\event\course_viewed',
-                'courseid' => $course->id,
+                'courseid' => $candidate->courseid,
                 'crud' => 'r',
                 'userid' => $USER->id,
-                'timestamp' => $record->timecreated
+                'timestamp' => $candidate->timecreated
             );
         } else {
             $query = "SELECT *
@@ -580,31 +354,20 @@ function theme_receptic_compute_orangeballs($course, $starttime, $updateditemsfo
 
             $conditions = array(
                 'contextlevel' => CONTEXT_MODULE,
-                'courseid' => $course->id,
+                'courseid' => $candidate->courseid,
                 'crud' => 'r',
                 'userid' => $USER->id,
-                'contextinstanceid' => $record->contextinstanceid,
-                'timestamp' => $record->timecreated
+                'contextinstanceid' => $candidate->contextinstanceid,
+                'timestamp' => $candidate->timecreated
             );
         }
 
         if (!$DB->get_records_sql($query, $conditions)) {
-
-            $count++;
-
-            $orangecmids[] = $record->contextinstanceid;
+            $hotcmids[] = $candidate->contextinstanceid;
         }
     }
-    $updateditemsforuser = array_merge($updateditemsforuser, $orangecmids);
-    $updateditemsforuser = array_unique($updateditemsforuser);
+    return $hotcmids;
 
-    rsort($updateditemsforuser);
-    if (!empty($updateditemsforuser)) {
-        $chunks = array_chunk($updateditemsforuser, 100);
-        set_user_preference('user_orangeballs', implode(',', $chunks[0]));
-        return $chunks[0];
-    }
-    return $updateditemsforuser;
 }
 
 function theme_receptic_get_visible_balls_count($course, $redballs, $orangeballs) {

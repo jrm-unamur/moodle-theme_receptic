@@ -64,7 +64,7 @@
 
     <div id="page" class="container-fluid">
         {{{ output.full_header }}}
-        {{{output.coursewarnings}}}
+        {{{ output.coursewarnings }}}
         {{> theme_receptic/coursewarnings }}
         <div id="page-content" class="row pb-1">
             <div id="region-main-box" class="col-12">
@@ -101,7 +101,7 @@
                     </div>-->
                 </section>
                 {{#hasblocks}}
-                    <section data-region="blocks-column" class="d-print-none">
+                    <section id="blocks-column" data-region="blocks-column" class="d-print-none">
                        {{{ sidepreblocks }}}
                     </section>
                 {{/hasblocks}}
@@ -110,6 +110,7 @@
     </div>
     {{#hasblocks}}
         <i id="blocks-column-toggle"
+           role="button"
            class="d-none d-xl-block"
            aria-expanded="{{#draweropenright}}true{{/draweropenright}}{{^draweropenright}}false{{/draweropenright}}"
            aria-controls="blocks-column"
@@ -132,13 +133,15 @@
 </html>
 {{#js}}
 require(['theme_boost/loader']);
-require(['jquery','theme_boost/tooltip'], function($){$('[data-tooltip="tooltip"]').tooltip()});
+require(['jquery', 'theme_boost/tooltip'], function($) {
+    $('[data-tooltip="tooltip"]').tooltip();
+});
 require(['theme_boost/drawer'], function(mod) {
     mod.init();
 });
 {{#settingsincourse}}
     require(['theme_receptic/incoursesettings'], function(mod) {
-    mod.init();
+        mod.init();
     });
 {{/settingsincourse}}
 {{/js}}
