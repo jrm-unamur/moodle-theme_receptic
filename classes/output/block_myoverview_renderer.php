@@ -51,7 +51,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
         $addcoursebutton = get_config('theme_receptic', 'addcoursebutton');
         if ($addcoursebutton) {
             $createcourseplugin = core_plugin_manager::instance()
-                    ->get_plugin_info(get_config('theme_receptic', 'localcreatecourseplugin'));
+                ->get_plugin_info(get_config('theme_receptic', 'localcreatecourseplugin'));
             if ($createcourseplugin
                     && has_capability('local/' . $createcourseplugin->name . ':create', context_system::instance())) {
                 $data['urls']['addcourse'] = new moodle_url('/local/' . $createcourseplugin->name . '/index.php');
@@ -66,7 +66,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
         $bulkenrolmebutton = get_config('theme_receptic', 'bulkenrolme');
         if ($bulkenrolmebutton) {
             $bulkenrolmeplugin = core_plugin_manager::instance()
-                    ->get_plugin_info(get_config('theme_receptic', 'bulkenrolmeplugin'));
+                ->get_plugin_info(get_config('theme_receptic', 'bulkenrolmeplugin'));
             if ($bulkenrolmeplugin) {
                 $emailpattern = get_config('theme_receptic', 'bulkenrolemailpattern');
                 $filepath = $CFG->dirroot . '/' .

@@ -15,7 +15,30 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    Page header.
+     @template theme_receptic/banner
+
+    Context inherited from theme_receptic/columns2
+
+    Context variables required for this template:
+    * config - The main config object
+    * sitename - The name of the site
+    * output - The core renderer for the page
+    * logoleft - Is there a logo to display on the left side
+    * logocenter - Is there a logo to display on the center
+    * logoright - Is there a logo to display on the right side
+
+    Example context (json):
+    {
+        "config": {
+            "wwwroot": "Root web address"
+        }
+        "sitename": "Moodle",
+        "output": {
+            "get_left_logo_url": "//path-to-left-logo",
+            "get_center_logo_url": "//path-to-center-logo",
+            "get_right_logo_url": "//path-to-right-logo"
+         }
+    }
 }}
 
 <header role="banner" class="fixed-top brand-banner d-none d-md-block">

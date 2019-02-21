@@ -24,6 +24,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot.'/cohort/lib.php');
+require_once($CFG->dirroot.'/theme/receptic/lib.php');
 
 if ($ADMIN->fulltree) {
     $settings = new theme_boost_admin_settingspage_tabs('themesettingreceptic', get_string('configtitle', 'theme_receptic'));

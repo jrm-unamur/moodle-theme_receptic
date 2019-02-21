@@ -423,7 +423,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
             $usercanview = true;
         } else {
             $targetcohorts = explode(',', get_config('theme_receptic', $flashbox . 'cohorts'));
-            
             foreach ($targetcohorts as $cohort) {
                 if (cohort_is_member($cohort, $USER->id)) {
                     $usercanview = true;

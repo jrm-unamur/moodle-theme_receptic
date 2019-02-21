@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 // Function that generates a chunk of SCSS to be prepended to the main scss file.
 function theme_receptic_get_pre_scss($theme) {
     // 1. To define our own configurable scss variables use the code below and comment code under 2.
-    global $CFG, $DB;
+    global $DB;
 
     $scss = '';
 
@@ -187,7 +187,6 @@ function theme_receptic_resetflashbox($flashbox) {
 }
 
 function theme_receptic_set_brandbanner_height() {
-    global $DB;
     if (get_config('theme_receptic', 'brandbanner')) {
         set_config('brandbannerheight', '80px', 'theme_receptic');
     } else {
@@ -325,7 +324,6 @@ function theme_receptic_get_orangeballs($course, $starttime) {
         } else {
             $alreadytested[] = $record->contextinstanceid;
         }
-        $modglossaryid = $DB->get_field('modules', 'id', array('name' => 'glossary'));
         if ($record->eventname == '\mod_glossary\event\entry_updated'
                 || $record->eventname == '\mod_glossary\event\entry_created') {
             $glossaryentry = $DB->get_record('glossary_entries', array('id' => $record->objectid));

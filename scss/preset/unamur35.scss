@@ -81,13 +81,13 @@ $brand-banner-color: $success !default;
 $brand-banner-height: 80px !default;
 
 $brand-banner-gradient: linear-gradient(
-        to bottom,
-        $gray-100 0%,
-        $gray-100 30%,
-        darken($brand-banner-color, 5%)
-        31%,
-        lighten($brand-banner-color, 5%)
-        95%
+    to bottom,
+    $gray-100 0%,
+    $gray-100 30%,
+    darken($brand-banner-color, 5%)
+    31%,
+    lighten($brand-banner-color, 5%)
+    95%
 );
 $drawer-position-top: $brand-banner-height + 50px;
 $drawer-right-width: 355px;

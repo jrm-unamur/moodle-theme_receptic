@@ -15,10 +15,14 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
+    @template theme_receptic/availability_info
     Availability info.
 
     Example context (json):
-    { "classes": "", "text": "This activity is not available" }
+    {
+        "classes": "",
+        "text": "This activity is not available"
+    }
 }}
 {{#text}}
     <span class="availabilityinfo {{classes}}">

@@ -15,10 +15,15 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    placeholder for template description. Ex: Page header.
+    @template theme_receptic/navbar
+
+    Context inherited from theme_receptic/columns2
+
+    Example context (json):
+    {}
 }}
 
-<nav role="banner" class="fixed-top {{#displaybrandbanner}}pos-f-t-lowers{{/displaybrandbanner}} navbar navbar-light navbar-receptic navbar-expand moodle-has-zindex">
+<nav class="fixed-top {{#displaybrandbanner}}pos-f-t-lowers{{/displaybrandbanner}} navbar navbar-light navbar-receptic navbar-expand moodle-has-zindex" aria-label="{{#str}}sitemenubar, admin{{/str}}">
 
 {{#navbaritems}}
     <div class="d-inline-block mr-3 ml-1" data-region="drawer-toggle">

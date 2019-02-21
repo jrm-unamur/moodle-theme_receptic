@@ -61,15 +61,15 @@ $breadcrumb-divider-rtl: "/" !default;
 $alert-border-width:                0 !default;
 
 $theme-colors: (
-        primary: $primary,
-        secondary: $gray-200,
-        success: $success,
-        info: $info,
-        warning: $orange,
-        danger: $danger,
-        light: $gray-100,
-        dark: $gray-800,
-        headings: $primary
+    primary: $primary,
+    secondary: $gray-200,
+    success: $success,
+    info: $info,
+    warning: $orange,
+    danger: $danger,
+    light: $gray-100,
+    dark: $gray-800,
+    headings: $primary
 );
 
 $headings-color: $primary !default;
@@ -130,7 +130,7 @@ body.drawer-open-right #page.container-fluid {
 }
 
 header.brand-banner {
-    background-image: -webkit-gradient(linear,left top,right top,color-stop(0,#c4001d),color-stop(.71,#ffb));
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #c4001d), color-stop(.71, #ffb));
     margin: auto;
     text-align: center;
     z-index: 1035;
@@ -156,7 +156,8 @@ header.brand-banner {
 
     a {
         color: $white;
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
             color: $gray-500;
         }
         &.dropdown-item {
@@ -172,12 +173,14 @@ header.brand-banner {
 
     .dropdown-item a {
         color: $gray-800;
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
             color: $gray-700;
         }
         .icon:before {
             color: $gray-800;
-            &:hover, &:focus {
+            &:hover,
+            &:focus {
                 color: $gray-700;
             }
         }
@@ -188,7 +191,8 @@ header.brand-banner {
             background-color: $gray-600;
             border-color: $gray-700;
             border-radius: .25rem;
-            &:hover, &:focus {
+            &:hover,
+            &:focus {
                 opacity: .5;
             }
         }
@@ -212,7 +216,8 @@ header.brand-banner {
             text-transform: inherit;
             letter-spacing: normal;
             color: $white;
-            &:hover, &:focus {
+            &:hover,
+            &:focus {
                 color: $gray-500;
             }
         }
@@ -220,7 +225,7 @@ header.brand-banner {
     }
 
     .navbar-divider {
-        background-color: rgba(255,255,255,.075);
+        background-color: rgba(255, 255, 255, .075);
     }
 
     .extra-buttons {

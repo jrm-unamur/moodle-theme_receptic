@@ -123,7 +123,7 @@
     .modal-body {
         /* This is needed to display the text within the modal window as the help button is placed in
         in a span with the class text-nowrap. */
-        white-space: normal !important;
+        white-space: normal !important; /* stylelint-disable declaration-no-important */
         ul {
             padding-left: 1.5rem;
         }

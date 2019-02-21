@@ -15,7 +15,23 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    Page header.
+     @template theme_receptic/head
+
+    Context inherited from theme_receptic/columns2
+
+    Context variables required for this template:
+    * output - The core renderer for the page
+
+    Example context (json):
+    {
+        "output": {
+            "doctype": "<!DOCTYPE html>",
+            "page_title": "Test page",
+            "favicon": "favicon.ico",
+            "standard_head_html": "standard head html content",
+            "main_content": "<h1>Headings make html validators happier</h1>"
+         },
+    }
 }}
 {{{ output.doctype }}}
 <html {{{ output.htmlattributes }}}>

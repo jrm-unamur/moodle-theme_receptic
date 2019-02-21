@@ -62,15 +62,15 @@ $card-group-margin: .25rem;
 $alert-border-width:                0 !default;
 
 $theme-colors: (
-        primary: $primary,
-        secondary: $gray-200,
-        success: $success,
-        info: $info,
-        warning: $orange,
-        danger: $danger,
-        light: $gray-100,
-        dark: $gray-800,
-        headings: $primary
+    primary: $primary,
+    secondary: $gray-200,
+    success: $success,
+    info: $info,
+    warning: $orange,
+    danger: $danger,
+    light: $gray-100,
+    dark: $gray-800,
+    headings: $primary
 );
 
 // Preset CSS
@@ -88,13 +88,13 @@ body {
 $brand-banner-color: #f98012 !default;
 $brand-banner-height: 80px !default;
 $brand-banner-gradient: linear-gradient(
-                to bottom,
-                $gray-100 0%,
-                $gray-100 30%,
-                darken($brand-banner-color, 5%)
-                31%,
-                lighten($brand-banner-color, 5%)
-                95%
+    to bottom,
+    $gray-100 0%,
+    $gray-100 30%,
+    darken($brand-banner-color, 5%)
+    31%,
+    lighten($brand-banner-color, 5%)
+    95%
 );
 $drawer-position-top: $brand-banner-height + 50px;
 $drawer-right-width: 355px;
@@ -193,8 +193,6 @@ body.drawer-open-right #page.container-fluid {
 #block-region-side-pre {
     padding-left: 0;
 }
-
-
 
 /**
  * Form styles.

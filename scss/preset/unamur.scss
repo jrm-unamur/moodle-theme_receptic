@@ -81,7 +81,7 @@ $blocks-column-width : 260px !default;
  */
 
 .brand-banner {
-    background: linear-gradient(to bottom, $gray-lightest 0%, $gray-lightest 30%,darken(#DC143C,5%) 31%, lighten(#ff0000,5%) 95%);
+    background: linear-gradient(to bottom, $gray-lightest 0%, $gray-lightest 30%, darken(#dc143c, 5%) 31%, lighten(#ff0000, 5%) 95%);
     height: 80px;
 
     img {
@@ -160,12 +160,14 @@ $blocks-column-width : 260px !default;
 
     .dropdown-item a {
         color: $gray-dark;
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
             color: $gray;
         }
         .icon:before {
             color: $gray-dark;
-            &:hover, &:focus {
+            &:hover,
+            &:focus {
                 color: $gray;
             }
         }
@@ -198,7 +200,7 @@ $blocks-column-width : 260px !default;
     }
 
     .navbar-divider {
-         background-color: rgba(255,255,255,.075);
+        background-color: rgba(255, 255, 255, .075);
     }
 
     .extra-buttons {
@@ -234,18 +236,22 @@ span .icon {
 .btn {
     border-radius: 0;
 }
-.btn-secondary, .btn-default {
+.btn-secondary,
+.btn-default {
     color: #fff;
     background-color: $gray;
     border-color: $gray;
 }
 
-.btn-secondary:hover, .btn-default:hover,
-.btn-secondary:active, .btn-default:active,
-.btn-secondary:focus, .btn-default:focus {
+.btn-secondary:hover,
+.btn-default:hover,
+.btn-secondary:active,
+.btn-default:active,
+.btn-secondary:focus,
+.btn-default:focus {
     background-color: $gray-dark;
     border-color: $gray-dark;
-    color:#fff;
+    color: #fff;
 }
 
 input[type=submit] {
@@ -433,9 +439,9 @@ body {
     text-align: center;
     cursor: pointer;
     opacity: .5;
-    filter:alpha(opacity=50);
-    display:none;
-    z-index:1000;
+    filter: alpha(opacity=50);
+    display: none;
+    z-index: 1000;
     a {
         text-decoration: none;
         border: 0;
@@ -444,9 +450,9 @@ body {
             padding: 5px 10px;
             font-size: 36px;
             color: #333;
-            background: #EEE;
-            border: 1px solid #CCC;
-            border-bottom: 1px solid #AAA;
+            background: #eee;
+            border: 1px solid #ccc;
+            border-bottom: 1px solid #aaa;
             border-radius: 5px;
         }
         &.text {
@@ -459,7 +465,7 @@ body {
     }
 }
 
-@media only screen  and (min-width : 768px) {
+@media only screen  and (min-width: 768px) {
     .navbar-nav .nav-link.editswitch {
         padding-top: .525rem;
     }
@@ -467,13 +473,14 @@ body {
         padding-top: .6rem;
     }
 }
-@media only screen  and (max-width : 767px) {
+
+@media only screen  and (max-width: 767px) {
     .navbar-nav .nav-link.call911 {
         padding-top: .6rem;
     }
 }
 
-@media only screen  and (max-width : 767px) {
+@media only screen  and (max-width: 767px) {
     .switch:after {
         display: none;
     }
@@ -494,8 +501,8 @@ abbr[title] {
 }
 
 .moodlelogofooter {
-    margin-bottom:.625rem;
-    width:75px;
-    height:20px
+    margin-bottom: .625rem;
+    width: 75px;
+    height: 20px;
 }
 
