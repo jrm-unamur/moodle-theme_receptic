@@ -1,0 +1,133 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template theme_moove/flat_navigation
+
+    Display the flat navigation for the moove theme
+
+    Classes required for JS:
+    * none
+
+    Data attributes required for JS:
+    * none
+
+    Context variables required for this template:
+    * flatnavigation - array of flat_navigation_nodes
+      * showdivider - boolean
+      * action - string
+      * isactive - boolean
+      * get_indent - integer
+      * is_section - boolean
+      * text - HTML
+
+    Example context (json):
+    {
+        "flatnavigation" : [
+            {
+                "showdivider": false,
+                "action": "#",
+                "isactive": true,
+                "get_indent": 1,
+                "is_section": false,
+                "text": "First"
+            },{
+                "showdivider": true,
+                "action": "#",
+                "isactive": false,
+                "get_indent": 0,
+                "is_section": true,
+                "text": "Last &amp; Second"
+            }
+        ]
+    }
+}}
+<ul class="list-group metismenu">
+{{# flatnavigation }}
+    {{#showdivider}}
+        </ul>
+        <ul class="list-group metismenu mt-2">
+    {{/showdivider}}
+    {{#myshowdivider}}
+        </ul>
+        <ul class="list-group metismenu mt-2">
+    {{/myshowdivider}}
+    {{#action}}
+        {{^get_indent}}
+            {{^sectionsnode}}
+                {{^is_section}}
+                <li class="list-group-item list-group-item-action {{#isactive}}active font-weight-bold{{/isactive}}" data-key="{{key}}" data-isexpandable="{{isexpandable}}" data-indent="{{get_indent}}" data-showdivider="{{showdivider}}" data-type="{{type}}" data-nodetype="{{nodetype}}" data-collapse="{{collapse}}" data-forceopen="{{forceopen}}" data-isactive="{{isactive}}" data-hidden="{{hidden}}" data-preceedwithhr="{{preceedwithhr}}" {{#parent.key}}data-parent-key="{{.}}"{{/parent.key}} {{#tooltip}}data-tooltip="tooltip" data-placement="bottom" title="{{tooltip}}"{{/tooltip}}>
+
+                    <a href="{{{action}}}">
+                        {{#icon.pix}}
+                            {{#pix}}{{{icon.pix}}}, {{{icon.component}}}, {{{icon.alt}}}{{/pix}}
+                        {{/icon.pix}}
+                        <span class="text m-l-{{get_indent}}">{{{text}}}</span>
+                    </a>
+                {{/is_section}}
+                </li>
+            {{/sectionsnode}}
+            {{#sectionsnode}}
+                <li class="list-group-item list-group-item-action {{#isactive}}active font-weight-bold{{/isactive}}" data-key="{{key}}" data-isexpandable="{{isexpandable}}" data-indent="{{get_indent}}" data-showdivider="{{showdivider}}" data-type="{{type}}" data-nodetype="{{nodetype}}" data-collapse="{{collapse}}" data-forceopen="{{forceopen}}" data-isactive="{{isactive}}" data-hidden="{{hidden}}" data-preceedwithhr="{{preceedwithhr}}" {{#parent.key}}data-parent-key="{{.}}"{{/parent.key}} {{#tooltip}}data-tooltip="tooltip" data-placement="bottom" title="{{tooltip}}"{{/tooltip}}>
+                    <a class="m-l-{{get_indent}} has-arrow" href="#">
+                        <i class="icon fa fa-archive fa-fw " aria-hidden="true" aria-label=""></i>
+                        <span class="text m-l-{{get_indent}}">{{{text}}}</span>
+                    </a>
+                    <ul class="submenu">
+                        {{#children}}
+                            <li class="list-group-item list-group-item-action {{#isactive}}active font-weight-bold{{/isactive}}" data-key="{{key}}" data-isexpandable="{{isexpandable}}" data-indent="{{get_indent}}" data-showdivider="{{showdivider}}" data-type="{{type}}" data-nodetype="{{nodetype}}" data-collapse="{{collapse}}" data-forceopen="{{forceopen}}" data-isactive="{{isactive}}" data-hidden="{{hidden}}" data-preceedwithhr="{{preceedwithhr}}" {{#parent.key}}data-parent-key="{{.}}"{{/parent.key}}>
+                                <a class="list-group-item list-group-item-action {{#isactive}}active font-weight-bold{{/isactive}}" href="{{{action}}}">
+                                    {{#icon.pix}}
+                                        {{#pix}}{{{icon.pix}}}, {{{icon.component}}}, {{{icon.alt}}}{{/pix}}
+                                    {{/icon.pix}}
+                                    <span class="text">{{{text}}}</span>
+                                </a>
+                            </li>
+                        {{/children}}
+                    </ul>
+                </li>
+            {{/sectionsnode}}
+
+        {{/get_indent}}
+    {{/action}}
+    {{^action}}
+            <li class="list-group-item" data-key="{{key}}" data-isexpandable="{{isexpandable}}" data-indent="{{get_indent}}" data-showdivider="{{showdivider}}" data-type="{{type}}" data-nodetype="{{nodetype}}" data-collapse="{{collapse}}" data-forceopen="{{forceopen}}" data-isactive="{{isactive}}" data-hidden="{{hidden}}" data-preceedwithhr="{{preceedwithhr}}" {{#parent.key}}data-parent-key="{{.}}"{{/parent.key}}">
+                <a class="m-l-{{get_indent}} has-arrow" href="javascript:void(0);">
+                    {{#icon.pix}}
+                        {{#pix}}{{{icon.pix}}}, {{{icon.component}}}, {{{icon.alt}}}{{/pix}}
+                    {{/icon.pix}}
+                    <span class="text">{{{text}}}</span>
+                </a>
+                <ul>
+                    {{#children}}
+                        {{^is_section}}
+                            {{#showinflatnavigation}}
+                            <li class="list-group-item list-group-item-action {{#isactive}}active font-weight-bold{{/isactive}}" data-key="{{key}}" data-isexpandable="{{isexpandable}}" data-indent="{{get_indent}}" data-showdivider="{{showdivider}}" data-type="{{type}}" data-nodetype="{{nodetype}}" data-collapse="{{collapse}}" data-forceopen="{{forceopen}}" data-isactive="{{isactive}}" data-hidden="{{hidden}}" data-preceedwithhr="{{preceedwithhr}}" {{#parent.key}}data-parent-key="{{.}}"{{/parent.key}}>
+                                <a class="list-group-item list-group-item-action {{#isactive}}active font-weight-bold{{/isactive}}" href="{{{action}}}">
+                                    {{#icon.pix}}
+                                        {{#pix}}{{{icon.pix}}}, {{{icon.component}}}, {{{icon.alt}}}{{/pix}}
+                                    {{/icon.pix}}
+                                    <span class="text">{{{text}}}</span>
+                                </a>
+                            </li>
+                            {{/showinflatnavigation}}
+                        {{/is_section}}
+                    {{/children}}
+                </ul>
+            </li>
+    {{/action}}
+{{/ flatnavigation }}
+</ul>

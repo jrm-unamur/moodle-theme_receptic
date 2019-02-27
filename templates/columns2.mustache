@@ -123,8 +123,14 @@
 
     {{/hasblocks}}
     {{{ output.standard_after_main_region_html }}}
-    {{> theme_receptic/nav-drawer }}
+    {{#collapsibledrawer}}
+        {{> theme_receptic/nav-drawer-shrinked}}
+    {{/collapsibledrawer}}
+    {{^collapsibledrawer}}
+        {{> theme_receptic/nav-drawer }}
+    {{/collapsibledrawer}}
     {{> theme_receptic/footer }}
+
 </div>
 
 
@@ -138,6 +144,10 @@ require(['jquery', 'theme_boost/tooltip'], function($) {
 });
 require(['theme_boost/drawer'], function(mod) {
     mod.init();
+});
+
+require(['theme_receptic/metismenu', 'jquery'], function(metisMenu, $) {
+$(".metismenu").metisMenu();
 });
 {{#settingsincourse}}
     require(['theme_receptic/incoursesettings'], function(mod) {

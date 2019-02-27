@@ -126,6 +126,7 @@ $templatecontext = [
     'logininfo' => get_config('theme_receptic', 'logininfo'),
     'homelink' => get_config('theme_receptic', 'homelink'),
     'activitynavigation' => get_config('theme_receptic', 'activitynavigation'),
+    'collapsibledrawer' => true
 ];
 
 if (get_config('theme_receptic', 'settingsincoursepage') == 'yes') {

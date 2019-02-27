@@ -332,7 +332,7 @@ body.settingsincourse {
             display: none;
         }
     }
-    .path-user #region-main-settings-menu {
+    &.path-user #region-main-settings-menu {
         display: none;
     }
     /* Hide the triangle down icon. */
@@ -358,4 +358,383 @@ body.themetest h1 {
 body.editing.path-grade-report-grader [data-region="blocks-column"],
 body.editing.path-grade-report-grader #blocks-column-toggle {
     display: none !important; /* stylelint-disable-line declaration-no-important */
+}
+
+/*#nav-drawer.moove {
+    padding: 5px;
+    padding-bottom: 5px;
+    background-color: #272c33;
+    top: 130px;
+    padding-bottom: 20px;
+    overflow-y: auto;
+    &.closed {
+
+        width: 70px;
+        left: 0;
+        span.media-body {
+            display: none;
+        }
+    }
+    .list-group {
+        a.list-group-item,
+        div.list-group-item {
+            background-color: black;
+            color: white;
+            &.active {
+                background-color: #1a9e9f;
+            }
+            .icon {
+                color: #fff;
+            }
+        }
+    }
+
+
+}*/
+
+#nav-drawer.moove {
+    padding: 0 5px 5px;
+    background-color: transparent;
+    top: 151px;
+    padding-bottom: 20px;
+    overflow-y: auto;
+    width: 250px;
+
+    &::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 7px rgba(0, 0, 0, 0.3);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $brand-primary;
+        outline: 1px solid $brand-primary;
+    }
+
+    ul {
+        list-style: none;
+        background-color: $white;
+    }
+
+
+    .list-group {
+        .list-group-item {
+            padding: 0;
+            /*background-color: inherit;*/
+            border-radius: $card-border-radius;
+            border: 0;
+
+            a {
+                color: $gray-700;
+                padding: .75rem 0.75rem;
+                border: none;
+                text-decoration: none;
+                width: 100%;
+                display: inherit;
+                border-radius: $card-border-radius;
+
+                &:hover {
+                    background-color: $primary;
+                    color: #fff;
+                }
+                .icon {
+                    margin-left: 3px;
+                    &:hover {
+                        color: $white;
+                    }
+                }
+
+                /*&:before {
+                    font-family: 'simple-line-icons';
+                    speak: none;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-variant: normal;
+                    text-transform: none;
+                    line-height: 1;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                    content: "\e089";
+                    font-size: 19px;
+                }*/
+
+                .m-l-0::before {
+                    font-size: 19px;
+                }
+            }
+            /*&[data-key="mycourses"].active,
+            &[data-key="mycourses"].active:hover {
+                background-color: $gray-200;
+                a,
+                a .icon {
+                    color: $gray-700;
+                }
+
+            }*/
+            &.active,
+            &:hover {
+                color: $white;
+                background-color: $primary;
+                a {
+                    color: $white;
+                }
+                .icon {
+                    color: $white;
+                }
+
+                > ul {
+                    li {
+                        a {
+                            color: $gray-700;
+
+                        }
+                        .icon {
+                            color: $gray-700;
+
+                        }
+                        &:hover {
+                            a {
+                                color: $white;
+
+                            }
+                            .icon {
+                                color: $white;
+
+                            }
+                        }
+                    }
+                }
+
+            }
+
+
+
+            /*&[data-key="coursehome"] a:before {
+                content: "\e06a";
+            }
+
+            &[data-key="mycourses"] a:before {
+                content: "\e019";
+            }
+
+            &[data-key="participants"] a:before,
+            &[data-key="studentreport"] a:before {
+                content: "\e001";
+            }
+
+            &[data-key="badgesview"] a:before {
+                content: "\e028";
+            }
+
+            // Competences
+            &[data-key="competencies"] a:before {
+                content: "\e09b";
+            }
+
+            &[data-key="grades"] a:before {
+                content: "\e04c";
+            }
+
+            &[data-key="myhome"] a:before {
+                content: "\e007";
+            }
+
+            &[data-key="home"] a:before {
+                content: "\e069";
+            }
+
+            &[data-key="calendar"] a:before {
+                content: "\e075";
+            }
+
+            &[data-key="privatefiles"] a:before {
+                content: "\e040";
+            }
+
+            &[data-key="sitesettings"] a:before {
+                content: "\e09a";
+            }*/
+        }
+    }
+
+    .list-group + .list-group {
+        /*border-top: 3px solid #374850;*/
+    }
+}
+
+#nav-drawer.moove.closed {
+    overflow: visible;
+    width: 55px;
+    left: 0;
+
+    ul {
+        list-style: none;
+        background-color: $white;
+    }
+
+    .metismenu .has-arrow::after {
+        display: none;
+    }
+
+    .list-group {
+        .list-group-item {
+            text-align: left;
+            /*padding: 0 .6rem;*/
+            background: inherit;
+            &.active {
+                background-color: $primary;
+            }
+
+            > ul {
+                display: none;
+                padding: 10px;
+            }
+
+            .m-l-1 {
+                margin-left: 4px !important;
+            }
+
+            a .text {
+                display: none;
+            }
+
+            &:hover {
+                width: 270px;
+                background-color: $primary;
+
+
+                a .text {
+                    display: inline-block;
+                }
+
+                .text {
+                    margin-left: 4px;
+                }
+
+                > ul {
+                    display: block;
+                    height: auto !important;
+                    overflow: auto;
+                    background-color: $gray-200;
+                    position: absolute;
+                    left: 70px;
+                    /*top: 48px;*/
+                    width: 200px;
+                    z-index: 1001;
+                    padding-top: 10px;
+                    border-bottom-left-radius: $card-border-radius;
+                    border-bottom-right-radius: $card-border-radius;
+                    &.submenu {
+                        height: auto;
+                        max-height: 350px;
+                        overflow-x: visible;
+                        overflow-y: scroll;
+                        &::-webkit-scrollbar {
+                            width: 7px;
+                        }
+
+                        &::-webkit-scrollbar-track {
+                            -webkit-box-shadow: inset 0 0 7px rgba(0, 0, 0, 0.3);
+                        }
+
+                        &::-webkit-scrollbar-thumb {
+                            background-color: $brand-primary;
+                            outline: 1px solid $brand-primary;
+                        }
+                    }
+
+                    li {
+                        padding: .5rem .2rem;
+                        width: 100%;
+
+                        a {
+                            width: 100%;
+                            padding: 0;
+                            /*font-size: 12px;*/
+
+                            /*&:before {
+                                font-size: 12px;
+                                content: "\e606";
+                            }*/
+
+                            .text {
+                                display: inline;
+                            }
+                        }
+                    }
+                }
+            }
+
+            ul li.list-group-item:hover {
+                border-bottom-right-radius: $card-border-radius;
+            }
+        }
+    }
+}
+
+#nav-drawer.moove {
+    .metismenu {
+        .collapse {
+            display: none;
+        }
+
+        .collapse.in {
+            display: block;
+        }
+
+        .collapsing {
+            position: relative;
+            height: 0;
+            overflow: hidden;
+            transition-timing-function: ease;
+            transition-duration: .35s;
+            transition-property: height, visibility;
+        }
+
+        .has-arrow {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .has-arrow::after {
+            position: absolute;
+            content: '';
+            width: .5em;
+            height: .5em;
+            border-width: 1px 0 0 1px;
+            border-style: solid;
+            border-color: initial;
+            right: 1em;
+            -webkit-transform: rotate(-45deg) translate(0, -50%);
+            transform: rotate(-45deg) translate(0, -50%);
+            -webkit-transform-origin: top;
+            transform-origin: top;
+            top: 50%;
+            transition: all .3s ease-out;
+        }
+
+        .active > .has-arrow::after,
+        .has-arrow[aria-expanded="true"]::after {
+            -webkit-transform: rotate(-135deg) translate(0, -50%);
+            transform: rotate(-135deg) translate(0, -50%);
+        }
+    }
+}
+
+
+body {
+    margin-left: 50px;
+    background-color: $gray-200;
+    &.drawer-open-left {
+        margin-left: 250px;
+    }
+    #page.container-fluid {
+        padding-left: .5rem
+    }
+}
+
+#page-my-index {
+    background-color: $gray-200;
 }
