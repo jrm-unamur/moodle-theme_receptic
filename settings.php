@@ -410,7 +410,7 @@ if ($ADMIN->fulltree) {
     $name = 'theme_receptic/contactemail';
     $title = get_string('contactemail', 'theme_receptic');
     $description = get_string('contactemail_desc', 'theme_receptic');
-    $default = $CFG->supportemail;
+    $default = !empty($CFG->supportemail) ? $CFG->supportemail : '';
     $setting = new admin_setting_configtext($name, $title, $description, $default);
     $page->add($setting);
 
