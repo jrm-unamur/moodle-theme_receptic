@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Theme UnamurUI mod_quiz_renderer file.
+ * Overridden mod_quiz_renderer class.
  *
- * @package    theme_unamurui
+ * @package    theme_receptic
  * @author     2016 Jean-Roch Meurisse
  * @copyright  2016 University of Namur - Cellule TICE
  *
@@ -29,14 +29,20 @@ use mod_quiz_view_object;
 
 defined('MOODLE_INTERNAL') || die;
 
+/**
+ * Overridden mod_quiz_renderer class definition.
+ *
+ * @package    theme_receptic
+ * @author     2016 Jean-Roch Meurisse
+ * @copyright  2016 University of Namur - Cellule TICE
+ */
 class mod_quiz_renderer extends \mod_quiz_renderer  {
     /**
      * Override to separate message output from edit button output
      * Generate a message saying that this quiz has no questions, with a button to
      * go to the edit page, if the user has the right capability.
-     * @param object $quiz the quiz settings.
-     * @param object $cm the course_module object.
-     * @param object $context the quiz context.
+     * @param bool $canedit whether the current user has edit rights.
+     * @param moodle_url $editurl url object to edit page.
      * @return string HTML to output.
      */
     public function no_questions_message($canedit, $editurl) {
@@ -47,7 +53,7 @@ class mod_quiz_renderer extends \mod_quiz_renderer  {
     }
 
     /**
-     * Override to always display edit button to priviledged users
+     * Override to always display edit button to privileged users
      * Work out, and render, whatever buttons, and surrounding info, should appear
      * at the end of the review page.
      * @param mod_quiz_view_object $viewobj the information required to display

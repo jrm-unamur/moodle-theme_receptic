@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Strings for Receptic theme, language 'fr'.
+ *
  * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Unversite de Namur
@@ -163,3 +165,5 @@ $string['showhiddencoursewarning_desc'] = 'Ce paramètre permet d\'afficher un m
 $string['showswitchrolewarning'] = 'Avertissement lors d\'une modification de role';
 $string['showswitchrolewarning_desc'] = 'Ce parmètre permet d\'afficher l\'information de changement de rôle dans un message d\'avertissement plutôt que sous le nom de l\'utilisateur courant (comme dans le thème Boost). Un raccourci pour reprendre le rôle normal est également proposé.';
 $string['switchedroleto'] = 'Vous consultez actuellement ce cours avec la vue ';
+$string['shrinkablenavdrawer'] = 'Tiroir de navigation réduit';
+$string['shrinkablenavdrawer_desc'] = 'Remplacer le comportement par défaut du tiroir de navigation (afficher/masquer) par une version réduite (icônes du premier niveau seulement) en mode "masqué"';

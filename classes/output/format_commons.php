@@ -14,26 +14,55 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Trait format_commons.
+ *
+ * @package    theme_receptic
+ * @author     Jean-Roch Meurisse
+ * @copyright  2016 - Cellule TICE - Unversite de Namur
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 namespace theme_receptic\output;
 
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Trait format_commons. Defines common behaviour for overrident course format renderers.
+ *
+ * @package    theme_receptic
+ * @author     Jean-Roch Meurisse
+ * @copyright  2016 - Cellule TICE - Unversite de Namur
+ * */
 trait format_commons {
 
     protected $ballsenabled;
     protected $iscollapsible = false;
 
+    /**
+     * Initializes member $ballsenabled. Called by course format renderers.
+     */
     public function init() {
         $this->ballsenabled = get_config('theme_receptic', 'enableballs');
     }
 
+    /**
+     * Updates current user red/orange balls for the current course.
+     *
+     * @param stdClass $course The current course.
+     */
     public function compute_balls($course) {
         list($newitemsforuser, $updateditemsforuser, $starttime) = theme_receptic_init_vars_for_hot_items_computing();
         theme_receptic_compute_redballs($course, $starttime, $newitemsforuser);
         theme_receptic_compute_orangeballs($course, $starttime, $updateditemsforuser);
     }
 
-    public function print_multiple_sections($course, $collapsible = false) {
+    /**
+     * Output the html for a multiple section page.
+     *
+     * @param stdClass $course The course entry from DB
+     */
+    public function print_multiple_sections($course) {
         global $PAGE;
 
         if (!isset($course->coursedisplay)) {
@@ -71,7 +100,7 @@ trait format_commons {
                     echo $this->section_header($thissection, $course, false, 0);
                     echo $modules;
                     echo $this->courserenderer->course_section_add_cm_control($course, 0, 0);
-                    if ($collapsible) {
+                    if ($this->iscollapsible) {
                         $this->page->requires->strings_for_js(array('collapseall', 'expandall'), 'moodle');
                         echo '<div class="collapsible-actions" >
     <a href="#" class="expandall" role="button">' . get_string('expandall') . '
@@ -135,13 +164,10 @@ trait format_commons {
     }
 
     /**
-     * Output the html for a single section page .
+     * Output the html for a single section page.
      *
      * @param stdClass $course The course entry from DB
      * @param array $sections (argument not used)
-     * @param array $mods (argument not used)
-     * @param array $modnames (argument not used)
-     * @param array $modnamesused (argument not used)
      * @param int $displaysection The section number in the course which is being displayed
      */
     public function print_single_section($course, $sections, $displaysection) {
@@ -233,7 +259,16 @@ trait format_commons {
         echo \html_writer::end_tag('div');
     }
 
-
+    /**
+     * Generate the display of the header part of a section before
+     * course modules are included.
+     *
+     * @param stdClass $section The course_section entry from DB
+     * @param stdClass $course The course entry from DB
+     * @param bool $onsectionpage true if being printed on a single-section page
+     * @param int $sectionreturn The section to return to after an action
+     * @return string HTML to output.
+     */
     protected function section_header($section, $course, $onsectionpage, $sectionreturn = null) {
         global $PAGE;
 
@@ -349,6 +384,12 @@ trait format_commons {
         return $o;
     }
 
+    /**
+     * Output the HTML for section balls.
+     *
+     * @param stdClass $section The current section
+     * @return string HTML to output.
+     */
     public function balls_display($section) {
         $balls = '';
 
@@ -446,6 +487,15 @@ trait format_commons {
         }
     }
 
+    /**
+     * Generate the content to displayed on the left part of a section
+     * before course modules are included
+     *
+     * @param stdClass $section The course_section entry from DB
+     * @param stdClass $course The course entry from DB
+     * @param bool $onsectionpage true if being printed on a section page
+     * @return string HTML to output.
+     */
     protected function section_left_content($section, $course, $onsectionpage) {
         $o = $this->output->spacer();
 

@@ -1,29 +1,110 @@
 $drawer-right-width: 355px;
+$drawer-left-width: 250px;
 
 #nav-drawer {
-    background-color: $gray-400;
+    background-color: $body-bg;
+    padding: 0 .5rem 1.5rem 0;
+    overflow-y: auto;
+    width: 100%;
+    top: calc(#{$drawer-position-top} - #{$brand-banner-height} - 8px);
+    @include media-breakpoint-up(md) {
+        width: 250px;
+        top: $drawer-position-top;
+        height: calc(100% - #{$drawer-position-top});
+        padding: 0 .25rem .5rem .5rem;
+    }
     .list-group {
+        div.list-group-item,
         a.list-group-item {
+            border-width: $drawer-border-width;
+            border-style: solid;
+            border-radius: $drawer-border-radius;
+            border-color: $drawer-border-color;
+            color: $gray-700;
+            padding: .75rem;
+
+            text-decoration: none;
+            width: 100%;
+            display: inherit;
+            .icon {
+                margin-left: .125rem;
+            }
             .fa-folder-o:before {
                 content: "\f07b";
             }
-            &.active {
+            &:hover {
+                background-color: $gray-300;
+                border-color: $gray-300;
+            }
+            &.active,
+            &.active:hover {
+                color: $white;
+                background-color: $primary;
+                border-color: $primary;
+                a {
+                    color: $white;
+                }
                 .icon {
                     color: $white;
                 }
             }
         }
     }
-}
-
-body.drawer-open-left {
-    @include media-breakpoint-up(md) {
-        margin-left: $drawer-width;
+    &.closed {
+        display: none;
+        @include media-breakpoint-up(md) {
+            width: 55px;
+        }
     }
 }
-body.drawer-open-right {
-    margin-right: $drawer-right-width;
-    @include media-breakpoint-down(lg) {
+
+body {
+    &.shrinkablenavdrawer {
+        @include media-breakpoint-up(md) {
+            margin-left: 50px;
+            #nav-drawer.closed {
+                display: block;
+                overflow: visible;
+                left: 0;
+                background-color: transparent;
+
+                .list-group {
+                    .list-group-item {
+                        .media-body {
+                            display: none;
+                        }
+
+                        &:hover {
+                            width: 250px;
+
+                            .media-body {
+                                display: inline-block;
+                                margin-left: .25rem;
+                            }
+                        }
+                        &[data-key="mycourses"],
+                        &[data-type="20"],
+                        &[data-type="30"] {
+                            display: none;
+                        }
+                    }
+                }
+            }
+            &.drawer-open-left {
+                margin-left: $drawer-left-width;
+            }
+
+        }
+    }
+    &.drawer-open-left {
+        @include media-breakpoint-up(md) {
+            margin-left: $drawer-left-width;
+        }
+    }
+    &.drawer-open-right {
         margin-right: 0;
+        @include media-breakpoint-up(md) {
+            margin-right: $drawer-right-width;
+        }
     }
 }

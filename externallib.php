@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Web service functions for Receptic theme.
+ *
  * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Unversite de Namur
@@ -28,10 +30,12 @@ require_once($CFG->dirroot . '/course/classes/external/course_summary_exporter.p
 require_once('classes/external/course_summary_exporter.php');
 
 /**
- * Created by PhpStorm.
- * User: jmeuriss
- * Date: 4/12/18
- * Time: 15:18
+ * Receptic theme external functions.
+ *
+ * @package    theme_receptic
+ * @author     Jean-Roch Meurisse
+ * @copyright  2016 onwards - Cellule TICE - Universite de Namur
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class theme_receptic_external extends external_api {
 
@@ -214,6 +218,11 @@ class theme_receptic_external extends external_api {
         );
     }
 
+    /**
+     * Returns description of method parameters
+     *
+     * @return external_function_parameters
+     */
     public static function change_course_visibility_parameters() {
         return new external_function_parameters(
             array(
@@ -223,6 +232,14 @@ class theme_receptic_external extends external_api {
         );
     }
 
+    /**
+     * Change course visibility from dashboard.
+     *
+     * @param int $id The course id.
+     * @param bool $visible The visibility state to set for the course
+     * @return array list of warnings
+     * @throws  invalid_parameter_exception
+     */
     public static function change_course_visibility(int $id, bool $visible) {
         global $DB;
 
@@ -245,6 +262,11 @@ class theme_receptic_external extends external_api {
         ];
     }
 
+    /**
+     * Returns description of method result value
+     *
+     * @return external_description
+     */
     public static function change_course_visibility_returns() {
         return new external_single_structure(
             array(
@@ -253,6 +275,11 @@ class theme_receptic_external extends external_api {
         );
     }
 
+    /**
+     * Returns description of method parameters
+     *
+     * @return external_function_parameters
+     */
     public static function unenrolme_parameters() {
         return new external_function_parameters(
             array(
@@ -262,6 +289,14 @@ class theme_receptic_external extends external_api {
         );
     }
 
+    /**
+     * Unenrols the current user from the course identified by $id parameter.
+     *
+     * @param int $id The course id
+     * @param int $instanceid The enrol instance id
+     * @return array list of warnings
+     * @throws  invalid_parameter_exception
+     */
     public static function unenrolme(int $id, int $instanceid) {
         global $DB, $USER;
 
@@ -286,6 +321,11 @@ class theme_receptic_external extends external_api {
         ];
     }
 
+    /**
+     * Returns description of method result value
+     *
+     * @return external_description
+     */
     public static function unenrolme_returns() {
         return new external_single_structure(
             array(

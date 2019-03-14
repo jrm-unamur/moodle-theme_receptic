@@ -37,15 +37,12 @@ $dark:          $gray-800 !default;
 $enable-rounded: false !default;
 
 // Body
-$body-color:    $gray-800 !default;
+$body-bg: $gray-200 !default;
+$body-color: $gray-800 !default;
 
 // Fonts
 $font-size-base: 0.9375rem !default;
 $headings-font-weight:   300 !default;
-
-// Navbar
-$navbar-dark-hover-color:           rgba($white, 1) !default;
-$navbar-light-hover-color:          rgba($black, .9) !default;
 
 // Breadcrumbs
 $breadcrumb-padding-y:              .25rem !default;
@@ -79,10 +76,6 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-.navbar {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, .08);
-}
-
 // Variables defined by receptic theme.
 // Theme addons.
 $brand-banner-color: #f98012 !default;
@@ -96,17 +89,22 @@ $brand-banner-gradient: linear-gradient(
     lighten($brand-banner-color, 5%)
     95%
 );
-$drawer-position-top: $brand-banner-height + 50px;
-$drawer-right-width: 355px;
-
 $navbar-height: 50px !default;
+$drawer-position-top: $brand-banner-height + $navbar-height + 8px;
+$drawer-right-width: 355px;
 
 // Misc colors.
 $blocks-headings-color: inherit;
+$tooltip-bg: gray-700 !default;
 
 $footer-link-color: $white !default;
 $forsepia: $white;
 $sepiaratio: 0%;
+
+// Drawer
+$drawer-border-radius: 0 !default;
+$drawer-border-width: 1px;
+$drawer-border-color: $gray-200;
 
 // Import FontAwesome.
 @import "fontawesome";
@@ -129,11 +127,6 @@ body {
 .filemanager-container,
 .filepicker-filelist {
     @extend .border;
-}
-
-// Rounded user pictures
-.userpicture {
-    border-radius: 50%;
 }
 
 /**
@@ -179,16 +172,21 @@ body {
     }
 }
 
+// Rounded user pictures
+.userpicture {
+    border-radius: 50%;
+}
+
 /**
  * For background in content areas.
  */
-#page.container-fluid {
+/*#page.container-fluid {
     padding: 0 (2 * $spacer) 0 (1.5 * $spacer);
 }
 
 body.drawer-open-right #page.container-fluid {
     padding-right: (1.5 * $spacer);
-}
+}*/
 
 #block-region-side-pre {
     padding-left: 0;
@@ -237,4 +235,8 @@ input[type=submit] {
 .btn-outline-secondary {
     @include button-outline-variant($gray-600);
     border-color: $border-color;
+}
+
+#page-my-index {
+    background-color: $body-bg;
 }

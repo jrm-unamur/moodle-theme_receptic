@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Overridden core_renderer.
+ *
  * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Unversite de Namur
@@ -44,9 +46,24 @@ defined('MOODLE_INTERNAL') || die;
 
 require_once($CFG->dirroot . '/cohort/lib.php');
 
+/**
+ * Receptic theme core_renderer overrides.
+ *
+ * @package    theme_receptic
+ * @author     Jean-Roch Meurisse
+ * @copyright  2018 - Cellule TICE - Unversite de Namur
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class core_renderer extends \theme_boost\output\core_renderer {
 
     // Methods for editmode button in bar.
+    /**
+     * Method to add a permanent edit mode switch in navbar.
+     *
+     * @return bool|string
+     * @throws \coding_exception
+     * @throws \moodle_exception
+     */
     public function custom_menu_editing() {
         $html = '';
         if (!empty($this->page->theme->settings->editbutton)) {
@@ -239,7 +256,16 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return $skipped;
     }
 
-    // Override to place "add-a-block" button over button column.
+    /**
+     * Override to place "add-a-block" button over button column.
+     *
+     * @param string $region
+     * @param array $classes
+     * @param string $tag
+     * @return string
+     * @throws \coding_exception
+     * @throws \moodle_exception
+     */
     public function blocks($region, $classes = array(), $tag = 'aside') {
         $displayregion = $this->page->apply_theme_region_manipulations($region);
         $classes = (array)$classes;
@@ -377,10 +403,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     /**
-     * Return the banner left logo URL, if any.
+     * Returns the banner left logo URL, if any.
      *
-     * @param int $maxwidth The maximum width, or null when the maximum width does not matter.
-     * @param int $maxheight The maximum height, or null when the maximum height does not matter.
      * @return moodle_url|false
      */
     public function get_left_logo_url() {
@@ -389,10 +413,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     /**
-     * Return the banner left logo URL, if any.
+     * Returns the banner center logo URL, if any.
      *
-     * @param int $maxwidth The maximum width, or null when the maximum width does not matter.
-     * @param int $maxheight The maximum height, or null when the maximum height does not matter.
      * @return moodle_url|false
      */
     public function get_center_logo_url() {
@@ -401,10 +423,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     /**
-     * Return the site's compact logo URL, if any.
+     * Returns the banner right logo URL, if any.
      *
-     * @param int $maxwidth The maximum width, or null when the maximum width does not matter.
-     * @param int $maxheight The maximum height, or null when the maximum height does not matter.
      * @return moodle_url|false
      */
     public function get_right_logo_url() {
@@ -412,6 +432,12 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return $PAGE->theme->setting_file_url('logoright', 'logoright');
     }
 
+    /**
+     * Renderer method for flasboxes.
+     *
+     * @param string $flashbox the name of the flashbox to render
+     * @return bool|string
+     */
     public function flashbox($flashbox) {
         global $PAGE, $USER;
         if ($PAGE->pagetype !== 'my-index'
@@ -459,14 +485,29 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return parent::render_from_template('theme_receptic/flashbox', $data);
     }
 
+    /**
+     * Calls generic method flashbox to render flashbox1.
+     *
+     * @return bool|string
+     */
     public function flashbox1() {
         return $this->flashbox('flashbox1');
     }
 
+    /**
+     * Calls generic method flashbox to render flashbox2.
+     *
+     * @return bool|string
+     */
     public function flashbox2() {
         return $this->flashbox('flashbox2');
     }
 
+    /**
+     * Renders warnings in course header when course is hidden and when current user has switched to another role.
+     *
+     * @return bool|string
+     */
     public function coursewarnings() {
         global $PAGE, $COURSE, $USER;
         $hiddencoursewarning = get_config('theme_receptic', 'hiddencoursewarning');
@@ -499,6 +540,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return '';
     }
 
+    /**
+     * Renders contact information in footer.
+     *
+     * @return bool|string
+     */
     public function contact_info() {
         $contactemail = get_config('theme_receptic', 'contactemail');
         $contactphone = get_config('theme_receptic', 'contactphone');
@@ -515,6 +561,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return parent::render_from_template('theme_receptic/contact_info', $data);
     }
 
+    /**
+     * Renders moodle logo and "powered by statement" in footer.
+     *
+     * @return bool|string
+     */
     public function moodle_credits() {
         if (get_config('theme_receptic', 'moodlecredits')) {
             return parent::render_from_template('theme_receptic/moodle_credits', array());

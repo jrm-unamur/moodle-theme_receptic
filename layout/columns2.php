@@ -17,9 +17,10 @@
 /**
  * A two column layout for the boost theme.
  *
- * @package   theme_boost
- * @copyright 2016 Damyon Wiese
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    theme_receptic
+ * @author     Jean-Roch Meurisse
+ * @copyright  2016 - Cellule TICE - Unversite de Namur
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -86,9 +87,15 @@ if ($draweropenright && $hasblocks) {
     $extraclasses[] = 'drawer-open-right';
 }
 
-// ATTENTION essai.
-$extraclasses[] = 'settingsincourse';
-// End Attention.
+if (get_config('theme_receptic', 'settingsincoursepage') == 'yes') {
+    $extraclasses[] = 'settingsincourse';
+    $settingsincourse = true;
+}
+
+// ATTENTION test shrinkable drawer.
+if (get_config('theme_receptic', 'shrinkablenavdrawer')) {
+    $extraclasses[] = 'shrinkablenavdrawer';
+}
 
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 
@@ -125,11 +132,10 @@ $templatecontext = [
     'navbaritems' => true,
     'logininfo' => get_config('theme_receptic', 'logininfo'),
     'homelink' => get_config('theme_receptic', 'homelink'),
-    'activitynavigation' => get_config('theme_receptic', 'activitynavigation'),
-    'collapsibledrawer' => true
+    'activitynavigation' => get_config('theme_receptic', 'activitynavigation')
 ];
 
-if (get_config('theme_receptic', 'settingsincoursepage') == 'yes') {
+if (!empty($settingsincourse)) {
     // Context value for requiring incoursesettings.js.
     $templatecontext['settingsincourse'] = true;
     // Add the returned value from theme_boost_campus_get_incourse_settings to the template context.

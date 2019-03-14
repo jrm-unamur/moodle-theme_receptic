@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Overridden renderer for myoverview block
+ *
  * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Unversite de Namur
@@ -28,10 +30,11 @@ require_once($CFG->dirroot . '/course/classes/external/course_summary_exporter.p
 require_once($CFG->dirroot . '/theme/receptic/classes/external/course_summary_exporter.php');
 
 /**
- * myoverview block renderer
+ * myoverview block renderer class
  *
- * @package    block_myoverview
- * @copyright  2016 Ryan Wyllie <ryan@moodle.com>
+ * @package    theme_receptic
+ * @author     Jean-Roch Meurisse
+ * @copyright  2018 - Cellule TICE - Unversite de Namur
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\renderer {
@@ -39,7 +42,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
     /**
      * Return the main content for the block overview.
      *
-     * @param main $main The main renderable
+     * @param \block_myoverview\output\main $main The main renderable
      * @return string HTML string
      */
     public function render_main(\block_myoverview\output\main $main) {

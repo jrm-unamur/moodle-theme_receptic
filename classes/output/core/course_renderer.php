@@ -40,12 +40,11 @@ use html_writer;
 class course_renderer extends \theme_boost\output\core\course_renderer {
 
     /**
-     * Override to user overriding modchooser class (classes/ouptut/core/modchooser.php).
+     * Override to user theme modchooser class (classes/ouptut/core/modchooser.php).
      *
      * Build the HTML for the module chooser javascript popup
      *
-     * @param array $modules A set of modules as returned form @see
-     * get_module_metadata
+     * @param array $modules A set of modules as returned from get_module_metadata (course/lib.php)
      * @param object $course The course that will be displayed
      * @return string The composed HTML for the module
      */

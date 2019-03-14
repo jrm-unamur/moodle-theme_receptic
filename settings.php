@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Receptic theme settings file.
+ *
  * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Unversite de Namur
@@ -59,17 +61,6 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configstoredfile($name, $title, $description, 'preset', 0,
             array('maxfiles' => 20, 'accepted_types' => array('.scss')));
     $page->add($setting);
-
-    // Add background logo to login page.
-    $name = 'theme_receptic/loginbackgroundimage';
-    $title = get_string('loginbackgroundimage', 'theme_receptic');
-    $description = get_string('loginbackgroundimage_desc', 'theme_receptic');
-    $setting = new admin_setting_configstoredfile($name, $title, $description, 'loginbackgroundimage');
-    $setting->set_updatedcallback('theme_receptic_update_settings_images');
-    $page->add($setting);
-    $settings->add($page);
-
-    $page = new admin_settingpage('theme_receptic_colours', get_string('branding', 'theme_receptic'));
 
     // Scss variable to override $brand-primary.
     $name = 'theme_receptic/brandprimary';
@@ -447,6 +438,13 @@ if ($ADMIN->fulltree) {
 
     // Add miscellaneous settings.
     $page = new admin_settingpage('theme_receptic_misc', get_string('miscellaneous'));
+
+    $name = 'theme_receptic/shrinkablenavdrawer';
+    $title = get_string('shrinkablenavdrawer', 'theme_receptic', null, true);
+    $description = get_string('shrinkablenavdrawer_desc', 'theme_receptic', null, true);
+    $setting = new admin_setting_configcheckbox($name, $title, $description, false);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
 
     $name = 'theme_receptic/helptextinmodal';
     $title = get_string('helptextinmodal', 'theme_receptic', null, true);

@@ -50,92 +50,85 @@
 }}
 {{> theme_receptic/head }}
 
-<body {{{ bodyattributes }}}>
+    <body {{{ bodyattributes }}}>
 
-<div id="page-wrapper">
+        <div id="page-wrapper">
 
-    {{{ output.standard_top_of_body_html }}}
+        {{{ output.standard_top_of_body_html }}}
 
-    {{#displaybrandbanner}}
-        {{>theme_receptic/banner}}
-    {{/displaybrandbanner}}
+        {{#displaybrandbanner}}
+            {{>theme_receptic/banner}}
+        {{/displaybrandbanner}}
 
-    {{>theme_receptic/navbar}}
+        {{>theme_receptic/navbar}}
 
-    <div id="page" class="container-fluid">
-        {{{ output.full_header }}}
-        {{{ output.coursewarnings }}}
-        {{> theme_receptic/coursewarnings }}
-        <div id="page-content" class="row pb-1">
-            <div id="region-main-box" class="col-12">
-                {{#node}}
-                    {{> theme_receptic/settings_link_page }}
-                {{/node}}
-                {{#hasregionmainsettingsmenu}}
-                <div id="region-main-settings-menu" class="d-print-none {{#hasblocks}}has-blocks{{/hasblocks}}">
-                    <div> {{{ output.region_main_settings_menu }}} </div>
-                </div>
-                {{/hasregionmainsettingsmenu}}
-                {{#activitynode}}
-                    {{> theme_receptic/activity_settings_incourse }}
-                {{/activitynode}}
-                <section id="region-main" {{#hasblocks}}class="has-blocks mb-3"{{/hasblocks}}>
-                    {{{ output.flashbox1 }}}
-                    {{{ output.flashbox2 }}}
+        <div id="page" class="container-fluid">
+            {{{ output.full_header }}}
+            {{{ output.coursewarnings }}}
+            {{> theme_receptic/coursewarnings }}
+            <div id="page-content" class="row pb-1">
+                <div id="region-main-box" class="col-12">
+                    {{#node}}
+                        {{> theme_receptic/settings_link_page }}
+                    {{/node}}
+                    {{#hasregionmainsettingsmenu}}
+                    <div id="region-main-settings-menu" class="d-print-none {{#hasblocks}}has-blocks{{/hasblocks}}">
+                        <div> {{{ output.region_main_settings_menu }}} </div>
+                    </div>
+                    {{/hasregionmainsettingsmenu}}
+                    {{#activitynode}}
+                        {{> theme_receptic/activity_settings_incourse }}
+                    {{/activitynode}}
+                    <section id="region-main" {{#hasblocks}}class="has-blocks mb-3"{{/hasblocks}}>
+                        {{{ output.flashbox1 }}}
+                        {{{ output.flashbox2 }}}
 
-                    <!--<div class="card card-block">-->
-                    <!--<div class="card">
-                        <div class="card-body">-->
-                            {{#hasregionmainsettingsmenu}}
-                                <div class="region_main_settings_menu_proxy"></div>
-                            {{/hasregionmainsettingsmenu}}
-                            {{{ output.course_content_header }}}
+                        <!--<div class="card card-block">-->
+                        <!--<div class="card">
+                            <div class="card-body">-->
+                                {{#hasregionmainsettingsmenu}}
+                                    <div class="region_main_settings_menu_proxy"></div>
+                                {{/hasregionmainsettingsmenu}}
+                                {{{ output.course_content_header }}}
 
-                            {{{ output.main_content }}}
-                    {{#activitynavigation}}
-                        {{{ output.activity_navigation }}}
-                    {{/activitynavigation}}
+                                {{{ output.main_content }}}
+                        {{#activitynavigation}}
+                            {{{ output.activity_navigation }}}
+                        {{/activitynavigation}}
 
-                            {{{ output.course_content_footer }}}
-                        <!--</div>
-                    </div>-->
-                </section>
-                {{#hasblocks}}
-                    <section id="blocks-column" data-region="blocks-column" class="d-print-none">
-                       {{{ sidepreblocks }}}
+                                {{{ output.course_content_footer }}}
+                            <!--</div>
+                        </div>-->
                     </section>
-                {{/hasblocks}}
+                    {{#hasblocks}}
+                        <section id="blocks-column" data-region="blocks-column" class="d-print-none">
+                           {{{ sidepreblocks }}}
+                        </section>
+                    {{/hasblocks}}
+                </div>
             </div>
         </div>
-    </div>
-    {{#hasblocks}}
-        <i id="blocks-column-toggle"
-           role="button"
-           class="d-none d-xl-block"
-           aria-expanded="{{#draweropenright}}true{{/draweropenright}}{{^draweropenright}}false{{/draweropenright}}"
-           aria-controls="blocks-column"
-           data-action="toggle-drawer"
-           data-side="right"
-           data-preference="blocks-column-open"
-           title="{{#draweropenright}}{{#str}} hideblocks, theme_receptic {{/str}}{{/draweropenright}}{{^draweropenright}}{{#str}} showblocks, theme_receptic {{/str}}{{/draweropenright}}">
-        </i>
+        {{#hasblocks}}
+            <i id="blocks-column-toggle"
+               role="button"
+               class="d-none d-md-block"
+               aria-expanded="{{#draweropenright}}true{{/draweropenright}}{{^draweropenright}}false{{/draweropenright}}"
+               aria-controls="blocks-column"
+               data-action="toggle-drawer"
+               data-side="right"
+               data-preference="blocks-column-open"
+               title="{{#draweropenright}}{{#str}} hideblocks, theme_receptic {{/str}}{{/draweropenright}}{{^draweropenright}}{{#str}} showblocks, theme_receptic {{/str}}{{/draweropenright}}">
+            </i>
 
 
-    {{/hasblocks}}
-    {{{ output.standard_after_main_region_html }}}
-    {{#collapsibledrawer}}
-        {{> theme_receptic/nav-drawer-shrinked}}
-    {{/collapsibledrawer}}
-    {{^collapsibledrawer}}
+        {{/hasblocks}}
+        {{{ output.standard_after_main_region_html }}}
         {{> theme_receptic/nav-drawer }}
-    {{/collapsibledrawer}}
-    {{> theme_receptic/footer }}
+        {{> theme_receptic/footer }}
 
-</div>
+    </div>
 
-
-
-</body>
+    </body>
 </html>
 {{#js}}
 require(['theme_boost/loader']);
@@ -146,9 +139,6 @@ require(['theme_boost/drawer'], function(mod) {
     mod.init();
 });
 
-require(['theme_receptic/metismenu', 'jquery'], function(metisMenu, $) {
-$(".metismenu").metisMenu();
-});
 {{#settingsincourse}}
     require(['theme_receptic/incoursesettings'], function(mod) {
         mod.init();

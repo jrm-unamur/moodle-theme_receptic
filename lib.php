@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Receptic theme functions.
+ *
  * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Universite de Namur
@@ -23,7 +25,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-// Function that generates a chunk of SCSS to be prepended to the main scss file.
+/**
+ * Get SCSS to prepend.
+ *
+ * @param theme_config $theme The theme config object.
+ * @return array
+ */
 function theme_receptic_get_pre_scss($theme) {
     // 1. To define our own configurable scss variables use the code below and comment code under 2.
     global $DB;
@@ -63,12 +70,23 @@ function theme_receptic_get_pre_scss($theme) {
     return $scss;
 }
 
-// Function that generates a chunk of SCSS code to be added to the end of the main scss file.
+/**
+ * Inject additional SCSS.
+ *
+ * @param theme_config $theme The theme config object.
+ * @return string
+ */
 function theme_receptic_get_extra_scss($theme) {
     // 1. To define our own extra scss variable. To use it uncomment the code below and comment under 2.
     return !empty($theme->settings->scss) ? $theme->settings->scss : '';
 }
 
+/**
+ * Returns the main SCSS content.
+ *
+ * @param theme_config $theme The theme config object.
+ * @return string
+ */
 function theme_receptic_get_main_scss_content($theme) {
     global $CFG;
 
@@ -88,60 +106,6 @@ function theme_receptic_get_main_scss_content($theme) {
     $post = file_get_contents($CFG->dirroot . '/theme/receptic/scss/post.scss');
 
     return $pre . "\n" . $scss . "\n" . $post;
-}
-
-// Function to update an image loaded through the theme settings pages.
-function theme_receptic_update_settings_images($settingname) {
-
-    global $CFG;
-
-    // The setting name comes as a string like 's_theme_receptic_settingname'.
-    // Split it to get the actual setting name.
-    $parts = explode('_', $settingname);
-    $settingname = end($parts);
-
-    // Get context. Admin settings are stored in system context.
-    $syscontext = context_system::instance();
-    $component = 'theme_receptic';
-
-    // Filename of the uploaded file for the setting.
-    $filename = get_config($component, $settingname);
-
-    // Store file extension in a variable for further use.
-    $extension = substr($filename, strrpos($filename, '.') + 1);
-
-    // Path in the moodle file system.
-    $fullpath = "/{$syscontext->id}/{$component}/{$settingname}/0{$filename}";
-
-    $fs = get_file_storage();
-
-    // Best way to get a file if we know the exact path.
-    if ($file = $fs->get_file_by_hash(sha1($fullpath))) {
-
-        // The stored file has been found --> copy it to dataroot in a location
-        // matched by the search for location in theme_config::resolve_image_location.
-        $pathname = $CFG->dataroot . '/pix_plugins/theme/receptic/' . $settingname . '.' . $extension;
-
-        // Retrieve any previous files with maybe different path extensions.
-        $pathpattern = $CFG->dataroot . '/pix_plugins/theme/receptic/' . $settingname . '.*';
-
-        // Make sure directory exists.
-        @mkdir($CFG->dataroot . '/pix_plugins/theme/receptic/', $CFG->directorypermissions, true);
-
-        // Delete any existing files for this setting.
-        foreach (glob($pathpattern) as $filename) {
-            @unlink($filename);
-        }
-
-        // Copy the new file to the specified location ($pathname).
-        $file->copy_content_to($pathname);
-    }
-    theme_reset_all_caches();
-}
-
-function theme_receptic_get_fontawesome_icon_map() {
-    return [
-        ];
 }
 
 /**
@@ -171,14 +135,26 @@ function theme_receptic_pluginfile($course, $cm, $context, $filearea, $args, $fo
     }
 }
 
+/**
+ * Reset flashbox1 status for all users.
+ *
+ */
 function theme_receptic_reset_flashbox1() {
     theme_receptic_resetflashbox('flashbox1');
 }
 
+/**
+ * Reset flashbox2 status for all users.
+ *
+ */
 function theme_receptic_reset_flashbox2() {
     theme_receptic_resetflashbox('flashbox2');
 }
 
+/**
+ * Reset a flashbox status for all users.
+ * @param string $flashbox The flashbox to reset status for
+ */
 function theme_receptic_resetflashbox($flashbox) {
     global $DB;
     $DB->execute("UPDATE {user_preferences}
@@ -186,14 +162,11 @@ function theme_receptic_resetflashbox($flashbox) {
                    WHERE name = :name", array('value' => 'false', 'name' => $flashbox . '-hidden'));
 }
 
-function theme_receptic_set_brandbanner_height() {
-    if (get_config('theme_receptic', 'brandbanner')) {
-        set_config('brandbannerheight', '80px', 'theme_receptic');
-    } else {
-        set_config('brandbannerheight', '0px', 'theme_receptic');
-    }
-}
-
+/**
+ * Init balls arrays from user preferences and timestamp to compute new balls.
+ *
+ * @return array
+ */
 function theme_receptic_init_vars_for_hot_items_computing() {
     global $DB, $USER;
     $redballs = get_user_preferences('user_redballs');
@@ -215,6 +188,14 @@ function theme_receptic_init_vars_for_hot_items_computing() {
     return array($newitems, $updateditems, $starttime);
 }
 
+/**
+ * Compute redballs for current user
+ *
+ * @param stdClass $course The current course
+ * @param int $starttime Timestamp to compute red balls from
+ * @param array $newitemsforuser Red balls already recorded in user preferences
+ * @return array
+ */
 function theme_receptic_compute_redballs($course, $starttime, $newitemsforuser = array()) {
     global $DB, $USER;
 
@@ -250,6 +231,14 @@ function theme_receptic_compute_redballs($course, $starttime, $newitemsforuser =
     return $newitemsforuser;
 }
 
+/**
+ * Compute orangeballs for current user
+ *
+ * @param stdClass $course The current course
+ * @param int $starttime Timestamp to compute orange balls from
+ * @param array $updateditemsforuser Orange balls already recorded in user preferences
+ * @return array
+ */
 function theme_receptic_compute_orangeballs($course, $starttime, $updateditemsforuser = array()) {
     global $DB, $USER;
 
@@ -304,6 +293,12 @@ function theme_receptic_compute_orangeballs($course, $starttime, $updateditemsfo
     return $updateditemsforuser;
 }
 
+/**
+ * Compute red or orange balls from a list of event records.
+ *
+ * @param array $candidates Events to be filtered to compute balls
+ * @return array
+ */
 function theme_receptic_compute_balls($candidates) {
     global $DB, $USER;
 
@@ -370,6 +365,14 @@ function theme_receptic_compute_balls($candidates) {
 
 }
 
+/**
+ * Filter red and orange balls to consider only visible activities/resources for the current user.
+ *
+ * @param stdClass $course The current course object
+ * @param array $redballs The list of candidate red balls
+ * @param array $orangeballs The list of candidate orange balls
+ * @return array
+ */
 function theme_receptic_get_visible_balls_count($course, $redballs, $orangeballs) {
     global $DB;
     $visiblereditems = array();

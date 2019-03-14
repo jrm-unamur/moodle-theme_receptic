@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Event observers used in Receptic theme.
+ *
  * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Unversite de Namur
@@ -23,9 +25,17 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+/**
+ * Event observer for theme_receptic.
+ */
 class theme_receptic_observer {
 
-    public static function course_module_viewed(core\event\base $event) {
+    /**
+     * Triggered via course_module_viewed events.
+     *
+     * @param \core\event\course_module_viewed $event
+     */
+    public static function course_module_viewed(core\event\course_module_viewed $event) {
         $eventdata = $event->get_data();
 
         $hotusermodules = explode(',', get_user_preferences('user_redballs'));
@@ -39,7 +49,12 @@ class theme_receptic_observer {
         }
     }
 
-    public static function course_viewed(core\event\base $event) {
+    /**
+     * Triggered via course_viewed event.
+     *
+     * @param \core\event\course_viewed $event
+     */
+    public static function course_viewed(core\event\course_viewed $event) {
         global $DB;
         $eventdata = $event->get_data();
         $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
