@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Overridden topics format renderer class.
+ *
  * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Unversite de Namur
@@ -31,31 +33,44 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . "/course/format/topics/renderer.php");
 
+/**
+ * Overridden topics format renderer class definition.
+ *
+ * @package    theme_receptic
+ * @author     Jean-Roch Meurisse
+ * @copyright  2016 - Cellule TICE - Unversite de Namur
+ */
 class format_topics_renderer extends \format_topics_renderer {
 
-    use \theme_receptic\output\format_commons;
+    use format_commons;
 
-
+    /**
+     * Constructor method, calls the parent constructor
+     *
+     * @param \moodle_page $page
+     * @param string $target one of rendering target constants
+     */
     public function __construct(\moodle_page $page, $target) {
         parent::__construct($page, $target);
 
         $this->init();
     }
 
-    /* Output the html for a multiple section page
-    *
-    * @param stdClass $course The course entry from DB
-    * @param array $sections (argument not used)
-    * @param array $mods (argument not used)
-    * @param array $modnames (argument not used)
-    * @param array $modnamesused (argument not used)
-    */
+    /**
+     * Outputs the html for a multiple section page
+     *
+     * @param stdClass $course The course entry from DB
+     * @param array $sections (argument not used)
+     * @param array $mods (argument not used)
+     * @param array $modnames (argument not used)
+     * @param array $modnamesused (argument not used)
+     */
     public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
         $this->print_multiple_sections($course, $sections, $mods, $modnames, $modnamesused);
     }
 
     /**
-     * Output the html for a single section page .
+     * Outputs the html for a single section page .
      *
      * @param stdClass $course The course entry from DB
      * @param array $sections (argument not used)

@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Class for exporting a course summary from an stdClass. Developed to add functionality to myoverview.
+ *
  * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Unversite de Namur
@@ -27,7 +29,6 @@ use core_course\external\course_summary_exporter;
 
 /**
  * Class replacing core course_summary_exporter for exporting a course summary from an stdClass.
- * Developped to add functionality to myoverview.
  *
  * @author     Jean-Roch Meurisse
  * @copyright  2018 - Cellule TICE - Unversite de Namur
@@ -49,6 +50,17 @@ class theme_receptic_course_summary_exporter extends exporter {
         parent::__construct($data, $related);
     }
 
+    /**
+     * Returns a list of objects that are related to this persistent.
+     *
+     * Only objects listed here can be cached in this object.
+     *
+     * The class name can be suffixed:
+     * - with [] to indicate an array of values.
+     * - with ? to indicate that 'null' is allowed.
+     *
+     * @return array of 'propertyname' => array('type' => classname, 'required' => true)
+     */
     protected static function define_related() {
         // We cache the context so it does not need to be retrieved from the course.
         return array(
@@ -60,6 +72,23 @@ class theme_receptic_course_summary_exporter extends exporter {
             'orangeballscountclass' => 'string?');
     }
 
+    /**
+     * Get the additional values to inject while exporting.
+     *
+     * These are additional generated values that are not passed in through $data
+     * to the exporter. For a persistent exporter - these are generated values that
+     * do not exist in the persistent class. For your convenience the format_text or
+     * format_string functions do not need to be applied to PARAM_TEXT fields,
+     * it will be done automatically during export.
+     *
+     * These values are only used when returning data via {@link self::export()},
+     * they are not used when generating any of the different external structures.
+     *
+     * Note: These must be defined in {@link self::define_other_properties()}.
+     *
+     * @param renderer_base $output The renderer.
+     * @return array Keys are the property names, values are their values.
+     */
     protected function get_other_values(renderer_base $output) {
         global $CFG;
         $courseimage = course_summary_exporter::get_course_image($this->data);
@@ -93,6 +122,14 @@ class theme_receptic_course_summary_exporter extends exporter {
         );
     }
 
+
+    /**
+     * Gets the enrolment id of the current user for the current course to display an unerol link on the dashboard.
+     *
+     * @param stdClass $course The current course
+     * @return int The enrolment id of the current user for the current course
+     * @throws dml_exception
+     */
     protected static function get_enrolid($course) {
         if (get_config('theme_receptic', 'unenrolme')) {
             $plugins = enrol_get_plugins(true);
@@ -111,11 +148,23 @@ class theme_receptic_course_summary_exporter extends exporter {
         return 0;
     }
 
+    /**
+     * Return the list of properties.
+     *
+     * The format of the array returned by this method has to match the structure
+     * defined in {@link \core\persistent::define_properties()}. Howewer you can
+     * add a new attribute "description" to describe the parameter for documenting the API.
+     *
+     * Note that the type PARAM_TEXT should ONLY be used for strings which need to
+     * go through filters (multilang, etc...) and do not have a FORMAT_* associated
+     * to them. Typically strings passed through to format_string().
+     *
+     * Other filtered strings which use a FORMAT_* constant (hear used with format_text)
+     * must be defined as PARAM_RAW.
+     *
+     * @return array
+     */
     public static function define_properties() {
-        global $DB;
-        $tmp = new stdClass();
-        $tmp->trace = implode(', ', array_keys(course_summary_exporter::define_properties()));
-        $DB->insert_record('webcampus_trace', $tmp);
         return array_merge(course_summary_exporter::define_properties(), [
             'visible' => array(
                 'type' => PARAM_BOOL
@@ -123,6 +172,45 @@ class theme_receptic_course_summary_exporter extends exporter {
         ]);
     }
 
+    /**
+     * Return the list of additional properties used only for display.
+     *
+     * Additional properties are only ever used for the read structure, and during
+     * export of the persistent data.
+     *
+     * The format of the array returned by this method has to match the structure
+     * defined in {@link \core\persistent::define_properties()}. The display properties
+     * can however do some more fancy things. They can define 'multiple' => true to wrap
+     * values in an external_multiple_structure automatically - or they can define the
+     * type as a nested array of more properties in order to generate a nested
+     * external_single_structure.
+     *
+     * You can specify an array of values by including a 'multiple' => true array value. This
+     * will result in a nested external_multiple_structure.
+     * E.g.
+     *
+     *       'arrayofbools' => array(
+     *           'type' => PARAM_BOOL,
+     *           'multiple' => true
+     *       ),
+     *
+     * You can return a nested array in the type field, which will result in a nested external_single_structure.
+     * E.g.
+     *      'competency' => array(
+     *          'type' => competency_exporter::read_properties_definition()
+     *       ),
+     *
+     * Other properties can be specifically marked as optional, in which case they do not need
+     * to be included in the export in {@link self::get_other_values()}. This is useful when exporting
+     * a substructure which cannot be set as null due to webservices protocol constraints.
+     * E.g.
+     *      'competency' => array(
+     *          'type' => competency_exporter::read_properties_definition(),
+     *          'optional' => true
+     *       ),
+     *
+     * @return array
+     */
     public static function define_other_properties() {
 
         return array_merge(course_summary_exporter::define_other_properties(), [

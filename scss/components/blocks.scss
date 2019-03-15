@@ -258,7 +258,7 @@ $blocks-column-width: 350px !default;
     background-color: $primary;
     position: fixed;
     right: -15px;
-    top: $drawer-position-top +20px;
+    top: $drawer-position-top;
     color: #fff;
     width: 40px;
     height: 40px;
@@ -285,7 +285,7 @@ $blocks-column-width: 350px !default;
 }
 
 body.editing #blocks-column-toggle {
-    top: $drawer-position-top +63px;
+    top: $drawer-position-top +43px;
 }
 
 body.editing.empty-region-side-pre.drawer-open-right #blocks-column-toggle {
@@ -293,27 +293,33 @@ body.editing.empty-region-side-pre.drawer-open-right #blocks-column-toggle {
 }
 
 [data-region="blocks-column"] {
-    width: 350px;
+    width: 100%;
+    position: static;
+    height: auto;
+    overflow: hidden;
+    padding: 0;
+    @include media-breakpoint-up(md) {
+        width: 350px;
 
-    position: fixed;
-    top: $drawer-position-top;
-    right: -350px;
-    height: calc(100% - #{$drawer-position-top});
-    overflow-y: scroll;
-    z-index: 999;
-    padding-right: 2rem;
-    padding-top: 20px;
+        position: fixed;
+        top: $drawer-position-top;
+        right: -350px;
+        height: calc(100% - #{$drawer-position-top});
+        overflow-y: scroll;
+        z-index: 999;
+        padding-right: .5rem;
 
-    &.blocksbelow {
-        position: relative;
-        width: 100%;
-        top: 0;
-        right: 0;
-        padding: 0;
+        &.blocksbelow {
+            position: relative;
+            width: 100%;
+            top: 0;
+            right: 0;
+            padding: 0;
+        }
     }
 }
 
-[data-region="blocks-column"] {
+/*[data-region="blocks-column"] {
     @include media-breakpoint-down(lg) {
         width: 100%;
         position: static;
@@ -322,13 +328,13 @@ body.editing.empty-region-side-pre.drawer-open-right #blocks-column-toggle {
         padding: 0;
 
     }
-}
+}*/
 
-#blocks-column-toggle {
+/*#blocks-column-toggle {
     @include media-breakpoint-down(lg) {
         display: none;
     }
-}
+}*/
 
 body.drawer-open-right {
     #blocks-column-toggle {

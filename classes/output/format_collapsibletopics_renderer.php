@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Overridden collapsibletopics format renderer class
+ *
  * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Unversite de Namur
@@ -32,10 +34,24 @@ if (file_exists("$CFG->dirroot/course/format/collapsibletopics/renderer.php")) {
 
     require_once($CFG->dirroot . '/course/format/collapsibletopics/renderer.php');
 
+    /**
+     * Overridden collapsibletopics format renderer class definition
+     *
+     * @package    theme_receptic
+     * @author     Jean-Roch Meurisse
+     * @copyright  2016 - Cellule TICE - Unversite de Namur
+     * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+     */
     class format_collapsibletopics_renderer extends \format_collapsibletopics_renderer {
         // Overrides format_section_renderer_base.
-        use \theme_receptic\output\format_commons;
+        use format_commons;
 
+        /**
+         * Constructor method, calls the parent constructor
+         *
+         * @param \moodle_page $page
+         * @param string $target one of rendering target constants
+         */
         public function __construct(\moodle_page $page, $target) {
             parent::__construct($page, $target);
 
@@ -43,8 +59,16 @@ if (file_exists("$CFG->dirroot/course/format/collapsibletopics/renderer.php")) {
             $this->iscollapsible = true;
         }
 
+        /** Outputs the html for a multiple section page
+         *
+         * @param stdClass $course The course entry from DB
+         * @param array $sections (argument not used)
+         * @param array $mods (argument not used)
+         * @param array $modnames (argument not used)
+         * @param array $modnamesused (argument not used)
+         */
         public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused) {
-            $this->print_multiple_sections($course, true);
+            $this->print_multiple_sections($course);
         }
     }
 }

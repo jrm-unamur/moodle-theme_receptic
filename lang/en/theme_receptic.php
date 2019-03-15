@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * .
+ *
  * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Unversite de Namur
@@ -164,3 +166,8 @@ $string['showhiddencoursewarning_desc'] = 'If set a warning will be displayed in
 $string['showswitchrolewarning'] = 'Switch role information in warning box';
 $string['showswitchrolewarning_desc'] = 'If set the information to which role a user has switched is being displayed in a warning box rather than in the user menu (like in theme Boost). A link to switch back will be proposed.';
 $string['switchedroleto'] = 'You are viewing this course currently with the role:';
+$string['shrinkablenavdrawer'] = 'Shrinkable navigation drawer';
+$string['shrinkablenavdrawer_desc'] = 'Replace default nav drawer behaviour (hide/show) with a shrinked version (display only first level icons) when drawer is "closed"';
+$string['privacy:metadata:preference:blockscolumnopen'] = 'The user\'s preference for hiding or showing the blocks column.';
+$string['privacy:blockscolumnopentrue'] = 'The current preference for the blocks column is closed.';
+$string['privacy:blockscolumnopenfalse'] = 'The current preference for the blocks column is open.';

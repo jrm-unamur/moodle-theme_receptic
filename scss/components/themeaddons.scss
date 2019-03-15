@@ -79,6 +79,7 @@ body {
 .navbar-receptic {
     top: $brand-banner-height;
     background-image: linear-gradient(to bottom, $gray-700 0%, $gray-800 100%);
+    padding-left: .125rem;
 
     .container {
         padding-left: 0;
@@ -126,6 +127,9 @@ body {
             &:hover,
             &:focus {
                 opacity: .5;
+            }
+            .icon {
+                width: .75rem;
             }
         }
     }
@@ -178,7 +182,7 @@ body {
     }
 }
 
-@media only screen  and (min-width: 768px) {
+/*@media only screen  and (min-width: 768px) {
     .navbar-nav .nav-link.addon {
         padding-top: .6rem;
     }
@@ -200,32 +204,47 @@ body {
     .navbar-receptic {
         top: 0;
     }
-}
+}*/
 
 /**
- * Position banners, page and drawer according to screen size (brand banner for large displays).
+ * Position banners, nav-links, page and drawer according to screen size (brand banner for large displays).
  */
-@media (min-width: 768px) {
+
+.navbar-nav .nav-link.addon {
+    padding-top: .6rem;
+}
+
+.navbar-receptic {
+    top: 0;
+}
+
+@include media-breakpoint-up(md) {
+    .navbar-receptic {
+        top: $brand-banner-height;
+    }
+    .navbar-nav .nav-link.editswitch {
+        padding-top: .525rem;
+    }
+}
+
+@include media-breakpoint-up(md) {
     .pos-f-t-lower {
         top: $brand-banner-height;
     }
-}
-
-@media (min-width: 768px) {
     #page {
-        margin-top: $brand-banner-height + 45px;
+        margin-top: $drawer-position-top - 25px;
     }
+    body.path-my {
+        #page {
+            margin-top: $drawer-position-top;
+        }
+    }
+
     body.path-login #page {
         margin-top: $brand-banner-height + 35px;
     }
 }
 
-@media (min-width: 768px) {
-    [data-region="drawer"] {
-        top: $drawer-position-top;
-        height: calc(100% - #{$drawer-position-top});
-    }
-}
 
 // Back to top button.
 #back-to-top {
