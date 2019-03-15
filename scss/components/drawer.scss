@@ -93,12 +93,17 @@ body {
             &.drawer-open-left {
                 margin-left: $drawer-left-width;
             }
-
+            footer {
+                margin-left: .5rem;
+            }
         }
     }
     &.drawer-open-left {
         @include media-breakpoint-up(md) {
             margin-left: $drawer-left-width;
+            footer {
+                margin-left: 0;
+            }
         }
     }
     &.drawer-open-right {
