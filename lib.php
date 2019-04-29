@@ -101,11 +101,10 @@ function theme_receptic_get_main_scss_content($theme) {
     } else if ($filename && ($presetfile = $fs->get_file($context->id, 'theme_receptic', 'preset', 0, '/', $filename))) {
         $scss .= $presetfile->get_content();
     }
-    // Add 2 scss file to the beginning and end of main.
-    $pre = file_get_contents($CFG->dirroot . '/theme/receptic/scss/pre.scss');
+    // Add 1 scss file to the end of main (mainly for quick test and fix purposes.
     $post = file_get_contents($CFG->dirroot . '/theme/receptic/scss/post.scss');
 
-    return $pre . "\n" . $scss . "\n" . $post;
+    return $scss . "\n" . $post;
 }
 
 /**
@@ -489,4 +488,39 @@ function theme_receptic_get_incourse_activity_settings() {
         }
     }
     return $node;
+}
+
+/**
+ * Checks if config allows current user to upload their profile picture.
+ *
+ * @return navigation_node.
+ */
+function theme_receptic_user_can_upload_profile_picture() {
+    global $USER;
+    // Restriction is disabled.
+    if (empty(get_config('theme_receptic', 'disableavatarupload'))) {
+        return true;
+    // Restriction is enabled for all users.
+    } else if (empty(get_config('theme_receptic', 'disableavataruploademailpattern'))) {
+        return false;
+    // Restriction is enablef for users with an email address matching a defined pattern.
+    } else {
+        // Make a new array on delimiter "new line".
+        $patterns = explode("\n", get_config('theme_receptic', 'disableavataruploademailpattern'));
+        // Check for each pattern.
+        foreach ($patterns as $pattern) {
+
+            // Trim setting lines.
+            $pattern = trim($pattern);
+            // Skip empty lines.
+            if (strlen($pattern) == 0) {
+                continue;
+            }
+            if (substr_count($USER->email, $pattern)) {
+                return false;
+            }
+        }
+    }
+
+    return true;
 }

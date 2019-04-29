@@ -52,6 +52,12 @@ if (!get_config('theme_receptic', 'allowdisplaymode')) {
     $jsargs->displaymode = 'list';
 }
 
+if ($this->page->pagetype == 'user-edit' && theme_receptic_user_can_upload_profile_picture() === false) {
+    $jsargs->pictureuploaddeactivated = true;
+    $jsargs->haspicture = !empty($USER->picture);
+    $this->page->requires->strings_for_js(array('nopictureupload'), 'theme_receptic');
+}
+
 $this->page->requires->js_call_amd('theme_receptic/ux', 'init', array(json_encode($jsargs)));
 
 $iscontextcourse = $context->contextlevel == CONTEXT_COURSE || $context->contextlevel == CONTEXT_MODULE;

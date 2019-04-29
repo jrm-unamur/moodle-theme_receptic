@@ -136,6 +136,22 @@ define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'core/templates'
                 });
 
                 $('#chooserform #item_lesson').parent().parent().remove();
+
+                if (params.pictureuploaddeactivated) {
+                    var edituserpicturefieldset = $('#page-user-edit #id_moodle_picture');
+                    if (edituserpicturefieldset) {
+                        var message = M.util.get_string('nopictureupload', 'theme_receptic');
+                        var afterelement = $('#fitem_id_currentpicture').parent();
+                        $('<div class="alert alert-warning">' +
+                            '<i class="fa fa-exclamation-circle fa-3x fa-pull-left mr-3"></i>' +
+                            message +
+                            '</div>').insertBefore(afterelement);
+                        $('#fitem_id_imagefile').remove();
+                        if (!params.haspicture) {
+                            $('#fitem_id_imagealt').remove();
+                        }
+                    }
+                }
             });
         }
     };

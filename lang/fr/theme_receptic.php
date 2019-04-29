@@ -167,3 +167,11 @@ $string['showswitchrolewarning_desc'] = 'Ce parmètre permet d\'afficher l\'info
 $string['switchedroleto'] = 'Vous consultez actuellement ce cours avec la vue ';
 $string['shrinkablenavdrawer'] = 'Tiroir de navigation réduit';
 $string['shrinkablenavdrawer_desc'] = 'Remplacer le comportement par défaut du tiroir de navigation (afficher/masquer) par une version réduite (icônes du premier niveau seulement) en mode "masqué"';
+$string['privacy:metadata:preference:blockscolumnopen'] = 'La préférence utilisateur relative à l\'affichage/masquage de la colonne des blocs.';
+$string['privacy:blockscolumnopentrue'] = 'La préférence actuelle est "masqué".';
+$string['privacy:blockscolumnopenfalse'] = 'La préférence actuelle est "affiché".';
+$string['nopictureupload'] = 'Pour ajouter ou modifier une photo, merci de passer par <a href="http://www.unamur.be/apps-photo" target="_blank">l\'application institutionnelle </a >. Votre photo sera ainsi disponible tant sur WebCampus que dans votre dossier administratif';
+$string['disableavatarupload'] = 'Bloquer le téléversement des photos de profil';
+$string['disableavatarupload_desc'] = 'Activez ce paramètre pour interdire le téléversement des photos de profil par les utilisateurs. Cela peut être utile si vous désirez récupérer les photos depuis un système externe';
+$string['disableavataruploademailpattern'] = 'Modèle de courriel pour la restriction';
+$string['disableavataruploademailpattern_desc'] = 'Si le paramètre précédent est activé, utilisez ce champ pour limiter la restriction à un ou plusieurs modèles d\'adresses email. Tour les utilisateurs dont l\'adresse de courriel correspond ne pourront plus téléverser de photo de profil.';
