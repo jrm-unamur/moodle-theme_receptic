@@ -104,3 +104,28 @@ body.editing.path-grade-report-grader [data-region="blocks-column"],
 body.editing.path-grade-report-grader #blocks-column-toggle {
     display: none !important; /* stylelint-disable-line declaration-no-important */
 }
+
+body.ltibridge {
+    header {
+        display: none !important;
+    }
+    #page-wrapper > nav {
+        display: none;
+    }
+    margin: 0 !important;
+    #page.container-fluid {
+        margin-top: 0;
+        padding: 0;
+    }
+    #region-main {
+        padding-bottom: 0;
+        margin-bottom: 0 !important;
+    }
+    #nav-drawer,
+    &.shrinkablenavdrawer #nav-drawer.closed {
+        display:none;
+    }
+    footer {
+        display: none;
+    }
+}
