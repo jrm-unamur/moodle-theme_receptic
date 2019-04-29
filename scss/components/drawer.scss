@@ -25,7 +25,7 @@ $drawer-left-width: 250px;
 
             text-decoration: none;
             width: 100%;
-            display: inherit;
+            /*display: inherit;*/
             .icon {
                 margin-left: .125rem;
             }
@@ -83,6 +83,7 @@ body {
                             }
                         }
                         &[data-key="mycourses"],
+                        &[data-key="localboostnavigationcoursesections"],
                         &[data-type="20"],
                         &[data-type="30"] {
                             display: none;
@@ -111,5 +112,49 @@ body {
         @include media-breakpoint-up(md) {
             margin-right: $drawer-right-width;
         }
+    }
+}
+
+/* Override some boost_navigation styling */
+/* Show the icon for the mycourses node ... */
+.list-group-item[data-key="mycourses"] .icon {
+    display: inline-block;
+    padding-top: .125rem;
+}
+/* ... and restore the indent of the mycourses child nodes. */
+.list-group-item[data-parent-key="mycourses"] > div {
+    margin-left: 1rem !important;
+}
+
+/* Add icon for sections node */
+.list-group-item[data-key="localboostnavigationcoursesections"] {
+    .icon.fa-fw {
+        display: inline-block;
+        &:before {
+            content: "\f0ca";
+        }
+    }
+    ~ a[data-type="30"] > div {
+        margin-left: 1rem !important;
+    }
+}
+
+/* ... and remove the indent to the collapsed custom child nodes. Unfortunately, this has to be done for each custom node block
+   individually because the child node does not know (with a CSS-selectable attribute) if its parent node is collapsed or node. */
+.jsenabled .list-group-item[data-key^="localboostnavigationcustomcourseusers"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustomcourseusers"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustomcourseusers"] > div,
+.jsenabled .list-group-item[data-key^="localboostnavigationcustomcourseadmins"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustomcourseadmins"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustomcourseadmins"] > div,
+.jsenabled .list-group-item[data-key^="localboostnavigationcustomrootusers"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustomrootusers"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustomrootusers"] > div,
+.jsenabled .list-group-item[data-key^="localboostnavigationcustomcrootadmins"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustomrootadmins"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustomrooradmins"] > div,
+.jsenabled .list-group-item[data-key^="localboostnavigationcustombottomusers"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustombottomusers"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustombottomusers"] > div,
+.jsenabled .list-group-item[data-key^="localboostnavigationcustombottomadmins"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustombottomadmins"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustombottomadmins"] > div {
+    margin-left: 1rem !important;
+}
+
+.list-group-item {
+    &[data-key^="localboostnavigationcustombottom"] {
+        margin-top: .5rem;
+    }
+    &[data-key^="localboostnavigationcustombottom"] ~ [data-key^="localboostnavigationcustombottom"] {
+        margin-top: 0;
     }
 }
