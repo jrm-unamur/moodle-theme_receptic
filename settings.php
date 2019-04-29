@@ -438,6 +438,20 @@ if ($ADMIN->fulltree) {
 
     // Add miscellaneous settings.
     $page = new admin_settingpage('theme_receptic_misc', get_string('miscellaneous'));
+    
+    // Add setting to prevent users from uploading profile picture.
+    $name = 'theme_receptic/disableavatarupload';
+    $title = get_string('disableavatarupload', 'theme_receptic');
+    $description = get_string('disableavatarupload_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, false);
+    $page->add($setting);
+
+    // Add textarea to insert email patters of users for which profile picture upload must be deactivated.
+    $name = 'theme_receptic/disableavataruploademailpattern';
+    $title = get_string('disableavataruploademailpattern', 'theme_receptic');
+    $description = get_string('disableavataruploademailpattern_desc', 'theme_receptic');
+    $setting = new admin_setting_configtextarea($name, $title, $description, '', PARAM_RAW);
+    $page->add($setting);
 
     $name = 'theme_receptic/shrinkablenavdrawer';
     $title = get_string('shrinkablenavdrawer', 'theme_receptic', null, true);

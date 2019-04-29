@@ -35,7 +35,7 @@ class theme_receptic_observer {
      *
      * @param \core\event\course_module_viewed $event
      */
-    public static function course_module_viewed(core\event\course_module_viewed $event) {
+    public static function course_module_viewed(core\event\base $event) {
         $eventdata = $event->get_data();
 
         $hotusermodules = explode(',', get_user_preferences('user_redballs'));

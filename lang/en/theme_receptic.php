@@ -171,3 +171,8 @@ $string['shrinkablenavdrawer_desc'] = 'Replace default nav drawer behaviour (hid
 $string['privacy:metadata:preference:blockscolumnopen'] = 'The user\'s preference for hiding or showing the blocks column.';
 $string['privacy:blockscolumnopentrue'] = 'The current preference for the blocks column is closed.';
 $string['privacy:blockscolumnopenfalse'] = 'The current preference for the blocks column is open.';
+$string['nopictureupload'] = 'To upload a profile picture, use <a href="http://www.unamur.be/apps-photo" target="_blank">the official picture uploader </a >. Your picture will then be available in WebCampus as well as in your personal administrative file';
+$string['disableavatarupload'] = 'Disable avatar upload';
+$string['disableavatarupload_desc'] = 'Activiate this setting to prevent users from uploading a profile picture or avatar. It can be helpful if your want to collect users\' pictures form an external system.';
+$string['disableavataruploademailpattern'] = 'Email patterns for this restriction';
+$string['disableavataruploademailpattern_desc'] = 'If "disableavatarupload" is set, use this field to limit the restriction to some email address patterns. Add one email pattern per line. All matching users won\'t be able to upload their profile picture. ';
