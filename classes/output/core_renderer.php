@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Overridden core_renderer.
+ *
  * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Unversite de Namur
@@ -38,12 +40,30 @@ use navigation_node;
 use pix_icon;
 use core_plugin_manager;
 use moodle_page;
+use help_icon;
 
 defined('MOODLE_INTERNAL') || die;
 
+require_once($CFG->dirroot . '/cohort/lib.php');
+
+/**
+ * Receptic theme core_renderer overrides.
+ *
+ * @package    theme_receptic
+ * @author     Jean-Roch Meurisse
+ * @copyright  2018 - Cellule TICE - Unversite de Namur
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class core_renderer extends \theme_boost\output\core_renderer {
 
     // Methods for editmode button in bar.
+    /**
+     * Method to add a permanent edit mode switch in navbar.
+     *
+     * @return bool|string
+     * @throws \coding_exception
+     * @throws \moodle_exception
+     */
     public function custom_menu_editing() {
         $html = '';
         if (!empty($this->page->theme->settings->editbutton)) {
@@ -80,7 +100,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                             }
                             $buttontoadd = true;
                             break;
-                        case 'calendar-view':  // Slightly faulty as even the navigation link goes back to the frontpage.  TODO: MDL.
+                        case 'calendar-view':// Slightly faulty as even the navigation link goes back to the frontpage.  TODO: MDL.
                             $url = new moodle_url('/course/view.php');
                             $url->param('id', 1);
                             if ($this->page->user_is_editing()) {
@@ -131,7 +151,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
                         case 'user-profile':
                             // TODO: Not sure how to get 'id' param and if it is really needed.
                             $url = $this->page->url;
-                            // Umm! Both /user/profile.php and /user/profilesys.php have the same page type but different parameters!
+                            // Umm! Both /user/profile.php and /user/profilesys.php
+                            // have the same page type but different parameters!
                             if ($this->page->user_is_editing()) {
                                 $url->param('adminedit', 0);
                                 $url->param('edit', 0);
@@ -235,7 +256,16 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return $skipped;
     }
 
-    // Override to place "add-a-block" button over button column.
+    /**
+     * Override to place "add-a-block" button over button column.
+     *
+     * @param string $region
+     * @param array $classes
+     * @param string $tag
+     * @return string
+     * @throws \coding_exception
+     * @throws \moodle_exception
+     */
     public function blocks($region, $classes = array(), $tag = 'aside') {
         $displayregion = $this->page->apply_theme_region_manipulations($region);
         $classes = (array)$classes;
@@ -373,10 +403,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     /**
-     * Return the banner left logo URL, if any.
+     * Returns the banner left logo URL, if any.
      *
-     * @param int $maxwidth The maximum width, or null when the maximum width does not matter.
-     * @param int $maxheight The maximum height, or null when the maximum height does not matter.
      * @return moodle_url|false
      */
     public function get_left_logo_url() {
@@ -385,10 +413,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     /**
-     * Return the banner left logo URL, if any.
+     * Returns the banner center logo URL, if any.
      *
-     * @param int $maxwidth The maximum width, or null when the maximum width does not matter.
-     * @param int $maxheight The maximum height, or null when the maximum height does not matter.
      * @return moodle_url|false
      */
     public function get_center_logo_url() {
@@ -397,10 +423,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     /**
-     * Return the site's compact logo URL, if any.
+     * Returns the banner right logo URL, if any.
      *
-     * @param int $maxwidth The maximum width, or null when the maximum width does not matter.
-     * @param int $maxheight The maximum height, or null when the maximum height does not matter.
      * @return moodle_url|false
      */
     public function get_right_logo_url() {
@@ -408,12 +432,39 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return $PAGE->theme->setting_file_url('logoright', 'logoright');
     }
 
-    public function flashbox($targetaudience) {
-        global $PAGE;
-        $flashboxaudience = $PAGE->theme->settings->$targetaudience;
-        $flashboxtype = $PAGE->theme->settings->{$targetaudience . 'type'};
-        //$flashboxaudience = get_config('local_flashbox', $targetaudience);
-        //$flashboxtype = get_config('local_flashbox', $targetaudience . "type");
+    /**
+     * Renderer method for flasboxes.
+     *
+     * @param string $flashbox the name of the flashbox to render
+     * @return bool|string
+     */
+    public function flashbox($flashbox) {
+        global $PAGE, $USER;
+        if ($PAGE->pagetype !== 'my-index'
+            || get_user_preferences($flashbox . '-hidden', false, $USER->id) === 'true') {
+            return '';
+        }
+        $usercanview = false;
+        if (get_config('theme_receptic', $flashbox . 'forall')) {
+            $usercanview = true;
+        } else {
+            $targetcohorts = explode(',', get_config('theme_receptic', $flashbox . 'cohorts'));
+            foreach ($targetcohorts as $cohort) {
+                if (cohort_is_member($cohort, $USER->id)) {
+                    $usercanview = true;
+                }
+            }
+        }
+
+        if (!$usercanview) {
+            return '';
+        }
+        $message = $PAGE->theme->settings->$flashbox;
+        if (empty(trim(strip_tags(str_replace('&nbsp;', '', $message))))) {
+            return '';
+        }
+        $flashboxtype = $PAGE->theme->settings->{$flashbox . 'type'};
+
         switch ($flashboxtype) {
             case 'info' :
                 $flashboxicon = 'lightbulb-o';
@@ -425,76 +476,116 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $flashboxicon = 'exclamation-triangle';
                 break;
         }
-        if (!empty($flashboxaudience)) {
+        $data = [
+            'message' => $message,
+            'type' => $flashboxtype,
+            'icon' => $flashboxicon,
+            'hideclass' => 'hide' . $flashbox
+        ];
+        return parent::render_from_template('theme_receptic/flashbox', $data);
+    }
+
+    /**
+     * Calls generic method flashbox to render flashbox1.
+     *
+     * @return bool|string
+     */
+    public function flashbox1() {
+        return $this->flashbox('flashbox1');
+    }
+
+    /**
+     * Calls generic method flashbox to render flashbox2.
+     *
+     * @return bool|string
+     */
+    public function flashbox2() {
+        return $this->flashbox('flashbox2');
+    }
+
+    /**
+     * Renders warnings in course header when course is hidden and when current user has switched to another role.
+     *
+     * @return bool|string
+     */
+    public function coursewarnings() {
+        global $PAGE, $COURSE, $USER;
+        $hiddencoursewarning = get_config('theme_receptic', 'hiddencoursewarning');
+        $switchedrolewarning = get_config('theme_receptic', 'switchrolewarning');
+        $coursewarnings = ($hiddencoursewarning || $switchedrolewarning)
+            && $PAGE->context->contextlevel == CONTEXT_COURSE
+            && $COURSE->id != 1;
+
+        if ($coursewarnings) {
             $data = [
-                'message' => $flashboxaudience,
-                'type' => $flashboxtype,
-                'icon' => $flashboxicon,
-                'hideclass' => 'hide' . $targetaudience
+                'coursehidden' => $hiddencoursewarning && !$COURSE->visible,
+                'courseid' => $COURSE->id,
             ];
-            return parent::render_from_template('theme_receptic/flashbox', $data);
+            if (isloggedin() && $switchedrolewarning) {
+                $opts = \user_get_user_navigation_info($USER, $this->page);
+                // Role is switched.
+                if (!empty($opts->metadata['asotherrole'])) {
+                    // Get the role name switched to.
+                    $role = $opts->metadata['rolename'];
+                    // Get the URL to switch back (normal role).
+                    $url = new moodle_url('/course/switchrole.php',
+                        array('id'        => $COURSE->id, 'sesskey' => sesskey(), 'switchrole' => 0,
+                            'returnurl' => $this->page->url->out_as_local_url(false)));
+                    $data = array_merge($data, ['role' => $role, 'switchbackurl' => $url]);
+
+                }
+            }
+            return parent::render_from_template('theme_receptic/coursewarnings', $data);
         }
         return '';
-        //return $PAGE->theme->settings->generalalert;
     }
 
-    public function flashboxteachers() {
-        global $PAGE, $USER;
-        /*$flashboxenabled = core_plugin_manager::instance()->get_plugin_info('local_flashbox');
-        if (is_null($flashboxenabled)) {
-            return '';
-        } else {
-            require_once($CFG->dirroot . '/local/flashbox/lib.php');
-            $PAGE->requires->js_call_amd('local_flashbox/flashbox', 'init');
-
-            return local_flashbox_render_flashboxteachers();
-        }*/
-
-        $usercanview = user_has_role_assignment($USER->id, 1)
-                    || user_has_role_assignment($USER->id, 2)
-                    || user_has_role_assignment($USER->id, 3)
-                    || user_has_role_assignment($USER->id, 4)
-                    || is_siteadmin();
-        if ($PAGE->pagetype !== 'my-index'
-                    || get_user_preferences('flashbox-teacher-hidden', false, $USER->id) === 'true'
-                    || !$usercanview) {
-            return '';
-        }
-        return $this->flashbox('flashboxteachers');
-    }
-
-    public function flashboxstudents() {
-        global $PAGE, $USER;
-        /*$flashboxenabled = core_plugin_manager::instance()->get_plugin_info('local_flashbox');
-        if (is_null($flashboxenabled)) {
-            return '';
-        } else {
-            require_once($CFG->dirroot . '/local/flashbox/lib.php');
-            $PAGE->requires->js_call_amd('local_flashbox/flashbox', 'init');
-            return local_flashbox_render_flashboxstudents();
-        }*/
-        $usercanview = user_has_role_assignment($USER->id, 5)
-            || user_has_role_assignment($USER->id, 1, context_system::instance())
-            || is_siteadmin();
-        if ($PAGE->pagetype !== 'my-index'
-            || get_user_preferences('flashbox-student-hidden', false, $USER->id) === 'true'
-            || !$usercanview) {
-            return '';
-        }
-        return $this->flashbox('flashboxstudents');
-    }
-
+    /**
+     * Renders contact information in footer.
+     *
+     * @return bool|string
+     */
     public function contact_info() {
-        return '<div class="contactinfo text--center">
-<p>Contacter l\'équipe WebCampus:<br/><a href="mailto:webcampus-migration@unamur.be"> <i class="fa fa-envelope"></i> </a> ou <i class="fa fa-phone"></i> 081/72 50 75</p></div>';
+        $contactemail = get_config('theme_receptic', 'contactemail');
+        $contactphone = get_config('theme_receptic', 'contactphone');
+        if (empty($contactemail) && empty($contactphone)) {
+            return '';
+        }
+        $contactboth = !empty($contactemail) && !empty($contactphone);
+        $data = [
+            'contact_header' => get_config('theme_receptic', 'contactheader'),
+            'contact_email' => get_config('theme_receptic', 'contactemail'),
+            'contact_phone' => get_config('theme_receptic', 'contactphone'),
+            'contact_both' => $contactboth
+        ];
+        return parent::render_from_template('theme_receptic/contact_info', $data);
     }
 
+    /**
+     * Renders moodle logo and "powered by statement" in footer.
+     *
+     * @return bool|string
+     */
     public function moodle_credits() {
+        if (get_config('theme_receptic', 'moodlecredits')) {
+            return parent::render_from_template('theme_receptic/moodle_credits', array());
+        }
+        return '';
+    }
 
-        return '<div class="moodlecredits text--center">Utilise ' .
-        '<a title="Moodle" href="http://moodle.org/" target"_blank">' .
-        //'<img src="' . $this->pix_icon('moodlelogo') . '" alt="'.get_string('moodlelogo').'" /></a></div>';
-        $this->pix_icon('moodlelogo', 'moodle', 'moodle', array('class' => 'moodlelogofooter')) .
-        '</a></div>';
-    }//$pix, $alt, $component='moodle', array $attributes = null
+    /**
+     * Help icon and help message rendering.
+     *
+     * @param help_icon $helpicon A help icon instance
+     * @return string HTML fragment
+     */
+    protected function render_help_icon(help_icon $helpicon) {
+        $context = $helpicon->export_for_template($this);
+        // ID needed for modal dialog.
+        $context->linkid = $helpicon->identifier;
+        // Fill body variable needed for modal mustache with text value.
+        $context->body = $context->text;
+        $context->helpmodal = get_config('theme_receptic', 'helptextinmodal');
+        return $this->render_from_template('core/help_icon', $context);
+    }
 }

@@ -15,11 +15,19 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    placeholder for template description. Ex: Page header.
+    @template theme_receptic/editmode_switch
+
+    Context variables required for this template:
+    * url - The url to go to when switching edition mode.
+
+    Example context (json):
+    {
+        "url": "https://moodlewebroot/course/view.php?id=2&edit=on&sesskey=fioq1f58fdsf"
+    }
 }}
-<div class="popover-region nav-link editswitch">
+<div class="popover-region nav-link addon editswitch">
     <a href="{{{url}}}" class="switch" title="{{#str}}editmode, theme_receptic{{/str}}">
-        <span class="hidden-sm-down">{{#str}}editmode, theme_receptic{{/str}}</span>
-        <i class="fa fa-edit hidden-md-up"></i>
+        <span class="d-none d-md-flex">{{#str}}editmode, theme_receptic{{/str}}</span>
+        <i class="fa fa-edit d-flex d-md-none"></i>
     </a>
 </div>

@@ -1,0 +1,249 @@
+// Bootstrap variables
+
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #373a3c !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+
+$blue:    #1177d1 !default;
+$indigo:  #6610f2 !default;
+$purple:  #613d7c !default;
+$pink:    #e83e8c !default;
+$red:     #d9534f !default;
+$orange:  #f0ad4e !default;
+$yellow:  #ff7518 !default;
+$green:   #5cb85c !default;
+$teal:    #20c997 !default;
+$cyan:    #5bc0de !default;
+$maroon:  #800000 !default;
+
+$primary:       $maroon !default;
+$secondary:     $gray-800 !default;
+$success:       $green !default;
+$info:          $cyan !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+$light:         $gray-100 !default;
+$dark:          $gray-800 !default;
+
+// Options
+$enable-rounded: false !default;
+
+// Body
+$body-color:    $gray-800 !default;
+$body-bg: $gray-200 !default;
+
+// Fonts
+$font-size-base: 0.9375rem !default;
+$headings-font-weight:   300 !default;
+
+// Navbar
+$navbar-dark-hover-color:           rgba($white, 1) !default;
+$navbar-light-hover-color:          rgba($black, .9) !default;
+
+// Breadcrumbs
+$breadcrumb-padding-y:              .25rem !default;
+$breadcrumb-padding-x:              0 !default;
+$breadcrumb-item-padding:           .5rem !default;
+$breadcrumb-margin-bottom:          0 !default;
+$breadcrumb-bg:                     transparent !default;
+$breadcrumb-divider: "/" !default;
+$breadcrumb-divider-rtl: "/" !default;
+
+// Alerts
+$alert-border-width:                0 !default;
+
+$theme-colors: (
+    primary: $primary,
+    secondary: $gray-200,
+    success: $success,
+    info: $info,
+    warning: $orange,
+    danger: $danger,
+    light: $gray-100,
+    dark: $gray-800,
+    headings: $primary
+);
+
+$headings-color: $primary !default;
+
+$footer-link-color: #1a9e9f !default;
+$forsepia: #f1f1f1;
+
+// Theme addons.
+$brand-banner-color: $gray-700 !default;
+$brand-banner-height: 80px !default;
+$drawer-position-top: $brand-banner-height + 50px;
+
+// Import FontAwesome.
+@import "fontawesome";
+
+// Import All of Bootstrap
+@import "bootstrap";
+
+// Import Core moodle CSS
+@import "moodle";
+
+// Import Theme Receptic main CSS
+@import "main";
+
+// Preset CSS
+
+body {
+    -webkit-font-smoothing: antialiased;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .08);
+}
+
+.filemanager-container,
+.filepicker-filelist {
+    @extend .border;
+}
+
+// Rounded user pictures
+.userpicture {
+    border-radius: 50%;
+}
+
+/**
+ * For background in content areas.
+ */
+#page.container-fluid {
+    padding: 0 (2 * $spacer) 0 (1.5 * $spacer);
+}
+
+body.drawer-open-right #page.container-fluid {
+    padding-right: (1.5 * $spacer);
+}
+
+#block-region-side-pre {
+    padding-left: 0;
+}
+
+header.brand-banner {
+    background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #c4001d), color-stop(.71, #ffb));
+    margin: auto;
+    text-align: center;
+    z-index: 1035;
+    img {
+        height: 130px;
+        position: relative;
+        top: -31px;
+    }
+
+}
+
+/**
+ * Navigation bar identity.
+ */
+.navbar-receptic {
+    background-color: $white;
+    background-image: linear-gradient(to bottom, $gray-700 0%, $gray-800 100%);
+
+    .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    a {
+        color: $white;
+        &:hover,
+        &:focus {
+            color: $gray-500;
+        }
+        &.dropdown-item {
+            color: $gray-800;
+            @include hover-focus {
+                color: $gray-700;
+            }
+        }
+    }
+    .dropdown a:first-of-type > .icon {
+        margin-left: 0;
+    }
+
+    .dropdown-item a {
+        color: $gray-800;
+        &:hover,
+        &:focus {
+            color: $gray-700;
+        }
+        .icon:before {
+            color: $gray-800;
+            &:hover,
+            &:focus {
+                color: $gray-700;
+            }
+        }
+    }
+    [data-region="drawer-toggle"] {
+        .btn-secondary {
+            color: $white;
+            background-color: $gray-600;
+            border-color: $gray-700;
+            border-radius: .25rem;
+            &:hover,
+            &:focus {
+                opacity: .5;
+            }
+        }
+    }
+
+    .navbar-nav {
+        .nav-item + .nav-item {
+            margin-left: $spacer;
+            margin-right: $spacer;
+            .userbutton {
+                .avatars {
+                    img {
+                        margin-right: 0;
+                    }
+                }
+                margin-left: .5rem;
+            }
+        }
+        .nav-link {
+            font-size: $font-size-base;
+            text-transform: inherit;
+            letter-spacing: normal;
+            color: $white;
+            &:hover,
+            &:focus {
+                color: $gray-500;
+            }
+        }
+
+    }
+
+    .navbar-divider {
+        background-color: rgba(255, 255, 255, .075);
+    }
+
+    .extra-buttons {
+        margin-top: .5rem;
+        margin-left: 2rem;
+        margin-right: 1rem;
+        a {
+            margin-right: 1rem;
+        }
+    }
+    .popover-region {
+        &.navlink a:hover,
+        &.navlink a:focus {
+            text-decoration: none;
+        }
+    }
+    .usermenu .login {
+        display: none;
+    }
+}
+

@@ -1,5 +1,5 @@
 .col-form-label {
-    font-weight:bold;
+    font-weight: bold;
 }
 
 .form-inline .form-check {
@@ -17,7 +17,7 @@
 
 #filterform,
 #exportsettingsform {
-    background-color: $gray-lightest;
+    background-color: $gray-300;
     padding: 1rem;
     margin-bottom: 1.5rem;
 }
@@ -32,7 +32,7 @@
 
 .logselecform,
 .participationselectform {
-    background-color: $gray-lightest;
+    background-color: $gray-300;
     padding: 1rem;
     margin-bottom: 1.5rem;
     select {
@@ -54,7 +54,7 @@
         }
     }
     .singleselect.d-inline-block {
-        background-color: $gray-lightest;
+        background-color: $gray-300;
         padding: 1rem;
         margin-bottom: 1.5rem;
         margin-left: 0;
@@ -64,7 +64,7 @@
             margin-right: .5rem;
         }
         #formactionselect,
-        input[type=submit]{
+        input[type=submit] {
             margin-left: .5rem;
         }
     }

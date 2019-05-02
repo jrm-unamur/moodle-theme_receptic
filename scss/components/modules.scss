@@ -20,8 +20,8 @@ label {
 
 #page-question-edit .singlebutton button[type="submit"] {
     margin-left: 0;
-    background-color: $brand-primary;
-    border-color: $brand-primary;
+    background-color: $primary;
+    border-color: $primary;
     color: #fff;
 }
 
@@ -67,10 +67,10 @@ label {
 #page-mod-quiz-attempt .que,
 #page-mod-quiz-review .que,
 #page-question-preview .que {
-    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.4);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.4);
     padding: 15px;
     background-color: #fcf8e3;
-    margin-botto: 0;
+    margin-bottom: 0;
 }
 
 .que .formulation {
@@ -92,8 +92,8 @@ label {
     font-weight: normal;
 }
 
-.que .answer .m-l-1 {
-    margin-left: .5rem !important;
+.que .answer .ml-3 {
+    margin-left: .5rem !important; /* stylelint-disable declaration-no-important */
 }
 
 .que h3.no {
@@ -151,7 +151,7 @@ label {
         font-size: 14px;
         line-height: 20px;
         font-weight: normal;
-        background-color: $brand-primary;
+        background-color: $primary;
         background-image: none;
         height: 40px;
         width: 30px;
@@ -164,7 +164,7 @@ label {
     span.qnbutton {
         cursor: default;
         background-color: $input-bg-disabled;
-        color: $gray;
+        color: $gray-700;
     }
 
     a.qnbutton:hover,
@@ -174,8 +174,8 @@ label {
     }
 
     .qnbutton .thispageholder {
-        border: 1px solid $gray-light;
-        border-radius: 0px;
+        border: 1px solid $gray-600;
+        border-radius: 0;
         z-index: 1;
     }
 
@@ -193,7 +193,7 @@ label {
 
     .qnbutton .trafficlight {
         border: 0;
-        background: $brand-primary none center / 10px no-repeat scroll;
+        background: $primary none center / 10px no-repeat scroll;
         height: 20px;
         margin-top: 20px;
         border-radius: 0 0 3px 3px;
@@ -201,7 +201,7 @@ label {
 
     .qnbutton.notyetanswered .trafficlight,
     .qnbutton.invalidanswer .trafficlight {
-        background-color: $brand-primary;
+        background-color: $primary;
     }
 
     .qnbutton.invalidanswer .trafficlight {
@@ -246,7 +246,7 @@ label {
     .qnbutton.complete .trafficlight,
     .qnbutton.answersaved .trafficlight,
     .qnbutton.requiresgrading .trafficlight {
-        background-color: $gray-light;
+        background-color: $gray-600;
     }
 }
 
@@ -265,7 +265,7 @@ label {
 }
 
 // Mod forum.
-.path-mod-forum :target~.forumpost:before {
+.path-mod-forum :target ~ .forumpost:before {
     background: $link-color;
 }
 
@@ -285,13 +285,16 @@ label {
 #page-mod-chat-gui_ajax-index .form-control {
     border-radius: 0;
     &:focus {
-        border-color: $brand-primary;
+        border-color: $primary;
     }
 }
 
 // Mod choicegroup.
 #page-mod-choicegroup-mod {
-    #expandButton, #collapseButton, #addGroupButton, #removeGroupButton {
+    #expandButton,
+    #collapseButton,
+    #addGroupButton,
+    #removeGroupButton {
         color: #fff;
         background-color: #696969;
         border-color: #696969;
@@ -313,14 +316,15 @@ label {
 .path-mod-choicegroup {
     table.choicegroups {
         margin: 0;
-        th, td {
+        th,
+        td {
             vertical-align: top;
         }
 
     }
     table.results {
         .attemptaction input[type=checkbox] {
-            margin-right: .5rem
+            margin-right: .5rem;
         }
         .image img {
             margin-top: -.5rem;
@@ -353,11 +357,40 @@ label {
 #page-mod-feedback-edit {
     .mform.full-width-labels .fitem.row.feedback_itemlist {
         padding: 0 1rem	2rem;
-        border:	1px ridge;
+        border: 1px ridge;
         margin-top: 2rem;
     }
 }
 
+/* hack pour Mireille */
+.path-mod-feedback.cmid-49042.context-139086 {
+    .feedback_form.mform {
+        .feedback-item-multichoice,
+        .feedback-item-multichoicerated {
+            .col-md-3,
+            .col-md-9 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+            .col-md-9 {
+                margin: 1rem 0 1rem 2rem;
+                label {
+                    font-weight: 400;
+                }
+            }
+        }
+        .feedback-item-label.femptylabel {
+            background-color: $gray-100;
+            filter: sepia(15%);
+            border: 2px solid $primary;
+            padding: .25rem .4rem;
+            .col-md-9 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+    }
+}
 
 #showentrytable {
     .cell {
@@ -427,7 +460,7 @@ label {
 /* wiki */
 .wikisearch form {
     input {
-        float:left;
+        float: left;
         @extend .btn-secondary;
     }
     #searchwiki {
@@ -447,11 +480,11 @@ label {
             border: none;
             background: none;
             text-decoration: underline;
-            color: $brand-primary;
+            color: $primary;
             padding-top: .3rem;
         }
         &.hover {
-            color: $brand-success;
+            color: $success;
         }
     }
 }

@@ -13,8 +13,10 @@
     margin-bottom: .5rem;
 }
 
-select[size], select[multiple], select[size][multiple] {
-    border-color: $gray-lighter;
+select[size],
+select[multiple],
+select[size][multiple] {
+    border-color: $gray-500;
 }
 
 .userenrolment th,
@@ -70,7 +72,7 @@ select[size], select[multiple], select[size][multiple] {
 }
 
 #page-enrol-users #filterform {
-    background-color: $gray-lightest;
+    background-color: $gray-300;
     padding: 1rem;
     margin-bottom: 1.5rem;
 }

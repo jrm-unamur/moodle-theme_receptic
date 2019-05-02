@@ -15,9 +15,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Modchooser renderer.
+ *
  * @package    theme_receptic
  * @author     Jean-Roch Meurisse
- * @copyright  2016 - Cellule TICE - Unversite de Namur
+ * @copyright  2019 - Cellule TICE - Universite de Namur
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -34,7 +36,21 @@ use stdClass;
 
 global $CFG;
 
+/**
+ * modchooser renderer.
+ *
+ * @author     Jean-Roch Meurisse
+ * @copyright  2019 - Cellule TICE - Universite de Namur
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class modchooser extends \core_course\output\modchooser {
+
+    /**
+     * Modchooser constructor
+     *
+     * @param stdClass $course The course that will be displayed
+     * @param array $modules A set of modules as returned from get_module_metadata (course/lib.php)
+     */
     public function __construct(stdClass $course, array $modules) {
         $this->course = $course;
 

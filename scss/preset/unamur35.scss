@@ -1,0 +1,349 @@
+/**
+ * University of Namur preset file.
+ */
+
+// Colors
+$white: #fff !default;
+
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #868e96 !default;
+$gray-700: #495057 !default;
+$gray-800: #373a3c !default;
+$gray-900: #212529 !default;
+$black: #000 !default;
+
+$blue:    #1177d1 !default;
+$indigo:  #6610f2 !default;
+$purple:  #613d7c !default;
+$pink:    #e83e8c !default;
+$red:     #d9534f !default;
+$orange:  #f0ad4e !default;
+$yellow:  #ff7518 !default;
+$green:   #5cb85c !default;
+$teal:    #20c997 !default;
+$cyan:    #5bc0de !default;
+
+$primary:       #1a9e9f !default;
+$secondary:     $gray-800 !default;
+$success:       #55ab26 !default;
+$info:          #ad53b2 !default;
+$warning:       #f80 !default;
+$danger:        #ff4136 !default;
+$light:         $gray-100 !default;
+$dark:          $gray-800 !default;
+
+// Options
+$enable-rounded: false !default;
+
+// Body
+$body-bg : $gray-200;
+$body-color: $gray-800 !default;
+
+// Fonts
+$font-size-base: 0.875rem !default;
+//$font-size-base: 0.9375rem !default;
+$headings-font-weight:   300 !default;
+
+// Breadcrumbs
+$breadcrumb-padding-y:              .25rem !default;
+$breadcrumb-padding-x:              0 !default;
+$breadcrumb-item-padding:           .5rem !default;
+$breadcrumb-margin-bottom:          0 !default;
+$breadcrumb-bg:                     transparent !default;
+$breadcrumb-divider: "/" !default;
+$breadcrumb-divider-rtl: "/" !default;
+
+$card-group-margin: .25rem;
+
+// Alerts
+$alert-border-width:                0 !default;
+
+$theme-colors: (
+    primary: $primary,
+    secondary: $secondary,
+    success: $success,
+    info: $info,
+    warning: $warning,
+    danger: $danger,
+    light: $gray-100,
+    dark: $gray-800
+);
+
+// Spacing
+$spacer:   1rem !default;
+$spacer-x: $spacer !default;
+$spacer-y: $spacer !default;
+$border-width: 1px !default;
+
+// Theme addons.
+$brand-banner-color: $success !default;
+$brand-banner-height: 80px !default;
+
+$brand-banner-gradient: linear-gradient(
+    to bottom,
+    $gray-100 0%,
+    $gray-100 30%,
+    darken($brand-banner-color, 5%)
+    31%,
+    lighten($brand-banner-color, 5%)
+    95%
+);
+
+$navbar-height:             50px !default;
+$drawer-position-top: $brand-banner-height + $navbar-height + 8px;
+$drawer-right-width: 355px;
+
+// Misc colors.
+$link-color: $primary !default;
+$link-hover-color: $success !default;
+$headings-color: $gray-700 !default;
+$blocks-headings-color: $success;
+$tooltip-bg: $gray-700 !default;
+
+$footer-link-color: $primary !default;
+$forsepia: #f1f1f1;
+$sepiaratio: 15%;
+
+// Tables
+$table-bg:                      transparent !default;
+$table-bg-accent:               #fafafa !default;
+$table-bg-hover:                $gray-300;
+$table-bg-active:               $table-bg-hover !default;
+$table-border-color:            $gray-300 !default;
+
+// Dropdowns
+$dropdown-border-color:          #e2e2e2 !default;
+$dropdown-link-color:            rgba(0, 0, 0, .535) !default;
+
+// Cards
+$card-border-radius:       0 !default;
+$card-border-color:        $gray-300 !default;
+
+// Drawer
+$drawer-border-radius: 0 !default;
+$drawer-border-width: 1px 0;
+$drawer-border-color: $gray-200;
+
+// Import FontAwesome.
+@import "fontawesome";
+
+// Import All of Bootstrap
+@import "bootstrap";
+
+// Import Core moodle CSS
+@import "moodle";
+
+// Import everything.
+@import "main";
+
+/**
+ * Default color for link icons and action icons.
+ */
+a .icon,
+span .icon {
+    color: $gray-700;
+}
+
+/**
+ * Buttons.
+ */
+.btn {
+    border-radius: 0;
+}
+.btn-primary:hover {
+    background-color: darken($primary, 7.5%);
+    border-color: darken($primary, 7.5%);
+}
+.btn-secondary,
+.btn-default {
+    color: #fff;
+    background-color: $gray-700;
+    border-color: $gray-700;
+    i.icon {
+        color: $white;
+        margin: 0;
+    }
+}
+
+.btn-secondary:hover,
+.btn-default:hover,
+.btn-secondary:active,
+.btn-default:active,
+.btn-secondary:focus,
+.btn-default:focus {
+    background-color: $gray-800;
+    border-color: $gray-800;
+    color: #fff;
+}
+
+input[type=submit] {
+    color: #fff;
+    background-color: $primary;
+    border-color: $primary;
+    display: inline-block;
+    font-weight: normal;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+}
+
+input[type=submit].btn-secondary {
+    color: #fff;
+    background-color: $gray-700;
+    border-color: $gray-700;
+}
+
+input[type=submit].btn-secondary:hover {
+    color: #fff;
+    background-color: $gray-800;
+    border-color: $gray-800;
+}
+
+input[type=submit]:disabled {
+    /*cursor: $cursor-disabled;*/
+    opacity: .65;
+}
+
+input[type=submit]:disabled:hover {
+    background-color: $primary;
+    border-color: $primary;
+}
+
+input[type=submit].btn-secondary:disabled:hover {
+    background-color: $gray-700;
+    border-color: $gray-700;
+}
+
+.buttons {
+    text-align: center;
+}
+
+.backlink {
+    text-align: center;
+}
+
+.availability-button {
+    text-align: center;
+}
+
+#gradetreesubmit {
+    text-align: center;
+}
+
+/**
+ * Styling the dropdown menus.
+ */
+.dropdown-menu {
+    font-size: 14px;
+    border-radius: 0;
+    .dropdown-item:first-of-type {
+        padding-top: 8px;
+        &:last-child {
+            border-bottom: 0;
+        }
+    }
+    .dropdown-item {
+        color: #494949;
+        &:hover {
+            color: #696969;
+        }
+    }
+    a.icon {
+        vertical-align: baseline;
+    }
+}
+
+/**
+ * User picture.
+ */
+.userpicture {
+    border-radius: 50%;
+}
+
+/**
+ * For background in content areas.
+ */
+/*#page.container-fluid {
+    padding: 0 (2 * $spacer) 0 (.5 * $spacer);
+    @include media-breakpoint-down(lg) {
+        padding-right: .5rem;
+    }
+    @include media-breakpoint-down(md) {
+        padding: 0;
+    }
+}
+
+body.drawer-open-right #page.container-fluid {
+    padding-right: (1.5 * $spacer);
+}*/
+
+#block-region-side-pre {
+    padding-left: 0;
+}
+
+/**
+ * Form styles.
+ */
+
+.form-group {
+    margin-top: ($spacer/2);
+}
+
+.form-inline .form-group {
+    margin-top: 0;
+}
+
+/**
+  * Theme widgets.
+  */
+
+.usertour {
+    @extend .container;
+    @extend .text-center;
+}
+
+.fitem .initialism i {
+    vertical-align: text-bottom;
+}
+
+abbr[title] {
+    border: none;
+    text-decoration: none;
+}
+
+//restored variables from moodle 34
+$input-bg-disabled:              $gray-500 !default;
+$input-disabled-bg:              $gray-500 !default;
+
+legend {
+    font-size: 1.3rem;
+}
+
+input[type=submit] {
+    font-size: .875rem;
+}
+
+// Reset the default styling back to the bootstrap defaults for
+// the secondary outline button because gray-200 is much too light
+// for an outline button.
+.btn-outline-secondary {
+    @include button-outline-variant($gray-600);
+    border-color: $border-color;
+}
+
+#page-my-index {
+    background-color: $body-bg;
+}

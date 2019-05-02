@@ -8,17 +8,21 @@
 
 #page-login-index {
     .form {
-        .input-group-addon {
-            width: 36px;
+        .input-group-password .input-group-text {
+            padding: .375rem .875rem;
         }
     }
     .navbar-receptic {
         height: 50px;
     }
+    .rememberpass label {
+        font-weight: normal;
+    }
 }
 
 .card.welcome-panel {
     background-color: $body-bg;
+    border-color: $gray-200;
 }
 
 .atto_generico_buttons button {
@@ -26,7 +30,6 @@
 }
 
 .atto_form button {
-    @extend .btn-primary;
     margin-top: .5rem;
 }
 
@@ -35,89 +38,13 @@
 }
 
 select.atto_generico_field {
-    @extend .custom-select;
+    /*@extend .custom-select;*/
     margin-left: .5rem;
 }
 
-.redball-count, .orangeball-count {
-    position: relative;
-    bottom: 3px;
-    border-radius: 50%;
-    width: 10px;
-    height: 10px;
-    /*padding: 2px 5px;*/
-    padding: 4px 7px;
-    background-color: crimson;
-    color: white;
-    font-size: 10px;
-    margin-left: 3px;
-}
-
-.orangeball-count {
-    background-color: orange;
-}
-
-.redball-count.lower, .orangeball-count.lower {
-    padding: 4px 7px;
-}
-
-.redball-count.high, .orangeball-count.high {
-    padding: 4px 6px;
-}
-
-/*.redball-count.lower, .orangeball-count.lower {
-    padding: 4px 7px;
-}*/
-
-/*.redball-count.high, .orangeball-count.high {
-    padding: 4px 5px;
-}*/
-
-.section .redball-count, .section .orangeball-count {
-    bottom: 4px;
-}
-
-.section.hot .sectionname:before, .hot:before, .section.warm .sectionname:before, .warm:before {
-    font-family: FontAwesome;
-    content: "\f111";
-    color: crimson;
-    font-size: 10px;
-    vertical-align: text-bottom;
-    margin-right: 5px;
-}
-
-.section.warm .sectionname:before, .warm:before {
-    color: orange;
-}
-
-.activity.hot:before, .activity.warm:before {
-    font-family: FontAwesome;
-    content: "\f111";
-    color: crimson;
-    font-size: 10px;
-    margin-right: 5px;
-    float:left;
-    margin-top: 5px;
-}
-
-.activity.warm:before {
-    color: orange;
-}
-
-body.editing .activity.hot:before, body.editing .activity.warm:before {
-    margin-top: 4px;
-}
-
-body.editing .section .activity .editing_move {
-    left: .3rem;
-}
-
-body.editing .section .activity.hot .mod-indent-outer, body.editing .section .activity.warm .mod-indent-outer {
-    padding-left: 1rem;
-}
 
 .highlight {
-    color: $brand-success !important;
+    color: $success !important; /* stylelint-disable-line declaration-no-important */
 }
 
 .togglevisibility {
@@ -130,22 +57,75 @@ body.editing .section .activity.hot .mod-indent-outer, body.editing .section .ac
     margin-bottom: .75rem;
     background-color: #fff;
     border-radius: 0;
-    padding: 1.25rem;
+    padding: .75rem 1rem;
     &.warning {
-        border: 5px solid $brand-danger;
+        border: 5px solid $danger;
         font-weight: normal;
     }
     &.trick {
         border: 5px solid #ffd700;
     }
     &.info {
-        border: 5px solid $brand-primary;
+        border: 5px solid $primary;
     }
     div.flashboxicon i {
         font-family: FontAwesome;
         font-size: xx-large;
     }
+    div.flashboxhide a {
+        float: right;
+        font-weight: bold;
+    }
 }
 
+body.ltibridge {
+    header {
+        display: none;
+    }
+}
 
+#theme-receptic-course-settings-card,
+#theme-receptic-activity-settings-card {
+    /* Initially do not display the settings. Visibility will be changed on click with incoursesettings.js. */
+    display: none;
+    padding-top: 0;
+    margin-bottom: 1rem;
+    margin-top: 0;
+    border: none;
+    > div {
+        border: 1px solid $gray-300;
+        .nav-link {
+            padding: 1rem;
+        }
+    }
+}
 
+body.editing.path-grade-report-grader [data-region="blocks-column"],
+body.editing.path-grade-report-grader #blocks-column-toggle {
+    display: none !important; /* stylelint-disable-line declaration-no-important */
+}
+
+body.ltibridge {
+    header {
+        display: none !important;
+    }
+    #page-wrapper > nav {
+        display: none;
+    }
+    margin: 0 !important;
+    #page.container-fluid {
+        margin-top: 0;
+        padding: 0;
+    }
+    #region-main {
+        padding-bottom: 0;
+        margin-bottom: 0 !important;
+    }
+    #nav-drawer,
+    &.shrinkablenavdrawer #nav-drawer.closed {
+        display:none;
+    }
+    footer {
+        display: none;
+    }
+}

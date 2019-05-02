@@ -1,0 +1,400 @@
+/**
+  * Theme widgets.
+  */
+
+body {
+    // Edition mode toggle.
+    .switch {
+        span:after {
+            color: $red;
+            content: "OFF";
+            padding-left: .5rem;
+        }
+        i {
+            color: $red;
+            padding-top: .3rem;
+        }
+    }
+    &.editing {
+        // Edition mode toggle.
+        .switch {
+            span:after {
+                color: $success;
+                content: "ON";
+            }
+            i {
+                color: $success;
+            }
+        }
+    }
+    .popover-region.nav-link.addon {
+        .fa {
+            font-size: larger;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+    }
+}
+
+.brand-banner {
+    background: $brand-banner-gradient;
+    height: $brand-banner-height;
+
+    img {
+        height: 55px;
+    }
+
+    .left-logo {
+        position: absolute;
+        top: 10px;
+        left: 15px;
+        height: 55px;
+        box-shadow: 4px 4px 15px $gray-700;
+    }
+
+    .right-logo {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        height: 55px;
+        box-shadow: 4px 4px 15px $gray-700;
+    }
+
+    .center-logo {
+        height: 55px;
+        box-shadow: 4px 4px 15px $gray-700;
+        img {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 10px;
+            display: block;
+        }
+    }
+}
+
+/**
+ * Navigation bar identity.
+ */
+.navbar-receptic {
+    top: $brand-banner-height;
+    background-image: linear-gradient(to bottom, $gray-700 0%, $gray-800 100%);
+    padding-left: .125rem;
+
+    .container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    a {
+        color: $white;
+        &:hover,
+        &:focus {
+            color: $gray-500;
+        }
+        &.dropdown-item {
+            color: $gray-800;
+            @include hover-focus {
+                color: $gray-700;
+            }
+        }
+    }
+    .dropdown a:first-of-type > .icon {
+        margin-left: 0;
+    }
+
+    .dropdown-item a {
+        color: $gray-800;
+        &:hover,
+        &:focus {
+            color: $gray-700;
+        }
+        .icon:before {
+            color: $gray-800;
+            &:hover,
+            &:focus {
+                color: $gray-700;
+            }
+        }
+    }
+
+    [data-region="drawer-toggle"] {
+        .btn-secondary {
+            color: $white;
+            background-color: $gray-600;
+            border-color: $gray-700;
+            border-radius: .25rem;
+            &:hover,
+            &:focus {
+                opacity: .5;
+            }
+            .icon {
+                width: .75rem;
+            }
+        }
+    }
+
+    .navbar-nav {
+        .nav-item + .nav-item {
+            margin-left: $spacer;
+            margin-right: $spacer;
+            .userbutton {
+                .avatars {
+                    img {
+                        margin-right: 0;
+                    }
+                }
+                margin-left: .5rem;
+            }
+        }
+        .nav-link {
+            font-size: $font-size-base;
+            text-transform: inherit;
+            letter-spacing: normal;
+            color: $white;
+            &:hover,
+            &:focus {
+                color: $gray-500;
+            }
+        }
+    }
+
+    .navbar-divider {
+        background-color: rgba(255, 255, 255, .075);
+    }
+
+    .extra-buttons {
+        margin-top: .5rem;
+        margin-left: 2rem;
+        margin-right: 1rem;
+        a {
+            margin-right: 1rem;
+        }
+    }
+    .popover-region {
+        &.navlink a:hover,
+        &.navlink a:focus {
+            text-decoration: none;
+        }
+    }
+    .usermenu .login {
+        display: none;
+    }
+}
+
+/*@media only screen  and (min-width: 768px) {
+    .navbar-nav .nav-link.addon {
+        padding-top: .6rem;
+    }
+    .navbar-nav .nav-link.editswitch {
+        padding-top: .525rem;
+    }
+}
+
+@media only screen  and (max-width: 767px) {
+    .navbar-nav .nav-link.addon {
+        padding-top: .6rem;
+    }
+}
+
+@media only screen  and (max-width: 767px) {
+    .switch:after {
+        display: none;
+    }
+    .navbar-receptic {
+        top: 0;
+    }
+}*/
+
+/**
+ * Position banners, nav-links, page and drawer according to screen size (brand banner for large displays).
+ */
+
+.navbar-nav .nav-link.addon {
+    padding-top: .6rem;
+}
+
+.navbar-receptic {
+    top: 0;
+}
+
+@include media-breakpoint-up(md) {
+    .navbar-receptic {
+        top: $brand-banner-height;
+    }
+    .navbar-nav .nav-link.editswitch {
+        padding-top: .525rem;
+    }
+}
+
+@include media-breakpoint-up(md) {
+    .pos-f-t-lower {
+        top: $brand-banner-height;
+    }
+    #page {
+        margin-top: $drawer-position-top - 25px;
+    }
+    body.path-my {
+        #page {
+            margin-top: $drawer-position-top;
+        }
+    }
+
+    body.path-login #page {
+        margin-top: $brand-banner-height + 35px;
+    }
+}
+
+
+// Back to top button.
+#back-to-top {
+    position: fixed;
+    bottom: 32px;
+    right: 40px;
+    text-align: center;
+    cursor: pointer;
+    opacity: .75;
+    display: none;
+    z-index: 1000;
+    a {
+        text-decoration: none;
+        border: 0;
+        outline: none;
+        &.arrow {
+            padding: 5px 10px;
+            font-size: 36px;
+            color: #333;
+            background: #eee;
+            border: 1px solid #ccc;
+            border-bottom: 1px solid #aaa;
+            border-radius: 5px;
+        }
+        &.text {
+            display: block;
+            background: white;
+            visibility: hidden;
+            position: relative;
+            top: 10px;
+        }
+    }
+}
+
+// Red and orange balls.
+
+.redball-count,
+.orangeball-count {
+    position: relative;
+    bottom: 3px;
+    border-radius: 50%;
+    padding: 4px 8px;
+    background-color: crimson;
+    color: white !important; /* stylelint-disable declaration-no-important */
+    font-size: 10px;
+    margin-left: 3px;
+}
+
+.redball-count.in-drawer {
+    line-height: 12px;
+}
+
+.orangeball-count {
+    background-color: orange;
+}
+
+.redball-count.lower,
+.orangeball-count.lower {
+    padding: 4px 7px;
+}
+
+.redball-count.high,
+.orangeball-count.high {
+    padding: 4px 5px;
+}
+
+.section .redball-count,
+.section .orangeball-count,
+.single-section .redball-count,
+.single-section .orangeball-count {
+    bottom: 5px;
+    margin-left: .5rem;
+}
+
+body.editing .section .redball-count,
+body.editing .section .orangeball-count {
+    margin-left: 0;
+}
+
+.section.hot .sectionname:before,
+.hot:before,
+.section.warm .sectionname:before,
+.warm:before {
+    font-family: FontAwesome;
+    content: "\f111";
+    color: crimson;
+    font-size: 10px;
+    vertical-align: text-bottom;
+    margin-right: 5px;
+}
+
+.section.warm .sectionname:before,
+.warm:before {
+    color: orange;
+}
+
+.activity.hot:before,
+.activity.warm:before {
+    font-family: FontAwesome;
+    content: "\f111";
+    color: crimson;
+    font-size: 10px;
+    margin-right: 5px;
+    float: left;
+    margin-top: 8px;
+}
+
+.activity.warm:before {
+    color: orange;
+}
+
+body.editing .activity.hot:before,
+body.editing .activity.warm:before {
+    margin-top: 6px;
+}
+
+body.editing .section .activity .editing_move {
+    left: .625rem;
+    top: .25rem;
+}
+
+body.editing .section .activity.hot .mod-indent-outer,
+body.editing .section .activity.warm .mod-indent-outer {
+    padding-left: 1rem;
+}
+
+/**
+ * Dashboard styling.
+ */
+#page-my-index {
+    #region-main {
+        background-color: transparent;
+        border: 0;
+        padding: 0;
+    }
+    .nav-pills {
+        .nav-item {
+            background-color: $gray-200;
+            .active {
+                background-color: $primary;
+            }
+        }
+    }
+    .block-myoverview .pagination {
+        justify-content: center;
+    }
+}
+
+.moodlelogofooter {
+    margin-bottom: .625rem;
+    width: 75px;
+    height: 20px;
+}

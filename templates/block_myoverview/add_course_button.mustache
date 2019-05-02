@@ -15,12 +15,17 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    placeholder for template description. Ex: Page header.
+    @template block_myoverview/add_course_button
+
+    This template renders an optional "create course button" on course creators' dashboard.
+
+    Example context (json):
+    {}
 }}
 
 <div class="add_course_button m-b-1">
     <a class="btn btn-primary" href="{{{urls.addcourse}}}" data-key="addcourse" >
         <i class="fa fa-plus"></i>
-        {{#str}} createcourse, local_createcourse {{/str}}
+        {{#str}} addnewcourse {{/str}}
     </a>
 </div>

@@ -1,71 +1,160 @@
+$drawer-right-width: 355px;
+$drawer-left-width: 250px;
+
 #nav-drawer {
+    background-color: $body-bg;
+    padding: 0 .5rem 1.5rem 0;
+    overflow-y: auto;
+    width: 100%;
+    top: calc(#{$drawer-position-top} - #{$brand-banner-height} - 8px);
+    @include media-breakpoint-up(md) {
+        width: 250px;
+        top: $drawer-position-top;
+        height: calc(100% - #{$drawer-position-top});
+        padding: 0 .25rem .5rem .5rem;
+    }
     .list-group {
-        .list-group-item {
-            cursor: pointer;
-            > div:before {
-                font-family: FontAwesome;
-                padding-right: .4rem;
+        div.list-group-item,
+        a.list-group-item {
+            border-width: $drawer-border-width;
+            border-style: solid;
+            border-radius: $drawer-border-radius;
+            border-color: $drawer-border-color;
+            color: $gray-700;
+            padding: .75rem;
+
+            text-decoration: none;
+            width: 100%;
+            /*display: inherit;*/
+            .icon {
+                margin-left: .125rem;
             }
-            > div.m-l-1:before {
-                content: "\f02d";
-            }
-            &[data-key="myhome"] > div:before {
-                content: "\f0e4";
-            }
-            &[data-key="bve"] {
-                .redball-count {
-                    bottom: 2px;
-                }
-                > div:before {
-                    content: "\f05a";
-                }
-            }
-            &[data-key="home"] > div:before {
-                content: "\f015";
-            }
-            &[data-key="privatefiles"] > div:before {
+            .fa-folder-o:before {
                 content: "\f07b";
             }
-            &[data-key="mycourses"] > div:before {
-                content: "\f19d";
-                padding-right: 0;
+            &:hover {
+                background-color: $gray-300;
+                border-color: $gray-300;
             }
-            &[data-key="coursehome"] > div:before {
-                content: "\f19d";
-                padding-right: .2rem;
-            }
-            &[data-key="fulllistofcourses"] > div:before {
-                content: "\f03a";
-            }
-            &[data-key="myevaluations"] > div:before {
-                content: "\f164";
-            }
-            &[data-key="courseadmin"] > div:before {
-                content: "\f013";
-            }
-            &[data-key="noecreatecourse"] > div:before,
-            &[data-key="manualcreatecourse"] > div:before {
-                content: "\f067";
-            }
-            &[data-key="sitesettings"] > div:before {
-                content: "\f085";
-            }
-            &[data-key="calendar"] > div:before {
-                content: "\f073";
-            }
-            &[data-key="participants"] > div:before {
-                content: "\f0c0";
-            }
-            &[data-key="badgesview"] > div:before {
-                content: "\f132";
-            }
-            &[data-key="grades"] > div:before {
-                content: "\f0ce";
-            }
-            &[data-key="downloadcenter"] > div:before {
-                content: "\f019";
+            &.active,
+            &.active:hover {
+                color: $white;
+                background-color: $primary;
+                border-color: $primary;
+                a {
+                    color: $white;
+                }
+                .icon {
+                    color: $white;
+                }
             }
         }
+    }
+    &.closed {
+        display: none;
+        @include media-breakpoint-up(md) {
+            width: 55px;
+        }
+    }
+}
 
+body {
+    &.shrinkablenavdrawer {
+        @include media-breakpoint-up(md) {
+            margin-left: 50px;
+            #nav-drawer.closed {
+                display: block;
+                overflow: visible;
+                left: 0;
+                background-color: transparent;
+
+                .list-group {
+                    .list-group-item {
+                        .media-body {
+                            display: none;
+                        }
+
+                        &:hover {
+                            width: 250px;
+
+                            .media-body {
+                                display: inline-block;
+                                margin-left: .25rem;
+                            }
+                        }
+                        &[data-key="mycourses"],
+                        &[data-key="localboostnavigationcoursesections"],
+                        &[data-type="20"],
+                        &[data-type="30"] {
+                            display: none;
+                        }
+                    }
+                }
+            }
+            &.drawer-open-left {
+                margin-left: $drawer-left-width;
+            }
+            footer {
+                margin-left: .5rem;
+            }
+        }
+    }
+    &.drawer-open-left {
+        @include media-breakpoint-up(md) {
+            margin-left: $drawer-left-width;
+            footer {
+                margin-left: 0;
+            }
+        }
+    }
+    &.drawer-open-right {
+        margin-right: 0;
+        @include media-breakpoint-up(md) {
+            margin-right: $drawer-right-width;
+        }
+    }
+}
+
+/* Override some boost_navigation styling */
+/* Show the icon for the mycourses node ... */
+.list-group-item[data-key="mycourses"] .icon {
+    display: inline-block;
+    padding-top: .125rem;
+}
+/* ... and restore the indent of the mycourses child nodes. */
+.list-group-item[data-parent-key="mycourses"] > div {
+    margin-left: 1rem !important;
+}
+
+/* Add icon for sections node */
+.list-group-item[data-key="localboostnavigationcoursesections"] {
+    .icon.fa-fw {
+        display: inline-block;
+        &:before {
+            content: "\f0ca";
+        }
+    }
+    ~ a[data-type="30"] > div {
+        margin-left: 1rem !important;
+    }
+}
+
+/* ... and remove the indent to the collapsed custom child nodes. Unfortunately, this has to be done for each custom node block
+   individually because the child node does not know (with a CSS-selectable attribute) if its parent node is collapsed or node. */
+.jsenabled .list-group-item[data-key^="localboostnavigationcustomcourseusers"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustomcourseusers"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustomcourseusers"] > div,
+.jsenabled .list-group-item[data-key^="localboostnavigationcustomcourseadmins"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustomcourseadmins"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustomcourseadmins"] > div,
+.jsenabled .list-group-item[data-key^="localboostnavigationcustomrootusers"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustomrootusers"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustomrootusers"] > div,
+.jsenabled .list-group-item[data-key^="localboostnavigationcustomcrootadmins"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustomrootadmins"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustomrooradmins"] > div,
+.jsenabled .list-group-item[data-key^="localboostnavigationcustombottomusers"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustombottomusers"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustombottomusers"] > div,
+.jsenabled .list-group-item[data-key^="localboostnavigationcustombottomadmins"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustombottomadmins"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustombottomadmins"] > div {
+    margin-left: 1rem !important;
+}
+
+.list-group-item {
+    &[data-key^="localboostnavigationcustombottom"] {
+        margin-top: .5rem;
+    }
+    &[data-key^="localboostnavigationcustombottom"] ~ [data-key^="localboostnavigationcustombottom"] {
+        margin-top: 0;
     }
 }

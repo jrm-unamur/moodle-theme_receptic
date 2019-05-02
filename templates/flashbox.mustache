@@ -15,11 +15,29 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    placeholder for template description. Ex: Page header.
+    @template theme_receptic/flashbox
+
+    This template renders an optional flashbox on users' dashboard.
+
+    Context variables required for this template:
+    * type - The type of flashbox (warning, trick, information)
+    * icon - The icon related to flashbox type
+    * message - The message to display
+    * hideclass - A css class to trigger flahsbox hiding
+
+    Example context (json):
+    {
+        "type": "warning",
+        "icon": "exclamation-triangle",
+        "message": "This is a flash message",
+        "hideclass": "Hideflashbox1"
+    }
 }}
 
-<div class="col-md-12 flashbox {{type}}">
-    <div class="col-md-1 flashboxicon"><i class="fa fa-{{icon}}"></i></div>
-    <div class="col-md-10">{{{message}}}</div>
-    <div class="col-md-1"><a href="" class="{{hideclass}}" style="float:right;font-weight:bold;">X</a></div>
+<div class="container flashbox {{type}}">
+    <div class="row">
+        <div class="col-1 flashboxicon"><i class="fa fa-{{icon}}"></i></div>
+        <div class="col-10">{{{message}}}</div>
+        <div class="col flashboxhide"><a href="" class="{{hideclass}}">X</a></div>
+    </div>
 </div>

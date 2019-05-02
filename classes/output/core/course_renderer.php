@@ -40,12 +40,11 @@ use html_writer;
 class course_renderer extends \theme_boost\output\core\course_renderer {
 
     /**
-     * Override to user overriding modchooser class (classes/ouptut/core/modchooser.php).
+     * Override to user theme modchooser class (classes/ouptut/core/modchooser.php).
      *
      * Build the HTML for the module chooser javascript popup
      *
-     * @param array $modules A set of modules as returned form @see
-     * get_module_metadata
+     * @param array $modules A set of modules as returned from get_module_metadata (course/lib.php)
      * @param object $course The course that will be displayed
      * @return string The composed HTML for the module
      */
@@ -83,40 +82,37 @@ class course_renderer extends \theme_boost\output\core\course_renderer {
         }
         $completioninfo = new completion_info($course);
 
-        // check if we are currently in the process of moving a module with JavaScript disabled
+        // Check if we are currently in the process of moving a module with JavaScript disabled.
         $ismoving = $this->page->user_is_editing() && ismoving($course->id);
         if ($ismoving) {
             $movingpix = new pix_icon('movehere', get_string('movehere'), 'moodle', array('class' => 'movetarget'));
             $strmovefull = strip_tags(get_string("movefull", "", "'$USER->activitycopyname'"));
         }
 
-        $redballsactivated = $this->page->theme->settings->enableredballs;
+        $ballsactivated = $this->page->theme->settings->enableballs;
         $hotcount = 0;
-        $orangeballsactivated = $this->page->theme->settings->enableorangeballs;
+
         $warmcount = 0;
-        if ($redballsactivated) {
+        if ($ballsactivated) {
             $userhotmodules = explode(',' , get_user_preferences('user_redballs'));
-            if ($orangeballsactivated) {
-                $userwarmmodules = explode(',', get_user_preferences('user_orangeballs'));
-            }
+            $userwarmmodules = explode(',', get_user_preferences('user_orangeballs'));
         }
 
-        // Get the list of modules visible to user (excluding the module being moved if there is one)
+        // Get the list of modules visible to user (excluding the module being moved if there is one).
         $moduleshtml = array();
         if (!empty($modinfo->sections[$section->section])) {
             foreach ($modinfo->sections[$section->section] as $modnumber) {
                 $mod = $modinfo->cms[$modnumber];
-                if ($redballsactivated && in_array($mod->id, $userhotmodules) && $mod->uservisible && !$mod->is_stealth()) {
+                if ($ballsactivated && in_array($mod->id, $userhotmodules) && $mod->uservisible && !$mod->is_stealth()) {
                     $hotcount++;
-                    $diplayoptions['hot'] = 'hot';
                     $mod->set_extra_classes($mod->extraclasses . ' hot');
-                } else if ($orangeballsactivated && in_array($mod->id, $userwarmmodules) && $mod->uservisible && !$mod->is_stealth()) {
+                } else if (in_array($mod->id, $userwarmmodules) && $mod->uservisible && !$mod->is_stealth()) {
                     $warmcount++;
                     $mod->set_extra_classes($mod->extraclasses . ' warm');
                 }
 
                 if ($ismoving and $mod->id == $USER->activitycopy) {
-                    // do not display moving mod
+                    // Do not display moving mod.
                     continue;
                 }
 

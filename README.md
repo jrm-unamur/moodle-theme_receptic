@@ -22,4 +22,4 @@ This theme is based on the Moodle Boost core theme
 
 Moodle versions
 ---------------
-This theme works on Moodle 3.2 and newer
+This theme works on Moodle 3.5 and newer

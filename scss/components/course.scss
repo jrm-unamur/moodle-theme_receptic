@@ -1,47 +1,13 @@
 // Styling depending on edit mode
-body:not(.editing) .course-content ul.topics li.section .left.side,
-body:not(.editing) .course-content ul.weeks li.section .left.side {
-    display: none;
-}
-
-body.editing .course-content ul.topics li.section .left .icon.spacer,
-body.editing .course-content ul.weeks li.section .left .icon.spacer {
-    width: 0;
-}
-
-body.editing .collapsible-actions {
-    margin-top: 1rem;
-}
-
-body.editing .course-content {
-    .summarytext {
-        margin-left: 4rem;
-    }
-    a.sectiontoggle {
-        &:hover {
-            text-decoration: none;
-        }
-        .inplaceeditable .quickeditlink {
-            color: $brand-primary;
-        }
-        &[aria-expanded="false"] {
-            background-image: url([[pix:moodle|t/collapsed]]);
-            background-position: left 25%;
-            padding-right: 1rem;
-            padding-left:0;
-        }
-        &[aria-expanded="true"] {
-            background-image: url([[pix:moodle|t/expanded]]);
-            background-position: left 30%;
-            padding-right: 1rem;
-            padding-left:0;
-        }
-    }
-    li.section {
-        .sectionname {
-            color: $brand-primary;
-            &:hover {
-                text-decoration: underline;
+.course-content {
+    > ul {
+        li.section {
+            &:target {
+                padding-top: 160px !important; /* stylelint-disable declaration-no-important */
+                margin-top: -130px !important; /* negative fixed header height */
+            }
+            &:first-of-type:target {
+                margin-top: -30px !important;
             }
         }
     }
@@ -55,7 +21,7 @@ body.editing .course-content {
             .left {
                 padding: 0;
                 &.side {
-                    margin-top: .6rem;
+                    margin-top: .825rem;
                     span.section-handle > .icon {
                         margin-left: .5rem;
                     }
@@ -63,6 +29,9 @@ body.editing .course-content {
             }
             .content {
                 padding: .5rem 0;
+                .summarytext {
+                    margin: .5rem 1.625rem;
+                }
             }
             &.main,
             &.main:last-child {
@@ -70,31 +39,33 @@ body.editing .course-content {
                 border-style: solid;
                 border-color: #ddd;
             }
-            &.hidden .sectionname > span {
+            &.hidden a span.sectionname {
                 margin-left: 0;
-                > span > a {
-                    color: $gray-light;
-                }
+                color: $gray-600;
+            }
+            &.hidden .section-title {
+                color: $gray-600;
             }
             &.current {
-                background-color:  $gray-lightest;
-                filter: sepia(15%);
-                border-left: 2px solid $brand-primary;
+                background-color: $forsepia;
+                filter: sepia($sepiaratio);
+                border-left: 2px solid $primary;
                 &:before {
                     border: none;
                 }
             }
             &:target {
-                padding-top: 160px !important; /* stylelint-disable declaration-no-important */
-                margin-top: -130px !important; /* negative fixed header height */
+                padding-top: 160px !important;
+                margin-top: -130px !important;
             }
             &:first-of-type:target {
                 margin-top: -30px !important;
             }
-            h3.sectionname {
-                font-size: 1.5rem;
+            .sectionname,
+            .section-title {
+                //font-size: 1.3rem;
                 padding-top: 3px;
-                float: left;
+                /*float: left;*/
             }
             ul.section {
                 padding-left: 1rem;
@@ -107,35 +78,14 @@ body.editing .course-content {
             }
         }
     }
-    // Expand all, collapse all.
-    .collapsible-actions {
-        a {
-            padding-left: 20px;
-            &.expandall {
-                background: url([[pix:moodle|t/collapsed]]) 2px center no-repeat;
-            }
-            &.collapseall {
-                background: url([[pix:moodle|t/expanded]]) 2px center no-repeat;
-            }
-        }
 
-    }
     #changenumsections {
         padding: 1rem 0;
     }
 
-    #section-0 .section-summary-activities {
-        display:none;
-    }
-    .section-summary-activities .activity-count {
-        font-size: .875rem;
-        margin: 3px;
-        white-space: nowrap;
-        display: inline-block;
-        color: $gray;
-    }
+
     a.sectiontoggle {
-        float: left;
+        /*float: left;*/
         margin: 1px 3px 3px;
         padding: 2px 18px 2px 0;
         background-repeat: no-repeat;
@@ -146,39 +96,73 @@ body.editing .course-content {
         font-family: $headings-font-family;
         &[aria-expanded="false"] {
             background-image: url([[pix:moodle|t/collapsed]]);
-            background-position: left 40%;
+            background-position: left 50%;
             padding-left: 1rem;
         }
         &[aria-expanded="true"] {
             background-image: url([[pix:moodle|t/expanded]]);
-            background-position: left 45%;
+            background-position: left 55%;
             padding-left: 1rem;
         }
         &:hover {
             text-decoration: none;
         }
         .sectionname {
-            padding-left: .3rem;
+
             &:hover {
                 text-decoration: underline;
             }
         }
     }
     .section-modchooser {
-         padding: 0 6px;
+        padding: 0 6px;
     }
-    .summarytext {
-        margin-left: 2rem;
+    div.section_availability {
+        margin-left: .5rem;
     }
-    .sectiontoggle ~ .section-summary-activities {
-        display: none;
+
+
+    // Use theme color.
+    ul.collapsibletopics,
+    ul.collapsibleweeks {
+        li.section {
+            .sectionname {
+                color: $primary;
+            }
+            &.hidden {
+                .sectiontoggle {
+                    color: $gray-600;
+                }
+            }
+            &#section-0 h3.sectionname {
+                padding-left: 3rem;
+            }
+            &.current {
+                background-color: $forsepia;
+                filter: sepia($sepiaratio);
+                border-left: 2px solid $primary;
+                &:before {
+                    border: none;
+                }
+            }
+        }
+        div.section_availability {
+            margin-left: .5rem;
+        }
+
     }
-    .sectiontoggle.collapsed ~ .section-summary-activities {
-        display: block;
-    }
-    .collapsing {
-        -webkit-transition: none;
-        transition: none;
+}
+
+body.editing .course-content {
+    ul.topics,
+    ul.weeks {
+        div.section_availability {
+            margin-left: 3rem;
+        }
+        .content .summarytext {
+            margin-left: 3rem;
+            margin-right: 3rem;
+        }
     }
 }
 
@@ -202,12 +186,12 @@ body.editing .course-content {
             &.collapsed {
                 padding: 0;
             }
-            > .info >.coursename a {
+            > .info > .coursename a {
                 background: none;
                 &:before {
                     font-family: FontAwesome;
                     content: "\f19d";
-                    color: #000000;
+                    color: #000;
                     padding-right: 0.5rem;
                     text-decoration: none;
                 }
@@ -232,24 +216,28 @@ body.editing .course-content {
 }
 
 // Availability infos.
-span.section_availability {
-    margin-left: 1rem;
+/*.course-content ul.topics div.section_availability {
+    margin-left: .75rem;
 }
+
+body.editing .course-content ul.topics div.section_availability {
+    margin-left: 2.25rem;
+}*/
 
 span.availabilityinfo:before {
     font-family: FontAwesome;
-    content: "";
-    color: $brand-danger;
+    content: "\f071";
+    color: $danger;
     padding-right: 5px;
     vertical-align: sub;
 }
 
 span.availabilityinfo .tag.tag-info {
     margin-top: .4rem;
-    background-color: $gray-lightest;
-    filter: sepia(15%);
+    background-color: $forsepia;
+    filter: sepia($sepiaratio);
     color: $body-color;
-    border: 2px solid $brand-primary;
+    border: 2px solid $primary;
     border-radius: 0;
     text-align: left;
 }
@@ -263,20 +251,9 @@ span.availabilityinfo .tag.tag-info {
     background-color: $link-hover-color;
 }
 
-.path-course-view .content > div.availabilityinfo {
-    margin-left: 2rem;
-}
-
-div.availabilityinfo:before {
-    font-family: FontAwesome;
-    content: "\f071";
-    color: $brand-danger;
-    padding-right: 5px;
-}
-
 .availability-connector .label {
     font-size: 14px;
-    background-color: $brand-primary;
+    background-color: $primary;
     margin: 4px;
     margin-left: 25px;
     padding-bottom: 5px;
@@ -335,49 +312,41 @@ img {
 }
 
 //Disable shortname fullname and category select from course edit form
-#page-course-edit.format-topics #id_fullname,
-#page-course-edit.format-topics #id_shortname,
-#page-course-edit.format-topics #id_category,
-#page-course-edit.format-weeks #id_fullname,
-#page-course-edit.format-weeks #id_shortname,
-#page-course-edit.format-weeks #id_category {
+#page-course-edit:not(.format-site) #id_fullname,
+#page-course-edit:not(.format-site) #id_shortname,
+#page-course-edit:not(.format-site) #id_category {
     pointer-events: none;
-    tabindex: -1;
-    border: none;
     box-shadow: none;
     max-width: 75%;
+    background: $gray-200;
+    background-image: none;
 }
-/*.dndupload-progress-inner {
-    {
-        @extend .progress-bar;
+
+.dndupload-progress-inner {
+    background-color: $primary;
+}
+
+.massaction-checkbox {
+    margin-top: .25rem;
+}
+
+#region-main > .card {
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, .25);
+}
+
+body.settingsincourse {
+    #page-header {
+        /* If the setting is enabled we do not need the triangle icon, because there is no menu
+         * popping up next to the cog icon. */
+        .context-header-settings-menu .dropdown-toggle::after {
+            display: none;
+        }
     }
-}*/
-
-.dndupload-progress-inner {
-    background-color: $brand-primary;
+    &.path-user #region-main-settings-menu {
+        display: none;
+    }
+    /* Hide the triangle down icon. */
+    #region-main-settings-menu .dropdown-toggle::after {
+        display: none;
+    }
 }
-
-/*.dndupload-progress-outer {
-    border-radius: 4px;
-    width: 100%;
-}
-.dndupload-progress-inner {
-    width: 0%;
-    height: 100%;
-    color: #fff;
-    float: left;
-    font-size: 12px;
-    text-align: center;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    background: linear-gradient(to bottom, darken($link-hover-color,5%) 0%, lighten($link-hover-color,5%) 95%);
-    -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-    -moz-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-    box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    -webkit-transition: width 0.6s ease;
-    -moz-transition: width 0.6s ease;
-    -o-transition: width 0.6s ease;
-    transition: width 0.6s ease;
-}*/

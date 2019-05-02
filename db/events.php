@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Add event handlers for Receptic theme.
+ *
  * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Unversite de Namur
@@ -24,14 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $observers = array(
-    array(
-        'eventname' => 'core\event\user_loggedout',
-        'callback' => 'theme_receptic_observer::user_loggedout',
-    ),
-    /*array(
-        'eventname' => 'core\event\user_created',
-        'callback' => 'theme_receptic_observer::user_created',
-    ),*/
+
     array(
         'eventname' => '\mod_resource\event\course_module_viewed',
         'callback' => 'theme_receptic_observer::course_module_viewed'
@@ -113,11 +108,6 @@ $observers = array(
     ),
 
     array(
-        'eventname' => '\mod_wiki\event\course_module_viewed',
-        'callback' => 'theme_receptic_observer::course_module_viewed'
-    ),
-
-    array(
         'eventname' => '\mod_cobra\event\course_module_viewed',
         'callback' => 'theme_receptic_observer::course_module_viewed'
     ),
@@ -150,6 +140,11 @@ $observers = array(
     array(
         'eventname' => '\core\event\course_viewed',
         'callback' => 'theme_receptic_observer::course_viewed'
-    )
+    ),
+
+    array(
+        'eventname' => '\mod_animals\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
 
 );

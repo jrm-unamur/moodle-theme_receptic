@@ -14,30 +14,34 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
- * A login page layout for the boost theme.
+ * A login page layout for Receptic theme.
  *
- * @package   theme_boost
- * @copyright 2016 Damyon Wiese
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    theme_receptic
+ * @author     Jean-Roch Meurisse
+ * @copyright  2016 - Cellule TICE - Unversite de Namur
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+defined('MOODLE_INTERNAL') || die();
 
 $bodyattributes = $OUTPUT->body_attributes();
 $haslogoleft = !empty(get_config('theme_receptic', 'logoleft'));
 $haslogocenter = !empty(get_config('theme_receptic', 'logocenter'));
 $haslogoright = !empty(get_config('theme_receptic', 'logoright'));
+$displaybrandbanner = get_config('theme_receptic', 'brandbanner');
 
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]),
     'output' => $OUTPUT,
     'bodyattributes' => $bodyattributes,
     'forgetpasslink' => false,
-    'displaybrandbanner' => true,
+    'displaybrandbanner' => $displaybrandbanner,
     'logoleft' => $haslogoleft,
     'logocenter' => $haslogocenter,
-    'logoright' => $haslogoright
+    'logoright' => $haslogoright,
+    'navbaritems' => false,
+    'logininfo' => get_config('theme_receptic', 'logininfo')
 ];
 
 echo $OUTPUT->render_from_template('theme_receptic/login', $templatecontext);

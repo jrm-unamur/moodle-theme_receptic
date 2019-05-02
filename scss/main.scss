@@ -1,14 +1,19 @@
 // Import moodle.scss from Boost to bring in all Boostrap/FA/Moodle scss components
-@import "../../boost/scss/moodle";
+//@import "../../boost/scss/moodle";
+//@import "../../boost/scss/fontawesome";
+//@import "../../boost/scss/bootstrap";
 
 @import "components/admin";
 @import "components/blocks";
 @import "components/calendar";
 @import "components/core";
 @import "components/course";
+@import "components/dashboard";
 @import "components/drawer";
 @import "components/filemanager";
 @import "components/forms";
 @import "components/messages";
 @import "components/modules";
+@import "components/themeaddons";
 @import "components/user";
+@import "components/forum.scss";

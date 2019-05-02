@@ -3,9 +3,8 @@
     margin-top: 150px;
 }
 
-// Style shared elements
-#page.container-fluid {
-    padding-top: 6px;
+#region-main {
+    background-color: $white;
 }
 
 #page-header .card {
@@ -13,11 +12,11 @@
     margin-top: .5rem;
 }
 
-#region-main .card.card-block {
+.path-my #region-main > .card {
     box-shadow: 1px 2px 3px 0 #ccc;
 }
 
-.path-my #region-main .card.card-block {
+.path-my #region-main .card .card-body {
     padding: 1rem;
     min-height: 0;
     .car-block {
@@ -40,16 +39,16 @@
 .moodle-dialogue-base .moodle-dialogue-wrap.moodle-dialogue-content,
 .user-enroller-panel .uep-wrap {
     border-radius: 0;
-    box-shadow: 0 3px 9px rgba(0,0,0,0.5);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
     border-style: solid;
-    border-color: $gray;
+    border-color: $gray-700;
     border-width: 0 0 0 6px;
 }
 
 .moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd,
 .moodle-dialogue-base .moodle-dialogue-wrap .moodle-dialogue-hd.yui3-widget-hd,
 .user-enroller-panel .uep-wrap .uep-header {
-    color: $brand-success;
+    color: $success;
     font-family: $headings-font-family;
     text-align: center;
 }
@@ -64,7 +63,7 @@
 .user-enroller-panel .uep-header .close:after {
     font-family: FontAwesome;
     content: "\f00d";
-    color: $brand-primary;
+    color: $primary;
 }
 
 .user-enroller-panel .uep-header .close {
@@ -106,7 +105,7 @@
 .uep-content .uep-search-results .totalusers {
     background-color: #efefef;
     padding: 5px;
-    border-bottom: 1px solid #BBB;
+    border-bottom: 1px solid #bbb;
     font-size: .8rem;
     font-weight: bold;
     text-align: center;
@@ -114,6 +113,21 @@
 
 .uep-content .uep-search-results .users {
     font-size: .9rem;
+}
+
+.helpmodal {
+    text-align: justify;
+    /* Set font-size to normal size as the modals inherit the font size from the element they are placed in.
+     * This is not intended and so we force the font size to be the normal size. */
+    font-size: $font-size-base;
+    .modal-body {
+        /* This is needed to display the text within the modal window as the help button is placed in
+        in a span with the class text-nowrap. */
+        white-space: normal !important; /* stylelint-disable declaration-no-important */
+        ul {
+            padding-left: 1.5rem;
+        }
+    }
 }
 
 /*
@@ -124,7 +138,7 @@
     &:before {
         font-family: FontAwesome;
         content: "\f059";
-        color: #1a9e9f;
+        color: $primary;
         padding-left: .5rem;
         font-size: 1.2rem;
     }
@@ -140,7 +154,7 @@ h2 .help-icon:before {
 .help-icon:focus,
 .help-icon:focus:before {
     text-decoration: none;
-    color: $brand-success;
+    color: $success;
     outline: none;
 }
 
@@ -153,7 +167,7 @@ ul {
 }
 
 div.editor_atto_toolbar button .icon {
-    color: $gray;
+    color: $gray-700;
 }
 
 .media-left {
@@ -185,15 +199,15 @@ div.editor_atto_toolbar button .icon {
 
 #page-login-index {
     #accordion {
-        margin-top:5rem;
+        margin-top: 5rem;
         .card {
-            border-color: $gray-light;
+            border-color: $gray-600;
         }
         .card-header {
-            background-color:white;
-            border:none;
+            background-color: white;
+            border: none;
         }
-        .card-block {
+        .card-body {
             padding-top: 0;
             .input-group-username {
                 margin-top: 1rem;
@@ -221,12 +235,73 @@ div.editor_atto_toolbar button .icon {
 
 .connectbox {
     padding: 0.5rem;
-    border: 3px solid $brand-success;
+    border: 3px solid $success;
 }
 
-$footer-link-color: $brand-primary !default;
+
 #page-footer a {
-    color: $brand-primary;
+    color: $footer-link-color;
     text-decoration: none;
 }
 
+.moodlecredits img.icon {
+    margin-bottom: .625rem;
+    width: 75px;
+    height: 20px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.path-calendar .maincalendar .calendar-controls .current,
+.h3,
+.h4,
+.h5,
+.h6 {
+    color: $headings-color;
+}
+
+#page.container-fluid {
+    padding: 0;
+    @include media-breakpoint-up(md) {
+        padding: 0 .5rem;
+    }
+    /*@include media-breakpoint-up(md) {
+        padding-right: 2 * $spacer;
+    }*/
+    @include media-breakpoint-down(sm) {
+        header > .pt-3 {
+            padding-top: 0 !important;
+            .card {
+                margin-top: 0;
+            }
+        }
+    }
+}
+
+body.drawer-open-right #page.container-fluid {
+    @include media-breakpoint-up(md) {
+        padding-right: (1.5 * $spacer);
+    }
+}
+
+div::-webkit-scrollbar,
+section::-webkit-scrollbar {
+    width: 7px;
+}
+
+div::-webkit-scrollbar-track,
+section::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 7px rgba(0, 0, 0, 0.3);
+}
+
+div::-webkit-scrollbar-thumb,
+section::-webkit-scrollbar-thumb {
+    background-color: $brand-primary;
+    outline: 1px solid $brand-primary;
+}

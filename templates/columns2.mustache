@@ -48,118 +48,100 @@
         "hasregionmainsettingsmenu": false
     }
 }}
-{{{ output.doctype }}}
-<html {{{ output.htmlattributes }}}>
-<head>
-    <title>{{{ output.page_title }}}</title>
-    <link rel="shortcut icon" href="{{{ output.favicon }}}" />
-    {{#googlefonts}}<link rel="stylesheet" href="https://fonts.googleapis.com/css?family={{{.}}}" type="text/css">{{/googlefonts}}
-    {{{ output.standard_head_html }}}
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-</head>
+{{> theme_receptic/head }}
 
-<body {{{ bodyattributes }}}>
+    <body {{{ bodyattributes }}}>
 
-<div id="page-wrapper">
+        <div id="page-wrapper">
 
-    {{{ output.standard_top_of_body_html }}}
+        {{{ output.standard_top_of_body_html }}}
 
-    {{>theme_receptic/header}}
+        {{#displaybrandbanner}}
+            {{>theme_receptic/banner}}
+        {{/displaybrandbanner}}
 
-    <div id="page" class="container-fluid">
-        {{{ output.full_header }}}
-{{!output.tips_and_tricks}}
-        <!--<div class="fpicon" id="yui_3_17_2_1_1519312944509_456">
-            <a role="button" data-toggle="collapse" href="#fpslider" aria-expanded="true" aria-controls="fpslider" id="yui_3_17_2_1_1519312944509_455" class="">
-                <img src="https://moodle-test.test.fundp.ac.be/jrm/theme/image.php/receptic/theme_receptic/1519308471/tips-and-tricks" width="50px"/>
-            </a>
-        </div>
-        <div class="collapse" id="fpslider" aria-expanded="false" style="height: 0px;">
-            <div class="text_to_html"><p>Contenu de la boite à texte</p></div>
-        </div>-->
+        {{>theme_receptic/navbar}}
 
-        <div id="page-content" class="row">
-            {{#hasblocks}}
-            <!--<a href="#" class="toggleblocks hideblocks hidden-lg-down" title="Masquer les blocs"><i class="fa fa-chevron-right fa-lg"></i></a>
-            <a href="#" class="toggleblocks showblocks hidden-lg-down" title="Afficher les blocs"><i class="fa fa-chevron-left fa-lg"></i></a>-->
-            {{/hasblocks}}
-            <div id="region-main-box" class="col-xs-12">
-                {{#hasregionmainsettingsmenu}}
-                <div id="region-main-settings-menu" class="hidden-print {{#hasblocks}}has-blocks{{/hasblocks}}">
-                    <div> {{{ output.region_main_settings_menu }}} </div>
-                </div>
-                {{/hasregionmainsettingsmenu}}
-                <section id="region-main" {{#hasblocks}}class="has-blocks"{{/hasblocks}}>
-                    {{{ output.flashboxteachers }}}
-                    {{{ output.flashboxstudents }}}
-
-                    <div class="card card-block">
+        <div id="page" class="container-fluid">
+            {{{ output.full_header }}}
+            {{{ output.coursewarnings }}}
+            {{> theme_receptic/coursewarnings }}
+            <div id="page-content" class="row pb-1">
+                <div id="region-main-box" class="col-12">
+                    {{#node}}
+                        {{> theme_receptic/settings_link_page }}
+                    {{/node}}
                     {{#hasregionmainsettingsmenu}}
-                        <div class="region_main_settings_menu_proxy"></div>
-                    {{/hasregionmainsettingsmenu}}
-                    {{{ output.course_content_header }}}
-                    {{{ output.main_content }}}
-                    {{! output.activity_navigation }}
-                    {{{ output.course_content_footer }}}
+                    <div id="region-main-settings-menu" class="d-print-none {{#hasblocks}}has-blocks{{/hasblocks}}">
+                        <div> {{{ output.region_main_settings_menu }}} </div>
                     </div>
-                </section>
+                    {{/hasregionmainsettingsmenu}}
+                    {{#activitynode}}
+                        {{> theme_receptic/activity_settings_incourse }}
+                    {{/activitynode}}
+                    <section id="region-main" {{#hasblocks}}class="has-blocks mb-3"{{/hasblocks}}>
+                        {{{ output.flashbox1 }}}
+                        {{{ output.flashbox2 }}}
 
+                        <!--<div class="card card-block">-->
+                        <!--<div class="card">
+                            <div class="card-body">-->
+                                {{#hasregionmainsettingsmenu}}
+                                    <div class="region_main_settings_menu_proxy"></div>
+                                {{/hasregionmainsettingsmenu}}
+                                {{{ output.course_content_header }}}
+
+                                {{{ output.main_content }}}
+                        {{#activitynavigation}}
+                            {{{ output.activity_navigation }}}
+                        {{/activitynavigation}}
+
+                                {{{ output.course_content_footer }}}
+                            <!--</div>
+                        </div>-->
+                    </section>
+                    {{#hasblocks}}
+                        <section id="blocks-column" data-region="blocks-column" class="d-print-none">
+                           {{{ sidepreblocks }}}
+                        </section>
+                    {{/hasblocks}}
+                </div>
             </div>
         </div>
+        {{#hasblocks}}
+            <i id="blocks-column-toggle"
+               role="button"
+               class="d-none d-md-block"
+               aria-expanded="{{#draweropenright}}true{{/draweropenright}}{{^draweropenright}}false{{/draweropenright}}"
+               aria-controls="blocks-column"
+               data-action="toggle-drawer"
+               data-side="right"
+               data-preference="blocks-column-open"
+               title="{{#draweropenright}}{{#str}} hideblocks, theme_receptic {{/str}}{{/draweropenright}}{{^draweropenright}}{{#str}} showblocks, theme_receptic {{/str}}{{/draweropenright}}">
+            </i>
+
+
+        {{/hasblocks}}
+        {{{ output.standard_after_main_region_html }}}
+        {{> theme_receptic/nav-drawer }}
+        {{> theme_receptic/footer }}
+
     </div>
-    {{#hasblocks}}
-        <i id="sidepreopen-control"
-           aria-expanded="{{#draweropenright}}true{{/draweropenright}}{{^draweropenright}}false{{/draweropenright}}"
-           aria-controls="sidepre-blocks"
-           data-action="toggle-drawer"
-           data-side="right"
-           data-preference="sidepre-open"
-           title="{{#draweropenright}}{{#str}} hideblocks, theme_receptic {{/str}}{{/draweropenright}}{{^draweropenright}}{{#str}} showblocks, theme_receptic {{/str}}{{/draweropenright}}">
-        </i>
-        <section data-region="blocks-column" class="hidden-print">
-            {{{ sidepreblocks }}}
-        </section>
 
-    {{/hasblocks}}
-    {{#shownavdrawer}}
-    {{> theme_receptic/nav-drawer }}
-    {{/shownavdrawer}}
-</div>
-<footer id="page-footer" class="p-y-1 bg-inverse">
-    <div class="container text-sm-center">
-        <div id="course-footer">{{{ output.course_footer }}}</div>
-
-        {{# output.page_doc_link }}
-            <p class="helplink">{{{ output.page_doc_link }}}</p>
-        {{/ output.page_doc_link }}
-
-        {{! output.login_info }}
-        <div class="tool_usertours-resettourcontainer"></div>
-        {{! output.home_link }}
-        <nav class="nav navbar-nav hidden-lg-up">
-            {{# output.custom_menu_flat }}
-                <ul class="list-unstyled p-t-1">
-                    {{> theme_boost/custom_menu_footer }}
-                </ul>
-            {{/ output.custom_menu_flat }}
-        </nav>
-        {{{ output.contact_info }}}
-        {{{ output.moodle_credits }}}
-        {{{ output.standard_footer_html }}}
-        <div id="back-to-top">
-            <a class="arrow" href="#top" >▲</a>
-            <a class="text" href="#">Back to Top</a>
-        </div>
-        {{{ output.standard_end_of_body_html }}}
-    </div>
-</footer>
-
-</body>
+    </body>
 </html>
 {{#js}}
 require(['theme_boost/loader']);
+require(['jquery', 'theme_boost/tooltip'], function($) {
+    $('[data-tooltip="tooltip"]').tooltip();
+});
 require(['theme_boost/drawer'], function(mod) {
     mod.init();
 });
+
+{{#settingsincourse}}
+    require(['theme_receptic/incoursesettings'], function(mod) {
+        mod.init();
+    });
+{{/settingsincourse}}
 {{/js}}
