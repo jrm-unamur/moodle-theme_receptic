@@ -92,6 +92,7 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
             $data['coursefilterpast'] = get_config('theme_receptic', 'coursefilterpast');
             $data['coursefilterstarred'] = get_config('theme_receptic', 'coursefilterstarred');
             $data['coursefilterhidden'] = get_config('theme_receptic', 'coursefilterhidden');
+            $data['hasperiodfilter'] = $data['coursefilterinprogress'] || $data['coursefilterfuture'] || $data['coursefilterpast'];
         }
         $data['allowcoursesorting'] = get_config('theme_receptic', 'allowcoursesorting');
         $data['allowdisplaymode'] = get_config('theme_receptic', 'allowdisplaymode');
