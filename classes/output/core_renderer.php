@@ -440,8 +440,10 @@ class core_renderer extends \theme_boost\output\core_renderer {
      */
     public function flashbox($flashbox) {
         global $PAGE, $USER;
+        $isdismissable = get_config('theme_receptic', $flashbox . 'dismissable');
         if ($PAGE->pagetype !== 'my-index'
-            || get_user_preferences($flashbox . '-hidden', false, $USER->id) === 'true') {
+            || (get_user_preferences($flashbox . '-hidden', false, $USER->id) === 'true')
+                && $isdismissable) {
             return '';
         }
         $usercanview = false;
@@ -480,7 +482,8 @@ class core_renderer extends \theme_boost\output\core_renderer {
             'message' => $message,
             'type' => $flashboxtype,
             'icon' => $flashboxicon,
-            'hideclass' => 'hide' . $flashbox
+            'hideclass' => 'hide' . $flashbox,
+            'isdismissable' => $isdismissable
         ];
         return parent::render_from_template('theme_receptic/flashbox', $data);
     }

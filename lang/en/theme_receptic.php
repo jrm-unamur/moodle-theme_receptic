@@ -176,3 +176,6 @@ $string['disableavatarupload'] = 'Disable avatar upload';
 $string['disableavatarupload_desc'] = 'Activiate this setting to prevent users from uploading a profile picture or avatar. It can be helpful if your want to collect users\' pictures form an external system.';
 $string['disableavataruploademailpattern'] = 'Email patterns for this restriction';
 $string['disableavataruploademailpattern_desc'] = 'If "disableavatarupload" is set, use this field to limit the restriction to some email address patterns. Add one email pattern per line. All matching users won\'t be able to upload their profile picture. ';
+
+$string['flashboxdismissable'] = 'Dismissable';
+$string['flashboxdismissable_desc'] = 'If checked, users will be able to dismiss the message, otherwise the message will be deactivated when an administrator decides to deactivate it for all target users';
