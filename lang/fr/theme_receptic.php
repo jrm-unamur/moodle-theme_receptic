@@ -175,3 +175,6 @@ $string['disableavatarupload'] = 'Bloquer le téléversement des photos de profi
 $string['disableavatarupload_desc'] = 'Activez ce paramètre pour interdire le téléversement des photos de profil par les utilisateurs. Cela peut être utile si vous désirez récupérer les photos depuis un système externe';
 $string['disableavataruploademailpattern'] = 'Modèle de courriel pour la restriction';
 $string['disableavataruploademailpattern_desc'] = 'Si le paramètre précédent est activé, utilisez ce champ pour limiter la restriction à un ou plusieurs modèles d\'adresses email. Tour les utilisateurs dont l\'adresse de courriel correspond ne pourront plus téléverser de photo de profil.';
+
+$string['flashboxdismissable'] = 'Supprimable';
+$string['flashboxdismissable_desc'] = 'Laissez ce paramètre activé pour autoriser les utilisateurs à supprimer le message de leur tableau de bord. Si vous le désactivez, seuls les administrateurs pourront supprimer le message pour tous les utilisateurs concernés';

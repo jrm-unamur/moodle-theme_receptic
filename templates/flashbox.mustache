@@ -38,6 +38,8 @@
     <div class="row">
         <div class="col-1 flashboxicon"><i class="fa fa-{{icon}}"></i></div>
         <div class="col-10">{{{message}}}</div>
-        <div class="col flashboxhide"><a href="" class="{{hideclass}}">X</a></div>
+        {{#isdismissable}}
+            <div class="col flashboxhide"><a href="" class="{{hideclass}}">X</a></div>
+        {{/isdismissable}}
     </div>
 </div>

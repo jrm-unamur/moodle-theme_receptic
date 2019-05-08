@@ -481,15 +481,7 @@ $setting = new admin_setting_confightmleditor($name, $title, $description, $defa
 $setting->set_updatedcallback('theme_receptic_reset_flashbox1');
 $page->add($setting);
 
-// Flashboxteacherstype setting.
-$name = 'theme_receptic/flashbox1forall';
-$title = get_string('flashboxforall', 'theme_receptic');
-$description = get_string('flashboxforall_desc', 'theme_receptic');
-
-$setting = new admin_setting_configcheckbox($name, $title, $description, false);
-$page->add($setting);
-
-// Flashboxteacherstype setting.
+// Flashbox1type setting.
 $name = 'theme_receptic/flashbox1type';
 $title = get_string('flashboxtype', 'theme_receptic');
 $description = get_string('flashboxtype_desc', 'theme_receptic');
@@ -501,6 +493,14 @@ $choices = [
 ];
 
 $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+$page->add($setting);
+
+// Flashbox1 for all setting.
+$name = 'theme_receptic/flashbox1forall';
+$title = get_string('flashboxforall', 'theme_receptic');
+$description = get_string('flashboxforall_desc', 'theme_receptic');
+
+$setting = new admin_setting_configcheckbox($name, $title, $description, false);
 $page->add($setting);
 
 $name = 'theme_receptic/flashbox1cohorts';
@@ -517,7 +517,15 @@ foreach ($cohorts['cohorts'] as $cohort) {
 $setting = new admin_setting_configmultiselect($name, $title, $description, array(), $choices);
 $page->add($setting);
 
-// Flashboxstudents setting.
+// Flashbox1 dismissable setting.
+$name = 'theme_receptic/flashbox1dismissable';
+$title = get_string('flashboxdismissable', 'theme_receptic');
+$description = get_string('flashboxdismissable_desc', 'theme_receptic');
+
+$setting = new admin_setting_configcheckbox($name, $title, $description, true);
+$page->add($setting);
+
+// Flashbox2 setting.
 $name = 'theme_receptic/flashbox2';
 $title = get_string('flashbox2', 'theme_receptic');
 $description = get_string('flashbox2_desc', 'theme_receptic');
@@ -538,7 +546,7 @@ foreach ($cohorts['cohorts'] as $cohort) {
 $setting = new admin_setting_configmultiselect($name, $title, $description, array(), $choices);
 $page->add($setting);
 
-// Flashboxstudentstype setting.
+// Flashbox2 type setting.
 $name = 'theme_receptic/flashbox2type';
 $title = get_string('flashboxtype', 'theme_receptic');
 $description = get_string('flashboxtype_desc', 'theme_receptic');
@@ -550,6 +558,14 @@ $choices = [
 ];
 
 $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+$page->add($setting);
+
+// Flashbox2 dismissable setting.
+$name = 'theme_receptic/flashbox2dismissable';
+$title = get_string('flashboxdismissable', 'theme_receptic');
+$description = get_string('flashboxdismissable_desc', 'theme_receptic');
+
+$setting = new admin_setting_configcheckbox($name, $title, $description, true);
 $page->add($setting);
 
 // Add settings page to the appearance settings category.
