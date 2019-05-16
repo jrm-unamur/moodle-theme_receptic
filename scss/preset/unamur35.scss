@@ -160,7 +160,7 @@ span .icon {
 }
 .btn-secondary,
 .btn-default {
-    color: #fff;
+    color: #fff !important;
     background-color: $gray-700;
     border-color: $gray-700;
     i.icon {
@@ -346,4 +346,8 @@ input[type=submit] {
 
 #page-my-index {
     background-color: $body-bg;
+}
+
+.bg-secondary {
+    background-color: $gray-400 !important;
 }
