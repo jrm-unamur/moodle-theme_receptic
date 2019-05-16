@@ -37,10 +37,16 @@
 
     {{{ output.standard_top_of_body_html }}}
 
-    <div id="page" class="container-fluid m-0 p-0">
-        <div id="page-content" class="col-12 p-0 m-0">
-            <div id="region-main-box" class="col-12 p-0 m-0" aria-label="{{#str}}content{{/str}}">
-                <section id="region-main p-0 m-0">
+    {{#displaybrandbanner}}
+        {{>theme_receptic/banner}}
+    {{/displaybrandbanner}}
+
+    <nav class="fixed-top {{#displaybrandbanner}}pos-f-t-lower{{/displaybrandbanner}} navbar navbar-receptic navbar-expand moodle-has-zindex"></nav>
+{{{output.flashbox1}}}
+    <div id="page" class="container-fluid">
+        <div id="page-content" class="row justify-content-around">
+            <div id="region-main-box" style="width:100%;">
+                <section id="region-main">
                     {{{ output.course_content_header }}}
                     {{{ output.main_content }}}
                     {{{ output.course_content_footer }}}

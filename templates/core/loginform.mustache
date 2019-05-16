@@ -39,6 +39,7 @@
     * errorformatted - Formatted error,
     * logourl - Flag, logo url,
     * sitename - Name of site.
+    * logintoke - Random token to protect login request
 
     Example context (json):
     {
@@ -87,185 +88,224 @@
         "cookieshelpiconformatted": "",
         "errorformatted": "",
         "logourl": false,
-        "sitename": "Beer & Chips"
+        "sitename": "Beer & Chips",
+        "logintoken": "randomstring"
     }
 }}
-<div class="container">
-    <div class="my-5"></div>
-<div class="row">
-    <div class="col-md-4 col-10">
-        <div class="card pt-3">
-            <div class="card-body">
-                <div class="row justify-content-center">
-                    <div class="card-title text-center text-md-left col-md-10">
-                        <h2>{{#str}} login {{/str}}</h2>
-                        <hr>
-                    </div>
-                    {{#cansignup}}
-                    <div class="sr-only">
-                        <a href="{{signupurl}}">{{#str}} tocreatenewaccount {{/str}}</a>
-                    </div>
-                    {{/cansignup}}
+
+<div class="row mx-0 bg-white my-5" style="height:380px;">
+    <div class="d-none d-sm-flex col-sm-2"></div>
+    <div class="col-12 {{#hasidentityproviders}}col-sm-4{{/hasidentityproviders}}{{^hasidentityproviders}}col-sm-6{{/hasidentityproviders}} justify-content-sm-end p-3 pl-5 my-auto">
+        {{#logourl}}
+            <h2 class="text-center" ><img src="{{logourl}}" class="img-fluid" title="{{sitename}}" alt="{{sitename}}"/></h2>
+        {{/logourl}}
+        {{^logourl}}
+            <h2 class="card-header text-center">{{sitename}}</h2>
+        {{/logourl}}
+        <div class="mt-3 text-center">
+            {{#str}} cookiesenabled {{/str}}
+            {{{cookieshelpiconformatted}}}
+        </div>
+        <div class="contactinfo text-center  mt-5">
+            <p>Contacter l'équipe WebCampus :<br>
+                <a href="mailto:webcampus@unamur.be"> <i class="fa fa-envelope"></i> </a>
+                ou
+                <i class="fa fa-phone"></i> 081/725075
+            </p>
+        </div>
+        <div class="moodlecredits text-center">
+            Utilise
+            <a title="Moodle" href="http://moodle.org/" target="_blank">
+                <img class="icon " alt="Moodle" title="Moodle" src="https://localhost/~jmeuriss/moodle37/theme/image.php/receptic/core/1557736140/moodlelogo">
+            </a>
+        </div>
+    </div>
+    {{#hasidentityproviders}}
+        <div class="bg-success col-12 col-sm-6 p-0">
+    <div class=" justify-content-sm-end p-3  my-auto" height="100%">
+        <div class="potentialidplist connectbox" class="m-t-1">
+            <h4 class="m-t-1 text-center">Membre UNamur</h4>
+            {{#identityproviders}}
+                <div class="potentialidp text-center">
+                    <a href="{{url}}" title={{#quote}}Me connecter{{/quote}}>
+                        <i class="fa fa-sign-in loginbutton" style="font-size:3rem; color: white;"></i>
+                    </a>
                 </div>
-                {{#error}}
-                    <div class="loginerrors mt-1">
-                        <a href="#" id="loginerrormessage" class="accesshide">{{error}}</a>
-                        <div class="alert alert-danger" role="alert">{{error}}</div>
+            {{/identityproviders}}
+            <h4 class="m-t-1 text-center d-none">Cliquez sur l'icône ci-dessus</h4>
+        </div>
+        {{#cansignup}}
+            <div class="sr-only">
+                <a href="{{signupurl}}">{{#str}} tocreatenewaccount {{/str}}</a>
+            </div>
+        {{/cansignup}}
+
+        {{#error}}
+            <div class="loginerrors mt-3">
+                <a href="#" id="loginerrormessage" class="accesshide">{{error}}</a>
+                <div class="alert alert-danger" role="alert" data-aria-autofocus="true">{{error}}</div>
+            </div>
+        {{/error}}
+        <form class="mt-1" action="{{loginurl}}" method="post" id="login">
+            <input id="anchor" type="hidden" name="anchor" value="">
+            <script>document.getElementById('anchor').value = location.hash;</script>
+            <input type="hidden" name="logintoken" value="{{logintoken}}">
+            <div id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="card">
+                    <div class="card-header bg-success" role="tab" id="headingOne">
+                        <h5 class="mb-0">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseone" aria-expanded="false" aria-controls="collapseone" class="logintoggle collapsed">
+                                <span>Utilisateur extérieur</span>
+                            </a>
+                        </h5>
                     </div>
-                {{/error}}
-                <div class="row justify-content-center">
-                    <div class="col-md-10 form">
-                        <form class="mt-1" action="{{loginurl}}" method="post" id="login">
-                            <input id="anchor" type="hidden" name="anchor" value="">
-                            <script>document.getElementById('anchor').value = location.hash;</script>
-                            <input type="hidden" name="logintoken" value="{{logintoken}}">
-                            {{#hasidentityproviders}}
 
-                                <div class="potentialidplist connectbox" class="m-t-1">
-                                    <h4 class="m-t-1 text-center">Etudiant ou membre du personnel de l'UNamur</h4>
-                                    {{#identityproviders}}
-                                        <div class="potentialidp text-center">
-                                            <a href="{{url}}" title={{#quote}}Me connecter{{/quote}}>
-                                                <i class="fa fa-sign-in" style="font-size:3rem;"></i>
-                                            </a>
-                                        </div>
-                                    {{/identityproviders}}
-                                    <h4 class="m-t-1 text-center">Cliquez sur l'icône ci-dessus</h4>
-                                </div>
-
-                                <div id="accordion" role="tablist" aria-multiselectable="true">
-                                    <div class="card">
-                                        <div class="card-header" role="tab" id="headingOne">
-                                            <h5 class="mb-0">
-                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseone" aria-expanded="false" aria-controls="collapseOne" class="sectiontoggle collapsed">
-                                                    <span>Utilisateur extérieur</span>
-                                                </a>
-                                            </h5>
-                                        </div>
-
-                                        <div id="collapseone" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
-                                            <div class="card-body">
-                                                <label for="username" class="sr-only">
-                                                    {{^canloginbyemail}}
-                                                        {{#str}} username {{/str}}
-                                                    {{/canloginbyemail}}
-                                                    {{#canloginbyemail}}
-                                                        {{#str}} usernameemail {{/str}}
-                                                    {{/canloginbyemail}}
-                                                </label>
-                                                <div class="input-group mb-3">
-                                                    <input type="text" style="display:none" name="nothing" autofocus>
-                                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-user-circle"></i></span></div>
-                                                    <input type="text" name="username" id="username"
-                                                           class="form-control"
-                                                           value="{{username}}"
-                                                            placeholder={{#quote}}{{^canloginbyemail}}{{#str}}username{{/str}}{{/canloginbyemail}}{{#canloginbyemail}}{{#str}}usernameemail{{/str}}{{/canloginbyemail}}{{/quote}}>
-                                                </div>
-
-                                                <label for="password" class="sr-only">{{#str}} password {{/str}}</label>
-                                                <div class="input-group input-group-password">
-                                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-lock"></i></span></div>
-                                                    <input type="password" name="password" id="password" value=""
-                                                           class="form-control"
-                                                            placeholder={{#quote}}{{#str}}password{{/str}}{{/quote}}>
-                                                </div>
-                                                <div class="text-center">
-                                                    <button type="submit" class="btn btn-primary m-t-1" id="loginbtn">{{#str}}login{{/str}}</button>
-                                                </div>
-                                            </div></div></div></div>
-                            {{/hasidentityproviders}}
-                            {{^hasidentityproviders}}
-                                <label for="username" class="sr-only">
-                                    {{^canloginbyemail}}
-                                        {{#str}} username {{/str}}
-                                    {{/canloginbyemail}}
-                                    {{#canloginbyemail}}
-                                        {{#str}} usernameemail {{/str}}
-                                    {{/canloginbyemail}}
-                                </label>
-
-                                <div class="input-group mb-3">
-                                    <input type="text" style="display:none" name="nothing" autofocus>
-                                    <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-user-circle"></i></span></div>
-                                    <input type="text" name="username" id="username"
-                                           class="form-control"
-                                           value="{{username}}"
-                                            placeholder={{#quote}}{{^canloginbyemail}}{{#str}}username{{/str}}{{/canloginbyemail}}{{#canloginbyemail}}{{#str}}usernameemail{{/str}}{{/canloginbyemail}}{{/quote}}>
-                                </div>
-
-                                <label for="password" class="sr-only">{{#str}} password {{/str}}</label>
-                                <div class="input-group input-group-password">
-                                    <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fa fa-lock"></i></span></div>
-                                    <input type="password" name="password" id="password" value=""
-                                           class="form-control"
-                                            placeholder={{#quote}}{{#str}}password{{/str}}{{/quote}}>
-                                </div>
-                                {{#rememberusername}}
-                                    <div class="rememberpass m-t-1">
-                                        <input type="checkbox" name="rememberusername" id="rememberusername" value="1">
-                                        <label for="rememberusername">{{#str}} rememberusername, admin {{/str}}</label>
-                                    </div>
-                                {{/rememberusername}}
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-primary m-t-1" id="loginbtn">{{#str}}login{{/str}}</button>
-                                </div>
-                            {{/hasidentityproviders}}
-
-                        </form>
-                        {{#cansignup}}
-                            <form class="text-center m-t-1" action="{{signupurl}}" method="get" id="signup">
-                                <button type="submit" class="btn btn-secondary">{{#str}}startsignup{{/str}}</button>
-                            </form>
-                        {{/cansignup}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-10 push-md-1">
-                        {{#forgetpasslink}}
-                            <div class="forgetpass m-t-1">
-                                <p><a href="{{forgotpasswordurl}}">{{#str}}forgotten{{/str}}</a></p>
+                    <div id="collapseone" class="collapse" role="tabpanel">
+                        <div class="card-body">
+                            <label for="username" class="sr-only">
+                                {{^canloginbyemail}}
+                                    {{#str}} username {{/str}}
+                                {{/canloginbyemail}}
+                                {{#canloginbyemail}}
+                                    {{#str}} usernameemail {{/str}}
+                                {{/canloginbyemail}}
+                            </label>
+                            <div class="input-group mb-3">
+                                <input type="text" style="display:none" name="nothing" autofocus>
+                                <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-user-circle"></i></span></div>
+                                <input type="text" name="username" id="username"
+                                       class="form-control"
+                                       value="{{username}}"
+                                        placeholder={{#quote}}{{^canloginbyemail}}{{#str}}username{{/str}}{{/canloginbyemail}}{{#canloginbyemail}}{{#str}}usernameemail{{/str}}{{/canloginbyemail}}{{/quote}}>
                             </div>
-                        {{/forgetpasslink}}
-                        {{#canloginasguest}}
-                            <div class="m-t-2">
-                                <p>{{#str}}someallowguest{{/str}}</p>
-                                <form action="{{loginurl}}" method="post" id="guestlogin">
-                                    <input type="hidden" name="username" value="guest" />
-                                    <input type="hidden" name="password" value="guest" />
-                                    <div class="text-center">
-                                    <button class="btn btn-secondary" type="submit">{{#str}}loginguest{{/str}}</button>
-                                    </div>
-                                </form>
+
+                            <label for="password" class="sr-only">{{#str}} password {{/str}}</label>
+                            <div class="input-group input-group-password">
+                                <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-lock"></i></span></div>
+                                <input type="password" name="password" id="password" value=""
+                                       class="form-control"
+                                        placeholder={{#quote}}{{#str}}password{{/str}}{{/quote}}>
                             </div>
-                        {{/canloginasguest}}
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-md-12">
-                        <div class="m-t-1">
-                            {{#str}} cookiesenabled {{/str}}
-                            {{{cookieshelpiconformatted}}}
+                            {{#rememberusername}}
+                                <div class="rememberpass m-t-1">
+                                    <input type="checkbox" name="rememberusername" id="rememberusername" value="1">
+                                    <label for="rememberusername">{{#str}} rememberusername, admin {{/str}}</label>
+                                </div>
+                            {{/rememberusername}}
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary m-t-1" id="loginbtn">{{#str}}login{{/str}}</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    {{#hasinstructions}}
-        <div class="col-md-8 col-10">
-            <div class="card welcome-panel">
-                <div class="card-body">
+        </form>
 
-                    <div>
-                        {{{instructions}}}
+    </div>
+        </div>
+    {{/hasidentityproviders}}
+    <div class="d-none col-12 {{#hasidentityproviders}}col-sm-4{{/hasidentityproviders}}{{^hasidentityproviders}}col-sm-6{{/hasidentityproviders}} bg-success">
+        {{#cansignup}}
+            <div class="sr-only">
+                <a href="{{signupurl}}">{{#str}} tocreatenewaccount {{/str}}</a>
+            </div>
+        {{/cansignup}}
+
+        {{#error}}
+            <div class="loginerrors mt-3">
+                <a href="#" id="loginerrormessage" class="accesshide">{{error}}</a>
+                <div class="alert alert-danger" role="alert" data-aria-autofocus="true">{{error}}</div>
+            </div>
+        {{/error}}
+        <form class="mt-1" action="{{loginurl}}" method="post" id="login">
+            <input id="anchor" type="hidden" name="anchor" value="">
+            <script>document.getElementById('anchor').value = location.hash;</script>
+            <input type="hidden" name="logintoken" value="{{logintoken}}">
+            <div id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="card">
+                    <div class="card-header bg-success" role="tab" id="headingOne">
+                        <h5 class="mb-0">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseone" aria-expanded="false" aria-controls="collapseOne" class="sectiontoggle collapsed">
+                                <span>Utilisateur extérieur</span>
+                            </a>
+                        </h5>
+                    </div>
+
+                    <div id="collapseone" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                        <div class="card-body">
+                            <label for="username" class="sr-only">
+                                {{^canloginbyemail}}
+                                    {{#str}} username {{/str}}
+                                {{/canloginbyemail}}
+                                {{#canloginbyemail}}
+                                    {{#str}} usernameemail {{/str}}
+                                {{/canloginbyemail}}
+                            </label>
+                            <div class="input-group mb-3">
+                                <input type="text" style="display:none" name="nothing" autofocus>
+                                <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-user-circle"></i></span></div>
+                                <input type="text" name="username" id="username"
+                                       class="form-control"
+                                       value="{{username}}"
+                                        placeholder={{#quote}}{{^canloginbyemail}}{{#str}}username{{/str}}{{/canloginbyemail}}{{#canloginbyemail}}{{#str}}usernameemail{{/str}}{{/canloginbyemail}}{{/quote}}>
+                            </div>
+
+                            <label for="password" class="sr-only">{{#str}} password {{/str}}</label>
+                            <div class="input-group input-group-password">
+                                <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-lock"></i></span></div>
+                                <input type="password" name="password" id="password" value=""
+                                       class="form-control"
+                                        placeholder={{#quote}}{{#str}}password{{/str}}{{/quote}}>
+                            </div>
+                            {{#rememberusername}}
+                                <div class="rememberpass m-t-1">
+                                    <input type="checkbox" name="rememberusername" id="rememberusername" value="1">
+                                    <label for="rememberusername">{{#str}} rememberusername, admin {{/str}}</label>
+                                </div>
+                            {{/rememberusername}}
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary m-t-1" id="loginbtn">{{#str}}login{{/str}}</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {{/hasinstructions}}
-</div>
+        </form>
+
+
+
+        {{#canloginasguest}}
+            <div class="mt-3 mx-auto text-center">
+                <form action="{{loginurl}}" method="post" id="guestlogin">
+                    <input type="hidden" name="logintoken" value="{{logintoken}}">
+                    <input type="hidden" name="username" value="guest" />
+                    <input type="hidden" name="password" value="guest" />
+                    <button class="btn btn-secondary" type="submit">{{#str}}loginguest{{/str}}</button>
+                </form>
+                {{#cansignup}}
+                    <form class="my-3" action="{{signupurl}}" method="get" id="signup">
+                        <button type="submit" class="btn btn-secondary">{{#str}}startsignup{{/str}}</button>
+                    </form>
+                {{/cansignup}}
+            </div>
+        {{/canloginasguest}}
+        {{#hasinstructions}}
+            <div class="mt-2 d-none">
+                <div class="card welcome-panel">
+                    <div class="card-body">
+
+                        <div>
+                            {{{instructions}}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {{/hasinstructions}}
+
     </div>
+</div>
+
+
 
 {{#js}}
     {{#error}}

@@ -33,7 +33,7 @@ class theme_receptic_observer {
     /**
      * Triggered via course_module_viewed events.
      *
-     * @param \core\event\course_module_viewed $event
+     * @param \core\event\base $event
      */
     public static function course_module_viewed(core\event\base $event) {
         $eventdata = $event->get_data();
