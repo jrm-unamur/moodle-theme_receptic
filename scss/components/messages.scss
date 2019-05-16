@@ -108,7 +108,7 @@
 
 .message-app.drawer {
     top: $drawer-position-top;
-    height: calc(100% -  #{$drawer-position-top});
+    height: calc(100% - #{$drawer-position-top});
     .message {
         &.send .tail {
             right: 0;

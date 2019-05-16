@@ -123,7 +123,7 @@ body {
 }
 /* ... and restore the indent of the mycourses child nodes. */
 .list-group-item[data-parent-key="mycourses"] > div {
-    margin-left: 1rem !important;
+    margin-left: 1rem !important; /* stylelint-disable-line declaration-no-important */
 }
 
 /* Add icon for sections node */
@@ -135,7 +135,7 @@ body {
         }
     }
     ~ a[data-type="30"] > div {
-        margin-left: 1rem !important;
+        margin-left: 1rem !important; /* stylelint-disable-line declaration-no-important */
     }
 }
 
@@ -147,7 +147,7 @@ body {
 .jsenabled .list-group-item[data-key^="localboostnavigationcustomcrootadmins"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustomrootadmins"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustomrooradmins"] > div,
 .jsenabled .list-group-item[data-key^="localboostnavigationcustombottomusers"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustombottomusers"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustombottomusers"] > div,
 .jsenabled .list-group-item[data-key^="localboostnavigationcustombottomadmins"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustombottomadmins"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustombottomadmins"] > div {
-    margin-left: 1rem !important;
+    margin-left: 1rem !important; /* stylelint-disable-line declaration-no-important */
 }
 
 .list-group-item {

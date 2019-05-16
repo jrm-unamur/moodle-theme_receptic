@@ -1,4 +1,4 @@
-<?php
+503<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -497,14 +497,15 @@ function theme_receptic_get_incourse_activity_settings() {
  */
 function theme_receptic_user_can_upload_profile_picture() {
     global $USER;
-    // Restriction is disabled.
+
     if (empty(get_config('theme_receptic', 'disableavatarupload'))) {
+        // Restriction is disabled.
         return true;
-    // Restriction is enabled for all users.
     } else if (empty(get_config('theme_receptic', 'disableavataruploademailpattern'))) {
+        // Restriction is enabled for all users.
         return false;
-    // Restriction is enablef for users with an email address matching a defined pattern.
     } else {
+        // Restriction is enabled for users with an email address matching a defined pattern.
         // Make a new array on delimiter "new line".
         $patterns = explode("\n", get_config('theme_receptic', 'disableavataruploademailpattern'));
         // Check for each pattern.

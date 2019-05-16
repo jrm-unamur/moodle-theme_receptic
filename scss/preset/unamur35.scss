@@ -160,7 +160,7 @@ span .icon {
 }
 .btn-secondary,
 .btn-default {
-    color: #fff !important;
+    color: #fff !important; /* stylelint-disable-line declaration-no-important */
     background-color: $gray-700;
     border-color: $gray-700;
     i.icon {
@@ -349,5 +349,5 @@ input[type=submit] {
 }
 
 .bg-secondary {
-    background-color: $gray-400 !important;
+    background-color: $gray-400 !important; /* stylelint-disable-line declaration-no-important */
 }
