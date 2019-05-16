@@ -33,11 +33,11 @@
 
 <body {{{ bodyattributes }}}>
 
-<div id="page-wrapper">
+<div id="page-wrapper" class="flex-row">
 
     {{{ output.standard_top_of_body_html }}}
 
-    <div id="page" class="container-fluid m-0 p-0">
+    <div id="page" class="container-fluid my-auto p-0">
         <div id="page-content" class="col-12 p-0 m-0">
             <div id="region-main-box" class="col-12 p-0 m-0" aria-label="{{#str}}content{{/str}}">
                 <section id="region-main p-0 m-0">
@@ -48,7 +48,7 @@
             </div>
         </div>
     </div>
-    <footer id="page-footer" class="py-3 bg-dark text-light">
+    <footer id="page-footer" class="d-none py-3 bg-dark text-light">
         <div class="container text-center">
             <div id="course-footer">{{{ output.course_footer }}}</div>
 
