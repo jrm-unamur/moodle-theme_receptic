@@ -106,8 +106,21 @@
     }
 }
 
-.message-drawer {
+.message-app.drawer {
     top: $drawer-position-top;
+    height: calc(100% -  #{$drawer-position-top});
+    .message {
+        &.send .tail {
+            right: 0;
+            margin-right: -0.5rem;
+            border-bottom-color: $gray-400;
+        }
+        &.received .tail {
+            left: 0;
+            margin-left: -0.5rem;
+            border-bottom-color: $white;
+        }
+    }
 }
 
 /*.content-item-container:hover,
