@@ -373,7 +373,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 if ($skipped) {
                     $text = get_string('morenavigationlinks');
                     $url = new moodle_url('/course/admin.php', array('courseid' => $this->page->course->id));
-                    $link = new action_link($url, $text, null, null, new pix_icon('t/edit', $text));
+                    $link = new action_link($url, $text, null, null, new pix_icon('t/edit', ''));
                     $menu->add_secondary_action($link);
                 }
             }
@@ -387,7 +387,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 if ($skipped) {
                     $text = get_string('morenavigationlinks');
                     $url = new moodle_url('/course/admin.php', array('courseid' => $this->page->course->id));
-                    $link = new action_link($url, $text, null, null, new pix_icon('t/edit', $text));
+                    $link = new action_link($url, $text, null, null, new pix_icon('t/edit', ''));
                     $menu->add_secondary_action($link);
                 }
             }
@@ -441,7 +441,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
     public function flashbox($flashbox) {
         global $PAGE, $USER;
         $isdismissable = get_config('theme_receptic', $flashbox . 'dismissable');
-        if ($PAGE->pagetype !== 'my-index'
+        if (($PAGE->pagetype !== 'my-index' && $PAGE->pagetype !== 'login-index')
             || (get_user_preferences($flashbox . '-hidden', false, $USER->id) === 'true')
                 && $isdismissable) {
             return '';
