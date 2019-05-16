@@ -438,7 +438,7 @@ if ($ADMIN->fulltree) {
 
     // Add miscellaneous settings.
     $page = new admin_settingpage('theme_receptic_misc', get_string('miscellaneous'));
-    
+
     // Add setting to prevent users from uploading profile picture.
     $name = 'theme_receptic/disableavatarupload';
     $title = get_string('disableavatarupload', 'theme_receptic');
