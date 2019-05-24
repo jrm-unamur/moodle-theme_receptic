@@ -509,7 +509,7 @@ $description = get_string('flashboxcohorts_desc', 'theme_receptic');
 
 $cohorts = cohort_get_all_cohorts(0, 0);
 
-$choices = array();
+$choices = array('' => '-- aucune --');
 foreach ($cohorts['cohorts'] as $cohort) {
     $choices[$cohort->id] = $cohort->name;
 }
@@ -539,7 +539,7 @@ $title = get_string('flashboxcohorts', 'theme_receptic');
 $description = get_string('flashboxcohorts_desc', 'theme_receptic');
 $cohorts = cohort_get_all_cohorts(0, 0);
 
-$choices = array();
+$choices = array('' => '-- aucune --');
 foreach ($cohorts['cohorts'] as $cohort) {
     $choices[$cohort->id] = $cohort->name;
 }
