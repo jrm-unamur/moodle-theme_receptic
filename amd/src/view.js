@@ -574,7 +574,7 @@ function(
         } else {
             currentTemplate = TEMPLATES.COURSES_SUMMARY;
         }
-        // Delete the course category if it is not to be displayed
+        // Delete the course category if it is not to be displayed.
         if (filters.displaycategories != 'on') {
             coursesData.courses = coursesData.courses.map(function(course) {
                 delete course.coursecategory;

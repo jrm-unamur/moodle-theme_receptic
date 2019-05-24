@@ -129,13 +129,25 @@ $drawer-border-width: 1px 0;
 $drawer-border-color: $gray-200;
 
 // Import FontAwesome.
-@import "fontawesome";
+//@import "fontawesome";
 
 // Import All of Bootstrap
-@import "bootstrap";
+//@import "bootstrap";
 
 // Import Core moodle CSS
-@import "moodle";
+//@import "moodle";
+
+// Import everything.
+//@import "main";
+
+// Import FontAwesome.
+@import "../../boost/scss/fontawesome";
+
+// Import All of Bootstrap
+@import "../../boost/scss/bootstrap";
+
+// Import Core moodle CSS
+@import "../../boost/scss/moodle";
 
 // Import everything.
 @import "main";
