@@ -134,7 +134,7 @@ body.ltibridge {
     }
     #blocks-column,
     #blocks-column-toggle {
-        display: none !important;
+        display: none !important; /* stylelint-disable-line declaration-no-important */
         &:before {
             display: none;
         }

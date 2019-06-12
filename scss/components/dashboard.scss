@@ -14,7 +14,7 @@ body.editmodeinnavbar.editing {
                 box-shadow: none;
                 margin-top: 0;
                 .card-body {
-                    padding-top: 0 !important;
+                    padding-top: 0 !important; /* stylelint-disable-line declaration-no-important */
                     .singlebutton:last-of-type {
                         display: none;
                     }

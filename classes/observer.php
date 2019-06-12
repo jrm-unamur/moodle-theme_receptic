@@ -27,6 +27,9 @@ defined('MOODLE_INTERNAL') || die();
 
 /**
  * Event observer for theme_receptic.
+ * @author     Jean-Roch Meurisse
+ * @copyright  2016 - Cellule TICE - Unversite de Namur
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class theme_receptic_observer {
 

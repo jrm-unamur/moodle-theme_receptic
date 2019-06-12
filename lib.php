@@ -526,6 +526,11 @@ function theme_receptic_user_can_upload_profile_picture() {
     return true;
 }
 
+/**
+ * Disables hidden course filters if teachers are allowed to toggle course visibility from the dashboard.
+ * This to avoid confusion.
+ * @return navigation_node.
+ */
 function theme_receptic_disable_user_hidden_courses() {
     if (get_config('theme_receptic', 'togglecoursevisibility')) {
         set_config('coursefilterhidden', false, 'theme_receptic');

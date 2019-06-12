@@ -35,6 +35,7 @@ defined('MOODLE_INTERNAL') || die;
  * @package    theme_receptic
  * @author     2016 Jean-Roch Meurisse
  * @copyright  2016 University of Namur - Cellule TICE
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class mod_quiz_renderer extends \mod_quiz_renderer  {
     /**

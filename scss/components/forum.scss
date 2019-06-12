@@ -18,7 +18,7 @@ table.forumpost {
             margin-left: 0;
         }
     }
-    :target>.forumpost:before {
+    :target > .forumpost:before {
         background: $primary;
     }
 }
