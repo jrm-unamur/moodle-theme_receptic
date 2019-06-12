@@ -22,3 +22,9 @@ table.forumpost {
         background: $primary;
     }
 }
+
+.noreplywarning {
+    color: $danger;
+    font-weight: bold;
+    font-size: 1.25rem;
+}

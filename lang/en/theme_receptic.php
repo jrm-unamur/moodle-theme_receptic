@@ -179,3 +179,4 @@ $string['disableavataruploademailpattern_desc'] = 'If "disableavatarupload" is s
 
 $string['flashboxdismissable'] = 'Dismissable';
 $string['flashboxdismissable_desc'] = 'If checked, users will be able to dismiss the message, otherwise the message will be deactivated when an administrator decides to deactivate it for all target users';
+$string['noreplywarning'] = '!!! Merci de ne pas répondre à cet email !!!<br/>Les réponses ne seront pas traitées';

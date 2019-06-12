@@ -178,3 +178,4 @@ $string['disableavataruploademailpattern_desc'] = 'Si le paramètre précédent 
 
 $string['flashboxdismissable'] = 'Supprimable';
 $string['flashboxdismissable_desc'] = 'Laissez ce paramètre activé pour autoriser les utilisateurs à supprimer le message de leur tableau de bord. Si vous le désactivez, seuls les administrateurs pourront supprimer le message pour tous les utilisateurs concernés';
+$string['noreplywarning'] = '!!! Merci de ne pas répondre à cet email !!!<br/>Les réponses ne seront pas traitées';
