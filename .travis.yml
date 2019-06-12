@@ -2,12 +2,14 @@ language: php
 
 sudo: true
 
+services:
+  - mysql
+
 addons:
   firefox: "47.0.1"
   postgresql: "9.4"
   apt:
       packages:
-      # Workaround for fixing that Java could not be downloaded from Oracle website.
         - openjdk-8-jre-headless
 
 cache:
@@ -17,11 +19,12 @@ cache:
 
 php:
  - 7.1
+ - 7.2
 
 env:
  global:
   - MOODLE_BRANCH=MOODLE_36_STABLE
-  - MOODLE_BRANCH=master
+  - MOODLE_BRANCH=MOODLE_37_STABLE
  matrix:
   - DB=pgsql
   - DB=mysqli
@@ -44,6 +47,8 @@ script:
   - moodle-plugin-ci codechecker
   - moodle-plugin-ci validate
   - moodle-plugin-ci savepoints
+  - moodle-plugin-ci mustache
   - moodle-plugin-ci grunt
+  - moodle-plugin-ci phpdoc
   - moodle-plugin-ci phpunit
   - moodle-plugin-ci behat

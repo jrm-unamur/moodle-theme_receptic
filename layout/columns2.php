@@ -99,7 +99,10 @@ if (get_config('theme_receptic', 'settingsincoursepage') == 'yes') {
     $settingsincourse = true;
 }
 
-// ATTENTION test shrinkable drawer.
+if (get_config('theme_receptic', 'editbutton')) {
+    $extraclasses[] = 'editmodeinnavbar';
+}
+
 if (get_config('theme_receptic', 'shrinkablenavdrawer')) {
     $extraclasses[] = 'shrinkablenavdrawer';
 }
@@ -139,7 +142,7 @@ $templatecontext = [
     'navbaritems' => true,
     'logininfo' => get_config('theme_receptic', 'logininfo'),
     'homelink' => get_config('theme_receptic', 'homelink'),
-    'activitynavigation' => get_config('theme_receptic', 'activitynavigation')
+    'activitynavigation' => get_config('theme_receptic', 'activitynavigation'),
 ];
 
 if (!empty($settingsincourse)) {

@@ -5,3 +5,21 @@ body {
         }
     }
 }
+
+body.editmodeinnavbar.editing {
+    &.path-my {
+        #page-header {
+            display: block;
+            .card {
+                box-shadow: none;
+                margin-top: 0;
+                .card-body {
+                    padding-top: 0 !important;
+                    .singlebutton:last-of-type {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

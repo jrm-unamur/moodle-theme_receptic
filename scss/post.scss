@@ -78,12 +78,6 @@ select.atto_generico_field {
     }
 }
 
-body.ltibridge {
-    header {
-        display: none;
-    }
-}
-
 #theme-receptic-course-settings-card,
 #theme-receptic-activity-settings-card {
     /* Initially do not display the settings. Visibility will be changed on click with incoursesettings.js. */
@@ -116,6 +110,7 @@ body.ltibridge {
     #page.container-fluid {
         margin-top: 0;
         padding: 0;
+        background-color: $white;
     }
     #region-main {
         padding-bottom: 0;
@@ -128,4 +123,21 @@ body.ltibridge {
     footer {
         display: none;
     }
+    #completionprogressid {
+        display: none;
+    }
+    .collapsible-actions {
+        .expandall,
+        .collapseall {
+            display: none;
+        }
+    }
+    #blocks-column,
+    #blocks-column-toggle {
+        display: none !important;
+        &:before {
+            display: none;
+        }
+    }
+
 }

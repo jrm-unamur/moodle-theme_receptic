@@ -247,6 +247,7 @@ if ($ADMIN->fulltree) {
     $title = get_string('togglecoursevisibility', 'theme_receptic');
     $description = get_string('togglecoursevisibility_desc', 'theme_receptic');
     $setting = new admin_setting_configcheckbox($name, $title, $description, false);
+    $setting->set_updatedcallback('theme_receptic_disable_user_hidden_courses');
     $page->add($setting);
 
     $name = 'theme_receptic/unenrolme';

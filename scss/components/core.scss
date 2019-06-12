@@ -323,3 +323,19 @@ section::-webkit-scrollbar-thumb {
 .badge-important {
     @include tag-variant($tag-danger-bg);
 }
+
+.white {
+    color: $white;
+}
+
+body.editmodeinnavbar.editing {
+    &.path-admin {
+        #page-header {
+            .card-body {
+                &.singlebutton {
+                    display: none;
+                }
+            }
+        }
+    }
+}
