@@ -82,22 +82,17 @@
                         {{> theme_receptic/activity_settings_incourse }}
                     {{/activitynode}}
                     <section id="region-main" {{#hasblocks}}class="has-blocks mb-3"{{/hasblocks}}>
-                        <!--<div class="card card-block">-->
-                        <!--<div class="card">
-                            <div class="card-body">-->
-                                {{#hasregionmainsettingsmenu}}
-                                    <div class="region_main_settings_menu_proxy"></div>
-                                {{/hasregionmainsettingsmenu}}
-                                {{{ output.course_content_header }}}
+                        {{#hasregionmainsettingsmenu}}
+                            <div class="region_main_settings_menu_proxy"></div>
+                        {{/hasregionmainsettingsmenu}}
+                        {{{ output.course_content_header }}}
 
-                                {{{ output.main_content }}}
+                        {{{ output.main_content }}}
                         {{#activitynavigation}}
                             {{{ output.activity_navigation }}}
                         {{/activitynavigation}}
 
-                                {{{ output.course_content_footer }}}
-                            <!--</div>
-                        </div>-->
+                        {{{ output.course_content_footer }}}
                     </section>
                     {{#hasblocks}}
                         <section id="blocks-column" data-region="blocks-column" class="d-print-none">
@@ -107,26 +102,22 @@
                 </div>
             </div>
         </div>
-        {{#hasblocks}}
-            <i id="blocks-column-toggle"
-               role="button"
-               class="d-none d-md-block"
-               aria-expanded="{{#draweropenright}}true{{/draweropenright}}{{^draweropenright}}false{{/draweropenright}}"
-               aria-controls="blocks-column"
-               data-action="toggle-drawer"
-               data-side="right"
-               data-preference="blocks-column-open"
-               title="{{#draweropenright}}{{#str}} hideblocks, theme_receptic {{/str}}{{/draweropenright}}{{^draweropenright}}{{#str}} showblocks, theme_receptic {{/str}}{{/draweropenright}}">
-            </i>
-
-
-        {{/hasblocks}}
-        {{{ output.standard_after_main_region_html }}}
-        {{> theme_receptic/nav-drawer }}
-        {{> theme_receptic/footer }}
-
-    </div>
-
+            {{#hasblocks}}
+                <i id="blocks-column-toggle"
+                   role="button"
+                   class="d-none d-md-block"
+                   aria-expanded="{{#draweropenright}}true{{/draweropenright}}{{^draweropenright}}false{{/draweropenright}}"
+                   aria-controls="blocks-column"
+                   data-action="toggle-drawer"
+                   data-side="right"
+                   data-preference="blocks-column-open"
+                   title="{{#draweropenright}}{{#str}} hideblocks, theme_receptic {{/str}}{{/draweropenright}}{{^draweropenright}}{{#str}} showblocks, theme_receptic {{/str}}{{/draweropenright}}">
+                </i>
+            {{/hasblocks}}
+            {{{ output.standard_after_main_region_html }}}
+            {{> theme_boost/nav-drawer }}
+            {{> theme_receptic/footer }}
+        </div>
     </body>
 </html>
 {{#js}}

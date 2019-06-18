@@ -15,9 +15,10 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template theme_boost_campus/settings_link_page
+    @template theme_receptic/settings_link_page
 
     Displays the admin tree as a list of grouped links.
+    Borrowed from theme boost_campus.
 
     Example context (json):
     {
@@ -43,7 +44,7 @@
     * Removed check for !is_short_branch to display all children of the course settings within an own tab.
 }}
 
-<div id="theme-receptic-course-settings-card" class="card" >
+<div id="theme-receptic-course-settings-card" class="card">
     <div>
         <ul class="nav nav-tabs" role="tablist">
         <!-- First the top most node and immediate children -->
@@ -70,7 +71,7 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 {{#action}}<h4><a href="{{action}}">{{text}}</a></h4>{{/action}}
-                                {{^action}}<h4>{{text}} </h4>{{/action}}
+                                {{^action}}<h4>{{text}}</h4>{{/action}}
                             </div>
                             <div class="col-sm-8">
                                 <ul class="list-unstyled">
@@ -96,7 +97,7 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         {{#action}}<h4><a href="{{action}}">{{text}}</a></h4>{{/action}}
-                                        {{^action}}<h4>{{text}} </h4>{{/action}}
+                                        {{^action}}<h4>{{text}}</h4>{{/action}}
                                     </div>
                                     <div class="col-sm-8">
                                         <ul class="list-unstyled">
@@ -117,7 +118,7 @@
                                             <div class="row">
                                                 <div class="col-sm-4">
                                                     {{#action}}<h4><a href="{{action}}">{{text}}</a></h4>{{/action}}
-                                                    {{^action}}<h4>{{text}} </h4>{{/action}}
+                                                    {{^action}}<h4>{{text}}</h4>{{/action}}
                                                 </div>
                                                 <div class="col-sm-8">
                                                     <ul class="list-unstyled">

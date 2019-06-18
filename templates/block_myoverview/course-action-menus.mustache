@@ -41,7 +41,7 @@
             data-course-id="{{id}}"
             aria-controls="favorite-icon-{{ id }}-{{ uniqid }}"
             >
-            <span class="text-primary">{{#pix}} i/star, core, {{#str}} favourites, block_myoverview {{/str}} {{/pix}}</span>
+            <span class="text-primary">{{#pix}} i/star, core, {{#str}} addtofavourites, block_myoverview {{/str}} {{/pix}}</span>
             {{#str}} addtofavourites, block_myoverview {{/str}}
             <div class="sr-only">
                 {{#str}} aria:addtofavourites, block_myoverview {{/str}} {{{fullname}}}
@@ -52,15 +52,13 @@
             data-course-id="{{id}}"
             aria-controls="favorite-icon-{{ id }}-{{ uniqid }}"
             >
-            <span class="text-primary">{{#pix}} t/block, core, {{#str}} favourites, block_myoverview {{/str}} {{/pix}}</span>
+            <span class="text-primary">{{#pix}} t/block, core, {{#str}} removefromfavourites, block_myoverview {{/str}} {{/pix}}</span>
             {{#str}} removefromfavourites, block_myoverview {{/str}}
             <div class="sr-only">
                 {{#str}} aria:removefromfavourites, block_myoverview {{/str}} {{{fullname}}}
             </div>
         </a>
-
         {{#allowtogglevisibility}}
-
             <a class="dropdown-item {{^visible}}hidden{{/visible}}" href="#"
                 data-action="makeinvisible-course"
                 data-course-id="{{id}}"
@@ -70,7 +68,7 @@
                 {{#str}} makeinvisible, theme_receptic {{/str}}
             </a>
             <div class="sr-only">
-                {{#str}} aria:hidecourse, block_myoverview, {{fullname}} {{/str}}
+                {{#str}} makeinvisible, theme_receptic {{/str}}
             </div>
 
 
@@ -82,27 +80,8 @@
                 {{#str}} makevisible, theme_receptic {{/str}}
             </a>
             <div class="sr-only">
-                {{#str}} aria:showcourse, block_myoverview, {{fullname}} {{/str}}
+                {{#str}} makevisible, theme_receptic {{/str}}
             </div>
-
-            {{#visible}}
-                <a class="dropdown-item hidden" href="{{togglevisibilityurl}}?action=hide&courseid={{id}}&sesskey={{sesskey}}">
-                    {{#pix}} i/hide, core, {{#str}} hidden, block_myoverview {{/str}} {{/pix}}
-                    Rendre invisible php
-                </a>
-                <div class="sr-only">
-                    {{#str}} aria:hidecourse, block_myoverview, {{fullname}} {{/str}}
-                </div>
-            {{/visible}}
-            {{^visible}}
-                <a class="dropdown-item hidden" href="{{togglevisibilityurl}}?action=show&courseid={{id}}&sesskey={{sesskey}}">
-                    {{#pix}} i/show, core, {{#str}} hidden, block_myoverview {{/str}} {{/pix}}
-                    Rendre visible php
-                </a>
-                <div class="sr-only">
-                    {{#str}} aria:showcourse, block_myoverview, {{fullname}} {{/str}}
-                </div>
-            {{/visible}}
         {{/allowtogglevisibility}}
         {{#enrolid}}
             <a class="dropdown-item" href="#"
@@ -110,16 +89,12 @@
                data-enrol-id="{{enrolid}}"
                data-course-id="{{id}}"
                aria-controls="visible-icon-{{ id }}-{{ uniqid }}">
-                {{#pix}} a/logout, core, {{#str}} hidden, block_myoverview {{/str}} {{/pix}}
-                {{#str}} unenrolme, theme_receptic{{/str}}
+                {{#pix}} a/logout, core, {{#str}} unenrolme, theme_receptic {{/str}} {{/pix}}
+                {{#str}} unenrolme, theme_receptic {{/str}}
             </a>
             <div class="sr-only">
-                {{#str}} aria:showcourse, block_myoverview, {{fullname}} {{/str}}
+                {{#str}} unenrolme, theme_receptic {{/str}}
             </div>
-            <a class="dropdown-item hidden" href="{{unenrolurl}}">
-                {{#pix}} a/logout, core, {{#str}} unenrolme, theme_receptic{{/str}}{{/pix}}
-                {{#str}} unenrolme, theme_receptic{{/str}} php
-            </a>
         {{/enrolid}}
     </div>
 </div>

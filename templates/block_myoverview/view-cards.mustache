@@ -47,7 +47,7 @@
         {{/hasprogress}}
     {{/progress}}
     {{$coursename}}
-        <span class="multiline">
+        <span class="multiline{{^visible}} text-muted{{/visible}}">
             {{#shortentext}}50, {{{fullname}}} {{/shortentext}}
             {{#newitemscount}}
                 <span title="{{newitemscount}} éléments ajoutés" class="redball-count {{redballscountclass}}">{{newitemscount}}</span>

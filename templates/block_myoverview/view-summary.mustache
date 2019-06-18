@@ -70,7 +70,7 @@
                         <span class="sr-only">
                             {{#str}}aria:coursename, core_course{{/str}}
                         </span>
-                        <h4 class="d-inline h5">{{{fullname}}}</h4>
+                        <h4 class="d-inline h5{{^visible}} text-muted{{/visible}}">{{{fullname}}}</h4>
                         {{#newitemscount}}
                             <span title="{{newitemscount}} éléments ajoutés" class="redball-count {{redballscountclass}}">{{newitemscount}}</span>
                         {{/newitemscount}}

@@ -16,6 +16,7 @@
 }}
 {{!
     @template theme_receptic/activity_settings_incourse
+    Borrowed from theme boost_campus
 
     Displays the admin tree as a list of grouped links.
 
@@ -65,72 +66,66 @@
         <div class="tab-content mt-3">
             <div class="tab-pane active" id="activity-settings-{{key}}" role="tabpanel">
                 <div class="container">
-                <!--<div class="card">
-                    <div class="card-body pb-0">-->
-                        <div class="row">
-                            <div class="col-sm-4">
-                                {{#action}}<h4><a href="{{action}}">{{text}}</a></h4>{{/action}}
-                                {{^action}}<h4>{{text}} </h4>{{/action}}
-                            </div>
-                            <div class="col-sm-8">
-                                <ul class="list-unstyled">
-                                    {{#activitynode.children}}
-                                        {{^children.count}}
-                                            {{#display}}
-                                                <li><a href="{{{action}}}">{{text}}</a></li>
-                                            {{/display}}
-                                        {{/children.count}}
-                                    {{/activitynode.children}}
-                                </ul>
-                            </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{#action}}<h4><a href="{{action}}">{{text}}</a></h4>{{/action}}
+                            {{^action}}<h4>{{text}}</h4>{{/action}}
                         </div>
-                   <!-- </div>-->
+                        <div class="col-sm-8">
+                            <ul class="list-unstyled">
+                                {{#activitynode.children}}
+                                    {{^children.count}}
+                                        {{#display}}
+                                            <li><a href="{{{action}}}">{{text}}</a></li>
+                                        {{/display}}
+                                    {{/children.count}}
+                                {{/activitynode.children}}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
             {{#activitynode.children}}
                 {{#children.count}}
                     <div class="tab-pane" id="activity-settings-{{key}}" role="tabpanel">
                         <div class="container">
-                        <!--<div class="card">
-                            <div class="card-body pb-0">-->
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        {{#action}}<h4><a href="{{action}}">{{text}}</a></h4>{{/action}}
-                                        {{^action}}<h4>{{text}} </h4>{{/action}}
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <ul class="list-unstyled">
-                                            {{#children}}
-                                                {{#display}}
-                                                    {{^children.count}}
-                                                        <li><a href="{{{action}}}">{{text}}</a></li>
-                                                    {{/children.count}}
-                                                {{/display}}
-                                            {{/children}}
-                                        </ul>
-                                    </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    {{#action}}<h4><a href="{{action}}">{{text}}</a></h4>{{/action}}
+                                    {{^action}}<h4>{{text}}</h4>{{/action}}
                                 </div>
-                                {{#children}}
-                                    {{#display}}
-                                        {{#children.count}}
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    {{#action}}<h4><a href="{{action}}">{{text}}</a></h4>{{/action}}
-                                                    {{^action}}<h4>{{text}} </h4>{{/action}}
-                                                </div>
-                                                <div class="col-sm-8">
-                                                    <ul class="list-unstyled">
-                                                        {{#children}}
-                                                            {{> core/settings_link_page_single }}
-                                                        {{/children}}
-                                                    </ul>
-                                                </div>
+                                <div class="col-sm-8">
+                                    <ul class="list-unstyled">
+                                        {{#children}}
+                                            {{#display}}
+                                                {{^children.count}}
+                                                    <li><a href="{{{action}}}">{{text}}</a></li>
+                                                {{/children.count}}
+                                            {{/display}}
+                                        {{/children}}
+                                    </ul>
+                                </div>
+                            </div>
+                            {{#children}}
+                                {{#display}}
+                                    {{#children.count}}
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                {{#action}}<h4><a href="{{action}}">{{text}}</a></h4>{{/action}}
+                                                {{^action}}<h4>{{text}}</h4>{{/action}}
                                             </div>
-                                        {{/children.count}}
-                                    {{/display}}
-                                {{/children}}
-                            <!--</div>-->
+                                            <div class="col-sm-8">
+                                                <ul class="list-unstyled">
+                                                    {{#children}}
+                                                        {{> core/settings_link_page_single }}
+                                                    {{/children}}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    {{/children.count}}
+                                {{/display}}
+                            {{/children}}
                         </div>
                     </div>
                 {{/children.count}}

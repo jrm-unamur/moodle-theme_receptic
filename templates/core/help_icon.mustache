@@ -20,6 +20,7 @@
 {{! MODIFICATION:
     * Changed data attributes to work with modal dialogues.
     * Added the modal dialogue code.
+    * Borrowed from theme_boost_campus.
 }}
 <a class="btn btn-link p-0 help-icon" role="button"
    data-container="body" data-toggle="{{#helpmodal}}modal{{/helpmodal}}{{^helpmodal}}popover{{/helpmodal}}"
@@ -27,8 +28,6 @@
    data-html="true" tabindex="0" data-trigger="focus" title="{{alt}}">
 
 </a>
-
-
 
 <div class="modal helpmodal moodle-has-zindex" {{#linkid}}id="{{linkid}}-modal-dialogue"{{/linkid}} data-region="modal-container" aria-hidden="true" role="dialog">
     <div class="modal-dialog {{$classes}}{{/classes}}" role="document" data-region="modal" aria-labelledby="{{uniqid}}-modal-title" tabindex="0">
