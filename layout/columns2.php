@@ -107,6 +107,10 @@ if (get_config('theme_receptic', 'shrinkablenavdrawer')) {
     $extraclasses[] = 'shrinkablenavdrawer';
 }
 
+if (optional_param('bui_editid', 0, PARAM_INT)) {
+    $extraclasses[] = 'blockconfig';
+}
+
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 
 $regionmainsettingsmenu = $OUTPUT->region_main_settings_menu();
@@ -136,10 +140,15 @@ $templatecontext = [
     'iscontextcourse' => $iscontextcourse,
     'shownavbar' => true,
     'logoleft' => $haslogoleft,
+    'logolefturl' => get_config('theme_receptic', 'logolefturl'),
+    'logoleftalt' => get_config('theme_receptic', 'logoleftalt'),
     'logocenter' => $haslogocenter,
+    'logocenterurl' => get_config('theme_receptic', 'logocenterurl'),
+    'logocenteralt' => get_config('theme_receptic', 'logocenteralt'),
     'logoright' => $haslogoright,
+    'logorighturl' => get_config('theme_receptic', 'logorighturl'),
+    'logorightalt' => get_config('theme_receptic', 'logorightalt'),
     'displaybrandbanner' => $displaybrandbanner,
-    'navbaritems' => true,
     'logininfo' => get_config('theme_receptic', 'logininfo'),
     'homelink' => get_config('theme_receptic', 'homelink'),
     'activitynavigation' => get_config('theme_receptic', 'activitynavigation'),
@@ -154,6 +163,9 @@ if (!empty($settingsincourse)) {
     $templatecontext['activitynode'] = theme_receptic_get_incourse_activity_settings();
 }
 
-$templatecontext['flatnavigation'] = $PAGE->flatnav;
+$nav = $PAGE->flatnav;
+$templatecontext['flatnavigation'] = $nav;
+$templatecontext['firstcollectionlabel'] = $nav->get_collectionlabel();
+
 echo $OUTPUT->render_from_template('theme_receptic/columns2', $templatecontext);
 
