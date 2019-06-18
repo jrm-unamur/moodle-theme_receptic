@@ -87,12 +87,29 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
+    // Logos for brand banner.
+    global $SITE;
+    $defaulttarget = $CFG->wwwroot . '?redirect=0';
+    $defaultalt = format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]);
+
     // Left logo file setting.
     $title = get_string('logoleft', 'theme_receptic');
     $description = get_string('logoleft_desc', 'theme_receptic');
     $setting = new admin_setting_configstoredfile('theme_receptic/logoleft', $title, $description, 'logoleft', 0,
         ['maxfiles' => 1, 'accepted_types' => ['.jpg', '.png']]);
     $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Target url for left logo.
+    $name = 'theme_receptic/logolefturl';
+    $title = get_string('logolefturl', 'theme_receptic');
+    $setting = new admin_setting_configtext($name, $title, '', $defaulttarget);
+    $page->add($setting);
+
+    // Alt text for left logo.
+    $name = 'theme_receptic/logoleftalt';
+    $title = get_string('logoleftalt', 'theme_receptic');
+    $setting = new admin_setting_configtext($name, $title, '', $defaultalt);
     $page->add($setting);
 
     // Center logo file setting.
@@ -103,12 +120,36 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
+    // Target url for center logo.
+    $name = 'theme_receptic/logocenterurl';
+    $title = '';
+    $setting = new admin_setting_configtext($name, $title, '', $defaulttarget);
+    $page->add($setting);
+
+    // Alt text for center logo.
+    $name = 'theme_receptic/logocenteralt';
+    $title = get_string('logocenteralt', 'theme_receptic');
+    $setting = new admin_setting_configtext($name, $title, '', $defaultalt);
+    $page->add($setting);
+
     // Right logo file setting.
     $title = get_string('logoright', 'theme_receptic');
     $description = get_string('logoright_desc', 'theme_receptic');
     $setting = new admin_setting_configstoredfile('theme_receptic/logoright', $title, $description, 'logoright', 0,
         ['maxfiles' => 1, 'accepted_types' => ['.jpg', '.png']]);
     $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Target url for right logo.
+    $name = 'theme_receptic/logorighturl';
+    $title = get_string('logorighturl', 'theme_receptic');
+    $setting = new admin_setting_configtext($name, $title, '', $defaulttarget);
+    $page->add($setting);
+
+    // Alt text for right logo.
+    $name = 'theme_receptic/logorightalt';
+    $title = get_string('logorightalt', 'theme_receptic');
+    $setting = new admin_setting_configtext($name, $title, '', $defaultalt);
     $page->add($setting);
 
     $settings->add($page);
