@@ -117,8 +117,7 @@ class theme_receptic_external extends external_api {
 
         self::validate_context(context_user::instance($USER->id));
 
-        $requiredproperties = array_merge(\core_course\external\course_summary_exporter::define_properties(),
-            theme_receptic_course_summary_exporter::define_properties());
+        $requiredproperties = theme_receptic_course_summary_exporter::define_properties();
 
         $fields = join(',', array_keys($requiredproperties));
 

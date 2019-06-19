@@ -514,7 +514,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
     public function coursewarnings() {
         global $PAGE, $COURSE, $USER;
         $hiddencoursewarning = get_config('theme_receptic', 'hiddencoursewarning');
-        $switchedrolewarning = get_config('theme_receptic', 'switchrolewarning');
+        $switchedrolewarning = get_config('theme_receptic', 'switchedrolewarning');
         $coursewarnings = ($hiddencoursewarning || $switchedrolewarning)
             && $PAGE->context->contextlevel == CONTEXT_COURSE
             && $COURSE->id != 1;
