@@ -32,8 +32,6 @@ defined('MOODLE_INTERNAL') || die();
  * @return array
  */
 function theme_receptic_get_pre_scss($theme) {
-    // 1. To define our own configurable scss variables use the code below and comment code under 2.
-    global $DB;
 
     $scss = '';
 
@@ -52,9 +50,6 @@ function theme_receptic_get_pre_scss($theme) {
         array_map(function($target) use (&$scss, $value) {
             $scss .= '$' . $target . ': ' . $value . ";\n";
         }, (array) $targets);
-        $tmp = new stdClass();
-        $tmp->trace = $scss;
-        $DB->insert_record('webcampus_trace', $tmp);
     }
     if ($theme->settings->brandbanner) {
         $scss .= '$brand-banner-height:80px;';
@@ -77,7 +72,6 @@ function theme_receptic_get_pre_scss($theme) {
  * @return string
  */
 function theme_receptic_get_extra_scss($theme) {
-    // 1. To define our own extra scss variable. To use it uncomment the code below and comment under 2.
     return !empty($theme->settings->scss) ? $theme->settings->scss : '';
 }
 
@@ -94,12 +88,13 @@ function theme_receptic_get_main_scss_content($theme) {
     $filename = !empty($theme->settings->preset) ? $theme->settings->preset : null;
     $fs = get_file_storage();
     $context = context_system::instance();
-    if ($filename == 'boostlike.scss') {
-        $scss .= file_get_contents($CFG->dirroot . '/theme/receptic/scss/preset/boostlike.scss');
-    } else if ($filename == 'unamur35.scss') {
-        $scss .= file_get_contents($CFG->dirroot . '/theme/receptic/scss/preset/unamur35.scss');
+    if ($filename == 'default.scss') {
+        $scss .= file_get_contents($CFG->dirroot . '/theme/receptic/scss/preset/default.scss');
     } else if ($filename && ($presetfile = $fs->get_file($context->id, 'theme_receptic', 'preset', 0, '/', $filename))) {
         $scss .= $presetfile->get_content();
+    } else {
+        // Safety fallback - maybe new installs etc.
+        $scss .= file_get_contents($CFG->dirroot . '/theme/receptic/scss/preset/default.scss');
     }
     // Add 1 scss file to the end of main (mainly for quick test and fix purposes.
     $post = file_get_contents($CFG->dirroot . '/theme/receptic/scss/post.scss');
