@@ -48,7 +48,6 @@ if ($ADMIN->fulltree) {
         }
     }
     $choices['default.scss'] = 'default.scss';
-    $choices['plain.scss'] = 'plain.scss';
 
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $setting->set_updatedcallback('theme_reset_all_caches');
@@ -152,6 +151,18 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configtext($name, $title, '', $defaultalt);
     $page->add($setting);
 
+    // Raw SCSS to include before the content.
+    $setting = new admin_setting_scsscode('theme_receptic/scsspre',
+        get_string('rawscsspre', 'theme_receptic'), get_string('rawscsspre_desc', 'theme_receptic'), '', PARAM_RAW);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Raw SCSS to include after the content.
+    $setting = new admin_setting_scsscode('theme_receptic/scss', get_string('rawscss', 'theme_receptic'),
+        get_string('rawscss_desc', 'theme_receptic'), '', PARAM_RAW);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
     $settings->add($page);
 
     // Dashboard settings page.
@@ -191,7 +202,7 @@ if ($ADMIN->fulltree) {
 
     $name = 'theme_receptic/coursefilterpast';
     $title = get_string('past', 'block_myoverview');
-    $description = get_string('coursefilterall_desc', 'theme_receptic');
+    $description = get_string('coursefilterpast_desc', 'theme_receptic');
     $default = true;
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
     $page->add($setting);
@@ -360,7 +371,7 @@ if ($ADMIN->fulltree) {
     // Add an edit button in the navigation bar.
     $name = 'theme_receptic/editbutton';
     $title = get_string('editbutton', 'theme_receptic');
-    $description = get_string('editbuttondesc', 'theme_receptic');
+    $description = get_string('editbutton_desc', 'theme_receptic');
     $default = 0;
     $choices = array(0 => 'No', 1 => 'Yes');
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
@@ -431,9 +442,9 @@ if ($ADMIN->fulltree) {
     $page->add($setting);
 
     // Contact information.
-    $name = 'theme_receptic/switchrolewarning';
-    $title = get_string('showswitchrolewarning', 'theme_receptic');
-    $description = get_string('showswitchrolewarning_desc', 'theme_receptic');
+    $name = 'theme_receptic/switchedrolewarning';
+    $title = get_string('showswitchedrolewarning', 'theme_receptic');
+    $description = get_string('showswitchedrolewarning_desc', 'theme_receptic');
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
     $page->add($setting);
 
