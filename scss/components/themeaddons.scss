@@ -371,28 +371,6 @@ body.editing .section .activity.warm .mod-indent-outer {
     padding-left: 1rem;
 }
 
-/**
- * Dashboard styling.
- */
-#page-my-index {
-    #region-main {
-        background-color: transparent;
-        border: 0;
-        padding: 0;
-    }
-    .nav-pills {
-        .nav-item {
-            background-color: $gray-200;
-            .active {
-                background-color: $primary;
-            }
-        }
-    }
-    .block-myoverview .pagination {
-        justify-content: center;
-    }
-}
-
 .moodlelogofooter {
     margin-bottom: .625rem;
     width: 75px;

@@ -6,6 +6,18 @@ body {
     }
 }
 
+.path-my {
+    #region-main {
+        background-color: transparent;
+        border: 0;
+        padding: 0;
+    }
+
+    .block-myoverview .pagination {
+        justify-content: center;
+    }
+}
+
 body.editmodeinnavbar.editing {
     &.path-my {
         #page-header {
@@ -20,6 +32,16 @@ body.editmodeinnavbar.editing {
                     }
                 }
             }
+        }
+    }
+    &.blockconfig {
+        #page-header {
+            display: none;
+        }
+        #region-main {
+            background-color: $white;
+            padding: 1.25rem;
+            border: 1px solid $gray-300;
         }
     }
 }
