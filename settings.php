@@ -532,6 +532,18 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
+    $name = 'theme_receptic/extrajsmodule';
+    $title = get_string('extrajsmodule', 'theme_receptic', null, true);
+    $description = get_string('extrajsmodule_desc', 'theme_receptic', null, true);
+    $setting = new admin_setting_configtext($name, $title, $description, '');
+    $page->add($setting);
+
+    $name = 'theme_receptic/extrajsmoduleargs';
+    $title = get_string('extrajsmoduleargs', 'theme_receptic', null, true);
+    $description = get_string('extrajsmoduleargs_desc', 'theme_receptic', null, true);
+    $setting = new admin_setting_configtextarea($name, $title, $description, '', PARAM_RAW);
+    $page->add($setting);
+
     // Add tab to settings page.
     $settings->add($page);
 }

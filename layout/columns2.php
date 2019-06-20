@@ -60,6 +60,16 @@ if ($this->page->pagetype == 'user-edit' && theme_receptic_user_can_upload_profi
 
 $this->page->requires->js_call_amd('theme_receptic/ux', 'init', array(json_encode($jsargs)));
 
+$extraamd = get_config('theme_receptic', 'extrajsmodule');
+$extraamdargs = get_config('theme_receptic', 'extrajsmoduleargs');
+if ($extraamd) {
+    if( !empty($extraamdargs)) {
+        $this->page->requires->js_call_amd($extraamd, 'init', array($extraamdargs));
+    } else {
+        $this->page->requires->js_call_amd($extraamd, 'init');
+    }
+}
+
 $iscontextcourse = $context->contextlevel == CONTEXT_COURSE || $context->contextlevel == CONTEXT_MODULE;
 $params = new stdClass();
 
