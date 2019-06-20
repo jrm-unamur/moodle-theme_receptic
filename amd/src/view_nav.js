@@ -15,8 +15,9 @@
 
 /**
  * Manage the timeline view navigation for the overview block.
+ * Cloned from block_myoverview with just reference changes
  *
- * @package    block_myoverview
+ * @package    theme_receptic
  * @copyright  2018 Bas Brands <bas@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -27,7 +28,7 @@ define(
     'core/custom_interaction_events',
     'theme_receptic/repository',
     'theme_receptic/view',
-    'theme_receptic/selectors'
+    'block_myoverview/selectors'
 ],
 function(
     $,

@@ -14,7 +14,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Theme Boost Campus - JS code for displaying course setting within the course.
+ * Theme Receptic - JS code for displaying course setting within the course.
+ * Cloned from Theme Boost Campus
  *
  * @package    theme_receptic
  * @copyright  2017 Kathrin Osswald, Ulm University <kathrin.osswald@uni-ulm.de>

@@ -15,8 +15,10 @@
 
 /**
  * Manage the courses view for the overview block.
+ * Additions to the core block_myoverview view.js file.
  *
  * @package    block_myoverview
+ * @copyright  2019 Jean-Roch Meurisse - Cellule TICE - Unversite de Namur
  * @copyright  2018 Bas Brands <bas@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -32,7 +34,8 @@ define(
     'core/notification',
     'core/templates',
     'core_course/events',
-    'theme_receptic/selectors',
+    'block_myoverview/selectors',
+    'core/paged_content_events',
     'core/modal_factory',
     'core/modal_events'
 ],
@@ -47,6 +50,7 @@ function(
     Templates,
     CourseEvents,
     Selectors,
+    PagedContentEvents,
     ModalFactory,
     ModalEvents
 ) {
@@ -73,7 +77,7 @@ function(
         NOCOURSES: 'core_course/no-courses'
     };
 
-    var NUMCOURSES_PERPAGE = [12, 24];
+    var NUMCOURSES_PERPAGE = [12, 24, 48];
 
     var loadedPages = [];
 
@@ -83,13 +87,16 @@ function(
 
     var lastLimit = 0;
 
+    var namespace = null;
+
     /**
-     * Prepares the action for the summary modal's delete action.
+     * Confirm action modal window for myoverview block actions.
      *
-     * @param {Number} eventId The ID of the event.
-     * @param {string} eventTitle The event title.
-     * @param {Number} eventCount The number of events in the series.
-     * @return {Promise}
+     * @param {object} root The root element.
+     * @param {Number} courseId The course for which an action must be confirmed.
+     * @param {string} method The action to be confirmed.
+     * @param {object} args Misc function parameters.
+     * @return {Promise} The modal result.
      */
     function confirmAction(root, courseId, method, args) {
 
@@ -191,6 +198,7 @@ function(
     var DEFAULT_PAGED_CONTENT_CONFIG = {
         ignoreControlWhileLoading: true,
         controlPlacementBottom: true,
+        persistentLimitKey: 'block_myoverview_user_paging_preference'
     };
 
     /**
@@ -343,33 +351,40 @@ function(
     };
 
     /**
-     * Get the action menu item
+     * Get the makeVisible action menu item.
      *
-     * @param {Object} root  root The course overview container
-     * @param {Number} courseId Course id.
-     * @return {Object} The add to favourite menu item.
+     * @param  {Object} root The course overview container
+     * @param  {Number} courseId Course id number
+     * @return {Object} The makeVisible menu item.
      */
     var getMakeVisibleMenuItem = function(root, courseId) {
         return root.find('[data-action="makevisible-course"][data-course-id="' + courseId + '"]');
     };
 
     /**
-     * Get the action menu item
+     * Get the makeInvisible action menu item.
      *
-     * @param {Object} root  root The course overview container
-     * @param {Number} courseId Course id.
-     * @return {Object} The remove from favourites menu item.
+     * @param  {Object} root The course overview container
+     * @param  {Number} courseId Course id number
+     * @return {Object} The makeInvisible menu item.
      */
     var getMakeInvisibleMenuItem = function(root, courseId) {
         return root.find('[data-action="makeinvisible-course"][data-course-id="' + courseId + '"]');
     };
 
+    /**
+     * Get the course name node.
+     *
+     * @param  {Object} root The course overview container
+     * @param  {Number} courseId Course id number
+     * @return {Object} The course name node.
+     */
     var getCourseNameItem = function(root, courseId) {
         return root.find('[data-region="courses-view"] .coursename[data-course-id="' + courseId + '"]');
     };
 
     /**
-     * Make course visible for students.
+     * Make course available to students.
      *
      * @param  {Object} root The course overview container
      * @param  {Number} courseId Course id number
@@ -392,7 +407,7 @@ function(
     };
 
     /**
-     * Make course visible for students.
+     * Make course unavailable to students.
      *
      * @param  {Object} root The course overview container
      * @param  {Number} courseId Course id number
@@ -415,7 +430,7 @@ function(
     };
 
     /**
-     * Set the courses favourite status and push to repository
+     * Set the courses visibility status and push to repository.
      *
      * @param  {Number} courseId Course id to favourite.
      * @param  {Bool} status new favourite status.
@@ -444,6 +459,14 @@ function(
         }).catch(Notification.exception);
     };
 
+    /**
+     * Unenrol current student from course.
+     *
+     * @param  {Object} root The course overview container
+     * @param  {Number} courseId Course id number
+     * @param  {Number} instanceId The enrolment instance id
+     * @return {Bool} Unenrolment done or not.
+     */
     var unenrolMe = function(root, courseId, instanceId) {
         return Repository.unenrolMe({
 
@@ -460,7 +483,7 @@ function(
     };
 
     /**
-     * Reset the loadedPages dataset to take into account the hidden element
+     * Reset the loadedPages dataset to take into account the hidden element.
      *
      * @param {Object} root The course overview container
      * @param {Object} target The course that you want to hide
@@ -574,6 +597,7 @@ function(
         } else {
             currentTemplate = TEMPLATES.COURSES_SUMMARY;
         }
+
         // Delete the course category if it is not to be displayed.
         if (filters.displaycategories != 'on') {
             coursesData.courses = coursesData.courses.map(function(course) {
@@ -595,16 +619,57 @@ function(
     };
 
     /**
+     * Return the callback to be passed to the subscribe event
+     *
+     * @param {Number} limit The paged limit that is passed through the event
+     */
+    var setLimit = function(limit) {
+        this.find(Selectors.courseView.region).attr('data-paging', limit);
+    };
+
+    /**
      * Intialise the paged list and cards views on page load.
+     * Returns an array of paged contents that we would like to handle here
+     *
+     * @param {object} root The root element for the courses view
+     * @param {string} namespace The namespace for all the events attached
+     */
+    var registerPagedEventHandlers = function(root, namespace) {
+        var event = namespace + PagedContentEvents.SET_ITEMS_PER_PAGE_LIMIT;
+        PubSub.subscribe(event, setLimit.bind(root));
+    };
+
+    /**
+     * Intialise the courses list and cards views on page load.
      *
      * @param {object} root The root element for the courses view.
      * @param {object} content The content element for the courses view.
      */
     var initializePagedContent = function(root) {
+        namespace = "block_myoverview_" + root.attr('id') + "_" + Math.random();
+
+        var itemsPerPage = NUMCOURSES_PERPAGE;
+        var pagingLimit = parseInt(root.find(Selectors.courseView.region).attr('data-paging'), 10);
+        if (pagingLimit) {
+            itemsPerPage = NUMCOURSES_PERPAGE.map(function(value) {
+                var active = false;
+                if (value == pagingLimit) {
+                    active = true;
+                }
+
+                return {
+                    value: value,
+                    active: active
+                };
+            });
+        }
+
         var filters = getFilterValues(root);
+        var config = $.extend({}, DEFAULT_PAGED_CONTENT_CONFIG);
+        config.eventNamespace = namespace;
 
         var pagedContentPromise = PagedContentFactory.createWithLimit(
-            NUMCOURSES_PERPAGE,
+            itemsPerPage,
             function(pagesData, actions) {
                 var promises = [];
 
@@ -687,10 +752,11 @@ function(
 
                 return promises;
             },
-            DEFAULT_PAGED_CONTENT_CONFIG
+            config
         );
 
         pagedContentPromise.then(function(html, js) {
+            registerPagedEventHandlers(root, namespace);
             return Templates.replaceNodeContents(root.find(Selectors.courseView.region), html, js);
         }).catch(Notification.exception);
     };
@@ -794,12 +860,12 @@ function(
         lastPage = 0;
         courseOffset = 0;
 
+        initializePagedContent(root);
+
         if (!root.attr('data-init')) {
             registerEventListeners(root);
             root.attr('data-init', true);
         }
-
-        initializePagedContent(root);
     };
 
     /**
