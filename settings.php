@@ -241,6 +241,18 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
     $page->add($setting);
 
+    $name = 'theme_receptic/forceddisplaymode';
+    $title = get_string('forceddisplaymode', 'theme_receptic');
+    $description = get_string('forceddisplaymode_desc', 'theme_receptic');
+    $default = 'list';
+    $choices = [
+        'list' => get_string('list', 'block_myoverview'),
+        'card' => get_string('card', 'block_myoverview'),
+        'summary' => get_string('summary', 'block_myoverview')
+    ];
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $page->add($setting);
+
     $page->add(new admin_setting_heading('createcourse',
         get_string('createcourse', 'theme_receptic'), ''));
 
