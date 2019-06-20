@@ -410,6 +410,7 @@ function theme_receptic_get_visible_balls_count($course, $redballs, $orangeballs
 
 /**
  * Provides the node for the in-course course or activity settings.
+ * Cloned from theme boost_campus.
  *
  * @return navigation_node.
  */
@@ -425,8 +426,7 @@ function theme_receptic_get_incourse_settings() {
             $node = $PAGE->settingsnav->find('courseadmin', navigation_node::TYPE_COURSE);
             // Check if $node is not empty for other pages like for example the langauge customization page.
             if (!empty($node)) {
-                // If the setting 'incoursesettingsswitchtorole' is enabled add these to the $node.
-                if (get_config('theme_boost_campus', 'incoursesettingsswitchtorole') == 'yes' && !is_role_switched($COURSE->id)) {
+                if (!is_role_switched($COURSE->id)) {
                     // Build switch role link
                     // We could only access the existing menu item by creating the user menu and traversing it.
                     // So we decided to create this node from scratch with the values copied from Moodle core.
@@ -461,6 +461,7 @@ function theme_receptic_get_incourse_settings() {
 
 /**
  * Provides the node for the in-course settings for other contexts.
+ * Cloned from theme boost_campus.
  *
  * @return navigation_node.
  */
