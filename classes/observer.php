@@ -35,6 +35,7 @@ class theme_receptic_observer {
 
     /**
      * Triggered via course_module_viewed events.
+     * Updates current user red and orange balls.
      *
      * @param \core\event\base $event
      */
@@ -54,6 +55,7 @@ class theme_receptic_observer {
 
     /**
      * Triggered via course_viewed event.
+     * Updates current user red and orange balls.
      *
      * @param \core\event\course_viewed $event
      */

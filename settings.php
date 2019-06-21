@@ -385,8 +385,7 @@ if ($ADMIN->fulltree) {
     $title = get_string('editbutton', 'theme_receptic');
     $description = get_string('editbutton_desc', 'theme_receptic');
     $default = 0;
-    $choices = array(0 => 'No', 1 => 'Yes');
-    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
     $page->add($setting);
 
     // Hide default edit button.

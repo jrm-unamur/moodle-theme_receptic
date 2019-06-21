@@ -56,16 +56,22 @@ require_once($CFG->dirroot . '/cohort/lib.php');
  */
 class core_renderer extends \theme_boost\output\core_renderer {
 
-    // Methods for editmode button in bar.
     /**
      * Method to add a permanent edit mode switch in navbar.
+     * Credits to G.J Barnard as borrowed from theme_essential.
      *
-     * @return bool|string
+     * @return string
      * @throws \coding_exception
      * @throws \moodle_exception
      */
-    public function custom_menu_editing() {
+    public function editing_mode_switch() {
         $html = '';
+        if (empty($this->page->theme->settings->editbutton)) {
+            return '';
+        }
+        if (!$this->page->user_allowed_editing()) {
+            return '';
+        }
         if (!empty($this->page->theme->settings->editbutton)) {
             if ($this->page->user_allowed_editing()) {
                 // Only set to false when cannot determine what the URL / params should be for a page type.
@@ -74,7 +80,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $ismodeditview = strpos($pagetype, 'mod') !== false
                         && ((strpos($pagetype, 'edit') !== false)
                             || (strpos($pagetype, 'view') !== false)
-                            || strpos($pagetype, 'mod') !== false);
+                            || strpos($pagetype, '-mod') !== false);
                 if (strpos($pagetype, 'admin-setting') !== false) {
                     $pagetype = 'admin-setting'; // Deal with all setting page types.
                 } else if ($ismodeditview) {
@@ -321,10 +327,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $showfrontpagemenu = false;
         $showusermenu = false;
 
-        // We are on the course home page.
+        // We are on the course home page or on an activity page.
         if (($context->contextlevel == CONTEXT_COURSE || $context->contextlevel == CONTEXT_MODULE) &&
-            !empty($currentnode) /*&&
-            ($currentnode->type == navigation_node::TYPE_COURSE || $currentnode->type == navigation_node::TYPE_SECTION)*/) {
+            !empty($currentnode)) {
             $showcoursemenu = true;
         }
 
@@ -508,6 +513,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
     /**
      * Renders warnings in course header when course is hidden and when current user has switched to another role.
+     * Mainly borrowed from theme boost_campus
      *
      * @return bool|string
      */
@@ -578,6 +584,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
     /**
      * Help icon and help message rendering.
+     * Possibility to render help message in modal window is borrowed from boost_campus theme.
      *
      * @param help_icon $helpicon A help icon instance
      * @return string HTML fragment
