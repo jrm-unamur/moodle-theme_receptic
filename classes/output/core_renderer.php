@@ -408,6 +408,21 @@ class core_renderer extends \theme_boost\output\core_renderer {
     }
 
     /**
+     * Override core function to use uploaded file if any.
+     *
+     * @return string The favicon URL
+     */
+    public function favicon() {
+        $favicon = $this->page->theme->setting_file_url('favicon', 'favicon');
+
+        if (empty($favicon)) {
+            return $this->page->theme->image_url('favicon', 'theme');
+        } else {
+            return $favicon;
+        }
+    }
+
+    /**
      * Returns the banner left logo URL, if any.
      *
      * @return moodle_url|false
