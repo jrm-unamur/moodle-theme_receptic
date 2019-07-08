@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * A two column layout for the boost theme.
+ * A two column layout for the receptic theme.
  *
  * @package    theme_receptic
  * @author     Jean-Roch Meurisse

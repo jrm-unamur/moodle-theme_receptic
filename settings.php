@@ -33,6 +33,10 @@ if ($ADMIN->fulltree) {
     // General settings page.
     $page = new admin_settingpage('theme_receptic_general', get_string('generalsettings', 'theme_receptic'));
 
+    // Preset.
+    $page->add(new admin_setting_heading('presetheading',
+        get_string('presetheading', 'theme_receptic'), ''));
+
     $name = 'theme_receptic/preset';
     $title = get_string('preset', 'theme_receptic');
     $description = get_string('preset_desc', 'theme_receptic');
@@ -56,7 +60,7 @@ if ($ADMIN->fulltree) {
     // Add file uploader to add preset files to our theme.
     $name = 'theme_receptic/presetfiles';
     $title = get_string('presetfiles', 'theme_receptic');
-    $descriptin = get_string('presetfiles_desc', 'theme_receptic');
+    $description = get_string('presetfiles_desc', 'theme_receptic');
     $setting = new admin_setting_configstoredfile($name, $title, $description, 'preset', 0,
             array('maxfiles' => 20, 'accepted_types' => array('.scss')));
     $page->add($setting);
@@ -64,12 +68,14 @@ if ($ADMIN->fulltree) {
     // Scss variable to override $brand-primary.
     $name = 'theme_receptic/brandprimary';
     $title = get_string('brandcolor', 'theme_receptic');
-    $desription = get_string('brandcolor_desc', 'theme_receptic');
+    $description = get_string('brandcolor_desc', 'theme_receptic');
     $setting = new admin_setting_configcolourpicker($name, $title, $description, '');
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    // Variable $brandprimary.
+    // Brand banner.
+    $page->add(new admin_setting_heading('brandbannerheading',
+        get_string('brandbannerheading', 'theme_receptic'), ''));
     $name = 'theme_receptic/brandbanner';
     $title = get_string('brandbanner', 'theme_receptic');
     $description = get_string('brandbanner_desc', 'theme_receptic');
@@ -150,6 +156,23 @@ if ($ADMIN->fulltree) {
     $title = get_string('logorightalt', 'theme_receptic');
     $setting = new admin_setting_configtext($name, $title, '', $defaultalt);
     $page->add($setting);
+
+    // Favicon.
+    $page->add(new admin_setting_heading('faviconheading',
+        get_string('faviconheading', 'theme_receptic'), ''));
+
+    // Favicon upload.
+    $name = 'theme_receptic/favicon';
+    $title = get_string ('favicon', 'theme_receptic' );
+    $description = get_string ('favicon_desc', 'theme_receptic' );
+    $setting = new admin_setting_configstoredfile( $name, $title, $description, 'favicon', 0,
+        array('maxfiles' => 1, 'accepted_types' => array('.png', '.jpg', '.ico')));
+    $setting->set_updatedcallback ( 'theme_reset_all_caches' );
+    $page->add($setting);
+
+    // Custom SCSS.
+    $page->add(new admin_setting_heading('customscss',
+        get_string('customscss', 'theme_receptic'), ''));
 
     // Raw SCSS to include before the content.
     $setting = new admin_setting_scsscode('theme_receptic/scsspre',
