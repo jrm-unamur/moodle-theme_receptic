@@ -49,8 +49,12 @@
             </div>
         </div>
     </div>
-
-</body>
+    <footer id="page-footer" class="d-none py-3 bg-dark text-light">
+        <div class="container text-center">
+            {{{ output.standard_footer_html }}}
+            {{{ output.standard_end_of_body_html }}}
+        </div>
+    </footer>
 </html>
 {{#js}}
 require(['theme_boost/loader']);
