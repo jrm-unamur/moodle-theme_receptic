@@ -145,14 +145,16 @@
                     <div class="card-header" role="tab" id="headingOne">
                         {{#hasidentityproviders}}
                             <h5 class="mb-0">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseone" aria-expanded="false" aria-controls="collapseone" class="logintoggle collapsed">
+                                <a data-toggle="collapse" data-parent="accordion" href="#collapseone" aria-expanded="false" aria-controls="collapseone" class="logintoggle collapsed">
                                     <span>Utilisateur extérieur</span>
                                 </a>
                             </h5>
                         {{/hasidentityproviders}}
                     </div>
 
+                    {{#hasidentityproviders}}
                     <div id="collapseone" class="collapse" role="tabpanel">
+                    {{/hasidentityproviders}}
                         <div class="card-body">
                             <label for="username" class="sr-only">
                                 {{^canloginbyemail}}
@@ -189,7 +191,9 @@
 
                             </div>
                         </div>
+                    {{#hasidentityproviders}}
                     </div>
+                    {{/hasidentityproviders}}
                 </div>
             </div>
         </form>
