@@ -433,7 +433,7 @@ function theme_receptic_get_incourse_settings() {
                     $roles = get_switchable_roles($PAGE->context);
                     if (is_array($roles) && (count($roles) > 0)) {
                         // Define the properties for a new tab.
-                        $properties = array('text' => get_string('switchroleto', 'theme_boost_campus'),
+                        $properties = array('text' => get_string('switchroleto'),
                             'type' => navigation_node::TYPE_CONTAINER,
                             'key'  => 'switchroletotab');
                         // Create the node.
