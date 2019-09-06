@@ -171,4 +171,5 @@ $observers = array(
         'eventname' => '\mod_questionnaire\event\course_module_viewed',
         'callback' => 'theme_receptic_observer::course_module_viewed'
     ),
+
 );
