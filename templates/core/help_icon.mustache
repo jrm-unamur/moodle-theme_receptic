@@ -28,7 +28,7 @@
    data-html="true" tabindex="0" data-trigger="focus" title="{{alt}}">
 
 </a>
-
+{{#helpmodal}}
 <div class="modal helpmodal moodle-has-zindex" {{#linkid}}id="{{linkid}}-modal-dialogue"{{/linkid}} data-region="modal-container" aria-hidden="true" role="dialog">
     <div class="modal-dialog {{$classes}}{{/classes}}" role="document" data-region="modal" aria-labelledby="{{uniqid}}-modal-title" tabindex="0">
         <div class="modal-content">
@@ -55,3 +55,4 @@
         </div>
     </div>
 </div>
+{{/helpmodal}}
