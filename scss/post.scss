@@ -141,3 +141,212 @@ body.ltibridge {
     }
 
 }
+
+// btn-link fixes.
+#page-mod-forum-view #id_advancedadddiscussion,
+#page-mod-forum-discuss button[data-action="forum-advanced-reply"] {
+    @extend .btn-secondary;
+}
+
+body.ltibridge {
+    font-family: "Open Sans", Verdana, Geneva, sans-serif;
+    font-size: 1rem;
+    width: 98%;
+    a {
+        color: #0078b0;
+    }
+    .btn-secondary,
+    .btn-primary,
+    .btn-link,
+    .buttons input[type="submit"]{
+        margin-right: 10px;
+        margin-bottom: 10px;
+        height: 40px;
+        vertical-align: middle;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-family: sans-serif;
+        border: 1px solid #d2c9c9;
+        border-radius: 3px;
+        box-shadow: inset 0 1px 0 0 #fff;
+        color: #333 !important;
+        display: inline-block;
+        background-color: #f1f1f1;
+        background-image: linear-gradient(#f1f1f1,#d9d1d1);
+        padding: 7px 18px;
+        text-decoration: none;
+        text-shadow: 0 1px 0 #fcfbfb;
+        background-clip: padding-box;
+        font-size: 0.8125em;
+    }
+    #region-main-box {
+        padding: 0;
+    }
+    .menu-action-text {
+        .fa-star-o {
+            display: none;
+        }
+    }
+    &.path-course-view {
+        #region-main {
+            div[role="main"] {
+                display: none;
+            }
+        }
+    }
+    &.path-mod-questionnaire {
+        .respondentinfo,
+        .chart-table {
+            display: none;
+        }
+
+    }
+    &.path-mod-data {
+        form > div > div > div {
+            display: none;
+            &.defaulttemplate,
+            &:last-of-type {
+                display: block;
+            }
+        }
+    }
+
+    &#page-mod-quiz-attempt,
+    &#page-mod-quiz-review,
+    &#page-question-preview {
+        .submitbtns .mod_quiz-next-nav, #page-mod-quiz-review .submitbtns .mod_quiz-next-nav {
+            float: left;
+        }
+        .que {
+            background-color: white;
+            box-shadow: none;
+        }
+        #region-main {
+            padding-left: 0;
+        }
+        .submitbtns {
+            padding-left: 2.5rem;
+        }
+    }
+
+    .que .info {
+        display: none;
+    }
+
+    .que .content {
+        margin: 0;
+    }
+
+    &.path-calendar {
+        .modal-dialog {
+            #fitem_id_eventtype,
+            #fitem_id_categoryid,
+            #fitem_id_courseid,
+            #fitem_id_groupcourseid,
+            #fitem_id_groupid {
+                display: none;
+            }
+        }
+    }
+
+    #completionprogressid {
+        display: none;
+    }
+
+    .togglecompletion {
+        display: none;
+    }
+
+    .collapsible-actions {
+        display: none;
+    }
+
+    .hot:before {
+        content: "";
+    }
+    .chart-table {
+        display: none;
+    }
+    .respondentinfo {
+        display: none;
+    }
+    #region-main-settings-menu {
+        display: none;
+    }
+    .surveyTitle {
+        display: none;
+    }
+}
+
+.tasktype1 {
+    color: #32323D;
+}
+
+.tasktype2 {
+    color: #82325A;
+}
+
+.tasktype3{
+    color: #2a28cd;
+}
+
+.tasktype4 {
+    color: #CD3C28;
+}
+
+.tasktype5 {
+    color: #A90614;
+}
+
+.tasktype6 {
+    color: #3FF3E0;
+}
+
+.tasktype7 {
+    color: #13A016;
+}
+
+.path-calendar .maincalendar .calendarmonth ul li .badge.badge-circle.badge-circle {
+    &.tasktype1 {
+        background-color: #32323D;
+        border-color: #32323D;
+    }
+    &.tasktype2 {
+        background-color: #82325A;
+        border-color: #82325A;
+    }
+    &.tasktype3 {
+        background-color: #2A28CD;
+        border-color: #2A28CD;
+    }
+    &.tasktype4 {
+        background-color: #CD3C28;
+        border-color: #CD3C28;
+    }
+    &.tasktype5 {
+        background-color: #A90614;
+        border-color: #A90614;
+    }
+    &.tasktype6 {
+        background-color: #3FF3E0;
+        border-color: #3FF3E0;
+    }
+    &.tasktype7 {
+        background-color: #13A016;
+        border-color: #13A016;
+    }
+}
+
+#form_resource-modal-dialogue {
+    display:none;
+}
+
+.section .progress {
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+    float: right;
+    width: 200px;
+    margin-top: 1rem;
+    height: 7px;
+    border: 0;
+}
