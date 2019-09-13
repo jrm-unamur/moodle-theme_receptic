@@ -350,3 +350,21 @@ body.ltibridge {
     height: 7px;
     border: 0;
 }
+
+.path-mod-questionnaire .reportQuestionTitle {
+    font-size: 1rem;
+    font-weight: bold;
+    padding-bottom: 0 !important;
+}
+
+.path-mod-questionnaire .reportQuestionTitle p {
+    margin-bottom: 0;
+}
+
+.path-mod-questionnaire .feedbacktext p:first-of-type {
+    margin-top: 0;
+}
+
+.path-mod-questionnaire .feedbacktext p:last-of-type {
+    margin-bottom: 0;
+}
