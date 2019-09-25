@@ -273,9 +273,32 @@ body.ltibridge {
     #region-main-settings-menu {
         display: none;
     }
-    .surveyTitle {
-        display: none;
+    &.path-mod-questionnaire  {
+        .reportQuestionTitle {
+            font-size: 1rem;
+            font-weight: bold;
+            padding-bottom: 0 !important;
+        }
+        .reportQuestionTitle p {
+            margin-bottom: 0;
+        }
+        .feedbacktext p:first-of-type {
+            margin-top: 0;
+        }
+        .feedbacktext p:last-of-type {
+            margin-bottom: 0;
+        }
+        .graph ~ table.generaltable,
+        .graph ~ fieldset {
+            display: none;
+        }
+        .goup {
+            margin-top: -10rem;
+        }
     }
+    /*.surveyTitle {
+        display: none;
+    }*/
 }
 
 .tasktype1 {
@@ -349,22 +372,4 @@ body.ltibridge {
     margin-top: 1rem;
     height: 7px;
     border: 0;
-}
-
-.path-mod-questionnaire .reportQuestionTitle {
-    font-size: 1rem;
-    font-weight: bold;
-    padding-bottom: 0 !important;
-}
-
-.path-mod-questionnaire .reportQuestionTitle p {
-    margin-bottom: 0;
-}
-
-.path-mod-questionnaire .feedbacktext p:first-of-type {
-    margin-top: 0;
-}
-
-.path-mod-questionnaire .feedbacktext p:last-of-type {
-    margin-bottom: 0;
 }
