@@ -228,6 +228,38 @@ body.ltibridge {
             padding-left: 2.5rem;
         }
     }
+    &#page-mod-quiz-view {
+        table.quizattemptsummary ~ div.quizattempt {
+            display: none;
+        }
+    }
+    &.path-mod-quiz  {
+        table.quizsummaryofattempt ~ div:last-of-type .singlebutton .btn.btn-secondary,
+        .quizstartbuttondiv button.btn.btn-secondary,
+        .mod_quiz-next-nav.btn.btn-primary,
+        .moodle-dialogue .confirmation-buttons .btn.btn-primary {
+            background-color: #6dccf1;
+            background-image: -webkit-linear-gradient(top, #6dccf1,#38a8e5);
+            background-image: linear-gradient(to bottom,#6dccf1,#38a8e5);
+            display: block;
+            border: 1px solid #2d81ad;
+            border-radius: 3px;
+            padding: 0 15px;
+            height: 35px;
+            color: #fff !important;
+            text-shadow: none;
+            font-size: 13px;
+            line-height: 35px;
+            box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset,0 1px 1px rgba(0,0,0,0.15);
+            display: inline-block;
+            font-size: 13px;
+            margin-right: 4px;
+        }
+
+    }
+    .que.multichoice .answer .specificfeedback {
+        background-color: #6dccf1;
+    }
 
     .que .info {
         display: none;
@@ -294,6 +326,22 @@ body.ltibridge {
         }
         .goup {
             margin-top: -10rem;
+        }
+    }
+    &.path-mod-wiki {
+        #region-main {
+            .nav-link[title="Commentaires"],
+            .nav-link[title="Historique"],
+            .nav-link[title="Carte"],
+            .nav-link[title="Fichiers"]{
+                display: none;
+            }
+            #fitem_id_newcontent_editor > div:first-child {
+                display: none;
+            }
+            ul.nav.nav-tabs ~ div.wiki_right {
+                display: none;
+            }
         }
     }
     /*.surveyTitle {

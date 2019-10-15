@@ -25,9 +25,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+global $USER;
+
 $extraclasses = [];
+
 if (isset($USER->auth) && $USER->auth == 'lti') {
     $extraclasses[] = 'ltibridge';
+    $template = 'theme_receptic/embeddedlti';
+} else {
+    $template = 'theme_receptic/embedded';
 }
 
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
@@ -38,4 +44,4 @@ $templatecontext = [
     'bodyattributes' => $bodyattributes
 ];
 
-echo $OUTPUT->render_from_template('theme_receptic/embedded', $templatecontext);
+echo $OUTPUT->render_from_template($template, $templatecontext);
