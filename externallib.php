@@ -50,7 +50,11 @@ class theme_receptic_external extends external_api {
                 'classification' => new external_value(PARAM_ALPHA, 'future, inprogress, or past'),
                 'limit' => new external_value(PARAM_INT, 'Result set limit', VALUE_DEFAULT, 0),
                 'offset' => new external_value(PARAM_INT, 'Result set offset', VALUE_DEFAULT, 0),
-                'sort' => new external_value(PARAM_TEXT, 'Sort string', VALUE_DEFAULT, null)
+                'sort' => new external_value(PARAM_TEXT, 'Sort string', VALUE_DEFAULT, null),
+                'customfieldname' => new external_value(PARAM_ALPHANUMEXT, 'Used when classification = customfield',
+                    VALUE_DEFAULT, null),
+                'customfieldvalue' => new external_value(PARAM_RAW, 'Used when classification = customfield',
+                    VALUE_DEFAULT, null),
             )
         );
     }
@@ -80,7 +84,9 @@ class theme_receptic_external extends external_api {
         string $classification,
         int $limit = 0,
         int $offset = 0,
-        string $sort = null
+        string $sort = null,
+        string $customfieldname = null,
+        string $customfieldvalue = null
     ) {
         global $CFG, $PAGE, $USER;
         require_once($CFG->dirroot . '/course/lib.php');
@@ -90,6 +96,7 @@ class theme_receptic_external extends external_api {
                 'limit' => $limit,
                 'offset' => $offset,
                 'sort' => $sort,
+                'customfieldvalue' => $customfieldvalue,
             )
         );
 
@@ -97,8 +104,11 @@ class theme_receptic_external extends external_api {
         $limit = $params['limit'];
         $offset = $params['offset'];
         $sort = $params['sort'];
+        $customfieldvalue = $params['customfieldvalue'];
 
         switch($classification) {
+            case COURSE_TIMELINE_ALLINCLUDINGHIDDEN:
+                break;
             case COURSE_TIMELINE_ALL:
                 break;
             case COURSE_TIMELINE_PAST:
@@ -111,6 +121,8 @@ class theme_receptic_external extends external_api {
                 break;
             case COURSE_TIMELINE_HIDDEN:
                 break;
+            case COURSE_CUSTOMFIELD:
+                break;
             default:
                 throw new invalid_parameter_exception('Invalid classification');
         }
@@ -118,16 +130,19 @@ class theme_receptic_external extends external_api {
         self::validate_context(context_user::instance($USER->id));
 
         $requiredproperties = theme_receptic_course_summary_exporter::define_properties();
-
         $fields = join(',', array_keys($requiredproperties));
-
         $hiddencourses = get_hidden_courses_on_timeline();
         $courses = [];
 
-        // If the timeline requires the hidden courses then restrict the result to only $hiddencourses else exclude.
-        if ($classification == COURSE_TIMELINE_HIDDEN) {
+        // If the timeline requires really all courses, get really all courses.
+        if ($classification == COURSE_TIMELINE_ALLINCLUDINGHIDDEN) {
+            $courses = course_get_enrolled_courses_for_logged_in_user(0, $offset, $sort, $fields, COURSE_DB_QUERY_LIMIT);
+
+        // Otherwise if the timeline requires the hidden courses then restrict the result to only $hiddencourses.
+        } elseif ($classification == COURSE_TIMELINE_HIDDEN) {
             $courses = course_get_enrolled_courses_for_logged_in_user(0, $offset, $sort, $fields,
                 COURSE_DB_QUERY_LIMIT, $hiddencourses);
+        // Otherwise get the requested courses and exclude the hidden courses.
         } else {
             $courses = course_get_enrolled_courses_for_logged_in_user(0, $offset, $sort, $fields,
                 COURSE_DB_QUERY_LIMIT, [], $hiddencourses);
@@ -148,6 +163,13 @@ class theme_receptic_external extends external_api {
             list($filteredcourses, $processedcount) = course_filter_courses_by_favourites(
                 $courses,
                 $favouritecourseids,
+                $limit
+            );
+        } else if ($classification == COURSE_CUSTOMFIELD) {
+            list($filteredcourses, $processedcount) = course_filter_courses_by_customfield(
+                $courses,
+                $customfieldname,
+                $customfieldvalue,
                 $limit
             );
         } else {
