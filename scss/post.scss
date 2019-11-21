@@ -384,6 +384,11 @@ body.ltibridge {
             margin-right: 4px;
         }
     }
+    &.path-enrol-lti {
+        div.alert-block {
+            display: none;
+        }
+    }
     /*.surveyTitle {
         display: none;
     }*/
