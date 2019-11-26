@@ -86,6 +86,14 @@ $extraclasses = [];
 
 global $USER;
 
+// trick to trigger lti view.
+
+
+if (strpos($_SERVER['QUERY_STRING'], 'lti=1')) {
+    $extraclasses[] = 'ltibridge';
+    $navdraweropen = false;
+    $blockscollapsed = true;
+}
 if (isset($USER->auth) && $USER->auth == 'lti') {
     $extraclasses[] = 'ltibridge';
     $navdraweropen = false;

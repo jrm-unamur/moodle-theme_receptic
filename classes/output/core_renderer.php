@@ -613,4 +613,12 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $context->helpmodal = get_config('theme_receptic', 'helptextinmodal');
         return $this->render_from_template('core/help_icon', $context);
     }
+
+    public function ltiswitch() {
+        $url = $this->page->url;
+        $url->param('lti', 1);
+        $link = '<li class="nav-link"><a href="' . $url->out() . '">Vue LTI</a>';
+        return $link;
+
+    }
 }
