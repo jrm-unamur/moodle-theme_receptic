@@ -9,6 +9,10 @@
             &:first-of-type:target {
                 margin-top: -30px !important;
             }
+            &.current:target {
+                padding-top: 0 !important;
+                margin-top: 0 !important;
+            }
         }
     }
 }
