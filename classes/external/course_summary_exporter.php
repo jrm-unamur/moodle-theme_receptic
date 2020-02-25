@@ -166,11 +166,12 @@ class theme_receptic_course_summary_exporter extends exporter {
      * @return array
      */
     public static function define_properties() {
-        return array_merge(course_summary_exporter::define_properties(), [
+        /*return array_merge(course_summary_exporter::define_properties(), [
             'visible' => array(
                 'type' => PARAM_BOOL
             )
-        ]);
+        ]);*/
+        return course_summary_exporter::define_properties();
     }
 
     /**
