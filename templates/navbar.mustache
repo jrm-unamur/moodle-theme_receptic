@@ -25,7 +25,6 @@
 
 <nav class="fixed-top {{#displaybrandbanner}}pos-f-t-lowers{{/displaybrandbanner}} navbar navbar-receptic navbar-expand moodle-has-zindex" aria-label="{{#str}}sitemenubar, admin{{/str}}">
 
-{{#navbaritems}}
     <div class="d-inline-block mr-3 ml-1" data-region="drawer-toggle">
         <button aria-expanded="{{#navdraweropen}}true{{/navdraweropen}}{{^navdraweropen}}false{{/navdraweropen}}" aria-controls="nav-drawer" type="button" class="btn nav-link float-sm-left mr-1 btn-secondary" data-action="toggle-drawer" data-side="left" data-preference="drawer-open-nav">{{#pix}}i/menubars{{/pix}}<span class="sr-only">{{#str}}sidepanel, core{{/str}}</span>
         </button>
@@ -43,7 +42,7 @@
         </div>
         <!-- navbar_plugin_output -->
         <li>
-            {{{ output.custom_menu_editing }}}
+            {{{ output.editing_mode_switch }}}
         </li>
         <li class="nav-item">
             {{{ output.navbar_plugin_output }}}
@@ -54,5 +53,5 @@
             {{{ output.user_menu }}}
         </li>
     </ul>
-{{/navbaritems}}
+
 </nav>

@@ -9,6 +9,10 @@
             &:first-of-type:target {
                 margin-top: -30px !important;
             }
+            &.current:target {
+                padding-top: 0 !important;
+                margin-top: 0 !important;
+            }
         }
     }
 }
@@ -224,7 +228,7 @@ body.editing .course-content ul.topics div.section_availability {
     margin-left: 2.25rem;
 }*/
 
-span.availabilityinfo:before {
+div.availabilityinfo:before {
     font-family: FontAwesome;
     content: "\f071";
     color: $danger;
@@ -232,7 +236,7 @@ span.availabilityinfo:before {
     vertical-align: sub;
 }
 
-span.availabilityinfo .tag.tag-info {
+div.availabilityinfo .badge.badge-info {
     margin-top: .4rem;
     background-color: $forsepia;
     filter: sepia($sepiaratio);
@@ -247,7 +251,7 @@ span.availabilityinfo .tag.tag-info {
     margin: 0;
 }
 
-.tag-info {
+.badge-info {
     background-color: $link-hover-color;
 }
 

@@ -11,3 +11,20 @@ table.forumpost {
         }
     }
 }
+
+.path-mod-forum {
+    div[data-content="forum-discussion"] {
+        .singleselect.d-inline-block {
+            margin-left: 0;
+        }
+    }
+    :target > .forumpost:before {
+        background: $primary;
+    }
+}
+
+.noreplywarning {
+    color: $danger;
+    font-weight: bold;
+    font-size: 1.25rem;
+}

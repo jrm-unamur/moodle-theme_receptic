@@ -275,6 +275,14 @@ label {
     [data-action="next-user"] {
         vertical-align: middle;
     }
+    .comment-ctrl {
+        .comment-message {
+            .time,
+            .text {
+                color: $gray-800;
+            }
+        }
+    }
 }
 
 // Mod chat.
@@ -282,10 +290,16 @@ label {
     margin-top: 2rem;
 }
 
-#page-mod-chat-gui_ajax-index .form-control {
-    border-radius: 0;
-    &:focus {
-        border-color: $primary;
+#page-mod-chat-gui_ajax-index {
+    .form-control {
+        border-radius: 0;
+        &:focus {
+            border-color: $primary;
+        }
+    }
+
+    #choosetheme {
+        display: none;
     }
 }
 
@@ -341,6 +355,45 @@ label {
     }
 }
 
+// Mod choice.
+.path-mod-choice {
+    form.horizontal {
+        li.option {
+            margin-right: 1rem;
+        }
+    }
+}
+
+// Mod data.
+.path-mod-data {
+    #options {
+        input[type="submit"] {
+            display: block;
+            margin-bottom: .5rem;
+        }
+        > div {
+            input,
+            select {
+                margin-bottom: .5rem;
+            }
+        }
+    }
+    input[type="button"],
+    input[type="submit"] {
+        margin-bottom: .5rem;
+    }
+    table.mod-data-default-template {
+        margin-left: 2rem;
+    }
+    form .recordcheckbox ~ br {
+        display: none;
+    }
+    .mod-data-default-template .template-field {
+        font-weight: bold;
+    }
+
+}
+
 // Mod feedback.
 .path-mod-feedback {
     div.feedback_info {
@@ -356,9 +409,12 @@ label {
 
 #page-mod-feedback-edit {
     .mform.full-width-labels .fitem.row.feedback_itemlist {
-        padding: 0 1rem	2rem;
+        padding: .5rem .5rem 1rem;
         border: 1px ridge;
         margin-top: 2rem;
+        .itemhandle {
+            right: 2rem;
+        }
     }
 }
 
@@ -403,7 +459,6 @@ label {
         .col-md-3 label .icon,
         .col-md-3 span .icon {
             padding-left: .3rem;
-            vertical-align: baseline;
         }
         &.feedback-item-info {
             padding-top: .5rem;
@@ -416,12 +471,27 @@ label {
                 margin-right: 1rem;
             }
         }
-        &.feedback-item-multichoice.multichoice-vertical .felement {
+        .felement {
+            padding-left: 1rem;
+        }
+        /*&.feedback-item-multichoice.multichoice-vertical .felement {
             margin-top: -1rem;
             label {
                 margin-right: 1rem;
             }
+        }*/
+    }
+    &.mform {
+        &.full-width-labels .fitem.row > .col-md-9 {
+            padding-left: 1rem;
         }
+        .form-inline label {
+            justify-content: flex-start;
+            width: 100%;
+        }
+    }
+    .itemactions {
+        float: none;
     }
 }
 

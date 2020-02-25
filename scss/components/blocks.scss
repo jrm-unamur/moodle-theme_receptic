@@ -73,6 +73,10 @@ $blocks-column-width: 350px !default;
                 .muted {
                     font-size: $font-size-base;
                 }
+                &:hover {
+                    color: $success;
+                    text-decoration: none;
+                }
             }
         }
         .add_course_button,

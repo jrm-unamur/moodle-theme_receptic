@@ -17,10 +17,36 @@
 {{!
     @template block_myoverview/main
 
-    This template renders the main content area for the myoverview block.
+    This template renders the main content area for the myoverview block (override).
 
     Example context (json):
-    {}
+    {
+        "nocoursesimg" : https://moodle-test.test.fundp.ac.be/moodle37/theme/image.php/receptic/block_myoverview/1560420557/courses
+        "grouping" : "all",
+        "sort" : "fullname",
+        "view" : "cards",
+        "paging" : 12,
+        "displaycategories" : "on",
+        "list" : 1,
+        "title" : 1,
+        "all" : 1
+        "urls" : {
+            "addcourse" : "{url object}",
+            "enrolme" : "{url object}"
+        },
+    
+        "cancreatecourse" : 1,
+        "allowcoursefiltering" : 1,
+        "coursefilterall" : 1,
+        "coursefilterinprogress" : 1,
+        "coursefilterfuture" : 1,
+        "coursefilterpast" : 1,
+        "coursefilterstarred" : 1,
+        "coursefilterhidden" : 0,
+        "hasperiodfilter" : 1,
+        "allowcoursesorting" : 1,
+        "allowdisplaymode" : 1
+    }
 }}
 
 <div id="block-myoverview-{{uniqid}}" class="block-myoverview block-cards" data-region="myoverview" role="navigation">

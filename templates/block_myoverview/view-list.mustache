@@ -28,7 +28,8 @@
                 "courseimage": "https://moodlesite/pluginfile/123/course/overviewfiles/123.jpg",
                 "fullname": "course 3",
                 "hasprogress": true,
-                "progress": 10
+                "progress": 10,
+                "coursecategory": "Miscellaneous"
             }
         ]
     }
@@ -40,66 +41,46 @@
         data-region="course-content"
         data-course-id="{{{id}}}">
         <div class="row-fluid">
-            <div class="{{#hasprogress}}col-md-7 span7{{/hasprogress}} {{^hasprogress}}col-md-11 span11{{/hasprogress}} d-flex align-items-center">
-                <div class="d-block">
+            <div class="{{#hasprogress}}col-md-7{{/hasprogress}} {{^hasprogress}}col-md-11 span11{{/hasprogress}} d-flex align-items-center">
+                <a href="{{viewurl}}" class="coursename{{^visible}} text-muted{{/visible}}" data-course-id="{{id}}">
+                    <div class="text-muted muted d-flex flex-wrap">
+                        <span class="sr-only">
+                            {{#str}}aria:coursecategory, core_course{{/str}}
+                        </span>
+                        {{$coursecategory}}
+                            <div>{{{coursecategory}}}</div>
+                        {{/coursecategory}}
+                        {{#showshortname}}
+                            {{#coursecategory}}
+                                <div class="pl-1 pr-1">|</div>
+                            {{/coursecategory}}
+                            <span class="sr-only">
+                                {{#str}}aria:courseshortname, core_course{{/str}}
+                            </span>
+                            <div>{{{shortname}}}</div>
+                        {{/showshortname}}
+                    </div>
+
                     {{> core_course/favouriteicon }}
-                    <a href="{{viewurl}}" class="coursename{{^visible}} dimmed{{/visible}}" data-course-id="{{id}}">
-                        <span class="sr-only">{{#str}}aria:coursename, core_course{{/str}}</span>
-                        {{{fullnamedisplay}}}
-                    </a>
+                    <span class="sr-only">
+                        {{#str}}aria:coursename, core_course{{/str}}
+                    </span>
+                    {{{fullname}}}
                     {{#newitemscount}}
                         <span title="{{newitemscount}} éléments ajoutés" class="redball-count {{redballscountclass}}">{{newitemscount}}</span>
                     {{/newitemscount}}
-
                     {{#updateditemscount}}
                         <span title="{{updateditemscount}} contenus modifiés" class="orangeball-count {{orangeballscountclass}}">{{updateditemscount}}</span>
                     {{/updateditemscount}}
-                </div>
+                </a>
+
             </div>
-
-            <div class="hidden col-md-5 span5 pt-2">
-                <a class="hidden {{#isfavourite}}hidden{{/isfavourite}}" href="#"
-                   data-action="add-favourite"
-                   data-course-id="{{id}}"
-                   aria-controls="favorite-icon-{{ id }}-{{ uniqid }}"
-                >
-                    <span class="text-primary">{{#pix}} i/star, core, {{#str}} favourites, block_myoverview {{/str}} {{/pix}}</span>
-
-                    <div class="sr-only">
-                        {{#str}} aria:addtofavourites, block_myoverview {{/str}} {{{fullname}}}
-                    </div>
-                </a>
-                <a class="hidden {{^isfavourite}}hidden{{/isfavourite}}" href="#"
-                   data-action="remove-favourite"
-                   data-course-id="{{id}}"
-                   aria-controls="favorite-icon-{{ id }}-{{ uniqid }}"
-                >
-
-                    <div class="sr-only">
-                        {{#str}} aria:removefromfavourites, block_myoverview {{/str}} {{{fullname}}}
-                    </div>
-                </a>
-                {{#allowtogglevisibility}}
-                    {{#visible}}
-                        <a class="hidden" href="{{togglevisibilityurl}}?action=hide&courseid={{id}}&sesskey={{sesskey}}">{{#pix}} i/hide, core, {{#str}} hidden, block_myoverview {{/str}} {{/pix}}</a>
-                    {{/visible}}
-                    {{^visible}}
-                        <a class="hidden" href="{{togglevisibilityurl}}?action=show&courseid={{id}}&sesskey={{sesskey}}">{{#pix}} i/show, core, {{#str}} hidden, block_myoverview {{/str}} {{/pix}}</a>
-                    {{/visible}}
-                {{/allowtogglevisibility}}
-            {{#unenrolurl}}
-                <a class="hidden" href="{{unenrolurl}}">
-                    <i title="{{#str}}unenrolme, theme_receptic{{/str}}" style="font-size:large;" class="fa fa-user-times"></i>
-                </a>
-            {{/unenrolurl}}
-            </div>
-
             {{#hasprogress}}
-            <div class="col-md-4 span4 pt-2">
-                {{> block_myoverview/progress-bar}}
-            </div>
+                <div class="col-md-4 pt-2">
+                    {{> block_myoverview/progress-bar}}
+                </div>
             {{/hasprogress}}
-            <div class="col-md-1 span1 p-0 d-flex">
+            <div class="col-md-1 p-0 d-flex">
                 {{> block_myoverview/course-action-menus }}
             </div>
         </div>

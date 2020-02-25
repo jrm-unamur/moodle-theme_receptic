@@ -33,6 +33,10 @@ if ($ADMIN->fulltree) {
     // General settings page.
     $page = new admin_settingpage('theme_receptic_general', get_string('generalsettings', 'theme_receptic'));
 
+    // Preset.
+    $page->add(new admin_setting_heading('presetheading',
+        get_string('presetheading', 'theme_receptic'), ''));
+
     $name = 'theme_receptic/preset';
     $title = get_string('preset', 'theme_receptic');
     $description = get_string('preset_desc', 'theme_receptic');
@@ -48,7 +52,6 @@ if ($ADMIN->fulltree) {
         }
     }
     $choices['default.scss'] = 'default.scss';
-    $choices['plain.scss'] = 'plain.scss';
 
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $setting->set_updatedcallback('theme_reset_all_caches');
@@ -57,7 +60,7 @@ if ($ADMIN->fulltree) {
     // Add file uploader to add preset files to our theme.
     $name = 'theme_receptic/presetfiles';
     $title = get_string('presetfiles', 'theme_receptic');
-    $descriptin = get_string('presetfiles_desc', 'theme_receptic');
+    $description = get_string('presetfiles_desc', 'theme_receptic');
     $setting = new admin_setting_configstoredfile($name, $title, $description, 'preset', 0,
             array('maxfiles' => 20, 'accepted_types' => array('.scss')));
     $page->add($setting);
@@ -65,12 +68,14 @@ if ($ADMIN->fulltree) {
     // Scss variable to override $brand-primary.
     $name = 'theme_receptic/brandprimary';
     $title = get_string('brandcolor', 'theme_receptic');
-    $desription = get_string('brandcolor_desc', 'theme_receptic');
+    $description = get_string('brandcolor_desc', 'theme_receptic');
     $setting = new admin_setting_configcolourpicker($name, $title, $description, '');
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
-    // Variable $brandprimary.
+    // Brand banner.
+    $page->add(new admin_setting_heading('brandbannerheading',
+        get_string('brandbannerheading', 'theme_receptic'), ''));
     $name = 'theme_receptic/brandbanner';
     $title = get_string('brandbanner', 'theme_receptic');
     $description = get_string('brandbanner_desc', 'theme_receptic');
@@ -87,12 +92,29 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
+    // Logos for brand banner.
+    global $SITE;
+    $defaulttarget = $CFG->wwwroot . '?redirect=0';
+    $defaultalt = format_string($SITE->shortname, true, ['context' => context_course::instance(SITEID), "escape" => false]);
+
     // Left logo file setting.
     $title = get_string('logoleft', 'theme_receptic');
     $description = get_string('logoleft_desc', 'theme_receptic');
     $setting = new admin_setting_configstoredfile('theme_receptic/logoleft', $title, $description, 'logoleft', 0,
         ['maxfiles' => 1, 'accepted_types' => ['.jpg', '.png']]);
     $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Target url for left logo.
+    $name = 'theme_receptic/logolefturl';
+    $title = get_string('logolefturl', 'theme_receptic');
+    $setting = new admin_setting_configtext($name, $title, '', $defaulttarget);
+    $page->add($setting);
+
+    // Alt text for left logo.
+    $name = 'theme_receptic/logoleftalt';
+    $title = get_string('logoleftalt', 'theme_receptic');
+    $setting = new admin_setting_configtext($name, $title, '', $defaultalt);
     $page->add($setting);
 
     // Center logo file setting.
@@ -103,11 +125,64 @@ if ($ADMIN->fulltree) {
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
+    // Target url for center logo.
+    $name = 'theme_receptic/logocenterurl';
+    $title = '';
+    $setting = new admin_setting_configtext($name, $title, '', $defaulttarget);
+    $page->add($setting);
+
+    // Alt text for center logo.
+    $name = 'theme_receptic/logocenteralt';
+    $title = get_string('logocenteralt', 'theme_receptic');
+    $setting = new admin_setting_configtext($name, $title, '', $defaultalt);
+    $page->add($setting);
+
     // Right logo file setting.
     $title = get_string('logoright', 'theme_receptic');
     $description = get_string('logoright_desc', 'theme_receptic');
     $setting = new admin_setting_configstoredfile('theme_receptic/logoright', $title, $description, 'logoright', 0,
         ['maxfiles' => 1, 'accepted_types' => ['.jpg', '.png']]);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Target url for right logo.
+    $name = 'theme_receptic/logorighturl';
+    $title = get_string('logorighturl', 'theme_receptic');
+    $setting = new admin_setting_configtext($name, $title, '', $defaulttarget);
+    $page->add($setting);
+
+    // Alt text for right logo.
+    $name = 'theme_receptic/logorightalt';
+    $title = get_string('logorightalt', 'theme_receptic');
+    $setting = new admin_setting_configtext($name, $title, '', $defaultalt);
+    $page->add($setting);
+
+    // Favicon.
+    $page->add(new admin_setting_heading('faviconheading',
+        get_string('faviconheading', 'theme_receptic'), ''));
+
+    // Favicon upload.
+    $name = 'theme_receptic/favicon';
+    $title = get_string ('favicon', 'theme_receptic' );
+    $description = get_string ('favicon_desc', 'theme_receptic' );
+    $setting = new admin_setting_configstoredfile( $name, $title, $description, 'favicon', 0,
+        array('maxfiles' => 1, 'accepted_types' => array('.png', '.jpg', '.ico')));
+    $setting->set_updatedcallback ( 'theme_reset_all_caches' );
+    $page->add($setting);
+
+    // Custom SCSS.
+    $page->add(new admin_setting_heading('customscss',
+        get_string('customscss', 'theme_receptic'), ''));
+
+    // Raw SCSS to include before the content.
+    $setting = new admin_setting_scsscode('theme_receptic/scsspre',
+        get_string('rawscsspre', 'theme_receptic'), get_string('rawscsspre_desc', 'theme_receptic'), '', PARAM_RAW);
+    $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    // Raw SCSS to include after the content.
+    $setting = new admin_setting_scsscode('theme_receptic/scss', get_string('rawscss', 'theme_receptic'),
+        get_string('rawscss_desc', 'theme_receptic'), '', PARAM_RAW);
     $setting->set_updatedcallback('theme_reset_all_caches');
     $page->add($setting);
 
@@ -150,7 +225,7 @@ if ($ADMIN->fulltree) {
 
     $name = 'theme_receptic/coursefilterpast';
     $title = get_string('past', 'block_myoverview');
-    $description = get_string('coursefilterall_desc', 'theme_receptic');
+    $description = get_string('coursefilterpast_desc', 'theme_receptic');
     $default = true;
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
     $page->add($setting);
@@ -187,6 +262,18 @@ if ($ADMIN->fulltree) {
     $description = get_string('allowdisplaymode_desc', 'theme_receptic');
     $default = true;
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
+    $page->add($setting);
+
+    $name = 'theme_receptic/forceddisplaymode';
+    $title = get_string('forceddisplaymode', 'theme_receptic');
+    $description = get_string('forceddisplaymode_desc', 'theme_receptic');
+    $default = 'list';
+    $choices = [
+        'list' => get_string('list', 'block_myoverview'),
+        'card' => get_string('card', 'block_myoverview'),
+        'summary' => get_string('summary', 'block_myoverview')
+    ];
+    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
 
     $page->add(new admin_setting_heading('createcourse',
@@ -247,6 +334,7 @@ if ($ADMIN->fulltree) {
     $title = get_string('togglecoursevisibility', 'theme_receptic');
     $description = get_string('togglecoursevisibility_desc', 'theme_receptic');
     $setting = new admin_setting_configcheckbox($name, $title, $description, false);
+    $setting->set_updatedcallback('theme_receptic_disable_user_hidden_courses');
     $page->add($setting);
 
     $name = 'theme_receptic/unenrolme';
@@ -318,10 +406,9 @@ if ($ADMIN->fulltree) {
     // Add an edit button in the navigation bar.
     $name = 'theme_receptic/editbutton';
     $title = get_string('editbutton', 'theme_receptic');
-    $description = get_string('editbuttondesc', 'theme_receptic');
+    $description = get_string('editbutton_desc', 'theme_receptic');
     $default = 0;
-    $choices = array(0 => 'No', 1 => 'Yes');
-    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
+    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
     $page->add($setting);
 
     // Hide default edit button.
@@ -389,9 +476,9 @@ if ($ADMIN->fulltree) {
     $page->add($setting);
 
     // Contact information.
-    $name = 'theme_receptic/switchrolewarning';
-    $title = get_string('showswitchrolewarning', 'theme_receptic');
-    $description = get_string('showswitchrolewarning_desc', 'theme_receptic');
+    $name = 'theme_receptic/switchedrolewarning';
+    $title = get_string('showswitchedrolewarning', 'theme_receptic');
+    $description = get_string('showswitchedrolewarning_desc', 'theme_receptic');
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
     $page->add($setting);
 
@@ -438,7 +525,7 @@ if ($ADMIN->fulltree) {
 
     // Add miscellaneous settings.
     $page = new admin_settingpage('theme_receptic_misc', get_string('miscellaneous'));
-    
+
     // Add setting to prevent users from uploading profile picture.
     $name = 'theme_receptic/disableavatarupload';
     $title = get_string('disableavatarupload', 'theme_receptic');
@@ -465,6 +552,18 @@ if ($ADMIN->fulltree) {
     $description = get_string('helptextinmodal_desc', 'theme_receptic', null, true);
     $setting = new admin_setting_configcheckbox($name, $title, $description, false);
     $setting->set_updatedcallback('theme_reset_all_caches');
+    $page->add($setting);
+
+    $name = 'theme_receptic/extrajsmodule';
+    $title = get_string('extrajsmodule', 'theme_receptic', null, true);
+    $description = get_string('extrajsmodule_desc', 'theme_receptic', null, true);
+    $setting = new admin_setting_configtext($name, $title, $description, '');
+    $page->add($setting);
+
+    $name = 'theme_receptic/extrajsmoduleargs';
+    $title = get_string('extrajsmoduleargs', 'theme_receptic', null, true);
+    $description = get_string('extrajsmoduleargs_desc', 'theme_receptic', null, true);
+    $setting = new admin_setting_configtextarea($name, $title, $description, '', PARAM_RAW);
     $page->add($setting);
 
     // Add tab to settings page.
@@ -509,7 +608,7 @@ $description = get_string('flashboxcohorts_desc', 'theme_receptic');
 
 $cohorts = cohort_get_all_cohorts(0, 0);
 
-$choices = array();
+$choices = array('' => '-- aucune --');
 foreach ($cohorts['cohorts'] as $cohort) {
     $choices[$cohort->id] = $cohort->name;
 }
@@ -539,7 +638,7 @@ $title = get_string('flashboxcohorts', 'theme_receptic');
 $description = get_string('flashboxcohorts_desc', 'theme_receptic');
 $cohorts = cohort_get_all_cohorts(0, 0);
 
-$choices = array();
+$choices = array('' => '-- aucune --');
 foreach ($cohorts['cohorts'] as $cohort) {
     $choices[$cohort->id] = $cohort->name;
 }

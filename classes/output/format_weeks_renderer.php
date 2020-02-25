@@ -40,6 +40,7 @@ require_once($CFG->dirroot . '/course/format/weeks/renderer.php');
  * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Unversite de Namur
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class format_weeks_renderer extends \format_weeks_renderer {
 

@@ -93,6 +93,11 @@ $observers = array(
     ),
 
     array(
+        'eventname' => '\mod_scheduler\event\appointment_list_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
         'eventname' => '\mod_scorm\event\course_module_viewed',
         'callback' => 'theme_receptic_observer::course_module_viewed'
     ),
@@ -147,4 +152,23 @@ $observers = array(
         'callback' => 'theme_receptic_observer::course_module_viewed'
     ),
 
+    array(
+        'eventname' => '\mod_amanote\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_wooclap\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_ubicast\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
+
+    array(
+        'eventname' => '\mod_questionnaire\event\course_module_viewed',
+        'callback' => 'theme_receptic_observer::course_module_viewed'
+    ),
 );

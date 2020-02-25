@@ -101,7 +101,7 @@ class theme_receptic_course_summary_exporter extends exporter {
             $hasprogress = true;
         }
         $progress = floor($progress);
-
+        $coursecategory = \core_course_category::get($this->data->category, MUST_EXIST, true);
         return array(
             'fullnamedisplay' => get_course_display_name_for_list($this->data),
             'viewurl' => (new moodle_url('/course/view.php', array('id' => $this->data->id)))->out(false),
@@ -111,6 +111,7 @@ class theme_receptic_course_summary_exporter extends exporter {
             'isfavourite' => $this->related['isfavourite'],
             'hidden' => boolval(get_user_preferences('block_myoverview_hidden_course_' . $this->data->id, 0)),
             'showshortname' => $CFG->courselistshortnames ? true : false,
+            'coursecategory' => $coursecategory->name,
             'unenrolurl' => '',
             'enrolid' => self::get_enrolid($this->data),
             'allowtogglevisibility' => has_capability('moodle/course:visibility', context_course::instance($this->data->id))

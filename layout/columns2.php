@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * A two column layout for the boost theme.
+ * A two column layout for the receptic theme.
  *
  * @package    theme_receptic
  * @author     Jean-Roch Meurisse
@@ -46,10 +46,10 @@ if (empty($sectionstogglestate)) {
 $jsargs = new stdClass();
 
 if (!get_config('theme_receptic', 'allowdisplaymode')) {
-    if (get_user_preferences('block_myoverview_user_view_preference') === null) {
+    /*if (get_user_preferences('block_myoverview_user_view_preference') === null) {
         set_user_preference('block_myoverview_user_view_preference', 'list');
-    }
-    $jsargs->displaymode = 'list';
+    }*/
+    $jsargs->displaymode = get_config('theme_receptic', 'forceddisplaymode');
 }
 
 if ($this->page->pagetype == 'user-edit' && theme_receptic_user_can_upload_profile_picture() === false) {
@@ -59,6 +59,16 @@ if ($this->page->pagetype == 'user-edit' && theme_receptic_user_can_upload_profi
 }
 
 $this->page->requires->js_call_amd('theme_receptic/ux', 'init', array(json_encode($jsargs)));
+
+$extraamd = get_config('theme_receptic', 'extrajsmodule');
+$extraamdargs = get_config('theme_receptic', 'extrajsmoduleargs');
+if ($extraamd) {
+    if( !empty($extraamdargs)) {
+        $this->page->requires->js_call_amd($extraamd, 'init', array($extraamdargs));
+    } else {
+        $this->page->requires->js_call_amd($extraamd, 'init');
+    }
+}
 
 $iscontextcourse = $context->contextlevel == CONTEXT_COURSE || $context->contextlevel == CONTEXT_MODULE;
 $params = new stdClass();
@@ -99,9 +109,16 @@ if (get_config('theme_receptic', 'settingsincoursepage') == 'yes') {
     $settingsincourse = true;
 }
 
-// ATTENTION test shrinkable drawer.
+if (get_config('theme_receptic', 'editbutton')) {
+    $extraclasses[] = 'editmodeinnavbar';
+}
+
 if (get_config('theme_receptic', 'shrinkablenavdrawer')) {
     $extraclasses[] = 'shrinkablenavdrawer';
+}
+
+if (optional_param('bui_editid', 0, PARAM_INT)) {
+    $extraclasses[] = 'blockconfig';
 }
 
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
@@ -133,13 +150,18 @@ $templatecontext = [
     'iscontextcourse' => $iscontextcourse,
     'shownavbar' => true,
     'logoleft' => $haslogoleft,
+    'logolefturl' => get_config('theme_receptic', 'logolefturl'),
+    'logoleftalt' => get_config('theme_receptic', 'logoleftalt'),
     'logocenter' => $haslogocenter,
+    'logocenterurl' => get_config('theme_receptic', 'logocenterurl'),
+    'logocenteralt' => get_config('theme_receptic', 'logocenteralt'),
     'logoright' => $haslogoright,
+    'logorighturl' => get_config('theme_receptic', 'logorighturl'),
+    'logorightalt' => get_config('theme_receptic', 'logorightalt'),
     'displaybrandbanner' => $displaybrandbanner,
-    'navbaritems' => true,
     'logininfo' => get_config('theme_receptic', 'logininfo'),
     'homelink' => get_config('theme_receptic', 'homelink'),
-    'activitynavigation' => get_config('theme_receptic', 'activitynavigation')
+    'activitynavigation' => get_config('theme_receptic', 'activitynavigation'),
 ];
 
 if (!empty($settingsincourse)) {
@@ -151,6 +173,9 @@ if (!empty($settingsincourse)) {
     $templatecontext['activitynode'] = theme_receptic_get_incourse_activity_settings();
 }
 
-$templatecontext['flatnavigation'] = $PAGE->flatnav;
+$nav = $PAGE->flatnav;
+$templatecontext['flatnavigation'] = $nav;
+$templatecontext['firstcollectionlabel'] = $nav->get_collectionlabel();
+
 echo $OUTPUT->render_from_template('theme_receptic/columns2', $templatecontext);
 

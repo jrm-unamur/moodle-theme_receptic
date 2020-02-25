@@ -26,10 +26,10 @@
     {
         "output": {
             "doctype": "<!DOCTYPE html>",
+            "htmlattributes": "attributes for html tag",
             "page_title": "Test page",
             "favicon": "favicon.ico",
-            "standard_head_html": "standard head html content",
-            "main_content": "<h1>Headings make html validators happier</h1>"
+            "standard_head_html": "standard head html content"
          }
     }
 }}
@@ -41,4 +41,5 @@
     {{{ output.standard_head_html }}}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 </head>

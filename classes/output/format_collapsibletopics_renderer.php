@@ -25,8 +25,6 @@
 
 namespace theme_receptic\output;
 
-use html_writer;
-
 defined('MOODLE_INTERNAL') || die();
 
 if (file_exists("$CFG->dirroot/course/format/collapsibletopics/renderer.php")) {

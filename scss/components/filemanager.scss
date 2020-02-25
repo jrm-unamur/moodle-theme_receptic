@@ -38,15 +38,17 @@
 
 .filepicker-filelist,
 .filepicker-container {
-    border: 1px solid #bbb;
+    border: 1px solid $gray-500;
     margin-top: .5rem;
 }
 
 .filemanager .btn-secondary {
-    color: #373a3c;
-    background-color: #fff;
-    border-color: #ccc;
     .icon {
-        color: #373a3c;
+        color: $gray-700;
+    }
+    &.checked {
+        .icon {
+            color: $gray-100;
+        }
     }
 }

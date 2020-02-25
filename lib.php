@@ -32,8 +32,6 @@ defined('MOODLE_INTERNAL') || die();
  * @return array
  */
 function theme_receptic_get_pre_scss($theme) {
-    // 1. To define our own configurable scss variables use the code below and comment code under 2.
-    global $DB;
 
     $scss = '';
 
@@ -52,9 +50,6 @@ function theme_receptic_get_pre_scss($theme) {
         array_map(function($target) use (&$scss, $value) {
             $scss .= '$' . $target . ': ' . $value . ";\n";
         }, (array) $targets);
-        $tmp = new stdClass();
-        $tmp->trace = $scss;
-        $DB->insert_record('webcampus_trace', $tmp);
     }
     if ($theme->settings->brandbanner) {
         $scss .= '$brand-banner-height:80px;';
@@ -77,7 +72,6 @@ function theme_receptic_get_pre_scss($theme) {
  * @return string
  */
 function theme_receptic_get_extra_scss($theme) {
-    // 1. To define our own extra scss variable. To use it uncomment the code below and comment under 2.
     return !empty($theme->settings->scss) ? $theme->settings->scss : '';
 }
 
@@ -94,12 +88,13 @@ function theme_receptic_get_main_scss_content($theme) {
     $filename = !empty($theme->settings->preset) ? $theme->settings->preset : null;
     $fs = get_file_storage();
     $context = context_system::instance();
-    if ($filename == 'boostlike.scss') {
-        $scss .= file_get_contents($CFG->dirroot . '/theme/receptic/scss/preset/boostlike.scss');
-    } else if ($filename == 'unamur35.scss') {
-        $scss .= file_get_contents($CFG->dirroot . '/theme/receptic/scss/preset/unamur35.scss');
+    if ($filename == 'default.scss') {
+        $scss .= file_get_contents($CFG->dirroot . '/theme/receptic/scss/preset/default.scss');
     } else if ($filename && ($presetfile = $fs->get_file($context->id, 'theme_receptic', 'preset', 0, '/', $filename))) {
         $scss .= $presetfile->get_content();
+    } else {
+        // Safety fallback - maybe new installs etc.
+        $scss .= file_get_contents($CFG->dirroot . '/theme/receptic/scss/preset/default.scss');
     }
     // Add 1 scss file to the end of main (mainly for quick test and fix purposes.
     $post = file_get_contents($CFG->dirroot . '/theme/receptic/scss/post.scss');
@@ -122,7 +117,7 @@ function theme_receptic_get_main_scss_content($theme) {
 function theme_receptic_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
 
     if ($context->contextlevel == CONTEXT_SYSTEM
-            && ($filearea === 'logoleft' || $filearea === 'logoright' || $filearea === 'logocenter')) {
+            && ($filearea === 'logoleft' || $filearea === 'logoright' || $filearea === 'logocenter' || $filearea === 'favicon')) {
         $theme = theme_config::load('receptic');
         // By default, theme files must be cache-able by both browsers and proxies.
         if (!array_key_exists('cacheability', $options)) {
@@ -415,6 +410,7 @@ function theme_receptic_get_visible_balls_count($course, $redballs, $orangeballs
 
 /**
  * Provides the node for the in-course course or activity settings.
+ * Cloned from theme boost_campus.
  *
  * @return navigation_node.
  */
@@ -430,15 +426,14 @@ function theme_receptic_get_incourse_settings() {
             $node = $PAGE->settingsnav->find('courseadmin', navigation_node::TYPE_COURSE);
             // Check if $node is not empty for other pages like for example the langauge customization page.
             if (!empty($node)) {
-                // If the setting 'incoursesettingsswitchtorole' is enabled add these to the $node.
-                if (get_config('theme_boost_campus', 'incoursesettingsswitchtorole') == 'yes' && !is_role_switched($COURSE->id)) {
+                if (!is_role_switched($COURSE->id)) {
                     // Build switch role link
                     // We could only access the existing menu item by creating the user menu and traversing it.
                     // So we decided to create this node from scratch with the values copied from Moodle core.
                     $roles = get_switchable_roles($PAGE->context);
                     if (is_array($roles) && (count($roles) > 0)) {
                         // Define the properties for a new tab.
-                        $properties = array('text' => get_string('switchroleto', 'theme_boost_campus'),
+                        $properties = array('text' => get_string('switchroleto'),
                             'type' => navigation_node::TYPE_CONTAINER,
                             'key'  => 'switchroletotab');
                         // Create the node.
@@ -466,6 +461,7 @@ function theme_receptic_get_incourse_settings() {
 
 /**
  * Provides the node for the in-course settings for other contexts.
+ * Cloned from theme boost_campus.
  *
  * @return navigation_node.
  */
@@ -497,14 +493,15 @@ function theme_receptic_get_incourse_activity_settings() {
  */
 function theme_receptic_user_can_upload_profile_picture() {
     global $USER;
-    // Restriction is disabled.
+
     if (empty(get_config('theme_receptic', 'disableavatarupload'))) {
+        // Restriction is disabled.
         return true;
-    // Restriction is enabled for all users.
     } else if (empty(get_config('theme_receptic', 'disableavataruploademailpattern'))) {
+        // Restriction is enabled for all users.
         return false;
-    // Restriction is enablef for users with an email address matching a defined pattern.
     } else {
+        // Restriction is enabled for users with an email address matching a defined pattern.
         // Make a new array on delimiter "new line".
         $patterns = explode("\n", get_config('theme_receptic', 'disableavataruploademailpattern'));
         // Check for each pattern.
@@ -523,4 +520,16 @@ function theme_receptic_user_can_upload_profile_picture() {
     }
 
     return true;
+}
+
+/**
+ * Disables hidden course filters if teachers are allowed to toggle course visibility from the dashboard.
+ * This to avoid confusion.
+ * @return navigation_node.
+ */
+function theme_receptic_disable_user_hidden_courses() {
+    if (get_config('theme_receptic', 'togglecoursevisibility')) {
+        set_config('coursefilterhidden', false, 'theme_receptic');
+    }
+
 }

@@ -37,7 +37,7 @@ use html_writer;
  * @copyright  2017 Jean-Roch Meurisse
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class course_renderer extends \theme_boost\output\core\course_renderer {
+class course_renderer extends \core_course_renderer {
 
     /**
      * Override to user theme modchooser class (classes/ouptut/core/modchooser.php).

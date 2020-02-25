@@ -198,22 +198,19 @@ div.editor_atto_toolbar button .icon {
 }
 
 #page-login-index {
+    .loginpagepanel {
+        min-height: 500px;
+        box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .2), 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .12);
+    }
     #accordion {
-        margin-top: 5rem;
-        .card {
-            border-color: $gray-600;
-        }
         .card-header {
             background-color: white;
             border: none;
         }
         .card-body {
             padding-top: 0;
-            .input-group-username {
-                margin-top: 1rem;
-            }
         }
-        a.sectiontoggle {
+        a.logintoggle {
             float: left;
             margin: 1px 3px 3px;
             padding: 2px 18px 2px 1.5rem;
@@ -231,7 +228,6 @@ div.editor_atto_toolbar button .icon {
 
     }
 }
-
 
 .connectbox {
     padding: 0.5rem;
@@ -304,4 +300,46 @@ div::-webkit-scrollbar-thumb,
 section::-webkit-scrollbar-thumb {
     background-color: $brand-primary;
     outline: 1px solid $brand-primary;
+}
+
+.badge {
+    @extend .tag;
+    @include tag-variant($tag-default-bg);
+    @include border-radius($font-size-root / 2);
+}
+
+.badge-success {
+    @include tag-variant($tag-success-bg);
+}
+
+.badge-info {
+    @include tag-variant($tag-info-bg);
+}
+
+.badge-warning {
+    @include tag-variant($tag-warning-bg);
+}
+
+.badge-important {
+    @include tag-variant($tag-danger-bg);
+}
+
+.white {
+    color: $white;
+}
+
+body.editmodeinnavbar.editing {
+    &.path-admin {
+        #page-header {
+            .card-body {
+                &.singlebutton {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+.loginpanelbg {
+    background-color: $gray-100;
 }

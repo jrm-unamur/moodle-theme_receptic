@@ -275,6 +275,45 @@ trait format_commons {
         $o = '';
         $sectionstyle = '';
 
+        if (!empty($course->sectionprogress)) {
+            $total = 0;
+            $complete = 0;
+            $cancomplete = isloggedin() && !isguestuser();
+            $modinfo = get_fast_modinfo($course);
+
+            $sectionmods = array();
+            $completioninfo = new \completion_info($course);
+            if (!empty($modinfo->sections[$section->section])) {
+                foreach ($modinfo->sections[$section->section] as $cmid) {
+
+                    $thismod = $modinfo->cms[$cmid];
+
+                    if ($thismod->modname == 'label') {
+                        // Labels are special (not interesting for students)!
+                        continue;
+                    }
+
+                    if ($thismod->uservisible) {
+                        if (isset($sectionmods[$thismod->modname])) {
+                            $sectionmods[$thismod->modname]['name'] = $thismod->modplural;
+                            $sectionmods[$thismod->modname]['count']++;
+                        } else {
+                            $sectionmods[$thismod->modname]['name'] = $thismod->modfullname;
+                            $sectionmods[$thismod->modname]['count'] = 1;
+                        }
+                        if ($cancomplete && $completioninfo->is_enabled($thismod) != COMPLETION_TRACKING_NONE) {
+                            $total++;
+                            $completiondata = $completioninfo->get_data($thismod, true);
+                            if ($completiondata->completionstate == COMPLETION_COMPLETE ||
+                                $completiondata->completionstate == COMPLETION_COMPLETE_PASS) {
+                                $complete++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         if ($section->section != 0) {
             // Only in the non-general sections.
             if (!$section->visible) {
@@ -329,6 +368,8 @@ trait format_commons {
                 $headingoutsidelink = '';
                 if ($section->section == 0) {
                     $headingoutsidelink = $this->output->heading($sectionname . $balls, 3, 'sectionname' . $classes);
+                } else if (!empty($course->sectionprogress) && $total > 0) {
+                    $o .= $this->section_progressbar($total, $complete);
                 }
             } else {
                 $headinginsidelink = '';
@@ -365,7 +406,8 @@ trait format_commons {
                 $classes .
                 '" role="tabpanel" aria-labelledby="heading' .
                 $section->section .
-                '">';
+                '">' .
+                '<span class="hidden">' . $sectionname . '</span>';
         } else {
             $o .= $this->output->heading($sectionname . $balls, 3, 'sectionname' . $classes);
             $o .= $this->section_availability($section);

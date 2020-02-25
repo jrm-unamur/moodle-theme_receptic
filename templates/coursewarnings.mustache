@@ -15,50 +15,36 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template theme_boost/columns2
+    @template theme_receptic/coursewarnings
 
-    Admin time setting template.
+    Hints in course page giving information to teachers about special things (role is switched, course is invisible)
 
-    Boost 2 column layout template.
-
-    Context variables required for this template:
-    * sitename - The name of the site
-    * output - The core renderer for the page
-    * bodyattributes - attributes for the body tag as a string of html attributes
-    * sidepreblocks - HTML for the blocks
-    * hasblocks - true if there are blocks on this page
-    * navdraweropen - true if the nav drawer should be open on page load
-    * regionmainsettingsmenu - HTML for the region main settings menu
-    * hasregionmainsettingsmenu - There is a region main settings menu on this page.
+    Context variables (optional) for this template:
+    * coursehidden
+    * makevisiblesuccess
+    * role
+    * courseid
+    * switchbackurl
 
     Example context (json):
     {
-        "sitename": "Moodle",
-        "output": {
-            "doctype": "<!DOCTYPE html>",
-            "page_title": "Test page",
-            "favicon": "favicon.ico",
-            "main_content": "<h1>Headings make html validators happier</h1>"
-         },
-        "bodyattributes":"",
-        "sidepreblocks": "<h2>Blocks html goes here</h2>",
-        "hasblocks":true,
-        "navdraweropen":true,
-        "regionmainsettingsmenu": "",
-        "hasregionmainsettingsmenu": false
+        "coursehidden": "true",
+        "courseid": "5",
+        "role": "Student",
+        "switchbackurl": "url"
     }
 }}
 {{#coursehidden}}
 <div class="course-hidden-infobox alert alert-warning">
     <i class="fa fa-exclamation-circle fa-3x fa-pull-left mr-3"></i>
-    Ce cours est actuellement <strong>caché</strong>. Seuls les enseignants inscrits peuvent accéder à ce cours lorsqu'il est caché.<br/>
-    <a href="#" data-action="makevisible" data-course-id="{{courseid}}">Rendre le cours diponible pour les étudiants.</a>
+    {{#str}} hiddencoursewarning, theme_receptic {{/str}} <br>
+    <a href="#" data-action="makevisible" data-course-id="{{courseid}}">{{#str}} makecoursevisible, theme_receptic {{/str}}</a>
 </div>
 {{/coursehidden}}
 {{#makevisiblesuccess}}
 <div class="alert alert-success">
     <i class="fa fa-check-circle fa-3x fa-pull-left mr-3"></i>
-    Le cours est désomais disponible pour les étudiants.
+    {{#str}} courseisnowvisible, theme_receptic {{/str}}
 </div>
 {{/makevisiblesuccess}}
 

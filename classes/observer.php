@@ -27,13 +27,17 @@ defined('MOODLE_INTERNAL') || die();
 
 /**
  * Event observer for theme_receptic.
+ * @author     Jean-Roch Meurisse
+ * @copyright  2016 - Cellule TICE - Unversite de Namur
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class theme_receptic_observer {
 
     /**
      * Triggered via course_module_viewed events.
+     * Updates current user red and orange balls.
      *
-     * @param \core\event\course_module_viewed $event
+     * @param \core\event\base $event
      */
     public static function course_module_viewed(core\event\base $event) {
         $eventdata = $event->get_data();
@@ -51,6 +55,7 @@ class theme_receptic_observer {
 
     /**
      * Triggered via course_viewed event.
+     * Updates current user red and orange balls.
      *
      * @param \core\event\course_viewed $event
      */

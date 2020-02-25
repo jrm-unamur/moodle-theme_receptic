@@ -40,7 +40,6 @@ $templatecontext = [
     'logoleft' => $haslogoleft,
     'logocenter' => $haslogocenter,
     'logoright' => $haslogoright,
-    'navbaritems' => false,
     'logininfo' => get_config('theme_receptic', 'logininfo')
 ];
 

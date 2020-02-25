@@ -41,20 +41,20 @@
     }
 }}
 
-<header role="banner" class="fixed-top brand-banner d-none d-md-block">
+<header class="fixed-top brand-banner d-none d-md-block">
     {{#logoleft}}
-    <a href="{{{ config.wwwroot }}}/?redirect=0" class="left-logo">
-        <img src="{{output.get_left_logo_url}}" alt="{{sitename}}">
+    <a href="{{#logolefturl}}{{logolefturl}}{{/logolefturl}}{{^logolefturl}}{{{ config.wwwroot }}}/?redirect=0{{/logolefturl}}" class="left-logo">
+        <img src="{{output.get_left_logo_url}}" alt="{{#logoleftalt}}{{logoleftalt}}{{/logoleftalt}}{{^logoleftalt}}{{sitename}}{{/logoleftalt}}">
     </a>
     {{/logoleft}}
     {{#logocenter}}
-        <a href="{{{ config.wwwroot }}}/?redirect=0" class="center-logo">
-            <img src="{{output.get_center_logo_url}}" alt="{{sitename}}">
-        </a>
+    <a href="{{#logocenterurl}}{{logocenterurl}}{{/logocenterurl}}{{^logocenterurl}}{{{ config.wwwroot }}}/?redirect=0{{/logocenterurl}}" class="center-logo">
+        <img src="{{output.get_center_logo_url}}" alt="{{#logocenteralt}}{{logocenteralt}}{{/logocenteralt}}{{^logocenteralt}}{{sitename}}{{/logocenteralt}}">
+    </a>
     {{/logocenter}}
     {{#logoright}}
-    <a href="http://www.unamur.be" class="right-logo">
-        <img src="{{output.get_right_logo_url}}" alt="UNamur">
+    <a href="{{#logocenterurl}}{{logocenterurl}}{{/logocenterurl}}{{^logocenterurl}}{{{ config.wwwroot }}}/?redirect=0{{/logocenterurl}}" class="right-logo">
+        <img src="{{output.get_right_logo_url}}" alt="{{#logorightalt}}{{logorightalt}}{{/logorightalt}}{{^logorightalt}}{{sitename}}{{/logorightalt}}">
     </a>
     {{/logoright}}
 </header>

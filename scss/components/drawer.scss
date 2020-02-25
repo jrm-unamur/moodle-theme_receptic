@@ -123,7 +123,7 @@ body {
 }
 /* ... and restore the indent of the mycourses child nodes. */
 .list-group-item[data-parent-key="mycourses"] > div {
-    margin-left: 1rem !important;
+    margin-left: 1rem !important; /* stylelint-disable-line declaration-no-important */
 }
 
 /* Add icon for sections node */
@@ -135,24 +135,26 @@ body {
         }
     }
     ~ a[data-type="30"] > div {
-        margin-left: 1rem !important;
+        margin-left: 1rem !important; /* stylelint-disable-line declaration-no-important */
     }
 }
 
 /* ... and remove the indent to the collapsed custom child nodes. Unfortunately, this has to be done for each custom node block
    individually because the child node does not know (with a CSS-selectable attribute) if its parent node is collapsed or node. */
+/* stylelint-disable max-line-length */
 .jsenabled .list-group-item[data-key^="localboostnavigationcustomcourseusers"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustomcourseusers"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustomcourseusers"] > div,
 .jsenabled .list-group-item[data-key^="localboostnavigationcustomcourseadmins"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustomcourseadmins"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustomcourseadmins"] > div,
 .jsenabled .list-group-item[data-key^="localboostnavigationcustomrootusers"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustomrootusers"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustomrootusers"] > div,
 .jsenabled .list-group-item[data-key^="localboostnavigationcustomcrootadmins"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustomrootadmins"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustomrooradmins"] > div,
 .jsenabled .list-group-item[data-key^="localboostnavigationcustombottomusers"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustombottomusers"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustombottomusers"] > div,
 .jsenabled .list-group-item[data-key^="localboostnavigationcustombottomadmins"][data-isexpandable="1"]:not([data-parent-key^="localboostnavigationcustombottomadmins"]) ~ .list-group-item[data-parent-key^="localboostnavigationcustombottomadmins"] > div {
-    margin-left: 1rem !important;
+    margin-left: 1rem !important; /* stylelint-disable-line declaration-no-important */
 }
+/* stylelint-enable */
 
 .list-group-item {
     &[data-key^="localboostnavigationcustombottom"] {
-        margin-top: .5rem;
+        margin-top: .25rem;
     }
     &[data-key^="localboostnavigationcustombottom"] ~ [data-key^="localboostnavigationcustombottom"] {
         margin-top: 0;

@@ -13,59 +13,8 @@ define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'core/templates'
             $(document).ready(function($) {
                 params = JSON.parse(args);
                 if (params.displaymode) {
-                    $('.block-myoverview [data-region="courses-view"]').attr('data-display', 'list');
+                    $('.block-myoverview [data-region="courses-view"]').attr('data-display', params.displaymode);
                 }
-
-                // Javascript to enable link to tab.
-                $('.linktotab').on('click', function(event) {
-                    var href = ($(event.currentTarget).attr('href'));
-                    $('.nav-tabs a[href="#' + href.split('#')[1] + '"]').tab('show');
-                });
-
-                // With HTML5 history API, we can easily prevent scrolling!
-                $('.nav-tabs a').on('shown.bs.tab', function (e) {
-
-                    if(history.pushState) {
-                        history.pushState(null, null, e.target.hash);
-                    } else {
-                        // Polyfill for old browsers.
-                        window.location.hash = e.target.hash;
-                    }
-                });
-
-                var isCtrl = false;
-                var isShift = false;
-                // Action on key up.
-                $(document).keyup(function(e) {
-                    if(e.which == 17) {
-                        isCtrl = false;
-                    }
-                    if(e.which == 16) {
-                        isShift = false;
-                    }
-                });
-                // Action on key down.
-                $(document).keydown(function(e) {
-                    if(e.which == 17) {
-                        isCtrl = true;
-                    }
-                    if(e.which == 16) {
-                        isShift = true;
-                    }
-                    if(e.which == 120 && isCtrl && isShift) {
-                        if($('body').hasClass('drawer-open-right')) {
-                            M.util.set_user_preference('blocks-column-open', 'false');
-                        } else {
-                            M.util.set_user_preference('blocks-column-open', 'true');
-                        }
-                        $('body').toggleClass('drawer-open-right');
-                    }
-                });
-
-                // Disable shortname, fullname and category in course edit form.
-                $('#page-course-edit:not(.format-site) #id_fullname').prop('readonly', true);
-                $('#page-course-edit:not(.format-site) #id_shortname').prop('readonly', true);
-                $('#page-course-edit:not(.format-site) #id_category').prop('readonly', true);
 
                 $('body').on('click', '.hideflashbox1', function(event) {
                     event.preventDefault();
@@ -134,8 +83,6 @@ define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'core/templates'
                     }
 
                 });
-
-                $('#chooserform #item_lesson').parent().parent().remove();
 
                 if (params.pictureuploaddeactivated) {
                     var edituserpicturefieldset = $('#page-user-edit #id_moodle_picture');
