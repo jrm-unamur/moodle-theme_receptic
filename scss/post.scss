@@ -106,22 +106,6 @@ body.editing.path-grade-report-grader #blocks-column-toggle {
     @extend .btn-secondary;
 }
 
-.path-mod-questionnaire {
-    .qn-answer {
-        .fa-star {
-            color: orange;
-            font-size: larger;
-        }
-        .fa-star-o {
-            font-size: larger;
-        }
-    }
-}
-
-#form_resource-modal-dialogue {
-    display:none;
-}
-
 .section .progress {
     margin-bottom: 1rem;
     margin-right: 1rem;
@@ -130,4 +114,9 @@ body.editing.path-grade-report-grader #blocks-column-toggle {
     margin-top: 1rem;
     height: 7px;
     border: 0;
+}
+
+.path-mod-quiz .formulation input[type="text"][size],
+.path-question .formulation input[type="text"][size] {
+    width: 100%;
 }

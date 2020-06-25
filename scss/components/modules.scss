@@ -550,11 +550,12 @@ label {
             border: none;
             background: none;
             text-decoration: underline;
-            color: $primary;
+            color: $primary !important;
             padding-top: .3rem;
+            &:hover {
+                color: $success !important;
+            }
         }
-        &.hover {
-            color: $success;
-        }
+
     }
 }
