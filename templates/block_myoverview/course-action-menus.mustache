@@ -83,6 +83,28 @@
                 {{#str}} makevisible, theme_receptic {{/str}}
             </div>
         {{/allowtogglevisibility}}
+        {{#allowremovecoursesfromdisplay}}
+        <a class="dropdown-item {{^hidden}}hidden{{/hidden}}" href="#"
+           data-action="show-course"
+           data-course-id="{{id}}"
+           aria-controls="favorite-icon-{{ id }}-{{ uniqid }}"
+        >
+            {{#str}} show, block_myoverview {{/str}}
+            <div class="sr-only">
+                {{#str}} aria:showcourse, block_myoverview, {{fullname}} {{/str}}
+            </div>
+        </a>
+        <a class="dropdown-item {{#hidden}}hidden{{/hidden}}" href="#"
+           data-action="hide-course"
+           data-course-id="{{id}}"
+           aria-controls="favorite-icon-{{ id }}-{{ uniqid }}"
+        >
+            {{#str}} hidecourse, block_myoverview {{/str}}
+            <div class="sr-only">
+                {{#str}} aria:hidecourse, block_myoverview, {{fullname}} {{/str}}
+            </div>
+        </a>
+        {{/allowremovecoursesfromdisplay}}
         {{#enrolid}}
             <a class="dropdown-item" href="#"
                data-action="unenrolme"

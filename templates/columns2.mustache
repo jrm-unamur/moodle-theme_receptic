@@ -51,24 +51,25 @@
 {{> theme_receptic/head }}
 
     <body {{{ bodyattributes }}}>
-
-        <div id="page-wrapper">
+    {{> core/local/toast/wrapper}}
+        <div id="page-wrapper" class="d-print-block">
 
         {{{ output.standard_top_of_body_html }}}
 
         {{#displaybrandbanner}}
-            {{>theme_receptic/banner}}
+            {{> theme_receptic/banner}}
         {{/displaybrandbanner}}
 
-        {{>theme_receptic/navbar}}
+        {{> theme_receptic/navbar}}
+        {{> theme_boost/nav-drawer}}
 
-        <div id="page" class="container-fluid">
+        <div id="page" class="container-fluid d-print-block">
             {{{ output.full_header }}}
             {{{ output.flashbox1 }}}
             {{{ output.flashbox2 }}}
             {{{ output.coursewarnings }}}
             {{> theme_receptic/coursewarnings }}
-            <div id="page-content" class="row pb-1">
+            <div id="page-content" class="row pb-1 d-print-block">
                 <div id="region-main-box" class="col-12">
                     {{#node}}
                         {{> theme_receptic/settings_link_page }}
@@ -115,18 +116,22 @@
                 </i>
             {{/hasblocks}}
             {{{ output.standard_after_main_region_html }}}
-            {{> theme_receptic/nav-drawer }}
             {{> theme_receptic/footer }}
         </div>
     </body>
 </html>
 {{#js}}
-require(['theme_boost/loader']);
-require(['jquery', 'theme_boost/tooltip'], function($) {
+M.util.js_pending('theme_boost/loader');
+require(['theme_boost/loader'], function() {
+    M.util.js_complete('theme_boost/loader');
+});
+require(['jquery', 'theme_boost/bootstrap/tooltip'], function($) {
     $('[data-tooltip="tooltip"]').tooltip();
 });
-require(['theme_boost/drawer'], function(mod) {
-    mod.init();
+M.util.js_pending('theme_boost/drawer');
+require(['theme_boost/drawer'], function(drawer) {
+    drawer.init();
+    M.util.js_complete('theme_boost/drawer');
 });
 
 {{#settingsincourse}}

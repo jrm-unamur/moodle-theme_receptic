@@ -462,7 +462,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
         global $PAGE, $USER;
         $isdismissable = get_config('theme_receptic', $flashbox . 'dismissable');
         if (($PAGE->pagetype !== 'my-index' && $PAGE->pagetype !== 'login-index')
-
             || (get_user_preferences($flashbox . '-hidden', false, $USER->id) === 'true')
                 && $isdismissable) {
             return '';

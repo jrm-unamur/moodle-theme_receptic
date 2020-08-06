@@ -106,7 +106,7 @@ class course_renderer extends \core_course_renderer {
                 if ($ballsactivated && in_array($mod->id, $userhotmodules) && $mod->uservisible && !$mod->is_stealth()) {
                     $hotcount++;
                     $mod->set_extra_classes($mod->extraclasses . ' hot');
-                } else if (in_array($mod->id, $userwarmmodules) && $mod->uservisible && !$mod->is_stealth()) {
+                } else if ($ballsactivated && in_array($mod->id, $userwarmmodules) && $mod->uservisible && !$mod->is_stealth()) {
                     $warmcount++;
                     $mod->set_extra_classes($mod->extraclasses . ' warm');
                 }

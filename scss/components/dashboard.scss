@@ -45,3 +45,7 @@ body.editmodeinnavbar.editing {
         }
     }
 }
+
+div[data-region="filter"] div.d-flex + div.dropdown {
+    margin-left: .25rem;
+}

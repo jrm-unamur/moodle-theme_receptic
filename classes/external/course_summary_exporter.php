@@ -116,6 +116,7 @@ class theme_receptic_course_summary_exporter extends exporter {
             'enrolid' => self::get_enrolid($this->data),
             'allowtogglevisibility' => has_capability('moodle/course:visibility', context_course::instance($this->data->id))
                 && get_config('theme_receptic', 'togglecoursevisibility'),
+            'allowremovecoursesfromdisplay' => get_config('theme_receptic', 'allowremovecoursesfromdisplay'),
             'newitemscount' => $this->related['newitemscount'],
             'redballscountclass' => $this->related['redballscountclass'],
             'updateditemscount' => $this->related['updateditemscount'],
@@ -223,6 +224,9 @@ class theme_receptic_course_summary_exporter extends exporter {
                 'type' => PARAM_INT
             ),
             'allowtogglevisibility' => array(
+                'type' => PARAM_BOOL
+            ),
+            'allowremovecoursesfromdisplay' => array(
                 'type' => PARAM_BOOL
             ),
             'newitemscount' => array(

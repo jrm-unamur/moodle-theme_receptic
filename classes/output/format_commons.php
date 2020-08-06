@@ -63,7 +63,6 @@ trait format_commons {
      * @param stdClass $course The course entry from DB
      */
     public function print_multiple_sections($course) {
-        global $PAGE;
 
         if (!isset($course->coursedisplay)) {
             $course->coursedisplay = COURSE_DISPLAY_SINGLEPAGE;
@@ -94,7 +93,7 @@ trait format_commons {
         foreach ($modinfo->get_section_info_all() as $section => $thissection) {
             if ($section == 0) {
                 // 0-section is displayed a little different then the others.
-                if ($thissection->summary or !empty($modinfo->sections[0]) or $PAGE->user_is_editing()) {
+                if ($thissection->summary or !empty($modinfo->sections[0]) or $this->page->user_is_editing()) {
 
                     $modules = $this->courserenderer->theme_receptic_course_section_cm_list($course, $thissection, 0);
                     echo $this->section_header($thissection, $course, false, 0);
@@ -130,7 +129,7 @@ trait format_commons {
             }
 
             $modules = $this->courserenderer->theme_receptic_course_section_cm_list($course, $thissection, 0);
-            if (!$PAGE->user_is_editing() && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
+            if (!$this->page->user_is_editing() && $course->coursedisplay == COURSE_DISPLAY_MULTIPAGE) {
                 // Display section summary only.
                 echo $this->section_summary($thissection, $course, null);
             } else {
@@ -143,7 +142,7 @@ trait format_commons {
             }
         }
 
-        if ($PAGE->user_is_editing() and has_capability('moodle/course:update', $context)) {
+        if ($this->page->user_is_editing() and has_capability('moodle/course:update', $context)) {
             // Print stealth sections if present.
             foreach ($modinfo->get_section_info_all() as $section => $thissection) {
                 if ($section <= $numsections or empty($modinfo->sections[$section])) {
@@ -171,7 +170,6 @@ trait format_commons {
      * @param int $displaysection The section number in the course which is being displayed
      */
     public function print_single_section($course, $sections, $displaysection) {
-        global $PAGE;
 
         $modinfo = get_fast_modinfo($course);
         $course = course_get_format($course)->get_course();
@@ -193,7 +191,7 @@ trait format_commons {
         echo $this->course_activity_clipboard($course, $displaysection);
         $thissection = $modinfo->get_section_info(0);
 
-        if ($thissection->summary or !empty($modinfo->sections[0]) or $PAGE->user_is_editing()) {
+        if ($thissection->summary or !empty($modinfo->sections[0]) or $this->page->user_is_editing()) {
             $modules = $this->courserenderer->theme_receptic_course_section_cm_list($course, $thissection, $displaysection);
             echo parent::start_section_list();
             echo parent::section_header($thissection, $course, true, $displaysection);
@@ -270,7 +268,6 @@ trait format_commons {
      * @return string HTML to output.
      */
     protected function section_header($section, $course, $onsectionpage, $sectionreturn = null) {
-        global $PAGE;
 
         $o = '';
         $sectionstyle = '';
@@ -363,7 +360,7 @@ trait format_commons {
                 $toggleclasses = 'sectiontoggle collapsed';
                 $ariaexpanded = 'false';
             }
-            if (!$PAGE->user_is_editing()) {
+            if (!$this->page->user_is_editing()) {
                 $headinginsidelink = $sectionname . $balls;
                 $headingoutsidelink = '';
                 if ($section->section == 0) {
@@ -377,7 +374,7 @@ trait format_commons {
             }
             if ($section->section != 0) {
                 $o .= '<a class="' . $toggleclasses .
-                    '" data-toggle="collapse" data-parent="accordion" ' .
+                    '" data-toggle="collapse" data-parent=".accordion" ' .
                     'href="#collapse-' . $section->section .
                     '" aria-expanded="' . $ariaexpanded . '" aria-controls="collapse-' . $section->section .
                     '">&nbsp;' . $headinginsidelink . '</a>';

@@ -15,7 +15,7 @@
     .content-item-body p {
         color: $body-color;
     }
-    &.float-right {
+    &[data-region="popover-region-messages"] {
         a .icon {
             color: #fff;
             &:hover,

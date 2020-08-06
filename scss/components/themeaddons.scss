@@ -324,7 +324,7 @@ body.editing .section .orangeball-count {
     margin-left: 0;
 }
 
-.section.hot .sectionname:before,
+/*.section.hot .sectionname:before,
 .hot:before,
 .section.warm .sectionname:before,
 .warm:before {
@@ -334,6 +334,21 @@ body.editing .section .orangeball-count {
     font-size: 10px;
     vertical-align: text-bottom;
     margin-right: 5px;
+}*/
+
+.hot .activityinstance:before,
+.warm .activityinstance:before {
+    font-family: FontAwesome;
+    content: "\f111";
+    color: crimson;
+    font-size: 10px;
+    vertical-align: text-bottom;
+    margin-right: .375rem;
+
+}
+
+body.editing .hot .activityinstance:before {
+    margin-left: 1rem;
 }
 
 .section.warm .sectionname:before,
@@ -341,7 +356,7 @@ body.editing .section .orangeball-count {
     color: orange;
 }
 
-.activity.hot:before,
+/*.activity.hot:before,
 .activity.warm:before {
     font-family: FontAwesome;
     content: "\f111";
@@ -350,7 +365,7 @@ body.editing .section .orangeball-count {
     margin-right: 5px;
     float: left;
     margin-top: 8px;
-}
+}*/
 
 .activity.warm:before {
     color: orange;

@@ -15,7 +15,7 @@ $drawer-left-width: 250px;
     }
     .list-group {
         div.list-group-item,
-        a.list-group-item {
+        ul li a.list-group-item {
             border-width: $drawer-border-width;
             border-style: solid;
             border-radius: $drawer-border-radius;
@@ -62,14 +62,14 @@ body {
     &.shrinkablenavdrawer {
         @include media-breakpoint-up(md) {
             margin-left: 50px;
-            #nav-drawer.closed {
+            #nav-drawer[aria-hidden=true] {
                 display: block;
                 overflow: visible;
                 left: 0;
                 background-color: transparent;
-
                 .list-group {
                     .list-group-item {
+                        display: block;
                         .media-body {
                             display: none;
                         }
