@@ -29,19 +29,21 @@
                 "fullname": "course 3",
                 "summary": "This course is about assignments",
                 "hasprogress": true,
-                "progress": 10
+                "progress": 10,
+                "coursecategory": "Miscellaneous",
+                "visible": true
             }
         ]
     }
 }}
 <div role="list">
 {{#courses}}
-    <div class="course-summaryitem p-2" role="listitem"
+    <div class="course-summaryitem mb-1 p-2" role="listitem"
         data-region="course-content"
         data-course-id="{{{id}}}">
         <div class="d-flex">
             <a href="{{viewurl}}" tabindex="-1">
-                <div class="summaryimage rounded-circle m-r-1" style='background-image: url("{{{courseimage}}}");'>
+                <div class="summaryimage rounded-circle mr-1" style='background-image: url("{{{courseimage}}}");'>
                     <span class="sr-only">{{#str}}aria:courseimage, core_course{{/str}}</span>
                 </div>
             </a>
@@ -54,12 +56,18 @@
                                 {{#str}}aria:coursecategory, core_course{{/str}}
                             </span>
                         {{$coursecategory}}
-                            <div>{{{coursecategory}}}</div>
+                            {{#showcoursecategory}}
+                                    <span class="categoryname">
+                                        {{#coursecategory}}
+                                            {{{coursecategory}}}dsfqfdsq
+                                        {{/coursecategory}}
+                                    </span>
+                            {{/showcoursecategory}}
                         {{/coursecategory}}
                         {{#showshortname}}
-                            {{#coursecategory}}
+                            {{#showcoursecategory}}
                                     <div class="pl-1 pr-1">|</div>
-                            {{/coursecategory}}
+                            {{/showcoursecategory}}
                             <span class="sr-only">
                                 {{#str}}aria:courseshortname, core_course{{/str}}
                             </span>
@@ -81,6 +89,9 @@
                     </a>
 
                     {{> block_myoverview/course-action-menus }}
+                </div>
+                <div class="hiddenwarning flex-wrap{{^visible}} d-flex{{/visible}}{{#visible}} d-none{{/visible}}" data-course-id="{{id}}">
+                    <span class="tag tag-info">{{#str}} hiddenfromstudents {{/str}}</span>
                 </div>
                 <div class="summary">
                     <span class="sr-only">{{#str}}aria:coursesummary, block_myoverview{{/str}}</span>

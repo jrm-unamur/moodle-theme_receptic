@@ -398,6 +398,17 @@ function(
     };
 
     /**
+     * Get the course hidden warning.
+     *
+     * @param  {Object} root The course overview container
+     * @param  {Number} courseId Course id number
+     * @return {Object} The course hidden warning node.
+     */
+    var getCourseHiddenWarningItem = function(root, courseId) {
+        return root.find('[data-region="courses-view"] .hiddenwarning[data-course-id="' + courseId + '"]');
+    };
+
+    /**
      * Make course available to students.
      *
      * @param  {Object} root The course overview container
@@ -407,12 +418,14 @@ function(
         var makeVisibleAction = getMakeVisibleMenuItem(root, courseId);
         var makeInvisibleAction = getMakeInvisibleMenuItem(root, courseId);
         var courseName = getCourseNameItem(root, courseId);
+        var courseHiddenWarning = getCourseHiddenWarningItem(root, courseId);
 
         setCourseVisibility(courseId, true).then(function(success) {
             if (success) {
                 makeVisibleAction.addClass('hidden');
                 makeInvisibleAction.removeClass('hidden');
-                courseName.removeClass('dimmed');
+                courseName.removeClass('text-muted');
+                courseHiddenWarning.removeClass('d-flex').addClass('d-none');
             } else {
                 Notification.alert('Starring course failed', 'Could not change favourite state');
             }
@@ -430,12 +443,14 @@ function(
         var makeVisibleAction = getMakeVisibleMenuItem(root, courseId);
         var makeInvisibleAction = getMakeInvisibleMenuItem(root, courseId);
         var courseName = getCourseNameItem(root, courseId);
+        var courseHiddenWarning = getCourseHiddenWarningItem(root, courseId);
 
         setCourseVisibility(courseId, false).then(function(success) {
             if (success) {
                 makeVisibleAction.removeClass('hidden');
                 makeInvisibleAction.addClass('hidden');
-                courseName.addClass('dimmed');
+                courseName.addClass('text-muted');
+                courseHiddenWarning.removeClass('d-none').addClass('d-flex');
             } else {
                 Notification.alert('Starring course failed', 'Could not change favourite state');
             }

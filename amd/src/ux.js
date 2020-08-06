@@ -8,13 +8,10 @@ define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'core/templates'
     var params;
     return {
         init: function(args) {
-            log.debug('Theme Receptic AMD module initialized');
+            log.debug('Theme Receptic AMD module initialized!');
 
             $(document).ready(function($) {
                 params = JSON.parse(args);
-                if (params.displaymode) {
-                    $('.block-myoverview [data-region="courses-view"]').attr('data-display', params.displaymode);
-                }
 
                 $('body').on('click', '.hideflashbox1', function(event) {
                     event.preventDefault();
@@ -31,7 +28,6 @@ define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'core/templates'
                 });
 
                 $('body').on('click', '[data-action="makevisible"]', function(event) {
-
                     event.preventDefault();
                     var target = event.target;
                     var courseId = $(target).attr('data-course-id');

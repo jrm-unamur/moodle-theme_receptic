@@ -45,13 +45,6 @@ if (empty($sectionstogglestate)) {
 
 $jsargs = new stdClass();
 
-if (!get_config('theme_receptic', 'allowdisplaymode')) {
-    /*if (get_user_preferences('block_myoverview_user_view_preference') === null) {
-        set_user_preference('block_myoverview_user_view_preference', 'list');
-    }*/
-    $jsargs->displaymode = get_config('theme_receptic', 'forceddisplaymode');
-}
-
 if ($this->page->pagetype == 'user-edit' && theme_receptic_user_can_upload_profile_picture() === false) {
     $jsargs->pictureuploaddeactivated = true;
     $jsargs->haspicture = !empty($USER->picture);

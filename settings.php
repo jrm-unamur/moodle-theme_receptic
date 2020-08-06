@@ -191,10 +191,9 @@ if ($ADMIN->fulltree) {
     // Dashboard settings page.
     $page = new admin_settingpage('theme_receptic_dashboard', get_string('myhome'));
 
-    $page->add(new admin_setting_heading('dashboardcoursefiltering',
+    /*$page->add(new admin_setting_heading('dashboardcoursefiltering',
         get_string('dashboardcoursefiltering', 'theme_receptic'), ''));
 
-    // Activate mixed view dashboard.
     $name = 'theme_receptic/allowcoursefiltering';
     $title = get_string('allowcoursefiltering', 'theme_receptic');
     $description = get_string('allowcoursefiltering_desc', 'theme_receptic');
@@ -242,7 +241,7 @@ if ($ADMIN->fulltree) {
     $description = get_string('coursefilterhidden_desc', 'theme_receptic');
     $default = true;
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
-    $page->add($setting);
+    $page->add($setting);*/
 
     $page->add(new admin_setting_heading('dashboardcoursesorting',
         get_string('dashboardcoursesorting', 'theme_receptic'), ''));
@@ -252,28 +251,6 @@ if ($ADMIN->fulltree) {
     $description = get_string('allowcoursesorting_desc', 'theme_receptic');
     $default = true;
     $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
-    $page->add($setting);
-
-    $page->add(new admin_setting_heading('dashboarddisplaymode',
-        get_string('dashboarddisplaymode', 'theme_receptic'), ''));
-
-    $name = 'theme_receptic/allowdisplaymode';
-    $title = get_string('allowdisplaymode', 'theme_receptic');
-    $description = get_string('allowdisplaymode_desc', 'theme_receptic');
-    $default = true;
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
-    $page->add($setting);
-
-    $name = 'theme_receptic/forceddisplaymode';
-    $title = get_string('forceddisplaymode', 'theme_receptic');
-    $description = get_string('forceddisplaymode_desc', 'theme_receptic');
-    $default = 'list';
-    $choices = [
-        'list' => get_string('list', 'block_myoverview'),
-        'card' => get_string('card', 'block_myoverview'),
-        'summary' => get_string('summary', 'block_myoverview')
-    ];
-    $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $page->add($setting);
 
     $page->add(new admin_setting_heading('createcourse',

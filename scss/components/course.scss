@@ -9,10 +9,6 @@
             &:first-of-type:target {
                 margin-top: -30px !important;
             }
-            &.current:target {
-                padding-top: 0 !important;
-                margin-top: 0 !important;
-            }
         }
     }
 }
@@ -236,7 +232,8 @@ div.availabilityinfo:before {
     vertical-align: sub;
 }
 
-div.availabilityinfo .badge.badge-info {
+div.availabilityinfo .badge.badge-info,
+div.hiddenwarning .tag.tag-info {
     margin-top: .4rem;
     background-color: $forsepia;
     filter: sepia($sepiaratio);

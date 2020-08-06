@@ -83,19 +83,8 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                 }
             }
         }
-
-        if (get_config('theme_receptic', 'allowcoursefiltering')) {
-            $data['allowcoursefiltering'] = true;
-            $data['coursefilterall'] = get_config('theme_receptic', 'coursefilterall');
-            $data['coursefilterinprogress'] = get_config('theme_receptic', 'coursefilterinprogress');
-            $data['coursefilterfuture'] = get_config('theme_receptic', 'coursefilterfuture');
-            $data['coursefilterpast'] = get_config('theme_receptic', 'coursefilterpast');
-            $data['coursefilterstarred'] = get_config('theme_receptic', 'coursefilterstarred');
-            $data['coursefilterhidden'] = get_config('theme_receptic', 'coursefilterhidden');
-            $data['hasperiodfilter'] = $data['coursefilterinprogress'] || $data['coursefilterfuture'] || $data['coursefilterpast'];
-        }
+        
         $data['allowcoursesorting'] = get_config('theme_receptic', 'allowcoursesorting');
-        $data['allowdisplaymode'] = get_config('theme_receptic', 'allowdisplaymode');
 
         return $this->render_from_template('block_myoverview/main', $data);
     }

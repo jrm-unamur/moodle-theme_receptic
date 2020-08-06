@@ -226,16 +226,20 @@ class theme_receptic_course_summary_exporter extends exporter {
                 'type' => PARAM_BOOL
             ),
             'newitemscount' => array(
-                'type' => PARAM_INT
+                'type' => PARAM_INT,
+                'optional' => true
             ),
             'redballscountclass' => array(
-                'type' => PARAM_ALPHA
+                'type' => PARAM_ALPHA,
+                'optional' => true
             ),
             'updateditemscount' => array(
-                'type' => PARAM_INT
+                'type' => PARAM_INT,
+                'optional' => true
             ),
             'orangeballscountclass' => array(
-                'type' => PARAM_ALPHA
+                'type' => PARAM_ALPHA,
+                'optional' => true
             )
         ]);
     }

@@ -204,6 +204,11 @@ class theme_receptic_external extends external_api {
 
                 $redballsclass = $redcount > 9 ? 'high' : '';
                 $orangeballsclass = $orangecount > 9 ? 'high' : '';
+            } else {
+                $redcount = 0;
+                $orangecount = 0;
+                $redballsclass = '';
+                $orangeballsclass = '';
             }
 
             $themeexporter = new theme_receptic_course_summary_exporter($course, [

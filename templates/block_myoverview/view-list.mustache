@@ -41,40 +41,48 @@
         data-region="course-content"
         data-course-id="{{{id}}}">
         <div class="row-fluid">
-            <div class="{{#hasprogress}}col-md-7{{/hasprogress}} {{^hasprogress}}col-md-11 span11{{/hasprogress}} d-flex align-items-center">
-                <a href="{{viewurl}}" class="coursename{{^visible}} text-muted{{/visible}}" data-course-id="{{id}}">
+            <div class="{{#hasprogress}}col-md-6{{/hasprogress}} {{^hasprogress}}col-md-11{{/hasprogress}} d-flex align-items-center">
+                <div>
                     <div class="text-muted muted d-flex flex-wrap">
-                        <span class="sr-only">
-                            {{#str}}aria:coursecategory, core_course{{/str}}
-                        </span>
-                        {{$coursecategory}}
-                            <div>{{{coursecategory}}}</div>
-                        {{/coursecategory}}
+                        {{#showcoursecategory}}
+                            <span class="sr-only">
+                                {{#str}}aria:coursecategory, core_course{{/str}}
+                            </span>
+                            <span class="categoryname">
+                                {{{coursecategory}}}
+                            </span>
+                        {{/showcoursecategory}}
                         {{#showshortname}}
-                            {{#coursecategory}}
+                            {{#showcoursecategory}}
                                 <div class="pl-1 pr-1">|</div>
-                            {{/coursecategory}}
+                            {{/showcoursecategory}}
                             <span class="sr-only">
                                 {{#str}}aria:courseshortname, core_course{{/str}}
                             </span>
                             <div>{{{shortname}}}</div>
                         {{/showshortname}}
                     </div>
+                    <a href="{{viewurl}}" class="coursename{{^visible}} text-muted{{/visible}}" data-course-id="{{id}}">
+                        {{> core_course/favouriteicon }}
+                        <span class="sr-only">
+                            {{#str}}aria:coursename, core_course{{/str}}
+                        </span>
+                        {{{fullname}}}
+                        {{#newitemscount}}
+                            <span title="{{newitemscount}} éléments ajoutés" class="redball-count {{redballscountclass}}">{{newitemscount}}</span>
+                        {{/newitemscount}}
+                        {{#updateditemscount}}
+                            <span title="{{updateditemscount}} contenus modifiés" class="orangeball-count {{orangeballscountclass}}">{{updateditemscount}}</span>
+                        {{/updateditemscount}}
+                    </a>
 
-                    {{> core_course/favouriteicon }}
-                    <span class="sr-only">
-                        {{#str}}aria:coursename, core_course{{/str}}
-                    </span>
-                    {{{fullname}}}
-                    {{#newitemscount}}
-                        <span title="{{newitemscount}} éléments ajoutés" class="redball-count {{redballscountclass}}">{{newitemscount}}</span>
-                    {{/newitemscount}}
-                    {{#updateditemscount}}
-                        <span title="{{updateditemscount}} contenus modifiés" class="orangeball-count {{orangeballscountclass}}">{{updateditemscount}}</span>
-                    {{/updateditemscount}}
-                </a>
+                        <div class="hiddenwarning flex-wrap{{^visible}} d-flex{{/visible}}{{#visible}} d-none{{/visible}}" data-course-id="{{id}}">
+                            <span class="tag tag-info">{{#str}} hiddenfromstudents {{/str}}</span>
+                        </div>
 
+                </div>
             </div>
+
             {{#hasprogress}}
                 <div class="col-md-4 pt-2">
                     {{> block_myoverview/progress-bar}}
