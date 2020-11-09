@@ -235,7 +235,7 @@ function theme_receptic_compute_redballs($course, $starttime, $newitemsforuser =
  */
 function theme_receptic_compute_orangeballs($course, $starttime, $updateditemsforuser = array()) {
     global $DB, $USER;
-
+    return array();
     $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
     $query = "SELECT id, eventname, objectid, contextinstanceid, courseid, timecreated
                     FROM {logstore_standard_log}
