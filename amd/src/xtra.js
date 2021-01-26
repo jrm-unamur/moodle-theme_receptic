@@ -67,6 +67,11 @@ define(['jquery', 'core/log'], function($, log) {
 
                 $('#chooserform #item_lesson').parent().parent().remove();
                 $('#chooserform input ~ span.typename:contains("Ubicast")').parent().parent().remove();
+
+                $('.contactdpo').parent().parent().next().hide();
+                $('.contactdpo').parent().parent().next().next().hide();
+                $('.contactdpo').parent().parent().next().next().next().hide();
+
             });
         }
     };
