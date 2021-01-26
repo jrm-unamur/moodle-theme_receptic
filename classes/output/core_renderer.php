@@ -607,7 +607,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
     protected function render_help_icon(help_icon $helpicon) {
         $context = $helpicon->export_for_template($this);
         // ID needed for modal dialog.
-        $context->linkid = $helpicon->identifier;
+        $context->linkid = $helpicon->component.'-'.$helpicon->identifier;
         // Fill body variable needed for modal mustache with text value.
         $context->body = $context->text;
         $context->helpmodal = get_config('theme_receptic', 'helptextinmodal');
