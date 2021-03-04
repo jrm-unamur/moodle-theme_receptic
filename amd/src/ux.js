@@ -73,7 +73,7 @@ define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'core/templates'
                 $('#nav-drawer div.media').on('click', function(event) {
                     var href = $(event.target).parent().parent().parent().attr('href');
 
-                    if( href.lastIndexOf('#section-') != -1) {
+                    if( href && href.lastIndexOf('#section-') != -1) {
 
                         var index = href.substring(href.lastIndexOf('#section-') + 1);
 
