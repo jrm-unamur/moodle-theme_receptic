@@ -171,4 +171,60 @@ $observers = array(
         'eventname' => '\mod_questionnaire\event\course_module_viewed',
         'callback' => 'theme_receptic_observer::course_module_viewed'
     ),
+    array (
+        'eventname' => '\core\event\course_module_created',
+        'callback'  => 'theme_receptic_observer::store',
+    ),
+    array (
+        'eventname' => '\core\event\course_module_updated',
+        'callback'  => 'theme_receptic_observer::store',
+    ),
+    array (
+        'eventname' => '\core\event\course_module_deleted',
+        'callback'  => 'theme_receptic_observer::store',
+    ),
+    array (
+        'eventname' => '\mod_assign\event\submission_status_viewed',
+        'callback'  => 'theme_receptic_observer::store',
+    ),
+    array (
+        'eventname' => '\mod_scheduler\event\booking_form_viewed',
+        'callback'  => 'theme_receptic_observer::store',
+    ),
+    array (
+        'eventname' => '\mod_scheduler\event\appointment_list_viewed',
+        'callback'  => 'theme_receptic_observer::store',
+    ),
+    array (
+        'eventname' => '\mod_folder\event\folder_updated',
+        'callback'  => 'theme_receptic_observer::store',
+    ),
+    array (
+        'eventname' => '\mod_wiki\event\page_updated',
+        'callback'  => 'theme_receptic_observer::store',
+    ),
+    array (
+        'eventname' => '\mod_book\event\chapter_created',
+        'callback'  => 'theme_receptic_observer::store',
+    ),
+    array (
+        'eventname' => '\mod_book\event\chapter_updated',
+        'callback'  => 'theme_receptic_observer::store',
+    ),
+    array (
+        'eventname' => '\mod_glossary\event\entry_created',
+        'callback'  => 'theme_receptic_observer::store',
+    ),
+    array (
+        'eventname' => '\mod_glossary\event\entry_updated',
+        'callback'  => 'theme_receptic_observer::store',
+    ),
+    array (
+        'eventname' => '\mod_data\event\record_created',
+        'callback'  => 'theme_receptic_observer::store',
+    ),
+    array (
+        'eventname' => '\mod_data\event\record_updated',
+        'callback'  => 'theme_receptic_observer::store',
+    ),
 );

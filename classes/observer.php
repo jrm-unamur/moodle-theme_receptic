@@ -40,8 +40,24 @@ class theme_receptic_observer {
      * @param \core\event\base $event
      */
     public static function course_module_viewed(core\event\base $event) {
+        global $DB;
         $eventdata = $event->get_data();
+        $neweventid = $DB->insert_record('theme_receptic_filtered_log', $event->get_data());
+        $eventdata['neweventid'] = $neweventid;
+        $statement = "eventname = :eventname
+                         AND component = :component
+                         AND action = :action
+                         AND target = :target
+                         AND crud = :crud
+                         AND contextid = :contextid
+                         AND contextlevel = :contextlevel
+                         AND contextinstanceid = :contextinstanceid
+                         AND userid = :userid
+                         AND courseid = :courseid
+                         AND id != :neweventid
+                         ";
 
+        $DB->delete_records_select('theme_receptic_filtered_log', $statement, $eventdata);
         $hotusermodules = explode(',', get_user_preferences('user_redballs'));
         $warmusermodules = explode(',', get_user_preferences('user_orangeballs'));
         if (in_array($eventdata['contextinstanceid'], $hotusermodules)
@@ -62,6 +78,24 @@ class theme_receptic_observer {
     public static function course_viewed(core\event\course_viewed $event) {
         global $DB;
         $eventdata = $event->get_data();
+        // Log event in filtered table.
+        $neweventid = $DB->insert_record('theme_receptic_filtered_log', $eventdata);
+        $eventdata['neweventid'] = $neweventid;
+        $statement = "eventname = :eventname
+                         AND component = :component
+                         AND action = :action
+                         AND target = :target
+                         AND crud = :crud
+                         AND contextid = :contextid
+                         AND contextlevel = :contextlevel
+                         AND contextinstanceid = :contextinstanceid
+                         AND userid = :userid
+                         AND courseid = :courseid
+                         AND id != :neweventid
+                         ";
+
+        $DB->delete_records_select('theme_receptic_filtered_log', $statement, $eventdata);
+
         $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
         $hotusermodules = explode(',', get_user_preferences('user_redballs'));
         $warmusermodules = explode(',', get_user_preferences('user_orangeballs'));
@@ -70,5 +104,28 @@ class theme_receptic_observer {
         $warmusermodules = array_diff($warmusermodules, array_keys($labels));
         set_user_preference('user_redballs', implode(',', $hotusermodules));
         set_user_preference('user_orangeballs', implode(',', $warmusermodules));
+    }
+
+    public static function store(\core\event\base $event) {
+        global $DB;
+        $eventdata = $event->get_data();
+        $neweventid = $DB->insert_record('theme_receptic_filtered_log', $eventdata);
+        $eventdata['neweventid'] = $neweventid;
+        if ($event->eventname == '\core\event\course_module_updated') {
+            $statement = "eventname = :eventname
+                         AND component = :component
+                         AND action = :action
+                         AND target = :target
+                         AND crud = :crud
+                         AND contextid = :contextid
+                         AND contextlevel = :contextlevel
+                         AND contextinstanceid = :contextinstanceid
+                         AND userid = :userid
+                         AND courseid = :courseid
+                         AND id != :neweventid
+                         ";
+
+            $DB->delete_records_select('theme_receptic_filtered_log', $statement, $eventdata);
+        }
     }
 }
