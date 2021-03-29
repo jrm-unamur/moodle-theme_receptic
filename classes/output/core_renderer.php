@@ -428,8 +428,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
      * @return moodle_url|false
      */
     public function get_left_logo_url() {
-        global $PAGE;
-        return $PAGE->theme->setting_file_url('logoleft', 'logoleft');
+        return $this->page->theme->setting_file_url('logoleft', 'logoleft');
     }
 
     /**
@@ -438,8 +437,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
      * @return moodle_url|false
      */
     public function get_center_logo_url() {
-        global $PAGE;
-        return $PAGE->theme->setting_file_url('logocenter', 'logocenter');
+        return $this->page->theme->setting_file_url('logocenter', 'logocenter');
     }
 
     /**
@@ -448,8 +446,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
      * @return moodle_url|false
      */
     public function get_right_logo_url() {
-        global $PAGE;
-        return $PAGE->theme->setting_file_url('logoright', 'logoright');
+        return $this->page->theme->setting_file_url('logoright', 'logoright');
     }
 
     /**
@@ -459,9 +456,9 @@ class core_renderer extends \theme_boost\output\core_renderer {
      * @return bool|string
      */
     public function flashbox($flashbox) {
-        global $PAGE, $USER;
+        global $USER;
         $isdismissable = get_config('theme_receptic', $flashbox . 'dismissable');
-        if (($PAGE->pagetype !== 'my-index' && $PAGE->pagetype !== 'login-index')
+        if (($this->page->pagetype !== 'my-index' && $this->page->pagetype !== 'login-index')
             || (get_user_preferences($flashbox . '-hidden', false, $USER->id) === 'true')
                 && $isdismissable) {
             return '';
@@ -481,11 +478,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
         if (!$usercanview) {
             return '';
         }
-        $message = $PAGE->theme->settings->$flashbox;
+        $message = $this->page->theme->settings->$flashbox;
         if (empty(trim(strip_tags(str_replace('&nbsp;', '', $message))))) {
             return '';
         }
-        $flashboxtype = $PAGE->theme->settings->{$flashbox . 'type'};
+        $flashboxtype = $this->page->theme->settings->{$flashbox . 'type'};
 
         switch ($flashboxtype) {
             case 'info' :
@@ -533,11 +530,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
      * @return bool|string
      */
     public function coursewarnings() {
-        global $PAGE, $COURSE, $USER;
+        global $COURSE, $USER;
         $hiddencoursewarning = get_config('theme_receptic', 'hiddencoursewarning');
         $switchedrolewarning = get_config('theme_receptic', 'switchedrolewarning');
         $coursewarnings = ($hiddencoursewarning || $switchedrolewarning)
-            && $PAGE->context->contextlevel == CONTEXT_COURSE
+            && $this->page->context->contextlevel == CONTEXT_COURSE
             && $COURSE->id != 1;
 
         if ($coursewarnings) {

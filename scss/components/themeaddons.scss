@@ -347,6 +347,10 @@ body.editing .section .orangeball-count {
 
 }
 
+.warm .activityinstance:before {
+    color: orange;
+}
+
 body.editing .hot .activityinstance:before {
     margin-left: 1rem;
 }

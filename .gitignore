@@ -1,1 +1,4 @@
 .DS_Store
+amd/src/xtra.js
+amd/build/xtra.min.js
+amd/build/xtra.min.js.map
