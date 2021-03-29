@@ -106,6 +106,11 @@ class theme_receptic_observer {
         set_user_preference('user_orangeballs', implode(',', $warmusermodules));
     }
 
+    /**
+     * Copies selected log events into theme_receptic_filtered_log table.
+     *
+     * @param \core\event\base $event
+     */
     public static function store(\core\event\base $event) {
         global $DB;
         $eventdata = $event->get_data();

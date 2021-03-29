@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Theme receptic upgrade steps are defined here.
+ *
  * @package    theme_receptic
  * @author     Jean-Roch Meurisse
  * @copyright  2016 - Cellule TICE - Unversite de Namur
@@ -29,15 +31,12 @@ defined('MOODLE_INTERNAL') || die();
  * @param int $oldversion
  * @return bool
  */
-
 function xmldb_theme_receptic_upgrade($oldversion) {
     global $DB;
 
     $dbman = $DB->get_manager(); // Loads ddl manager and xmldb classes.
 
     if ($oldversion < 2021032600) {
-
-
         // Define table theme_receptic_filtered_log to be created.
         $table = new xmldb_table('theme_receptic_filtered_log');
 
@@ -82,8 +81,5 @@ function xmldb_theme_receptic_upgrade($oldversion) {
         // Theme receptic savepoint reached.
         upgrade_plugin_savepoint(true, 2021032600, 'theme', 'receptic');
     }
-
-
-
     return true;
 }

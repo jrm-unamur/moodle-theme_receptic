@@ -56,7 +56,7 @@ $this->page->requires->js_call_amd('theme_receptic/ux', 'init', array(json_encod
 $extraamd = get_config('theme_receptic', 'extrajsmodule');
 $extraamdargs = get_config('theme_receptic', 'extrajsmoduleargs');
 if ($extraamd) {
-    if( !empty($extraamdargs)) {
+    if (!empty($extraamdargs)) {
         $this->page->requires->js_call_amd($extraamd, 'init', array($extraamdargs));
     } else {
         $this->page->requires->js_call_amd($extraamd, 'init');

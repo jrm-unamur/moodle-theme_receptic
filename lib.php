@@ -235,7 +235,7 @@ function theme_receptic_compute_redballs($course, $starttime, $newitemsforuser =
  */
 function theme_receptic_compute_orangeballs($course, $starttime, $updateditemsforuser = array()) {
     global $DB, $USER;
-    //return array();
+
     $modlabelid = $DB->get_field('modules', 'id', array('name' => 'label'));
     $query = "SELECT id, eventname, objectid, contextinstanceid, courseid, timecreated
                     FROM {theme_receptic_filtered_log}
@@ -534,60 +534,18 @@ function theme_receptic_disable_user_hidden_courses() {
 
 }
 
+/**
+ * Imports selected events from logstore_standard_log table to optimize computation of red and orange balls.
+ * @return void.
+ */
 function theme_receptic_import_logstore() {
     global $DB;
-    // Import core events: course_viewed and module create, updated and delete.
+    // Import selected events from logstore_standard_log table.
     $eventnames = [
         '\core\event\course_viewed',
         '\core\event\course_module_created',
         '\core\event\course_module_updated',
-        '\core\event\course_module_deleted'
-    ];
-    $logs = [];
-    foreach ($eventnames as $eventname) {
-        $params = ['eventname' => $eventname];
-        $query = "SELECT * 
-                FROM {logstore_standard_log} 
-               WHERE eventname = :eventname
-            ORDER BY courseid, userid, timecreated DESC";
-        $logs = array_merge($logs, $DB->get_records_sql($query,  array('eventname' => $eventname)));
-    }
-
-    $alreadylogged = [];
-    $nbr = 0;
-    foreach ($logs as $log) {
-        if (in_array($log->eventname . ',' .$log->courseid . ',' . $log->userid . ',' . $log->contextid . ',' . $log->contextinstanceid, $alreadylogged)) {
-            continue;
-        }
-        $nbr++;
-        $alreadylogged[] = $log->eventname . ',' . $log->courseid . ',' . $log->userid . ',' . $log->contextid . ',' . $log->contextinstanceid;
-        unset($log->id);
-        $DB->insert_record('theme_receptic_filtered_log', $log);
-    }
-
-    // Import course module viewed events.
-    $logs = [];
-
-    $query = "SELECT * 
-            FROM {logstore_standard_log} 
-           WHERE " . $DB->sql_like('eventname', ':eventname') . "
-        ORDER BY courseid, userid, timecreated DESC";
-    $logs = $DB->get_records_sql($query,  array('eventname' => '%\course_module_viewed'));
-
-    $alreadylogged = [];
-    $nbr = 0;
-    foreach ($logs as $log) {
-        if (in_array($log->eventname . ',' .$log->courseid . ',' . $log->userid . ',' . $log->contextid . ',' . $log->contextinstanceid, $alreadylogged)) {
-            continue;
-        }
-        $nbr++;
-        $alreadylogged[] = $log->eventname . ',' . $log->courseid . ',' . $log->userid . ',' . $log->contextid . ',' . $log->contextinstanceid;
-        unset($log->id);
-        $DB->insert_record('theme_receptic_filtered_log', $log);
-    }
-    
-    // Import other module vieweds events and events of new contents in modules for computing orangeballs: new forum posts, new glossary entries...
-    $eventnames = [
+        '\core\event\course_module_deleted',
         '\mod_assign\event\submission_status_viewed',
         '\mod_scheduler\event\booking_form_viewed',
         '\mod_scheduler\event\appointment_list_viewed',
@@ -603,8 +561,8 @@ function theme_receptic_import_logstore() {
     $logs = [];
     foreach ($eventnames as $eventname) {
         $params = ['eventname' => $eventname];
-        $query = "SELECT * 
-                FROM {logstore_standard_log} 
+        $query = "SELECT *
+                FROM {logstore_standard_log}
                WHERE eventname = :eventname
             ORDER BY courseid, userid, timecreated DESC";
         $logs = array_merge($logs, $DB->get_records_sql($query,  array('eventname' => $eventname)));
@@ -613,11 +571,36 @@ function theme_receptic_import_logstore() {
     $alreadylogged = [];
     $nbr = 0;
     foreach ($logs as $log) {
-        if (in_array($log->eventname . ',' .$log->courseid . ',' . $log->userid . ',' . $log->contextid . ',' . $log->contextinstanceid, $alreadylogged)) {
+        if (in_array($log->eventname . ',' .$log->courseid . ',' . $log->userid . ',' .
+                $log->contextid . ',' . $log->contextinstanceid, $alreadylogged)) {
             continue;
         }
         $nbr++;
-        $alreadylogged[] = $log->eventname . ',' . $log->courseid . ',' . $log->userid . ',' . $log->contextid . ',' . $log->contextinstanceid;
+        $alreadylogged[] = $log->eventname . ',' . $log->courseid . ',' . $log->userid . ',' .
+                $log->contextid . ',' . $log->contextinstanceid;
+        unset($log->id);
+        $DB->insert_record('theme_receptic_filtered_log', $log);
+    }
+
+    // Import course module viewed events.
+    $logs = [];
+
+    $query = "SELECT *
+            FROM {logstore_standard_log}
+           WHERE " . $DB->sql_like('eventname', ':eventname') . "
+        ORDER BY courseid, userid, timecreated DESC";
+    $logs = $DB->get_records_sql($query,  array('eventname' => '%\course_module_viewed'));
+
+    $alreadylogged = [];
+    $nbr = 0;
+    foreach ($logs as $log) {
+        if (in_array($log->eventname . ',' .$log->courseid . ',' . $log->userid . ',' .
+                $log->contextid . ',' . $log->contextinstanceid, $alreadylogged)) {
+            continue;
+        }
+        $nbr++;
+        $alreadylogged[] = $log->eventname . ',' . $log->courseid . ',' . $log->userid . ',' .
+                $log->contextid . ',' . $log->contextinstanceid;
         unset($log->id);
         $DB->insert_record('theme_receptic_filtered_log', $log);
     }

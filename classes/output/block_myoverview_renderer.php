@@ -83,7 +83,6 @@ class theme_receptic_block_myoverview_renderer extends \block_myoverview\output\
                 }
             }
         }
-        
         $data['allowcoursesorting'] = get_config('theme_receptic', 'allowcoursesorting');
 
         return $this->render_from_template('block_myoverview/main', $data);

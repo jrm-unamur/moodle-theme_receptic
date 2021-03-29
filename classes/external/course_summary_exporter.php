@@ -81,10 +81,10 @@ class theme_receptic_course_summary_exporter extends exporter {
      * format_string functions do not need to be applied to PARAM_TEXT fields,
      * it will be done automatically during export.
      *
-     * These values are only used when returning data via {@link self::export()},
+     * These values are only used when returning data via self::export(),
      * they are not used when generating any of the different external structures.
      *
-     * Note: These must be defined in {@link self::define_other_properties()}.
+     * Note: These must be defined in self::define_other_properties().
      *
      * @param renderer_base $output The renderer.
      * @return array Keys are the property names, values are their values.
@@ -154,7 +154,7 @@ class theme_receptic_course_summary_exporter extends exporter {
      * Return the list of properties.
      *
      * The format of the array returned by this method has to match the structure
-     * defined in {@link \core\persistent::define_properties()}. Howewer you can
+     * defined in \core\persistent::define_properties(). Howewer you can
      * add a new attribute "description" to describe the parameter for documenting the API.
      *
      * Note that the type PARAM_TEXT should ONLY be used for strings which need to
@@ -182,7 +182,7 @@ class theme_receptic_course_summary_exporter extends exporter {
      * export of the persistent data.
      *
      * The format of the array returned by this method has to match the structure
-     * defined in {@link \core\persistent::define_properties()}. The display properties
+     * defined in \core\persistent::define_properties(). The display properties
      * can however do some more fancy things. They can define 'multiple' => true to wrap
      * values in an external_multiple_structure automatically - or they can define the
      * type as a nested array of more properties in order to generate a nested
@@ -204,7 +204,7 @@ class theme_receptic_course_summary_exporter extends exporter {
      *       ),
      *
      * Other properties can be specifically marked as optional, in which case they do not need
-     * to be included in the export in {@link self::get_other_values()}. This is useful when exporting
+     * to be included in the export in self::get_other_values(). This is useful when exporting
      * a substructure which cannot be set as null due to webservices protocol constraints.
      * E.g.
      *      'competency' => array(
