@@ -26,7 +26,6 @@
    data-container="body" data-toggle="{{#helpmodal}}modal{{/helpmodal}}{{^helpmodal}}popover{{/helpmodal}}"
    data-placement="{{#ltr}}right{{/ltr}}{{^ltr}}left{{/ltr}}" {{#helpmodal}}data-target="#{{linkid}}-modal-dialogue"{{/helpmodal}}{{^helpmodal}}data-content="{{text}}{{/helpmodal}} {{completedoclink}}"
    data-html="true" tabindex="0" data-trigger="focus" title="{{alt}}">
-
 </a>
 {{#helpmodal}}
 <div class="modal helpmodal moodle-has-zindex" {{#linkid}}id="{{linkid}}-modal-dialogue"{{/linkid}} data-region="modal-container" aria-hidden="true" role="dialog">

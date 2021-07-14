@@ -110,33 +110,33 @@
                     </div>
                     <div class="tab-content flex-fill border-left border-right border-bottom bg-light" id="tabbed-activities-{{uniqid}}">
                         <div class="tab-pane {{#favouritesFirst}}active{{/favouritesFirst}}" id="starred-{{uniqid}}" data-region="favourites" role="tabpanel" aria-labelledby="starred-tab-{{uniqid}}">
-                            <div class="optionscontainer d-flex flex-wrap p-1 mw-100 position-relative" role="menubar" data-region="chooser-options-container" data-render="favourites-area">
+                            <div class="optionscontainer flex-wrap p-1 mw-100 position-relative" role="menubar" data-region="chooser-options-container" data-render="favourites-area">
                                 {{>core_course/local/activitychooser/favourites}}
                             </div>
                         </div>
                         <div class="tab-pane {{#fallback}}active{{/fallback}} {{^showAll}}d-none{{/showAll}}" id="all-{{uniqid}}" data-region="default" role="tabpanel" aria-labelledby="all-tab-{{uniqid}}">
-                            <div class="optionscontainer d-flex flex-wrap p-1 mw-100 position-relative" role="menubar" data-region="chooser-options-container">
+                            <div class="optionscontainer flex-wrap p-1 mw-100 position-relative" role="menubar" data-region="chooser-options-container">
                                 {{#default}}
                                     {{>core_course/local/activitychooser/item}}
                                 {{/default}}
                             </div>
                         </div>
                         <div class="tab-pane {{#activitiesFirst}}active{{/activitiesFirst}}" id="activity-{{uniqid}}" data-region="activity" role="tabpanel" aria-labelledby="activity-tab-{{uniqid}}">
-                            <div class="optionscontainer d-flex flex-wrap p-1 mw-100 position-relative" role="menubar" data-region="chooser-options-container">
+                            <div class="optionscontainer flex-wrap p-1 mw-100 position-relative" role="menubar" data-region="chooser-options-container">
                                 {{#activities}}
                                     {{>core_course/local/activitychooser/item}}
                                 {{/activities}}
                             </div>
                         </div>
                         <div class="tab-pane" id="resources-{{uniqid}}" data-region="resources" role="tabpanel" aria-labelledby="resources-tab-{{uniqid}}">
-                            <div class="optionscontainer d-flex flex-wrap p-1 mw-100 position-relative" role="menubar" data-region="chooser-options-container">
+                            <div class="optionscontainer  flex-wrap p-1 mw-100 position-relative" role="menubar" data-region="chooser-options-container">
                                 {{#resources}}
                                     {{>core_course/local/activitychooser/item}}
                                 {{/resources}}
                             </div>
                         </div>
                         <div class="tab-pane" id="recommended-{{uniqid}}" data-region="recommended" role="tabpanel" aria-labelledby="recommended-tab-{{uniqid}}">
-                            <div class="optionscontainer d-flex flex-wrap p-1 mw-100 position-relative" role="menubar" data-region="chooser-options-container">
+                            <div class="optionscontainer flex-wrap p-1 mw-100 position-relative" role="menubar" data-region="chooser-options-container">
                                 {{#recommended}}
                                     {{>core_course/local/activitychooser/item}}
                                 {{/recommended}}

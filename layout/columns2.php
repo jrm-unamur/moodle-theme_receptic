@@ -157,7 +157,7 @@ $templatecontext = [
     'activitynavigation' => get_config('theme_receptic', 'activitynavigation'),
 ];
 
-if (!empty($settingsincourse)) {
+if (!empty($settingsincourse) && $PAGE->bodyid != 'page-contentbank') {
     // Context value for requiring incoursesettings.js.
     $templatecontext['settingsincourse'] = true;
     // Add the returned value from theme_boost_campus_get_incourse_settings to the template context.
