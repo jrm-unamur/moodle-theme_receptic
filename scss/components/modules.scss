@@ -131,17 +131,21 @@ label {
 }
 
 #page-mod-quiz-mod #id_reviewoptionshdr .btn-link {
-    line-height: 1.25;
+    line-height: 1;
     vertical-align: middle;
     /*margin-bottom: .1rem;*/
 }
 #page-mod-quiz-mod #id_reviewoptionshdr .form-inline {
     float: left;
     clear: left;
+    .form-check {
+        padding-right: 0;
+    }
 }
 #page-mod-quiz-mod #id_reviewoptionshdr .form-check {
-    width: 90%;
-    height: 22px;
+    /*width: 90%;
+    height: 22px;*/
+
 }
 
 // Question navigation block.
@@ -262,6 +266,11 @@ label {
 #page-question-preview #previewcontrols input {
     margin-right: .5rem;
     margin-bottom: .5rem;
+}
+
+// Disable safe exam browser.
+#page-mod-quiz-mod #id_seb {
+    display: none;
 }
 
 // Mod forum.
