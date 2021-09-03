@@ -36,7 +36,7 @@ function xmldb_theme_receptic_upgrade($oldversion) {
 
     $dbman = $DB->get_manager(); // Loads ddl manager and xmldb classes.
 
-    if ($oldversion < 2021032600) {
+    if ($oldversion < 2021090300) {
         // Define table theme_receptic_filtered_log to be created.
         $table = new xmldb_table('theme_receptic_filtered_log');
 
@@ -76,10 +76,10 @@ function xmldb_theme_receptic_upgrade($oldversion) {
         if (!$dbman->table_exists($table)) {
             $dbman->create_table($table);
         }
-        theme_receptic_import_logstore();
+        //theme_receptic_import_logstore();
 
         // Theme receptic savepoint reached.
-        upgrade_plugin_savepoint(true, 2021032600, 'theme', 'receptic');
+        upgrade_plugin_savepoint(true, 2021090300, 'theme', 'receptic');
     }
     return true;
 }
