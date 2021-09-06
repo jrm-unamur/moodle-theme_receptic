@@ -25,8 +25,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2021090300;
-$plugin->requires = 2020061509;
+$plugin->version = 2021090600;
+$plugin->requires = 2020061500;
+$plugin->release = 'v3.9';
 $plugin->component = 'theme_receptic';
 $plugin->dependencies = [
     'theme_boost' => '2018120300'
