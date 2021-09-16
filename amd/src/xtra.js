@@ -71,6 +71,12 @@ define(['jquery', 'core/log'], function($, log) {
                 $('.contactdpo').parent().parent().next().hide();
                 $('.contactdpo').parent().parent().next().next().hide();
                 $('.contactdpo').parent().parent().next().next().next().hide();
+                $('[data-action="contactdpo"]').parent().parent().next().hide();
+                $('[data-action="contactdpo"]').parent().parent().next().next().hide();
+                $('[data-action="contactdpo"]').parent().parent().next().next().next().hide();
+                $('[data-action="contactdpo"]').parent().parent().parent().children('li').last().show();
+                $('#page-user-profile div.profile_tree section:nth-of-type(2n) ul').show();
+
             });
         }
     };
