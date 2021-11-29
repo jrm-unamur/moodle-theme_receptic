@@ -114,6 +114,7 @@ class theme_receptic_observer {
     public static function store(\core\event\base $event) {
         global $DB;
         $eventdata = $event->get_data();
+        $eventdata['other'] = serialize($eventdata['other']);
         $neweventid = $DB->insert_record('theme_receptic_filtered_log', $eventdata);
         $eventdata['neweventid'] = $neweventid;
         if ($event->eventname == '\core\event\course_module_updated') {
