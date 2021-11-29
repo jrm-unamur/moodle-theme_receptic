@@ -610,4 +610,56 @@ class core_renderer extends \theme_boost\output\core_renderer {
         $context->helpmodal = get_config('theme_receptic', 'helptextinmodal');
         return $this->render_from_template('core/help_icon', $context);
     }
+
+    public function nosafari() {
+        if (! get_config('theme_receptic', 'safariwarning')) {
+            return '';
+        }
+        if (ini_get('browscap')) {
+            //echo 'coucou';
+            $browser = get_browser();
+            if ($browser->browser == 'Safari') {
+                $data = [
+                    'message' => get_config('theme_receptic', 'safariwarningmessage'),
+                    'type' => 'warning',
+                    'icon' => 'exclamation-triangle',
+                    'hideclass' => 'hide',
+                    'isdismissable' => false
+                ];
+                return parent::render_from_template('theme_receptic/flashbox', $data);
+            }
+        } else {
+            $useragent = htmlspecialchars($_SERVER['HTTP_USER_AGENT']);
+            $useragent = strtolower($useragent);
+            $browser_array = array(
+                '/msie/i' => 'Internet Explorer',
+                '/firefox/i' => 'Firefox',
+                '/safari/i' => 'Safari',
+                '/chrome/i' => 'Chrome',
+                '/edge/i' => 'Edge',
+                '/opera/i' => 'Opera',
+                '/netscape/i' => 'Netscape',
+                '/maxthon/i' => 'Maxthon',
+                '/konqueror/i' => 'Konqueror',
+                '/mobile/i' => 'Handheld Browser'
+            );
+            $browser = 'unknown';
+            foreach ($browser_array as $regex => $value) {
+                if (preg_match($regex, $useragent)) {
+                    $browser = $value;
+                }
+            }
+            if ($browser == 'Safari' || $browser == 'Chrome') {
+                $data = [
+                    'message' => get_config('theme_receptic', 'safariwarningmessage'),
+                    'type' => 'blink',
+                    'icon' => 'exclamation-triangle',
+                    'hideclass' => 'hide',
+                    'isdismissable' => false
+                ];
+                return parent::render_from_template('theme_receptic/flashbox', $data);
+            }
+        }
+        return'';
+    }
 }

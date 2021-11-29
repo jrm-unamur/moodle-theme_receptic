@@ -158,6 +158,9 @@ $string['redballs'] = 'Red balls';
 $string['region-side-pre'] = 'Right';
 $string['resourceslist'] = 'Main resource types';
 $string['resourceslist_desc'] = 'Select resource types to display on top of tools selector in a "main section"';
+$string['safariwarning'] = 'Warning for Safari users';
+$string['safariwarning_desc'] = 'Display a warning message to Safari users';
+$string['safariwarningmessage'] = 'Message for Safari users';
 $string['settingsincoursepage'] = 'Settings menu in course page';
 $string['settingsincoursepage_desc'] = 'This setting replaces dropdown menus for course and activity administration with the full administration menu directly beneath the course header when clicking the cog icon. This setting also hides the settings icon on the participants page as the entries on this page are duplicated with the in-course course menu and therefore not necessary.
 Please note that this change does not affect users who have switched off javascript in their browsers - they will still get the behaviour from Moodle core with a popup course context menu.';

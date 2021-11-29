@@ -510,6 +510,19 @@ if ($ADMIN->fulltree) {
     $page = new admin_settingpage('theme_receptic_misc', get_string('miscellaneous'));
 
     // Add setting to prevent users from uploading profile picture.
+    $name = 'theme_receptic/safariwarning';
+    $title = get_string('safariwarning', 'theme_receptic');
+    $description = get_string('safariwarning_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, false);
+    $page->add($setting);
+
+    $name = 'theme_receptic/safariwarningmessage';
+    $title = get_string('safariwarningmessage', 'theme_receptic');
+    $default = '';
+    $setting = new admin_setting_confightmleditor($name, $title, '', $default);
+    $page->add($setting);
+
+    // Add setting to prevent users from uploading profile picture.
     $name = 'theme_receptic/disableavatarupload';
     $title = get_string('disableavatarupload', 'theme_receptic');
     $description = get_string('disableavatarupload_desc', 'theme_receptic');
