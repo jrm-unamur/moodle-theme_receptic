@@ -604,4 +604,30 @@ function theme_receptic_import_logstore() {
         unset($log->id);
         $DB->insert_record('theme_receptic_filtered_log', $log);
     }
+
+
+}
+/**
+ * Get the list of students
+ *
+ * @param context $context The current context
+ * @param string $withcapability The capability used to filter students
+ * @return array
+ */
+function get_student_list(context $context, $withcapability = '') {
+    global $DB;
+    // Use unique prefix just in case somebody makes some SQL magic with the result.
+    static $i = 0;
+    $i++;
+    $prefix = 'eu' . $i . '_';
+
+    $capjoin = get_enrolled_with_capabilities_join(
+        $context, $prefix, $withcapability);
+
+    $sql = "SELECT DISTINCT {$prefix}u.id
+              FROM {user} {$prefix}u
+            $capjoin->joins
+             WHERE $capjoin->wheres";
+
+    return $DB->get_fieldset_sql($sql, $capjoin->params);
 }

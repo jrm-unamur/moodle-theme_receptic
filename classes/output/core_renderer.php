@@ -649,7 +649,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                     $browser = $value;
                 }
             }
-            if ($browser == 'Safari' || $browser == 'Chrome') {
+            if ($browser == 'Safari') {
                 $data = [
                     'message' => get_config('theme_receptic', 'safariwarningmessage'),
                     'type' => 'blink',
@@ -662,4 +662,54 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
         return'';
     }
+
+    public function nopassport() {
+        global $USER, $DB;
+        if (! get_config('theme_receptic', 'passportwarning')) {
+            return '';
+        }
+        if ($DB->count_records('customcert_issues', ['userid' => $USER->id])) {
+            return '';
+        }
+
+        $isstudent = user_has_role_assignment($USER->id, 5) &&
+                !user_has_role_assignment($USER->id, 1) &&
+                !user_has_role_assignment($USER->id, 2) &&
+                !user_has_role_assignment($USER->id, 3) &&
+                !user_has_role_assignment($USER->id, 4) &&
+                !user_has_role_assignment($USER->id, 11) &&
+                !user_has_role_assignment($USER->id, 13) &&
+                !user_has_role_assignment($USER->id, 15) &&
+                !user_has_role_assignment($USER->id, 16);
+        if (!$isstudent) {
+            return '';
+        }
+        
+        $contexts = [];
+        $students = [];
+        $userpassport = 0;
+        $passports = $DB->get_fieldset_select('course', 'id', 'category = :category', ['category' => '25']);
+        foreach ($passports as $passport) {
+            $context = context_course::instance($passport);
+            if (is_enrolled($context, $USER, 'mod/assign:view')) {
+                $userpassport = $passport;
+            }
+        }
+       /* foreach ($contexts as $context) {
+            $students = array_merge($students, get_student_list($context, 'mod/assign:submit'));
+        }*/
+        //if (in_array($USER->id, $students)) {
+        if ($userpassport) {
+            $data = [
+                'message' => get_config('theme_receptic', 'passportwarningmessage') . get_string('passportlink', 'theme_receptic', $userpassport),
+                'type' => 'blink',
+                'icon' => 'exclamation-triangle',
+                'hideclass' => 'hide',
+                'isdismissable' => false
+            ];
+            return parent::render_from_template('theme_receptic/flashbox', $data);
+        }
+    }
+
+    
 }

@@ -523,6 +523,19 @@ if ($ADMIN->fulltree) {
     $page->add($setting);
 
     // Add setting to prevent users from uploading profile picture.
+    $name = 'theme_receptic/passportwarning';
+    $title = get_string('passportwarning', 'theme_receptic');
+    $description = get_string('passportwarning_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, false);
+    $page->add($setting);
+
+    $name = 'theme_receptic/passportwarningmessage';
+    $title = get_string('passportwarningmessage', 'theme_receptic');
+    $default = '';
+    $setting = new admin_setting_confightmleditor($name, $title, '', $default);
+    $page->add($setting);
+
+    // Add setting to prevent users from uploading profile picture.
     $name = 'theme_receptic/disableavatarupload';
     $title = get_string('disableavatarupload', 'theme_receptic');
     $description = get_string('disableavatarupload_desc', 'theme_receptic');
