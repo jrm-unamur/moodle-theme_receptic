@@ -398,6 +398,17 @@ function(
     };
 
     /**
+     * Get the course element list node.
+     *
+     * @param  {Object} root The course overview container
+     * @param  {Number} courseId Course id number
+     * @return {Object} The course list item.
+     */
+    var getCourseListElement = function(root, courseId) {
+        return root.find('[data-region="courses-view"] .course-listitem[data-course-id="' + courseId + '"]');
+    };
+
+    /**
      * Get the course hidden warning.
      *
      * @param  {Object} root The course overview container
@@ -504,6 +515,8 @@ function(
 
         }).then(function(result) {
             if (result.warnings.length == 0) {
+                var courseListElement = getCourseListElement(root, courseId);
+                $(courseListElement).remove();
                 return true;
             } else {
                 return false;
