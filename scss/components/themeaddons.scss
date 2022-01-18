@@ -395,3 +395,56 @@ body.editing .section .activity.warm .mod-indent-outer {
     width: 75px;
     height: 20px;
 }
+
+/* Backport MDL-71366: fix shrinked checkboxes in long multichoice answers */
+.que.multichoice .answer div.r1 input,
+.que.calculatedmulti .answer div.r1 input,
+.que.multichoice .answer div.r0 input,
+.que.calculatedmulti .answer div.r0 input{
+    flex-shrink: 0;
+}
+
+$scrollbar-thumb: $primary;
+$scrollbar-track: lighten($primary, 40%);
+
+.que.multichoice .ablock,
+.que.calculatedmulti .ablock {
+    overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: $scrollbar-thumb $scrollbar-track;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    &::-webkit-scrollbar {
+        height: 8px; // for horizontal scrollbars
+        -webkit-appearance: none;
+        appearance: none;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: $scrollbar-thumb;
+        border-right: $border-width solid $white;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: $scrollbar-track;
+        border-right: $border-width solid $white;
+    }
+}
+
+
+// simple scrollbars
+.visual-scroll-x {
+    scrollbar-width: thin;
+    scrollbar-color: $scrollbar-thumb $scrollbar-track;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    &::-webkit-scrollbar {
+        height: 8px; // for horizontal scrollbars
+        -webkit-appearance: none;
+        appearance: none;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: $scrollbar-thumb;
+        border-right: $border-width solid $white;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: $scrollbar-track;
+        border-right: $border-width solid $white;
+    }
+}
