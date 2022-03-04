@@ -56,6 +56,10 @@ require_once($CFG->dirroot . '/cohort/lib.php');
  */
 class core_renderer extends \theme_boost\output\core_renderer {
 
+    // Remove Edit button from display.
+    /*function page_heading_button() {
+        return '';
+    }*/
     /**
      * Method to add a permanent edit mode switch in navbar.
      * Credits to G.J Barnard as borrowed from theme_essential.
@@ -67,7 +71,10 @@ class core_renderer extends \theme_boost\output\core_renderer {
     public function editing_mode_switch() {
         $html = '';
         if (empty($this->page->theme->settings->editbutton)) {
-            return '';
+            if ($this->page->pagetype !== 'my-index') {
+                return '';
+            }
+
         }
         if (!$this->page->user_allowed_editing()) {
             return '';
@@ -272,7 +279,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
      * @throws \coding_exception
      * @throws \moodle_exception
      */
-    public function blocks($region, $classes = array(), $tag = 'aside') {
+    public function blocks($region, $classes = array(), $tag = 'aside', $fakeblocksonly = false) {
         $displayregion = $this->page->apply_theme_region_manipulations($region);
         $classes = (array)$classes;
         $classes[] = 'block-region';
@@ -302,8 +309,13 @@ class core_renderer extends \theme_boost\output\core_renderer {
             foreach ($addable as $block) {
                 $blocks[] = $block->name;
             }
-            $params = array('blocks' => $blocks, 'url' => '?' . $url->get_query_string(false));
-            $this->page->requires->js_call_amd('core/addblockmodal', 'init', array($params));
+            //$params = array('blocks' => $blocks, 'url' => '?' . $url->get_query_string(false));
+            //$this->page->requires->js_call_amd('core/addblockmodal', 'init', array($params));
+
+            $addblockurl = "?{$url->get_query_string(false)}";
+
+            $this->page->requires->js_call_amd('core/addblockmodal', 'init',
+                [$this->page->pagetype, $this->page->pagelayout, $addblockurl]);
         }
         return html_writer::tag($tag, $content, $attributes);
     }
