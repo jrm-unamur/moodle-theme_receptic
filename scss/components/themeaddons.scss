@@ -135,6 +135,9 @@ body {
     }
 
     .navbar-nav {
+        .nav-item {
+            display: flex;
+        }
         .nav-item + .nav-item {
             margin-left: $spacer;
             margin-right: $spacer;
