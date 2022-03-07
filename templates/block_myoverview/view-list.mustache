@@ -40,7 +40,7 @@
     <li class="list-group-item course-listitem"
         data-region="course-content"
         data-course-id="{{{id}}}">
-        <div class="row-fluid">
+        <div class="row">
             <div class="{{#hasprogress}}col-md-6{{/hasprogress}} {{^hasprogress}}col-md-11{{/hasprogress}} d-flex align-items-center">
                 <div>
                     <a href="{{viewurl}}" class="coursename{{^visible}} text-muted{{/visible}}" data-course-id="{{id}}">
@@ -85,7 +85,7 @@
             </div>
 
             {{#hasprogress}}
-                <div class="col-md-4 pt-2">
+                <div class="col-md-5 pt-2">
                     {{> block_myoverview/progress-bar}}
                 </div>
             {{/hasprogress}}
