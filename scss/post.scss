@@ -187,3 +187,8 @@ body.editing.path-grade-report-grader #blocks-column-toggle {
         display: none !important;
     }
 }
+
+/* Adjust position of sticky quiz-timer-wrapper */
+#quiz-timer-wrapper {
+    top: 140px;
+}
