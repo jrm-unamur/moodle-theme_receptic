@@ -298,11 +298,11 @@ section::-webkit-scrollbar-track {
 
 div::-webkit-scrollbar-thumb,
 section::-webkit-scrollbar-thumb {
-    background-color: $brand-primary;
-    outline: 1px solid $brand-primary;
+    background-color: $primary;
+    outline: 1px solid $primary;
 }
 
-.badge {
+/*.badge {
     @extend .tag;
     @include tag-variant($tag-default-bg);
     @include border-radius($font-size-root / 2);
@@ -322,7 +322,7 @@ section::-webkit-scrollbar-thumb {
 
 .badge-important {
     @include tag-variant($tag-danger-bg);
-}
+}*/
 
 .white {
     color: $white;
@@ -342,4 +342,15 @@ body.editmodeinnavbar.editing {
 
 .loginpanelbg {
     background-color: $gray-100;
+}
+
+.path-my {
+    #region-main-box,
+    #page-header > div {
+        /*padding-left: 25px;*/
+        .singlebutton {
+            padding-top: .75rem;
+        }
+
+    }
 }

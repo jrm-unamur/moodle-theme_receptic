@@ -167,7 +167,7 @@ label {
 
     span.qnbutton {
         cursor: default;
-        background-color: $input-bg-disabled;
+       /* background-color: $input-bg-disabled;*/
         color: $gray-700;
     }
 
@@ -214,7 +214,7 @@ label {
 
     .qnbutton.correct .trafficlight {
         /*background-image: url([[pix:theme|mod/quiz/checkmark]]);*/
-        background-color: $state-success-text;
+        background-color: $success;
     }
 
     .qnbutton.correct .trafficlight:before {
@@ -225,12 +225,12 @@ label {
 
     .qnbutton.blocked .trafficlight {
         background-image: url([[pix:core|t/locked]]);
-        background-color: $input-bg-disabled;
+      /*  background-color: $input-bg-disabled;*/
     }
 
     .qnbutton.notanswered .trafficlight,
     .qnbutton.incorrect .trafficlight {
-        background-color: $state-danger-text;
+        background-color: $danger;
     }
     .qnbutton.incorrect .trafficlight {
         /*background-image: url([[pix:theme|mod/quiz/cross]]);*/
@@ -244,7 +244,7 @@ label {
 
     .qnbutton.partiallycorrect .trafficlight {
         background-image: url([[pix:theme|mod/quiz/whitecircle]]);
-        background-color: $state-warning-text;
+        background-color: $warning;
     }
 
     .qnbutton.complete .trafficlight,
