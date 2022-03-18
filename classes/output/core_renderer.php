@@ -55,7 +55,6 @@ require_once($CFG->dirroot . '/cohort/lib.php');
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class core_renderer extends \theme_boost\output\core_renderer {
-    
     /**
      * Method to add a permanent edit mode switch in navbar.
      * Credits to G.J Barnard as borrowed from theme_essential.
@@ -271,6 +270,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
      * @param string $region
      * @param array $classes
      * @param string $tag
+     * @param bool $fakeblocksonly
      * @return string
      * @throws \coding_exception
      * @throws \moodle_exception
