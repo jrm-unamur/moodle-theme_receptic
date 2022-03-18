@@ -617,6 +617,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return $this->render_from_template('core/help_icon', $context);
     }
 
+    /**
+     * Produces a warning message for Safari users.
+     *
+     * @return string HTML fragment or empty string.
+     */
     public function nosafari() {
         if (! get_config('theme_receptic', 'safariwarning')) {
             return '';
@@ -668,6 +673,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
         return'';
     }
 
+    /**
+     * Produces a warning message for users who have not passed the "passport" yet.
+     *
+     * @return string HTML fragment or empty string.
+     */
     public function nopassport() {
         global $USER, $DB;
         if (! get_config('theme_receptic', 'passportwarning')) {
