@@ -25,7 +25,7 @@
 
 namespace theme_receptic\output;
 
-defined('MOODLE_INTERNAL') || die();
+use moodle_exception;
 
 /**
  * Trait format_commons. Defines common behaviour for overrident course format renderers.
@@ -178,8 +178,7 @@ trait format_commons {
         if (!($sectioninfo = $modinfo->get_section_info($displaysection)) || !$sectioninfo->uservisible) {
             // This section doesn't exist or is not available for the user.
             // We actually already check this in course/view.php but just in case exit from this function as well.
-            print_error('unknowncoursesection', 'error', course_get_url($course),
-                format_string($course->fullname));
+            throw new moodle_exception('unknowncoursesection');
         }
 
         if ($this->ballsenabled) {

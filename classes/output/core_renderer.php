@@ -55,11 +55,7 @@ require_once($CFG->dirroot . '/cohort/lib.php');
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class core_renderer extends \theme_boost\output\core_renderer {
-
-    // Remove Edit button from display.
-    /*function page_heading_button() {
-        return '';
-    }*/
+    
     /**
      * Method to add a permanent edit mode switch in navbar.
      * Credits to G.J Barnard as borrowed from theme_essential.
@@ -309,8 +305,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
             foreach ($addable as $block) {
                 $blocks[] = $block->name;
             }
-            //$params = array('blocks' => $blocks, 'url' => '?' . $url->get_query_string(false));
-            //$this->page->requires->js_call_amd('core/addblockmodal', 'init', array($params));
 
             $addblockurl = "?{$url->get_query_string(false)}";
 
@@ -628,7 +622,6 @@ class core_renderer extends \theme_boost\output\core_renderer {
             return '';
         }
         if (ini_get('browscap')) {
-            //echo 'coucou';
             $browser = get_browser();
             if ($browser->browser == 'Safari') {
                 $data = [
@@ -643,7 +636,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         } else {
             $useragent = htmlspecialchars($_SERVER['HTTP_USER_AGENT']);
             $useragent = strtolower($useragent);
-            $browser_array = array(
+            $browserarray = array(
                 '/msie/i' => 'Internet Explorer',
                 '/firefox/i' => 'Firefox',
                 '/safari/i' => 'Safari',
@@ -656,7 +649,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 '/mobile/i' => 'Handheld Browser'
             );
             $browser = 'unknown';
-            foreach ($browser_array as $regex => $value) {
+            foreach ($browserarray as $regex => $value) {
                 if (preg_match($regex, $useragent)) {
                     $browser = $value;
                 }
@@ -696,7 +689,7 @@ class core_renderer extends \theme_boost\output\core_renderer {
         if (!$isstudent) {
             return '';
         }
-        
+
         $contexts = [];
         $students = [];
         $userpassport = 0;
@@ -707,13 +700,11 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 $userpassport = $passport;
             }
         }
-       /* foreach ($contexts as $context) {
-            $students = array_merge($students, get_student_list($context, 'mod/assign:submit'));
-        }*/
-        //if (in_array($USER->id, $students)) {
+
         if ($userpassport) {
             $data = [
-                'message' => get_config('theme_receptic', 'passportwarningmessage') . get_string('passportlink', 'theme_receptic', $userpassport),
+                'message' => get_config('theme_receptic', 'passportwarningmessage') .
+                        get_string('passportlink', 'theme_receptic', $userpassport),
                 'type' => 'blink',
                 'icon' => 'exclamation-triangle',
                 'hideclass' => 'hide',
@@ -722,6 +713,4 @@ class core_renderer extends \theme_boost\output\core_renderer {
             return parent::render_from_template('theme_receptic/flashbox', $data);
         }
     }
-
-    
 }

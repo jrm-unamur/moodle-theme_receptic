@@ -23,8 +23,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Get SCSS to prepend.
  *
@@ -604,9 +602,8 @@ function theme_receptic_import_logstore() {
         unset($log->id);
         $DB->insert_record('theme_receptic_filtered_log', $log);
     }
-
-
 }
+
 /**
  * Get the list of students
  *

@@ -26,8 +26,6 @@ namespace theme_receptic\privacy;
 
 use \core_privacy\local\metadata\collection;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * The receptic theme stores a user preference data. Adaptation of boost's privacy provider by Andrew Nichols.
  *

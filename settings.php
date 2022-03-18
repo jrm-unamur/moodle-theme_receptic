@@ -191,58 +191,6 @@ if ($ADMIN->fulltree) {
     // Dashboard settings page.
     $page = new admin_settingpage('theme_receptic_dashboard', get_string('myhome'));
 
-    /*$page->add(new admin_setting_heading('dashboardcoursefiltering',
-        get_string('dashboardcoursefiltering', 'theme_receptic'), ''));
-
-    $name = 'theme_receptic/allowcoursefiltering';
-    $title = get_string('allowcoursefiltering', 'theme_receptic');
-    $description = get_string('allowcoursefiltering_desc', 'theme_receptic');
-    $default = true;
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
-    $page->add($setting);
-
-    $name = 'theme_receptic/coursefilterall';
-    $title = get_string('all', 'block_myoverview');
-    $description = get_string('coursefilterall_desc', 'theme_receptic');
-    $default = true;
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
-    $page->add($setting);
-
-    $name = 'theme_receptic/coursefilterinprogress';
-    $title = get_string('inprogress', 'block_myoverview');
-    $description = get_string('coursefilterinprogress_desc', 'theme_receptic');
-    $default = true;
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
-    $page->add($setting);
-
-    $name = 'theme_receptic/coursefilterfuture';
-    $title = get_string('future', 'block_myoverview');
-    $description = get_string('coursefilterfuture_desc', 'theme_receptic');
-    $default = true;
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
-    $page->add($setting);
-
-    $name = 'theme_receptic/coursefilterpast';
-    $title = get_string('past', 'block_myoverview');
-    $description = get_string('coursefilterpast_desc', 'theme_receptic');
-    $default = true;
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
-    $page->add($setting);
-
-    $name = 'theme_receptic/coursefilterstarred';
-    $title = get_string('favourites', 'block_myoverview');
-    $description = get_string('coursefilterstarred_desc', 'theme_receptic');
-    $default = true;
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
-    $page->add($setting);
-
-    $name = 'theme_receptic/coursefilterhidden';
-    $title = get_string('hidden', 'block_myoverview');
-    $description = get_string('coursefilterhidden_desc', 'theme_receptic');
-    $default = true;
-    $setting = new admin_setting_configcheckbox($name, $title, $description, $default);
-    $page->add($setting);*/
-
     $page->add(new admin_setting_heading('dashboardcoursesorting',
         get_string('dashboardcoursesorting', 'theme_receptic'), ''));
 

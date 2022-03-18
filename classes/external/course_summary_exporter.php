@@ -23,7 +23,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
 use core\external\exporter;
 use core_course\external\course_summary_exporter;
 
@@ -167,11 +166,6 @@ class theme_receptic_course_summary_exporter extends exporter {
      * @return array
      */
     public static function define_properties() {
-        /*return array_merge(course_summary_exporter::define_properties(), [
-            'visible' => array(
-                'type' => PARAM_BOOL
-            )
-        ]);*/
         return course_summary_exporter::define_properties();
     }
 

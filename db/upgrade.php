@@ -23,8 +23,6 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Execute theme_receptic upgrade from the given old version
  *
@@ -70,13 +68,13 @@ function xmldb_theme_receptic_upgrade($oldversion) {
         // Adding indexes to table theme_receptic_filtered_log.
         $table->add_index('timecreated', XMLDB_INDEX_NOTUNIQUE, ['timecreated']);
         $table->add_index('course-time', XMLDB_INDEX_NOTUNIQUE, ['courseid', 'anonymous', 'timecreated']);
-        $table->add_index('user-module', XMLDB_INDEX_NOTUNIQUE, ['userid', 'contextlevel', 'contextinstanceid', 'crud', 'edulevel', 'timecreated']);
+        $table->add_index('user-module', XMLDB_INDEX_NOTUNIQUE,
+                ['userid', 'contextlevel', 'contextinstanceid', 'crud', 'edulevel', 'timecreated']);
 
         // Conditionally launch create table for theme_receptic_filtered_log.
         if (!$dbman->table_exists($table)) {
             $dbman->create_table($table);
         }
-        //theme_receptic_import_logstore();
 
         // Theme receptic savepoint reached.
         upgrade_plugin_savepoint(true, 2021090300, 'theme', 'receptic');

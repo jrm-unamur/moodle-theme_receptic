@@ -23,7 +23,6 @@
  */
 
 namespace theme_receptic\output\core;
-defined('MOODLE_INTERNAL') || die();
 
 use moodle_url;
 use pix_icon;
