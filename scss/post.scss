@@ -178,7 +178,7 @@ body.editing.path-grade-report-grader #blocks-column-toggle {
 #page-course-view-collapsibletopics,
 #page-course-view-collapsibleweeks {
     #page-header .ml-auto.d-flex .singlebutton form[action$="view.php"] {
-        display: none !important;
+        display: none !important; /* stylelint-disable-line declaration-no-important */
     }
 }
 
