@@ -192,3 +192,23 @@ body.editing.path-grade-report-grader #blocks-column-toggle {
 #quiz-timer-wrapper {
     top: 140px;
 }
+
+/* Replace background-color from primary to lightgrey in dropdown items */
+.dropdown-item:active,
+.dropdown-item:hover,
+.dropdown-item:focus,
+.dropdown-itme:focus-within {
+    background-color: $gray-200;
+}
+
+/* Reduce padding of completion buttons. */
+[data-region="completion-info"] button {
+    padding: 1px 6px;
+}
+
+/* Remove border between activities in section and remove some padding */
+.section li.activity.hasinfo {
+    border: none;
+    padding-top: 0;
+    padding-bottom: .5rem;
+}
