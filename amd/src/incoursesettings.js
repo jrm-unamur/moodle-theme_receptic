@@ -37,7 +37,7 @@ define(['jquery'], function($) {
         // because we did not change the settings menu there. So we need the default propagation here.
         if (!frontpage) {
             $('#page-header .context-header-settings-menu .action-menu-trigger .dropdown .dropdown-menu').remove();
-            $('#page-header .context-header-settings-menu').on('click', function (event) {
+            $('#page-header .context-header-settings-menu').on('click', function(event) {
                 event.stopPropagation();
                 if (courseSettings.is(":visible")) {
                     courseSettings.fadeOut(400);
@@ -49,7 +49,7 @@ define(['jquery'], function($) {
                     }
                 }
             });
-            $('#region-main-settings-menu .action-menu .dropdown-toggle').on('click', function (event) {
+            $('#region-main-settings-menu .action-menu .dropdown-toggle').on('click', function(event) {
                 event.stopPropagation();
                 if (activitySettings.is(":visible")) {
                     activitySettings.fadeOut(400);

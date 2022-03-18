@@ -112,7 +112,7 @@ function(
 
         var strings = [];
 
-        switch(method) {
+        switch (method) {
             case 'makeVisible' :
                 strings.push({
                     key: 'makevisible',
@@ -167,7 +167,7 @@ function(
                 deleteModal.setSaveButtonText(strings[0]);
 
                 deleteModal.getRoot().on(ModalEvents.save, function() {
-                    switch(method) {
+                    switch (method) {
                         case 'makeVisible' :
                             makeVisible(root, courseId);
                             break;
@@ -984,7 +984,6 @@ function(
     };
 
     /**
-
      * Reset the courses views to their original
      * state on first page load.courseOffset
      *

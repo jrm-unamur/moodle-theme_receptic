@@ -53,14 +53,14 @@ define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'core/templates'
 
                 var offset = 200;
                 var duration = 700;
-                $(window).scroll(function(){
+                $(window).scroll(function() {
                     if ($(window).scrollTop() > offset) {
                         $('#back-to-top').fadeIn(duration);
                     } else {
                         $('#back-to-top').fadeOut(duration);
                     }
                 });
-                $('#back-to-top').click(function (event) {
+                $('#back-to-top').click(function(event) {
                     event.preventDefault();
                     $('html, body').animate({scrollTop: 0}, duration);
                     return false;
@@ -69,7 +69,7 @@ define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'core/templates'
                 $('#nav-drawer div.media').on('click', function(event) {
                     var href = $(event.target).parent().parent().parent().attr('href');
 
-                    if( href && href.lastIndexOf('#section-') != -1) {
+                    if (href && href.lastIndexOf('#section-') != -1) {
 
                         var index = href.substring(href.lastIndexOf('#section-') + 1);
 
