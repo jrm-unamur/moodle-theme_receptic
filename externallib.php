@@ -140,11 +140,11 @@ class theme_receptic_external extends external_api {
         if ($classification == COURSE_TIMELINE_ALLINCLUDINGHIDDEN) {
             $courses = course_get_enrolled_courses_for_logged_in_user(0, $offset, $sort, $fields, COURSE_DB_QUERY_LIMIT);
 
-            // Otherwise if the timeline requires the hidden courses then restrict the result to only $hiddencourses.
+        // Otherwise if the timeline requires the hidden courses then restrict the result to only $hiddencourses.
         } else if ($classification == COURSE_TIMELINE_HIDDEN) {
             $courses = course_get_enrolled_courses_for_logged_in_user(0, $offset, $sort, $fields,
                 COURSE_DB_QUERY_LIMIT, $hiddencourses);
-            // Otherwise get the requested courses and exclude the hidden courses.
+        // Otherwise get the requested courses and exclude the hidden courses.
         } else {
             $courses = course_get_enrolled_courses_for_logged_in_user(0, $offset, $sort, $fields,
                 COURSE_DB_QUERY_LIMIT, [], $hiddencourses);
