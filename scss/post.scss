@@ -99,11 +99,7 @@ body.editing.path-grade-report-grader #blocks-column-toggle {
     display: none !important; /* stylelint-disable-line declaration-no-important */
 }
 
-
-
 .flexsections {
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
@@ -121,8 +117,6 @@ body.editing.path-grade-report-grader #blocks-column-toggle {
     -ms-flex-align: start;
     align-items: flex-start;
 }
-
-
 
 .flexsection:nth-child(1) {
     -webkit-order: 0;
@@ -183,7 +177,7 @@ body.editing.path-grade-report-grader #blocks-column-toggle {
 /* Hide editing mode button but allow download content button */
 #page-course-view-collapsibletopics,
 #page-course-view-collapsibleweeks {
-    #page-header .ml-auto.d-flex .singlebutton form[action$="view.php"]{
+    #page-header .ml-auto.d-flex .singlebutton form[action$="view.php"] {
         display: none !important;
     }
 }

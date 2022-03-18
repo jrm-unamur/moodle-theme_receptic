@@ -167,7 +167,7 @@ label {
 
     span.qnbutton {
         cursor: default;
-       /* background-color: $input-bg-disabled;*/
+        /* background-color: $input-bg-disabled;*/
         color: $gray-700;
     }
 
@@ -225,7 +225,7 @@ label {
 
     .qnbutton.blocked .trafficlight {
         background-image: url([[pix:core|t/locked]]);
-      /*  background-color: $input-bg-disabled;*/
+        /*  background-color: $input-bg-disabled;*/
     }
 
     .qnbutton.notanswered .trafficlight,
