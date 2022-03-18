@@ -17,7 +17,7 @@
  * Manage the timeline view navigation for the overview block.
  * Cloned from block_myoverview with just reference changes
  *
- * @package    theme_receptic
+ * @module     theme_receptic
  * @copyright  2018 Bas Brands <bas@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

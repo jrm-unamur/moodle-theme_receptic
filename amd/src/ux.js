@@ -80,6 +80,7 @@ define(['jquery', 'core/log', 'core/ajax', 'core/notification', 'core/templates'
 
                 });
 
+
                 if (params.pictureuploaddeactivated) {
                     var edituserpicturefieldset = $('#page-user-edit #id_moodle_picture');
                     if (edituserpicturefieldset) {

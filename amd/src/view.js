@@ -17,7 +17,7 @@
  * Manage the courses view for the overview block.
  * Additions to the core block_myoverview view.js file.
  *
- * @package    block_myoverview
+ * @module     block_myoverview
  * @copyright  2019 Jean-Roch Meurisse - Cellule TICE - Unversite de Namur
  * @copyright  2018 Bas Brands <bas@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -473,7 +473,7 @@ function(
      * Set the courses visibility status and push to repository.
      *
      * @param  {Number} courseId Course id to favourite.
-     * @param  {Bool} status new favourite status.
+     * @param  {Bool} visible new visibility status.
      * @return {Promise} Repository promise.
      */
     var setCourseVisibility = function(courseId, visible) {
@@ -773,7 +773,6 @@ function(
      * Intialise the courses list and cards views on page load.
      *
      * @param {object} root The root element for the courses view.
-     * @param {object} content The content element for the courses view.
      */
     var initializePagedContent = function(root) {
         namespace = "block_myoverview_" + root.attr('id') + "_" + Math.random();
