@@ -535,6 +535,20 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_confightmleditor($name, $title, '', $default);
     $page->add($setting);
 
+    // Add setting to display a flashbox to users who do not have changed their password yet.
+    $name = 'theme_receptic/passwordwarning';
+    $title = get_string('passwordwarning', 'theme_receptic');
+    $description = get_string('passwordwarning_desc', 'theme_receptic');
+    $setting = new admin_setting_configcheckbox($name, $title, $description, false);
+    $page->add($setting);
+
+    $name = 'theme_receptic/passwordwarningmessage';
+    $title = get_string('passwordwarningmessage', 'theme_receptic');
+    $default = '';
+    $setting = new admin_setting_confightmleditor($name, $title, '', $default);
+    $page->add($setting);
+
+
     // Add setting to prevent users from uploading profile picture.
     $name = 'theme_receptic/disableavatarupload';
     $title = get_string('disableavatarupload', 'theme_receptic');
