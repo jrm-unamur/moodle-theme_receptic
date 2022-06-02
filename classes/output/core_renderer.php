@@ -41,6 +41,7 @@ use pix_icon;
 use core_plugin_manager;
 use moodle_page;
 use help_icon;
+use theme_receptic\adunamur_remote_service;
 
 defined('MOODLE_INTERNAL') || die;
 
@@ -721,6 +722,79 @@ class core_renderer extends \theme_boost\output\core_renderer {
                 'isdismissable' => false
             ];
             return parent::render_from_template('theme_receptic/flashbox', $data);
+        }
+    }
+
+    public function change_your_password_old() {
+        global $USER;
+
+        if (! get_config('theme_receptic', 'passwordwarning')) {
+            return '';
+        }
+        if ($USER->auth != 'ldap') {
+            return '';
+        }
+        $username = 'app_FusionD_UManager@unamur.local';
+        $password = 'FtM3kGNCXTb7BbBwNUejhWmjhmKxJPq3';
+        $ldapconfig['host'] = 'ldap://aura.srv.unamur.be';
+        $ldapconfig['port'] = 389;
+        $ldapconfig['basedn'] = 'OU=Users,OU=UNamur,DC=unamur,DC=local';
+
+        $ds = ldap_connect($ldapconfig['host'], $ldapconfig['port']);
+        ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
+        ldap_set_option($ds, LDAP_OPT_REFERRALS, 0);
+
+        if ($bind = ldap_bind($ds, $username, $password)) {
+            $filter = '(|(cn=' . $USER->username . ')(givenname=' . $USER->username . '))';
+
+            $justthese = array("ou", "cn", "sn", "givenname", "mail", "pwdLastSet", "userPrincipalName");
+
+            $sr = ldap_search($ds, $ldapconfig['basedn'], $filter, $justthese);
+
+            $info = ldap_get_entries($ds, $sr)[0];
+
+            $wtimestamp = $info['pwdlastset'][0];
+
+            $unixtimestamp = ($wtimestamp/10000000) - 11644473600;
+
+            if ($unixtimestamp < 1651276800) {
+                $data = [
+                    'message' => get_config('theme_receptic', 'passwordwarningmessage'),
+                    'type' => 'blink',
+                    'icon' => 'exclamation-triangle',
+                    'hideclass' => 'hide',
+                    'isdismissable' => false
+                ];
+                return parent::render_from_template('theme_receptic/flashbox', $data);
+            }
+        } /*else {
+            echo("Login incorrect");
+        }*/
+
+
+    }
+
+    public function change_your_password() {
+        global $USER;
+
+        if (! get_config('theme_receptic', 'passwordwarning')) {
+            return '';
+        }
+        if ($USER->auth != 'ldap') {
+            return '';
+        }
+
+        if (adunamur_remote_service::call('passwordunchanged', array('username' => $USER->username))) {
+            $data = [
+                'message' => get_config('theme_receptic', 'passwordwarningmessage'),
+                'type' => 'blink',
+                'icon' => 'exclamation-triangle',
+                'hideclass' => 'hide',
+                'isdismissable' => false
+            ];
+            return parent::render_from_template('theme_receptic/flashbox', $data);
+        } else {
+            return '';
         }
     }
 }
