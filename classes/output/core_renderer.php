@@ -41,6 +41,7 @@ use pix_icon;
 use core_plugin_manager;
 use moodle_page;
 use help_icon;
+use theme_receptic\adunamur_remote_service;
 
 defined('MOODLE_INTERNAL') || die;
 
@@ -711,14 +712,13 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
     }
 
-    public function change_your_password() {
+    public function change_your_password_old() {
         global $USER;
 
         if (! get_config('theme_receptic', 'passwordwarning')) {
             return '';
         }
         if ($USER->auth != 'ldap') {
-            echo 'no ldap';
             return '';
         }
         $username = 'app_FusionD_UManager@unamur.local';
@@ -760,5 +760,28 @@ class core_renderer extends \theme_boost\output\core_renderer {
 
 
     }
-    
+
+    public function change_your_password() {
+        global $USER;
+
+        if (! get_config('theme_receptic', 'passwordwarning')) {
+            return '';
+        }
+        if ($USER->auth != 'ldap') {
+            return '';
+        }
+
+        if (adunamur_remote_service::call('passwordunchanged', array('username' => $USER->username))) {
+            $data = [
+                'message' => get_config('theme_receptic', 'passwordwarningmessage'),
+                'type' => 'blink',
+                'icon' => 'exclamation-triangle',
+                'hideclass' => 'hide',
+                'isdismissable' => false
+            ];
+            return parent::render_from_template('theme_receptic/flashbox', $data);
+        } else {
+            return '';
+        }
+    }
 }
