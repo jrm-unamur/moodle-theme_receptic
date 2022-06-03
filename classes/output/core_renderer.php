@@ -772,8 +772,13 @@ class core_renderer extends \theme_boost\output\core_renderer {
         }
 
         if (adunamur_remote_service::call('passwordunchanged', array('username' => $USER->username))) {
+            if (cohort_is_member(1, $USER->id)) {
+                $message = get_config('theme_receptic', 'passwordwarningmessagestaff');
+            } else if (cohort_is_member(2, $USER->id)) {
+                $message = get_config('theme_receptic', 'passwordwarningmessagestudents');
+            }
             $data = [
-                'message' => get_config('theme_receptic', 'passwordwarningmessage'),
+                'message' => $message,
                 'type' => 'blink',
                 'icon' => 'exclamation-triangle',
                 'hideclass' => 'hide',
