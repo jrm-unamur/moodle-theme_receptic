@@ -490,12 +490,17 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configcheckbox($name, $title, $description, false);
     $page->add($setting);
 
-    $name = 'theme_receptic/passwordwarningmessage';
-    $title = get_string('passwordwarningmessage', 'theme_receptic');
+    $name = 'theme_receptic/passwordwarningmessagestudents';
+    $title = get_string('passwordwarningmessagestudents', 'theme_receptic');
     $default = '';
     $setting = new admin_setting_confightmleditor($name, $title, '', $default);
     $page->add($setting);
 
+    $name = 'theme_receptic/passwordwarningmessagestaff';
+    $title = get_string('passwordwarningmessagestaff', 'theme_receptic');
+    $default = '';
+    $setting = new admin_setting_confightmleditor($name, $title, '', $default);
+    $page->add($setting);
 
     // Add setting to prevent users from uploading profile picture.
     $name = 'theme_receptic/disableavatarupload';
